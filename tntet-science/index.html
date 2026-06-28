@@ -1,1 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TNTET Science Portal | TN Classroom</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .dropdown-group:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 flex flex-col min-h-screen font-sans">
 
+    <div class="w-full bg-white border-b border-slate-200 py-2 flex justify-center items-center text-[10px] text-gray-400">
+        <div class="text-center">
+            <span class="block uppercase tracking-wider font-semibold mb-1">Advertisement</span>
+            <div class="bg-gray-100 border border-dashed border-gray-300 w-[320px] h-[50px] md:w-[728px] md:h-[90px] flex items-center justify-center rounded font-mono">
+                Top Leaderboard Banner Ad Box
+            </div>
+        </div>
+    </div>
+
+    <header class="bg-slate-950 text-slate-100 shadow-xl border-b border-slate-800 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+            <a href="../" class="flex items-center space-x-3">
+                <div class="bg-emerald-500 p-1.5 rounded-lg text-slate-950 font-black text-xl tracking-tight">TNC</div>
+                <span class="font-bold text-lg tracking-wide text-white">TN Classroom</span>
+            </a>
+            <nav class="hidden lg:flex items-center space-x-1 font-medium text-sm">
+                <a href="../" class="px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition">Home</a>
+                <div class="relative dropdown-group py-4">
+                    <button class="px-3 py-2 rounded-lg text-white bg-slate-800 transition flex items-center gap-1">
+                        TNTET <i class="fa-solid fa-chevron-down text-[10px] opacity-70"></i>
+                    </button>
+                    <div class="dropdown-menu absolute left-0 top-14 w-52 bg-slate-900 border border-slate-800 rounded-xl shadow-xl py-2 opacity-0 visibility-hidden transform translate-y-2 transition-all duration-200 z-50">
+                        <a href="../tntet-psychology/" class="block px-4 py-2 text-slate-300 hover:bg-slate-800 hover:text-emerald-400 transition">Psychology</a>
+                        <a href="../tntet-english/" class="block px-4 py-2 text-slate-300 hover:bg-slate-800 hover:text-emerald-400 transition">English</a>
+                        <a href="../tntet-tamil/" class="block px-4 py-2 text-slate-300 hover:bg-slate-800 hover:text-emerald-400 transition">Tamil</a>
+                        <a href="../tntet-maths/" class="block px-4 py-2 text-slate-300 hover:bg-slate-800 hover:text-emerald-400 transition">Maths</a>
+                        <a href="../tntet-science/" class="block px-4 py-2 text-slate-200 bg-slate-800 font-bold border-l-2 border-emerald-500 transition">Science</a>
+                        <a href="../tntet-social/" class="block px-4 py-2 text-slate-300 hover:bg-slate-800 hover:text-emerald-400 transition">Social Science</a>
+                    </div>
+                </div>
+                <a href="../results/" class="bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-2 rounded-lg shadow-md transition font-semibold ml-3 flex items-center gap-1.5"><i class="fa-solid fa-square-poll-vertical"></i> Results</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+                <h1 class="text-2xl font-black text-slate-900 sm:text-3xl flex items-center gap-2">
+                    <span class="p-2 bg-emerald-50 text-emerald-600 rounded-xl"><i class="fa-solid fa-atom"></i></span>
+                    TNTET Science Learning Hub
+                </h1>
+                <p class="text-slate-500 text-sm mt-2">Access video lessons, take mock quizzes, and download resource materials directly syncing from your dashboard log.</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+
+            <div class="lg:col-span-2 space-y-6">
+                <div id="loading-spinner" class="text-center py-12 text-slate-400 font-medium">
+                    <i class="fa-solid fa-circle-notch fa-spin text-2xl text-emerald-500 mb-2 block"></i> Loading Science Modules...
+                </div>
+                <div id="topics-container" class="space-y-4 hidden"></div>
+            </div>
+
+            <div class="space-y-6 lg:sticky lg:top-24">
+                <div class="bg-white p-4 rounded-2xl border border-dashed border-slate-300 text-center flex flex-col justify-center items-center">
+                    <span class="text-[8px] font-bold text-slate-400 uppercase tracking-widest block mb-2">Sponsored Link Space</span>
+                    <div class="w-full h-[250px] lg:h-[500px] bg-slate-50 rounded-xl flex items-center justify-center text-xs text-slate-400 font-mono">
+                        Sidebar Skyscraper Ad Unit (300x600)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // CONFIGURATION: Replace with your actual deployed web app URL or Google Sheets Published CSV Endpoint URL link string.
+        // To publish your sheet: File -> Share -> Publish to Web -> Choose 'ScienceData' tab as CSV -> Copy Link
+        const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vT0TIqiqJaA918jRivJnDFFV7V2C1FryGE28uLmSWlSZTHTwkXXXm5rcWW97K_C2p9_JqGYD1Jtp5fG/pub?gid=0&single=true&output=csv";
+
+        async function fetchScienceData() {
+            try {
+                const response = await fetch(GOOGLE_SHEET_CSV_URL);
+                const dataText = await response.text();
+
+                // Parse CSV rows cleanly
+                const rows = dataText.split('\n').slice(1); // Drop heading titles row
+                const container = document.getElementById('topics-container');
+                container.innerHTML = ''; // Clean placeholder
+
+                rows.forEach(row => {
+                    // Split content by comma elements handling quotes correctly
+                    const cleanRow = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+                    if (cleanRow.length < 3) return;
+
+                    const topicName = cleanRow[0].replace(/"/g, '').trim();
+                    const youtubeId = cleanRow[1].replace(/"/g, '').trim();
+                    const mcqId     = cleanRow[2].replace(/"/g, '').trim();
+                    const pdfLink   = cleanRow[3] ? cleanRow[3].replace(/"/g, '').trim() : '';
+                    const category  = cleanRow[4] ? cleanRow[4].replace(/"/g, '').trim() : 'General';
+
+                    // Build dynamic interface module blocks layout
+                    const card = document.createElement('div');
+                    card.className = "bg-white border border-slate-100 rounded-2xl p-5 shadow-sm space-y-4 hover:shadow-md transition";
+                    card.innerHTML = `
+                        <div class="flex justify-between items-start border-b border-slate-50 pb-3">
+                            <div>
+                                <span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-md uppercase tracking-wider mb-1.5 inline-block">${category}</span>
+                                <h3 class="font-bold text-slate-900 text-base tracking-tight">${topicName}</h3>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
+                            <div class="aspect-video bg-black rounded-xl overflow-hidden shadow-inner">
+                                <iframe class="w-full h-full" src="https://www.youtube.com/embed/${youtubeId}" title="Video Session" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                            <div class="flex flex-col gap-2.5">
+                                <a href="../mcq/?id=${mcqId}" class="w-full bg-slate-950 hover:bg-slate-800 text-white font-bold text-xs py-3 px-4 rounded-xl shadow-sm transition flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-pen-to-square text-emerald-400 text-sm"></i> Take Online MCQ Test
+                                </a>
+                                ${pdfLink ? `
+                                <a href="${pdfLink}" target="_blank" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs py-3 px-4 rounded-xl shadow-sm transition flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-file-pdf text-sm"></i> Download Study Material (PDF)
+                                </a>` : `
+                                <button disabled class="w-full bg-gray-100 text-gray-400 font-bold text-xs py-3 px-4 rounded-xl cursor-not-allowed flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-ban text-sm"></i> No Material Available
+                                </button>`}
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+
+                document.getElementById('loading-spinner').classList.add('hidden');
+                container.classList.remove('hidden');
+            } catch (error) {
+                console.error("Database compilation reading pipeline failed:", error);
+                document.getElementById('loading-spinner').innerHTML = `<p class="text-red-500 font-bold">Failed to load content channels. Check sheet links.</p>`;
+            }
+        }
+
+        // Initialize fetch tracking pipeline execution immediately on boot sequence loading configurations
+        window.onload = fetchScienceData;
+    </script>
+</body>
+</html>
