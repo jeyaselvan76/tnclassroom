@@ -1,1 +1,59 @@
+<div class="space-y-6 font-sans px-1">
+    
+    <div class="bg-slate-900 text-white rounded-xl p-4 border border-slate-800 mb-6">
+        <div class="flex items-center gap-2 text-[10px] font-black tracking-widest text-emerald-400 uppercase"><span>class 8</span> &bull; <span>science</span></div>
+        <h2 class="text-base font-black tracking-tight mt-0.5 tamil-fix">unit 1</h2>
+    </div>
 
+    
+    <div class="bg-white border border-slate-100 rounded-xl p-5 shadow-sm space-y-3.5">
+        <div class="flex flex-wrap items-center gap-2 text-[10px] font-bold border-b border-slate-50 pb-2 text-slate-400">
+            <span class="bg-slate-950 text-white px-2 py-0.5 rounded uppercase font-black tracking-wider">part 1</span>
+            <span class="bg-slate-100 text-slate-700 px-2 py-0.5 rounded font-black font-mono">Q1</span>
+            <span class="bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded font-black border border-emerald-100">10</span>
+        </div>
+        <p class="font-bold text-slate-900 text-sm leading-snug tamil-fix">கீழ்க்கண்டவற்றுள் எது ஆங்கிலேய அலகு முறை?</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pl-2 text-xs font-medium">
+            <p class="text-slate-600">a) CGS</p>
+            <p class="text-slate-600">b) MKS</p>
+            <p class="text-slate-600">c) FPS</p>
+            <p class="text-slate-600">d) SI</p>
+        </div>
+        <p class="text-emerald-600 font-black text-xs bg-emerald-50 border border-emerald-100 px-3 py-1.5 rounded-lg inline-block">Answer: FPS</p>
+    </div>
+
+    
+    <div class="bg-white border border-slate-100 rounded-xl p-5 shadow-sm space-y-3.5">
+        <div class="flex flex-wrap items-center gap-2 text-[10px] font-bold border-b border-slate-50 pb-2 text-slate-400">
+            <span class="bg-slate-950 text-white px-2 py-0.5 rounded uppercase font-black tracking-wider">Part 1</span>
+            <span class="bg-slate-100 text-slate-700 px-2 py-0.5 rounded font-black font-mono">Q2</span>
+            <span class="bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded font-black border border-emerald-100">10</span>
+        </div>
+        <p class="font-bold text-slate-900 text-sm leading-snug tamil-fix">மின்னோட்டம் என்பது ....... அளவு ஆகும்.</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pl-2 text-xs font-medium">
+            <p class="text-slate-600">a) அடிப்படை</p>
+            <p class="text-slate-600">b) துணைநிலை</p>
+            <p class="text-slate-600">c) வழி</p>
+            <p class="text-slate-600">d) தொழில் சார்ந்த</p>
+        </div>
+        <p class="text-emerald-600 font-black text-xs bg-emerald-50 border border-emerald-100 px-3 py-1.5 rounded-lg inline-block">Answer: அடிப்படை</p>
+    </div>
+
+    
+    <div class="bg-white border border-slate-100 rounded-xl p-5 shadow-sm space-y-3.5">
+        <div class="flex flex-wrap items-center gap-2 text-[10px] font-bold border-b border-slate-50 pb-2 text-slate-400">
+            <span class="bg-slate-950 text-white px-2 py-0.5 rounded uppercase font-black tracking-wider">Part 1</span>
+            <span class="bg-slate-100 text-slate-700 px-2 py-0.5 rounded font-black font-mono">Q3</span>
+            <span class="bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded font-black border border-emerald-100">10</span>
+        </div>
+        <p class="font-bold text-slate-900 text-sm leading-snug tamil-fix">வெப்பநிலையின் SI அலகு</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pl-2 text-xs font-medium">
+            <p class="text-slate-600">a) செல்சியஸ்</p>
+            <p class="text-slate-600">b) ஃபாரன்ஹீட்</p>
+            <p class="text-slate-600">c) கெல்வின்</p>
+            <p class="text-slate-600">d) ஆம்பியர்</p>
+        </div>
+        <p class="text-emerald-600 font-black text-xs bg-emerald-50 border border-emerald-100 px-3 py-1.5 rounded-lg inline-block">Answer: கெல்வின்</p>
+    </div>
+
+</div>
