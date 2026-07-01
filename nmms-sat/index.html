@@ -134,26 +134,20 @@
         <p>&copy; 2026 TN Classroom. All evaluation logs securely compiled under Google Cloud frameworks.</p>
     </footer>
 
-    <script>
-    // UNIVERSAL PATH BALANCER LOADER MODULE
+   <script>
+    // AUTOMATED SYSTEM-WIDE NAVBAR INJECTOR ENGINE
     async function loadSharedSiteNavbar() {
         try {
-            // Check if the current URL path is running inside any project subdirectories
-            const isInsideSubfolder = window.location.pathname.includes('/mcq/') || 
-                                      window.location.pathname.includes('/learning-support/') || 
-                                      window.location.pathname.includes('/nmms-sat/') || 
-                                      window.location.pathname.includes('/tntet-science/');
+            // Fetch directly from your public GitHub content link to completely bypass folder path blocks
+            const githubRawNavbarUrl = "https://raw.githubusercontent.com/jeyaselvan76/tnclassroom/main/navbar.html";
             
-            // Step back one folder if inside a subfolder, otherwise look locally
-            const correctedPath = isInsideSubfolder ? "../navbar.html" : "./navbar.html";
-            
-            const response = await fetch(correctedPath);
-            if (!response.ok) throw new Error("Navbar asset fetch mismatch status code.");
+            const response = await fetch(githubRawNavbarUrl);
+            if (!response.ok) throw new Error("Network response mismatch while extracting navbar assets.");
             
             const htmlContent = await response.text();
             document.getElementById('navbar-placeholder').innerHTML = htmlContent;
             
-            // Initialize dropdown click listeners after injection
+            // Re-bind global document drop-down click event boundaries
             initializeDropdownListeners();
         } catch (error) {
             console.error("Error loading shared navigation bar component:", error);
