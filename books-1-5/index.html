@@ -254,19 +254,7 @@
         <p>&copy; 2026 TN Classroom. Textbook assets are copyright material properties of the TN Text Book Corporation.</p>
     </footer>
 
-    <script>
-        function toggleMobileMenu(open) {
-            const drawer = document.getElementById('mobile-drawer');
-            const content = document.getElementById('drawer-content');
-            if (open) {
-                drawer.classList.remove('invisible');
-                setTimeout(() => content.classList.remove('translate-x-full'), 10);
-            } else {
-                content.classList.add('translate-x-full');
-                setTimeout(() => drawer.classList.add('invisible'), 300);
-            }
-        }
-    </script>
+  
     <script>
     // AUTOMATED SYSTEM-WIDE NAVBAR INJECTOR ENGINE
     async function loadSharedSiteNavbar() {
