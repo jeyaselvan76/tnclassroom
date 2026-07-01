@@ -151,29 +151,26 @@
     </script>
 
  <script>
-    // UNIVERSAL FOLDER-DEPTH NAVBAR LOADER
+    // AUTOMATED SYSTEM-WIDE NAVBAR INJECTOR ENGINE
     async function loadSharedSiteNavbar() {
         try {
-            // Determine folder depth by checking if the URL contains sub-directories
-            const pathParts = window.location.pathname.split('/');
-            const isInSubfolder = pathParts.some(part => ['mcq', 'learning-support', 'nmms-sat', 'tntet-science', 'books-1-5'].includes(part));
+            // Fetch directly from your public GitHub content link to completely bypass folder path blocks
+            const githubRawNavbarUrl = "https://raw.githubusercontent.com/jeyaselvan76/tnclassroom/main/navbar.html";
             
-            // Set correct relative path destination
-            const targetPath = isInSubfolder ? "../navbar.html" : "./navbar.html";
-            
-            const response = await fetch(targetPath);
-            if (!response.ok) throw new Error("Navbar asset fetch failure.");
+            const response = await fetch(githubRawNavbarUrl);
+            if (!response.ok) throw new Error("Network response mismatch while extracting navbar assets.");
             
             const htmlContent = await response.text();
             document.getElementById('navbar-placeholder').innerHTML = htmlContent;
             
-            // Active click binding execution
+            // Re-bind global document drop-down click event boundaries
             initializeDropdownListeners();
         } catch (error) {
             console.error("Error loading shared navigation bar component:", error);
         }
     }
 
+    // Toggle menu dropdown execution parameters
     function toggleNavigationMenu(event, targetMenuId) {
         event.stopPropagation(); 
         const targetMenu = document.getElementById(targetMenuId);
