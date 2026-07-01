@@ -267,5 +267,69 @@
             }
         }
     </script>
+    <script>
+    // AUTOMATED SYSTEM-WIDE NAVBAR INJECTOR ENGINE
+    async function loadSharedSiteNavbar() {
+        try {
+            // Fetch directly from your public GitHub content link to completely bypass folder path blocks
+            const githubRawNavbarUrl = "https://raw.githubusercontent.com/jeyaselvan76/tnclassroom/main/navbar.html";
+            
+            const response = await fetch(githubRawNavbarUrl);
+            if (!response.ok) throw new Error("Network response mismatch while extracting navbar assets.");
+            
+            const htmlContent = await response.text();
+            document.getElementById('navbar-placeholder').innerHTML = htmlContent;
+            
+            // Re-bind global document drop-down click event boundaries
+            initializeDropdownListeners();
+        } catch (error) {
+            console.error("Error loading shared navigation bar component:", error);
+        }
+    }
+
+    // Toggle menu dropdown execution parameters
+    function toggleNavigationMenu(event, targetMenuId) {
+        event.stopPropagation(); 
+        const targetMenu = document.getElementById(targetMenuId);
+        if (!targetMenu) return;
+        
+        const isOpen = targetMenu.classList.contains('dropdown-active');
+        
+        document.querySelectorAll('.dropdown-menu').forEach(menu => {
+            menu.classList.remove('dropdown-active');
+        });
+        
+        if (!isOpen) {
+            targetMenu.classList.add('dropdown-active');
+        }
+    }
+
+    function toggleMobileMenu(open) {
+        const drawer = document.getElementById('mobile-drawer');
+        const content = document.getElementById('drawer-content');
+        if (!drawer || !content) return;
+        
+        if (open) {
+            drawer.classList.remove('invisible');
+            setTimeout(() => content.classList.remove('translate-x-full'), 10);
+        } else {
+            content.classList.add('translate-x-full');
+            setTimeout(() => drawer.classList.add('invisible'), 300);
+        }
+    }
+
+    function initializeDropdownListeners() {
+        document.removeEventListener('click', closeAllDropdowns);
+        document.addEventListener('click', closeAllDropdowns);
+    }
+
+    function closeAllDropdowns() {
+        document.querySelectorAll('.dropdown-menu').forEach(menu => {
+            menu.classList.remove('dropdown-active');
+        });
+    }
+
+    window.addEventListener('DOMContentLoaded', loadSharedSiteNavbar);
+</script>
 </body>
 </html>
