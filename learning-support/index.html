@@ -259,25 +259,37 @@
         window.onload = initializeLearningHub;
     </script>
 <script>
+    // UNIVERSAL PATH BALANCER LOADER MODULE
     async function loadSharedSiteNavbar() {
         try {
-            // Adjust the path prefix if you are testing on local server subdirectories
-            const response = await fetch('/tnclassroom/navbar.html'); 
-            if (!response.ok) throw new Error("Navbar asset fetch mismatch.");
+            // Check if the current URL path is running inside any project subdirectories
+            const isInsideSubfolder = window.location.pathname.includes('/mcq/') || 
+                                      window.location.pathname.includes('/learning-support/') || 
+                                      window.location.pathname.includes('/nmms-sat/') || 
+                                      window.location.pathname.includes('/tntet-science/');
+            
+            // Step back one folder if inside a subfolder, otherwise look locally
+            const correctedPath = isInsideSubfolder ? "../navbar.html" : "./navbar.html";
+            
+            const response = await fetch(correctedPath);
+            if (!response.ok) throw new Error("Navbar asset fetch mismatch status code.");
             
             const htmlContent = await response.text();
             document.getElementById('navbar-placeholder').innerHTML = htmlContent;
             
-            // Re-bind global document drop-down click event boundaries
+            // Initialize dropdown click listeners after injection
             initializeDropdownListeners();
         } catch (error) {
             console.error("Error loading shared navigation bar component:", error);
         }
     }
 
+    // Toggle menu dropdown execution parameters
     function toggleNavigationMenu(event, targetMenuId) {
         event.stopPropagation(); 
         const targetMenu = document.getElementById(targetMenuId);
+        if (!targetMenu) return;
+        
         const isOpen = targetMenu.classList.contains('dropdown-active');
         
         document.querySelectorAll('.dropdown-menu').forEach(menu => {
