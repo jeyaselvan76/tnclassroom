@@ -259,32 +259,29 @@
         window.onload = initializeLearningHub;
     </script>
 <script>
-    // UNIVERSAL PATH BALANCER LOADER MODULE
+    // UNIVERSAL FOLDER-DEPTH NAVBAR LOADER
     async function loadSharedSiteNavbar() {
         try {
-            // Check if the current URL path is running inside any project subdirectories
-            const isInsideSubfolder = window.location.pathname.includes('/mcq/') || 
-                                      window.location.pathname.includes('/learning-support/') || 
-                                      window.location.pathname.includes('/nmms-sat/') || 
-                                      window.location.pathname.includes('/tntet-science/');
+            // Determine folder depth by checking if the URL contains sub-directories
+            const pathParts = window.location.pathname.split('/');
+            const isInSubfolder = pathParts.some(part => ['mcq', 'learning-support', 'nmms-sat', 'tntet-science', 'books-1-5'].includes(part));
             
-            // Step back one folder if inside a subfolder, otherwise look locally
-            const correctedPath = isInsideSubfolder ? "../navbar.html" : "./navbar.html";
+            // Set correct relative path destination
+            const targetPath = isInSubfolder ? "../navbar.html" : "./navbar.html";
             
-            const response = await fetch(correctedPath);
-            if (!response.ok) throw new Error("Navbar asset fetch mismatch status code.");
+            const response = await fetch(targetPath);
+            if (!response.ok) throw new Error("Navbar asset fetch failure.");
             
             const htmlContent = await response.text();
             document.getElementById('navbar-placeholder').innerHTML = htmlContent;
             
-            // Initialize dropdown click listeners after injection
+            // Active click binding execution
             initializeDropdownListeners();
         } catch (error) {
             console.error("Error loading shared navigation bar component:", error);
         }
     }
 
-    // Toggle menu dropdown execution parameters
     function toggleNavigationMenu(event, targetMenuId) {
         event.stopPropagation(); 
         const targetMenu = document.getElementById(targetMenuId);
