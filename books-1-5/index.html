@@ -7,15 +7,17 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Exact visibility classes decoupling click events from styling limits */
+        /* FIXED: Completely wiped out the old dropdown-group:hover rule */
         .dropdown-active { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; }
         .tamil-fix { font-family: 'Segoe UI', 'Latha', sans-serif !important; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-900 flex flex-col min-h-screen font-sans">
 
+    <!-- Shared Navigation Placeholder Injection Target -->
     <div id="navbar-placeholder"></div>
 
+    <!-- MAIN PLATFORM CANVAS CONTAINER -->
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
         <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm mb-8">
@@ -30,6 +32,7 @@
             
             <div class="lg:col-span-2 space-y-6">
                 
+                <!-- DESKTOP MODE MODULE DATA MATRIX TABLE -->
                 <div class="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden hidden md:block">
                     <table class="min-w-full divide-y divide-slate-200 text-sm font-medium">
                         <thead class="bg-slate-950 text-slate-200 text-xs uppercase tracking-wider font-bold">
@@ -87,6 +90,7 @@
                     </table>
                 </div>
 
+                <!-- MOBILE SMARTPHONE CARDS GRID OVERLAY -->
                 <div class="md:hidden space-y-3">
                     <div class="bg-white border border-slate-100 rounded-xl p-4 shadow-sm flex flex-col justify-between gap-3">
                         <div class="flex justify-between items-start">
@@ -147,6 +151,7 @@
 
             </div>
 
+            <!-- ADVERTISING SIDEBAR WRAPPER LINK UNITS -->
             <div class="space-y-6 lg:sticky lg:top-24">
                 <div class="bg-white p-4 rounded-2xl border border-dashed border-slate-300 text-center flex flex-col justify-center items-center">
                     <span class="text-[8px] font-bold text-slate-400 uppercase tracking-widest block mb-2">Sponsored Content</span>
@@ -159,12 +164,13 @@
         </div>
     </main>
 
+    <!-- Base Layout Sticky Document Footer Section -->
     <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-6 text-center text-xs mt-auto">
         <p>&copy; 2026 TN Classroom. Textbook assets are copyright material properties of the TN Text Book Corporation.</p>
     </footer>
 
+    <!-- SHARED MARKUP ROUTING PIPELINE CONTROLLER -->
     <script>
-        // MASTER CENTRALIZED NAVBAR INJECTOR ENGINE
         async function loadSharedSiteNavbar() {
             try {
                 const githubRawNavbarUrl = "https://raw.githubusercontent.com/jeyaselvan76/tnclassroom/main/navbar.html";
@@ -175,7 +181,6 @@
                 const htmlContent = await response.text();
                 document.getElementById('navbar-placeholder').innerHTML = htmlContent;
                 
-                // Re-bind global document drop-down click event boundaries
                 initializeDropdownListeners();
             } catch (error) {
                 console.error("Error loading shared navigation bar component:", error);
