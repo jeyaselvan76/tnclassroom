@@ -145,42 +145,69 @@
         </div>
     </main>
 
-    <script>
-        function toggleNavigationMenu(event, targetMenuId) {
-            event.stopPropagation(); // Stop parent document handler from executing close runs
+  <script>
+    // AUTOMATED SYSTEM-WIDE NAVBAR INJECTOR ENGINE
+    async function loadSharedSiteNavbar() {
+        try {
+            // Fetch directly from your public GitHub content link to completely bypass folder path blocks
+            const githubRawNavbarUrl = "https://raw.githubusercontent.com/jeyaselvan76/tnclassroom/main/navbar.html";
             
-            const targetMenu = document.getElementById(targetMenuId);
-            const isCurrentlyOpen = targetMenu.classList.contains('dropdown-active');
+            const response = await fetch(githubRawNavbarUrl);
+            if (!response.ok) throw new Error("Network response mismatch while extracting navbar assets.");
             
-            // Clean slate baseline: wipe activation classes off all panel cards
-            document.querySelectorAll('.dropdown-menu').forEach(menu => {
-                menu.classList.remove('dropdown-active');
-            });
+            const htmlContent = await response.text();
+            document.getElementById('navbar-placeholder').innerHTML = htmlContent;
             
-            // Invert layout view state for target selection box parameter
-            if (!isCurrentlyOpen) {
-                targetMenu.classList.add('dropdown-active');
-            }
+            // Re-bind global document drop-down click event boundaries
+            initializeDropdownListeners();
+        } catch (error) {
+            console.error("Error loading shared navigation bar component:", error);
         }
+    }
 
-        // Global Event Interceptor: Closes open panels if user clicks content canvas elsewhere
-        document.addEventListener('click', () => {
-            document.querySelectorAll('.dropdown-menu').forEach(menu => {
-                menu.classList.remove('dropdown-active');
-            });
+    // Toggle menu dropdown execution parameters
+    function toggleNavigationMenu(event, targetMenuId) {
+        event.stopPropagation(); 
+        const targetMenu = document.getElementById(targetMenuId);
+        if (!targetMenu) return;
+        
+        const isOpen = targetMenu.classList.contains('dropdown-active');
+        
+        document.querySelectorAll('.dropdown-menu').forEach(menu => {
+            menu.classList.remove('dropdown-active');
         });
-
-        function toggleMobileMenu(open) {
-            const drawer = document.getElementById('mobile-drawer');
-            const content = document.getElementById('drawer-content');
-            if (open) {
-                drawer.classList.remove('invisible');
-                setTimeout(() => content.classList.remove('translate-x-full'), 10);
-            } else {
-                content.classList.add('translate-x-full');
-                setTimeout(() => drawer.classList.add('invisible'), 300);
-            }
+        
+        if (!isOpen) {
+            targetMenu.classList.add('dropdown-active');
         }
-    </script>
+    }
+
+    function toggleMobileMenu(open) {
+        const drawer = document.getElementById('mobile-drawer');
+        const content = document.getElementById('drawer-content');
+        if (!drawer || !content) return;
+        
+        if (open) {
+            drawer.classList.remove('invisible');
+            setTimeout(() => content.classList.remove('translate-x-full'), 10);
+        } else {
+            content.classList.add('translate-x-full');
+            setTimeout(() => drawer.classList.add('invisible'), 300);
+        }
+    }
+
+    function initializeDropdownListeners() {
+        document.removeEventListener('click', closeAllDropdowns);
+        document.addEventListener('click', closeAllDropdowns);
+    }
+
+    function closeAllDropdowns() {
+        document.querySelectorAll('.dropdown-menu').forEach(menu => {
+            menu.classList.remove('dropdown-active');
+        });
+    }
+
+    window.addEventListener('DOMContentLoaded', loadSharedSiteNavbar);
+</script>
 </body>
 </html>
