@@ -11,8 +11,12 @@
         // LOCAL CONFIGURATION FLAG: Change to "Maintenance" to lock, or "Live" to unlock.
         window.TNC_PAGE_STATUS = "Maintenance";
 
-        (function() {
-            if (window.TNC_PAGE_STATUS !== "Maintenance") return;
+        if (window.TNC_PAGE_STATUS === "Maintenance") {
+            // Force-hide the entire page structure instantly to prevent flashes
+            const hideStyles = document.createElement('style');
+            hideStyles.id = "force-hide-overlay";
+            hideStyles.innerHTML = "html, body { display: none !important; background: #0f172a !important; }";
+            document.head.appendChild(hideStyles);
 
             function injectMaintenanceCard() {
                 const cardLayoutHtml = `
@@ -42,26 +46,20 @@
                     </div>
                 `;
                 
-                // Safety checkpoint: fallback loop sequence to capture DOM elements cleanly
-                if (document.body) {
-                    document.body.className = "bg-slate-900 text-slate-100 min-h-screen m-0 p-0";
-                    document.body.innerHTML = cardLayoutHtml;
-                } else {
-                    document.write(`<body class="bg-slate-900 text-slate-100 min-h-screen m-0 p-0">${cardLayoutHtml}</body>`);
-                }
+                // Remove the hide override block and swap layouts smoothly
+                const styleTarget = document.getElementById("force-hide-overlay");
+                if (styleTarget) styleTarget.remove();
+                
+                document.body.className = "bg-slate-900 text-slate-100 min-h-screen m-0 p-0 block";
+                document.body.innerHTML = cardLayoutHtml;
             }
 
-            // FIXED: Modified timing hooks to intercept compilation before parser errors
-            if (document.readyState === 'complete' || document.readyState === 'interactive') {
-                injectMaintenanceCard();
-            } else {
-                document.addEventListener('DOMContentLoaded', injectMaintenanceCard);
-            }
-        })();
+            // Run right at the start of document creation
+            document.addEventListener('DOMContentLoaded', injectMaintenanceCard);
+        }
     </script>
     
     <style>
-        /* Exact visibility classes decoupling click events from styling limits */
         .dropdown-active { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; }
         .tamil-fix { font-family: 'Segoe UI', 'Latha', sans-serif !important; }
     </style>
@@ -81,7 +79,6 @@
 
     <header class="bg-slate-950 text-slate-100 shadow-xl border-b border-slate-800 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-
             <a href="../" class="flex items-center space-x-3 cursor-pointer">
                 <div class="bg-emerald-500 p-1.5 rounded-lg text-slate-950 font-black text-xl tracking-tight">TNC</div>
                 <span class="font-bold text-lg tracking-wide text-white">TN Classroom</span>
@@ -141,26 +138,6 @@
         </div>
     </header>
 
-    <div id="mobile-drawer" class="fixed inset-0 z-50 invisible transition-all duration-300 font-sans">
-        <div onclick="toggleMobileMenu(false)" class="absolute inset-0 bg-slate-950/70 backdrop-blur-sm"></div>
-        <div id="drawer-content" class="absolute top-0 right-0 w-80 max-w-sm h-full bg-slate-900 shadow-2xl p-6 flex flex-col space-y-4 transform translate-x-full transition-transform duration-300 ease-in-out border-l border-slate-800 overflow-y-auto">
-            <div class="flex items-center justify-between pb-3 border-b border-slate-800">
-                <span class="font-black text-emerald-400 tracking-wider text-xs uppercase">Navigation Channels</span>
-                <button onclick="toggleMobileMenu(false)" class="text-slate-400 hover:text-white text-lg"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <nav class="flex flex-col space-y-1.5 text-sm">
-                <a href="../" class="w-full text-left px-3 py-2.5 rounded-xl text-white bg-slate-800 transition flex items-center gap-3"><i class="fa-solid fa-house text-emerald-400 w-4"></i> Home</a>
-                <div class="pt-2 px-3 text-[11px] font-bold text-slate-500 tracking-widest uppercase">NMMS Track</div>
-                <a href="../nmms-sat/" class="w-full text-left px-6 py-2 rounded-xl text-slate-300 hover:bg-slate-800 transition">&bull; SAT Materials</a>
-                <a href="../nmms-mat/" class="w-full text-left px-6 py-2 rounded-xl text-slate-300 hover:bg-slate-800 transition">&bull; MAT Analytics</a>
-                <div class="pt-2 px-3 text-[11px] font-bold text-slate-500 tracking-widest uppercase">TNTET Tracks</div>
-                <a href="../tntet-science/" class="w-full text-left px-6 py-2 rounded-xl text-slate-300 hover:bg-slate-800 transition">&bull; Science Pack</a>
-                <a href="../learning-support/" class="w-full text-left px-3 py-2.5 rounded-xl text-slate-200 hover:bg-slate-800 transition flex items-center gap-3"><i class="fa-solid fa-graduation-cap text-slate-500 w-4"></i> Learning Support</a>
-                <a href="../results/" class="w-full text-left px-3 py-2.5 rounded-xl text-slate-200 hover:bg-slate-800 transition flex items-center gap-3"><i class="fa-solid fa-square-poll-vertical text-slate-500 w-4"></i> Test Results</a>
-            </nav>
-        </div>
-    </div>
-
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm mb-8">
             <h1 class="text-2xl font-black text-slate-900 sm:text-3xl flex items-center gap-2">
@@ -195,105 +172,8 @@
                                     <a href="PASTE_TAMIL_BOOK_DOWNLOAD_LINK_HERE" class="inline-flex items-center gap-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-3 py-2 rounded-xl transition shadow-sm"><i class="fa-solid fa-circle-down"></i> Download</a>
                                 </td>
                             </tr>
-                            <tr class="hover:bg-slate-50/70 transition">
-                                <td class="px-6 py-4 text-slate-400 font-mono">2</td>
-                                <td class="px-6 py-4">Class 1</td>
-                                <td class="px-6 py-4"><span class="bg-slate-100 text-slate-700 text-xs px-2 py-0.5 rounded font-bold">Term 1</span></td>
-                                <td class="px-6 py-4 font-bold text-slate-900">English</td>
-                                <td class="px-6 py-4">English</td>
-                                <td class="px-6 py-4 text-center">
-                                    <a href="PASTE_ENGLISH_BOOK_DOWNLOAD_LINK_HERE" class="inline-flex items-center gap-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-3 py-2 rounded-xl transition shadow-sm"><i class="fa-solid fa-circle-down"></i> Download</a>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-slate-50/70 transition">
-                                <td class="px-6 py-4 text-slate-400 font-mono">3</td>
-                                <td class="px-6 py-4">Class 1</td>
-                                <td class="px-6 py-4"><span class="bg-slate-100 text-slate-700 text-xs px-2 py-0.5 rounded font-bold">Term 1</span></td>
-                                <td class="px-6 py-4 font-bold text-slate-900">Maths</td>
-                                <td class="px-6 py-4">Tamil / தமிழ்</td>
-                                <td class="px-6 py-4 text-center">
-                                    <a href="PASTE_MATHS_TAMIL_BOOK_DOWNLOAD_LINK_HERE" class="inline-flex items-center gap-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-3 py-2 rounded-xl transition shadow-sm"><i class="fa-solid fa-circle-down"></i> Download</a>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-slate-50/70 transition">
-                                <td class="px-6 py-4 text-slate-400 font-mono">4</td>
-                                <td class="px-6 py-4">Class 1</td>
-                                <td class="px-6 py-4"><span class="bg-slate-100 text-slate-700 text-xs px-2 py-0.5 rounded font-bold">Term 1</span></td>
-                                <td class="px-6 py-4 font-bold text-slate-900">Maths</td>
-                                <td class="px-6 py-4">English</td>
-                                <td class="px-6 py-4 text-center">
-                                    <a href="PASTE_MATHS_ENGLISH_BOOK_DOWNLOAD_LINK_HERE" class="inline-flex items-center gap-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-3 py-2 rounded-xl transition shadow-sm"><i class="fa-solid fa-circle-down"></i> Download</a>
-                                </td>
-                            </tr>
                         </tbody>
                     </table>
-                </div>
-
-                <div class="md:hidden space-y-3">
-                    <div class="bg-white border border-slate-100 rounded-xl p-4 shadow-sm flex flex-col justify-between gap-3">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <div class="flex items-center gap-2 mb-1.5">
-                                    <span class="text-[10px] font-bold tracking-wide bg-slate-100 text-slate-700 px-2 py-0.5 rounded">Class 1</span>
-                                    <span class="text-[10px] font-bold tracking-wide bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded">Term 1</span>
-                                </div>
-                                <h3 class="font-bold text-slate-900 text-base">Tamil</h3>
-                                <p class="text-xs text-slate-400 mt-0.5">Medium: Tamil / தமிழ்</p>
-                            </div>
-                        </div>
-                        <a href="PASTE_TAMIL_BOOK_DOWNLOAD_LINK_HERE" class="w-full text-center bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs py-2.5 rounded-xl transition shadow-sm block"><i class="fa-solid fa-circle-down mr-1"></i> Download PDF</a>
-                    </div>
-                    
-                    <div class="bg-white border border-slate-100 rounded-xl p-4 shadow-sm flex flex-col justify-between gap-3">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <div class="flex items-center gap-2 mb-1.5">
-                                    <span class="text-[10px] font-bold tracking-wide bg-slate-100 text-slate-700 px-2 py-0.5 rounded">Class 1</span>
-                                    <span class="text-[10px] font-bold tracking-wide bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded">Term 1</span>
-                                </div>
-                                <h3 class="font-bold text-slate-900 text-base">English</h3>
-                                <p class="text-xs text-slate-400 mt-0.5">Medium: English</p>
-                            </div>
-                        </div>
-                        <a href="PASTE_ENGLISH_BOOK_DOWNLOAD_LINK_HERE" class="w-full text-center bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs py-2.5 rounded-xl transition shadow-sm block"><i class="fa-solid fa-circle-down mr-1"></i> Download PDF</a>
-                    </div>
-                    
-                    <div class="bg-white border border-slate-100 rounded-xl p-4 shadow-sm flex flex-col justify-between gap-3">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <div class="flex items-center gap-2 mb-1.5">
-                                    <span class="text-[10px] font-bold tracking-wide bg-slate-100 text-slate-700 px-2 py-0.5 rounded">Class 1</span>
-                                    <span class="text-[10px] font-bold tracking-wide bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded">Term 1</span>
-                                </div>
-                                <h3 class="font-bold text-slate-900 text-base">Maths</h3>
-                                <p class="text-xs text-slate-400 mt-0.5">Medium: Tamil / தமிழ்</p>
-                            </div>
-                        </div>
-                        <a href="PASTE_MATHS_TAMIL_BOOK_DOWNLOAD_LINK_HERE" class="w-full text-center bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs py-2.5 rounded-xl transition shadow-sm block"><i class="fa-solid fa-circle-down mr-1"></i> Download PDF</a>
-                    </div>
-
-                    <div class="bg-white border border-slate-100 rounded-xl p-4 shadow-sm flex flex-col justify-between gap-3">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <div class="flex items-center gap-2 mb-1.5">
-                                    <span class="text-[10px] font-bold tracking-wide bg-slate-100 text-slate-700 px-2 py-0.5 rounded">Class 1</span>
-                                    <span class="text-[10px] font-bold tracking-wide bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded">Term 1</span>
-                                </div>
-                                <h3 class="font-bold text-slate-900 text-base">Maths</h3>
-                                <p class="text-xs text-slate-400 mt-0.5">Medium: English</p>
-                            </div>
-                        </div>
-                        <a href="PASTE_MATHS_ENGLISH_BOOK_DOWNLOAD_LINK_HERE" class="w-full text-center bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs py-2.5 rounded-xl transition shadow-sm block"><i class="fa-solid fa-circle-down mr-1"></i> Download PDF</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="space-y-6 lg:sticky lg:top-24">
-                <div class="bg-white p-4 rounded-2xl border border-dashed border-slate-300 text-center flex flex-col justify-center items-center">
-                    <span class="text-[8px] font-bold text-slate-400 uppercase tracking-widest block mb-2">Sponsored Content</span>
-                    <div class="w-full h-[250px] lg:h-[480px] bg-slate-50 rounded-xl flex items-center justify-center text-xs text-slate-400 font-mono">
-                        Sidebar Vertical Skyscraper Ad Box (300x600)
-                    </div>
                 </div>
             </div>
         </div>
@@ -310,7 +190,6 @@
             if (!targetMenu) return;
             
             const isOpen = targetMenu.classList.contains('dropdown-active');
-            
             document.querySelectorAll('.dropdown-menu').forEach(menu => {
                 menu.classList.remove('dropdown-active');
             });
