@@ -7,26 +7,29 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <script>
+   <script>
     // 1. LOCAL CONFIGURATION FLAG: Change to "Maintenance" to lock, or "Live" to unlock.
     window.TNC_PAGE_STATUS = "Maintenance";
 
     (function() {
         if (window.TNC_PAGE_STATUS !== "Maintenance") return;
 
-        // If locked, immediately hijack body parsing and draw the external card component
         async function hijackPageWithCard() {
             try {
-                // Look for the shared card at your project directory root level
-                const pathParts = window.location.pathname.split('/');
-                const isDeep = pathParts.some(p => ['mcq', 'learning-support', 'nmms-sat', 'tntet-science'].includes(p));
-                const targetCardUrl = isDeep ? "../maintenance-card.html" : "./maintenance-card.html";
+                // FIXED: Robust path calculator that works perfectly with any folder name structure
+                const isRootFile = window.location.pathname.endsWith('/tnclassroom/') || 
+                                   window.location.pathname.endsWith('/index.html') && 
+                                   !window.location.pathname.replace('/index.html', '').includes('/');
+                                   
+                // If it's not the root file, it's a subfolder page. Step back safely.
+                const targetCardUrl = isRootFile ? "./maintenance-card.html" : "../maintenance-card.html";
 
                 const response = await fetch(targetCardUrl);
-                if (!response.ok) throw new Error();
+                if (!response.ok) throw new Error("Could not find maintenance-card.html at " + targetCardUrl);
+                
                 const cardHtml = await response.text();
                 
-                // Wipe the webpage elements clean and drop in the construction canvas layout
+                // Complete DOM canvas swap execution
                 document.body.className = "bg-slate-900 text-slate-100 min-h-screen m-0 p-0";
                 document.body.innerHTML = cardHtml;
             } catch (err) {
