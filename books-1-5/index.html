@@ -7,40 +7,52 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-   <script>
-    // 1. LOCAL CONFIGURATION FLAG: Change to "Maintenance" to lock, or "Live" to unlock.
+  <script>
+    // LOCAL CONFIGURATION FLAG: Change to "Maintenance" to lock, or "Live" to unlock.
     window.TNC_PAGE_STATUS = "Maintenance";
 
     (function() {
         if (window.TNC_PAGE_STATUS !== "Maintenance") return;
 
-        async function hijackPageWithCard() {
-            try {
-                // FIXED: Robust path calculator that works perfectly with any folder name structure
-                const isRootFile = window.location.pathname.endsWith('/tnclassroom/') || 
-                                   window.location.pathname.endsWith('/index.html') && 
-                                   !window.location.pathname.replace('/index.html', '').includes('/');
-                                   
-                // If it's not the root file, it's a subfolder page. Step back safely.
-                const targetCardUrl = isRootFile ? "./maintenance-card.html" : "../maintenance-card.html";
-
-                const response = await fetch(targetCardUrl);
-                if (!response.ok) throw new Error("Could not find maintenance-card.html at " + targetCardUrl);
-                
-                const cardHtml = await response.text();
-                
-                // Complete DOM canvas swap execution
-                document.body.className = "bg-slate-900 text-slate-100 min-h-screen m-0 p-0";
-                document.body.innerHTML = cardHtml;
-            } catch (err) {
-                console.error("System gatekeeper layout compilation crash:", err);
-            }
+        function injectMaintenanceCard() {
+            // Self-contained layout template literal string string matrix
+            const cardLayoutHtml = `
+                <div class="min-h-screen bg-slate-900 flex flex-col items-center justify-center p-4 antialiased font-sans">
+                    <div class="max-w-md w-full bg-slate-950 border border-slate-800 rounded-[2.5rem] p-8 text-center shadow-2xl relative overflow-hidden">
+                        <div class="absolute -right-10 -top-10 text-slate-900/40 text-9xl font-black select-none pointer-events-none">TNC</div>
+                        
+                        <div class="w-16 h-16 bg-slate-900 border border-slate-800 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-6 shadow-inner">
+                            <i class="fa-solid fa-compass-drafting text-emerald-500 animate-pulse"></i>
+                        </div>
+                        
+                        <span class="text-[9px] font-black tracking-widest text-emerald-400 uppercase bg-emerald-950/40 border border-emerald-900/50 px-3 py-1 rounded-full">Portal Lock Active</span>
+                        
+                        <h2 class="text-xl font-extrabold text-white mt-4 tracking-tight uppercase">Module Under Construction</h2>
+                        <p class="text-xs text-slate-400 leading-relaxed mt-2.5 px-2">
+                            This specific educational channel dashboard is currently under active structural development. 
+                            Live test datasets and analytics tracking will resume shortly.
+                        </p>
+                        
+                        <div class="mt-6 pt-5 border-t border-slate-900 flex flex-col items-center justify-center gap-2">
+                            <a href="/tnclassroom/" class="bg-slate-900 hover:bg-slate-850 border border-slate-800 text-slate-300 font-bold text-xs px-5 py-2.5 rounded-xl transition w-full">
+                                ‹ Back to Main Directory
+                            </a>
+                            <span class="text-[9px] text-slate-600 font-mono tracking-wider mt-2">TN Classroom Network Control • 2026</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Lock out the page completely by replacing body elements instantly
+            document.body.className = "bg-slate-900 text-slate-100 min-h-screen m-0 p-0";
+            document.body.innerHTML = cardLayoutHtml;
         }
 
+        // Run immediately depending on document state
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', hijackPageWithCard);
+            document.addEventListener('DOMContentLoaded', injectMaintenanceCard);
         } else {
-            hijackPageWithCard();
+            injectMaintenanceCard();
         }
     })();
 </script>
