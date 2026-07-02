@@ -6,6 +6,42 @@
     <title>Class 1 to 5 Text Books | TN Classroom</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+    // 1. LOCAL CONFIGURATION FLAG: Change to "Maintenance" to lock, or "Live" to unlock.
+    window.TNC_PAGE_STATUS = "Maintenance";
+
+    (function() {
+        if (window.TNC_PAGE_STATUS !== "Maintenance") return;
+
+        // If locked, immediately hijack body parsing and draw the external card component
+        async function hijackPageWithCard() {
+            try {
+                // Look for the shared card at your project directory root level
+                const pathParts = window.location.pathname.split('/');
+                const isDeep = pathParts.some(p => ['mcq', 'learning-support', 'nmms-sat', 'tntet-science'].includes(p));
+                const targetCardUrl = isDeep ? "../maintenance-card.html" : "./maintenance-card.html";
+
+                const response = await fetch(targetCardUrl);
+                if (!response.ok) throw new Error();
+                const cardHtml = await response.text();
+                
+                // Wipe the webpage elements clean and drop in the construction canvas layout
+                document.body.className = "bg-slate-900 text-slate-100 min-h-screen m-0 p-0";
+                document.body.innerHTML = cardHtml;
+            } catch (err) {
+                console.error("System gatekeeper layout compilation crash:", err);
+            }
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', hijackPageWithCard);
+        } else {
+            hijackPageWithCard();
+        }
+    })();
+</script>
+    
     <style>
         /* Exact visibility classes decoupling click events from styling limits */
         .dropdown-active { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; }
