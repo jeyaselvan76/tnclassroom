@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NMMS Scholarship Portal | TN Classroom</title>
+    <title>NMMS SAT Study Center</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -22,15 +22,6 @@
 </head>
 <body class="bg-gray-50 text-gray-900 flex flex-col min-h-screen font-sans">
 
-    <div class="w-full bg-white border-b border-slate-200 py-2 flex justify-center items-center text-[10px] text-gray-400">
-        <div class="text-center">
-            <span class="block uppercase tracking-wider font-semibold mb-1">Advertisement</span>
-            <div class="bg-gray-100 border border-dashed border-gray-300 w-[320px] h-[50px] md:w-[728px] md:h-[60px] flex items-center justify-center rounded font-mono text-xs">
-                Top Leaderboard Banner Ad Box
-            </div>
-        </div>
-    </div>
-
     <div id="navbar-placeholder"></div>
 
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -40,7 +31,7 @@
                 NMMS SAT Study Center
             </h1>
             <p class="text-slate-500 text-sm mt-2 leading-relaxed">
-                Access structured academic learning modules for the Scholastic Aptitude Test (SAT). Master Class 7 and Class 8 Science, Social Science, and Mathematics with targeted video courses, revision texts, and diagnostic live exams.
+                Access structured academic learning modules for the Scholastic Aptitude Test (SAT). Master Class 7 and Class 8 Science, Social Science, and Mathematics.
             </p>
         </div>
 
@@ -62,13 +53,13 @@
                 </div>
                 <div class="flex items-center gap-3 self-end sm:self-auto">
                     <div class="flex items-center border border-slate-200 bg-white rounded-lg p-0.5 shadow-sm text-xs font-bold text-slate-600">
-                        <button onclick="adjustTextScale(-1)" class="w-7 h-7 hover:bg-slate-100 rounded flex items-center justify-center font-mono" title="Decrease Font size">A-</button>
-                        <button onclick="adjustTextScale(1)" class="w-7 h-7 hover:bg-slate-100 rounded flex items-center justify-center font-mono border-l border-slate-100" title="Increase Font size">A+</button>
+                        <button onclick="adjustTextScale(-1)" class="w-7 h-7 hover:bg-slate-100 rounded flex items-center justify-center font-mono">A-</button>
+                        <button onclick="adjustTextScale(1)" class="w-7 h-7 hover:bg-slate-100 rounded flex items-center justify-center font-mono border-l border-slate-100">A+</button>
                     </div>
                     <div class="flex items-center border border-slate-200 bg-white rounded-lg p-0.5 shadow-sm">
-                        <button onclick="setReaderTheme('light')" class="w-7 h-7 rounded flex items-center justify-center text-amber-500 hover:bg-slate-100" title="Light Mode"><i class="fa-solid fa-sun text-xs"></i></button>
-                        <button onclick="setReaderTheme('sepia')" class="w-7 h-7 rounded flex items-center justify-center text-amber-800 bg-amber-50 hover:bg-amber-100/60 font-serif font-bold text-xs" title="Sepia Eye Protection Mode">S</button>
-                        <button onclick="setReaderTheme('dark')" class="w-7 h-7 rounded flex items-center justify-center text-slate-400 hover:bg-slate-800" title="Dark Mode"><i class="fa-solid fa-moon text-xs"></i></button>
+                        <button onclick="setReaderTheme('light')" class="w-7 h-7 rounded flex items-center justify-center text-amber-500 hover:bg-slate-100"><i class="fa-solid fa-sun text-xs"></i></button>
+                        <button onclick="setReaderTheme('sepia')" class="w-7 h-7 rounded flex items-center justify-center text-amber-800 bg-amber-50 hover:bg-amber-100/60 font-serif font-bold text-xs">S</button>
+                        <button onclick="setReaderTheme('dark')" class="w-7 h-7 rounded flex items-center justify-center text-slate-400 hover:bg-slate-800"><i class="fa-solid fa-moon text-xs"></i></button>
                     </div>
                     <button onclick="closeMaterialModal()" class="w-8 h-8 rounded-full bg-white hover:bg-slate-100 border flex items-center justify-center text-slate-500 shadow-sm transition">
                         <i class="fa-solid fa-xmark"></i>
@@ -92,10 +83,7 @@
         let globallySelectedSubject = "";
 
         function parseCsvRows(text) {
-            let lines = [];
-            let row = [];
-            let cell = '';
-            let inQuotes = false;
+            let lines = []; let row = []; let cell = ''; let inQuotes = false;
             for (let i = 0; i < text.length; i++) {
                 let c = text[i];
                 if (c === '"') { inQuotes = !inQuotes; }
@@ -114,50 +102,30 @@
         async function bootNmmsPortal() {
             try {
                 const res = await fetch(DATABASE_CSV_URL);
-                if (!res.ok) throw new Error("Dataset extraction connection offline.");
+                if (!res.ok) throw new Error("Dataset offline.");
                 const txt = await res.text();
-
                 const lines = parseCsvRows(txt);
                 const dataRows = lines.slice(1);
-
                 masterDatabaseRecords = [];
 
                 dataRows.forEach((cols, index) => {
                     if (!cols || cols.length < 4 || !cols[3]) return;
-
                     let clsName = cols[0] ? cols[0].replace(/^"|"$/g, '').trim() : 'Class 8';
                     let subj    = cols[1] ? cols[1].replace(/^"|"$/g, '').trim() : 'Science';
                     let uNo     = cols[2] ? cols[2].replace(/^"|"$/g, '').trim() : '';
                     let uName   = cols[3] ? cols[3].replace(/^"|"$/g, '').trim() : '';
-
                     let vUrl    = (cols[4] && cols[4].trim() !== "") ? cols[4].replace(/^"|"$/g, '').trim() : '#';
                     let fUrl    = cols[5] ? cols[5].replace(/^"|"$/g, '').replace(/^\.\//, '').trim() : '#';
                     let rawMcq  = cols[6] ? cols[6].replace(/^"|"$/g, '').trim() : '#';
 
-                    if (rawMcq.startsWith('http') && !rawMcq.includes('../mcq/')) {
-                        rawMcq = `../mcq/?id=${encodeURIComponent(rawMcq)}`;
-                    }
-
                     masterDatabaseRecords.push({
-                        id: index,
-                        className: clsName,
-                        subject:   subj,
-                        unitNo:    uNo,
-                        unitName:  uName,
-                        videoUrl:  vUrl,
-                        fileUrl:   fUrl,
-                        mcqUrl:    rawMcq
+                        id: index, className: clsName, subject: subj, unitNo: uNo, unitName: uName, videoUrl: vUrl, pdfUrl: fUrl, mcqUrl: rawMcq
                     });
                 });
-
                 buildSubjectTabs();
             } catch (error) {
-                console.error("Database connection failure:", error);
-                document.getElementById('units-master-deck').innerHTML = `
-                    <div class="col-span-full p-4 bg-red-50 text-red-700 text-xs font-bold rounded-xl border border-red-100 text-center">
-                        Error reading spreadsheet entries. Verify document general visibility share levels.
-                    </div>
-                `;
+                console.error(error);
+                document.getElementById('units-master-deck').innerHTML = `<div class="col-span-full p-4 bg-red-50 text-red-700 text-xs font-bold rounded-xl border border-red-100 text-center">Error reading entries.</div>`;
             }
         }
 
@@ -165,7 +133,6 @@
             const container = document.getElementById('subject-tabs-container');
             const subjects = [...new Set(masterDatabaseRecords.map(x => x.subject))].filter(Boolean);
             container.innerHTML = "";
-
             subjects.forEach((sub, i) => {
                 if (i === 0) globallySelectedSubject = sub;
                 const btn = document.createElement('button');
@@ -183,14 +150,12 @@
         }
 
         function renderActiveSubjectDeck() {
-            const deck = document.getElementById('units-master-deck');
-            deck.innerHTML = "";
+            const deck = document.getElementById('units-master-deck'); deck.innerHTML = "";
             const rows = masterDatabaseRecords.filter(x => x.subject === globallySelectedSubject);
-
             rows.forEach(row => {
-                const communitiesWatchVideo = row.videoUrl !== '#';
+                const hasVideo = row.videoUrl !== '#';
+                const hasMcq = row.mcqUrl !== '#';
                 let displayUnitName = row.unitName.replace(/\r?\n/g, '<br>');
-
                 const card = document.createElement('div');
                 card.className = "bg-white border border-slate-200/80 rounded-2xl p-5 shadow-sm flex flex-col justify-between hover:border-emerald-400 transition group";
                 card.innerHTML = `
@@ -199,27 +164,16 @@
                             <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest font-mono">${row.unitNo}</span>
                             <span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-100 px-2.5 py-0.5 rounded-md uppercase tracking-wider">${row.className}</span>
                         </div>
-                        <div>
-                            <h3 class="font-black text-slate-900 text-base tracking-tight group-hover:text-emerald-600 transition tamil-fix">${displayUnitName}</h3>
-                        </div>
+                        <div><h3 class="font-black text-slate-900 text-base tracking-tight group-hover:text-emerald-600 transition tamil-fix">${displayUnitName}</h3></div>
                         <div class="pt-2 space-y-2 border-t border-slate-100">
-                            ${communitiesWatchVideo ? `
-                            <a href="${row.videoUrl}" target="_blank" class="flex items-center gap-2 text-xs font-bold text-slate-600 hover:text-red-600 transition">
-                                <i class="fa-brands fa-youtube text-red-500 text-sm w-4 text-center"></i> Video Class Material
-                            </a>` : `
-                            <span class="flex items-center gap-2 text-xs font-bold text-slate-300 cursor-not-allowed">
-                                <i class="fa-brands fa-youtube text-slate-200 text-sm w-4 text-center"></i> Video Coming Soon
-                            </span>`}
-
                             <button data-id="${row.id}" onclick="triggerMaterialOpen(this)" class="flex items-center gap-2 text-xs font-bold text-slate-600 hover:text-emerald-600 transition text-left w-full">
-                                <i class="fa-solid fa-file-lines text-blue-500 text-sm w-4 text-center"></i> Text & Revision Notes
+                                <i class="fa-solid fa-file-pdf text-red-500 text-sm w-4 text-center"></i> Read Material Content
                             </button>
+                            ${hasVideo ? `<a href="${row.videoUrl}" target="_blank" class="flex items-center gap-2 text-xs font-bold text-slate-600 hover:text-red-600 transition"><i class="fa-brands fa-youtube text-red-500 text-sm w-4 text-center"></i> Video Class Material</a>` : `<span class="flex items-center gap-2 text-xs font-bold text-slate-300 cursor-not-allowed"><i class="fa-brands fa-youtube text-slate-200 text-sm w-4 text-center"></i> Video Coming Soon</span>`}
                         </div>
                     </div>
                     <div class="mt-5 pt-3 border-t border-slate-100">
-                        <a href="${row.mcqUrl}" class="w-full text-center bg-slate-950 hover:bg-emerald-600 text-white font-black text-xs py-3 rounded-xl transition shadow-md block uppercase tracking-wider">
-                            <i class="fa-solid fa-square-poll-vertical mr-1"></i> Start Interactive MCQ Test
-                        </a>
+                        ${hasMcq ? `<a href="${row.mcqUrl}" target="_blank" class="w-full text-center bg-slate-950 hover:bg-emerald-600 text-white font-black text-xs py-3 rounded-xl transition shadow-md block uppercase tracking-wider"><i class="fa-solid fa-square-poll-vertical mr-1"></i> Start Interactive MCQ Test</a>` : `<button disabled class="w-full text-center bg-slate-100 text-slate-400 font-bold text-xs py-3 rounded-xl block uppercase tracking-wider cursor-not-allowed border border-slate-200/40">Quiz Coming Soon</button>`}
                     </div>
                 `;
                 deck.appendChild(card);
@@ -229,21 +183,16 @@
         function triggerMaterialOpen(buttonElement) {
             const targetId = parseInt(buttonElement.getAttribute('data-id'));
             const record = masterDatabaseRecords.find(x => x.id === targetId);
-            if (record) {
-                openMaterialModal(record.fileUrl, record.unitName, record.unitNo);
-            }
+            if (record) openMaterialModal(record.pdfUrl, record.unitName, record.unitNo);
         }
 
-        let currentTextScale = 16;
-        let currentActiveTheme = 'light';
-
+        let currentTextScale = 16; let currentActiveTheme = 'light';
         const themeStyles = {
             light: { bodyBg: 'bg-white', text: 'text-slate-800', border: 'border-slate-200/60', headerBg: 'bg-slate-50', headerText: 'text-slate-900', btnBg: 'bg-slate-950', btnText: 'text-white' },
             sepia: { bodyBg: 'bg-[#f4ecd8]', text: 'text-[#5b4636]', border: 'border-[#e4d8bc]', headerBg: 'bg-[#eae0c6]', headerText: 'text-[#433225]', btnBg: 'bg-[#433225]', btnText: 'text-[#f4ecd8]' },
             dark:  { bodyBg: 'bg-slate-950', text: 'text-slate-200', border: 'border-slate-800', headerBg: 'bg-slate-900', headerText: 'text-white', btnBg: 'bg-slate-800', btnText: 'text-slate-200' }
         };
 
-        // RENDER NATIVE STUDY CONTENT WITHOUT IFRAMES
         async function openMaterialModal(fileUrl, unitName, unitNo) {
             const modal = document.getElementById('material-modal');
             const drawer = document.getElementById('material-drawer-content');
@@ -252,63 +201,43 @@
             document.getElementById('modal-material-title').innerHTML = unitName.replace(/\r?\n/g, ' - ');
             document.getElementById('modal-unit-badge').innerText = unitNo;
 
-            // Force visibility updates instantly
             modal.style.setProperty('display', 'flex', 'important');
-            modal.classList.remove('invisible');
-            modal.classList.add('opacity-100');
+            modal.classList.remove('invisible'); modal.classList.add('opacity-100');
+            drawer.classList.remove('translate-x-full'); drawer.style.transform = 'none';
 
-            // Remove the slide constraint instantly
-            drawer.classList.remove('translate-x-full');
-            drawer.style.transform = 'none';
-
-            body.innerHTML = `<div class="text-center py-12 text-slate-400 text-xs"><i class="fa-solid fa-circle-notch fa-spin mr-2"></i>Loading study material...</div>`;
-
-            let processedUrl = fileUrl;
-            if (!fileUrl.startsWith('http') && !fileUrl.startsWith('/') && !fileUrl.startsWith('.')) {
-                processedUrl = `./${fileUrl}`;
+            let processedUrl = fileUrl.trim();
+            if (!processedUrl.startsWith('http') && !processedUrl.startsWith('/') && !processedUrl.startsWith('.')) {
+                processedUrl = `./${processedUrl}`;
             }
 
-            try {
-                const res = await fetch(processedUrl);
-                if (!res.ok) throw new Error(`Status: ${res.status}`);
-                const rawText = await res.text();
-
-                body.innerHTML = `
-                    <pre id="material-text-node" class="font-sans leading-relaxed tracking-wide whitespace-pre-wrap select-text tamil-fix" style="font-size: ${currentTextScale}px;"></pre>
-                `;
-
-                const textContainer = document.getElementById('material-text-node');
-                let cleanHtmlContent = rawText.replace(/[\u0b80-\u0bff]+/g, (match) => `<span class="tamil-fix font-medium">${match}</span>`);
-                textContainer.innerHTML = cleanHtmlContent;
-
+            if (processedUrl.toLowerCase().endsWith('.pdf')) {
+                body.innerHTML = `<div class="w-full h-[73vh] rounded-xl overflow-hidden border border-slate-200 shadow-inner bg-slate-100"><object data="${processedUrl}" type="application/pdf" class="w-full h-full"><iframe src="${processedUrl}" class="w-full h-full border-0"></iframe></object></div>`;
                 setReaderTheme(currentActiveTheme);
-
-                if (window.MathJax && window.MathJax.typesetPromise) {
-                    window.MathJax.typesetPromise([textContainer]);
+            } else {
+                body.innerHTML = `<div class="text-center py-12 text-slate-400 text-xs"><i class="fa-solid fa-circle-notch fa-spin mr-2"></i>Loading text material...</div>`;
+                try {
+                    const res = await fetch(processedUrl);
+                    if (!res.ok) throw new Error();
+                    const rawText = await res.text();
+                    body.innerHTML = `<pre id="material-text-node" class="font-sans leading-relaxed tracking-wide whitespace-pre-wrap select-text tamil-fix" style="font-size: ${currentTextScale}px;"></pre>`;
+                    const textContainer = document.getElementById('material-text-node');
+                    textContainer.innerHTML = rawText.replace(/[\u0b80-\u0bff]+/g, (match) => `<span class="tamil-fix font-medium">${match}</span>`);
+                    setReaderTheme(currentActiveTheme);
+                    if (window.MathJax && window.MathJax.typesetPromise) window.MathJax.typesetPromise([textContainer]);
+                } catch(e) {
+                    body.innerHTML = `<div class="p-5 bg-red-50 text-red-700 text-xs font-bold rounded-2xl border border-red-100 text-center">Missing material file documentation.</div>`;
                 }
-            } catch(e) {
-                console.error(e);
-                body.innerHTML = `
-                    <div class="p-5 bg-red-50 text-red-700 text-xs font-bold rounded-2xl border border-red-100 text-center">
-                        <i class="fa-solid fa-circle-exclamation mr-1.5"></i> Failed to parse text material file.<br>
-                        <span class="font-mono text-[10px] text-slate-400 block mt-1">Verify filename matches: ${processedUrl}</span>
-                    </div>
-                `;
             }
         }
 
         function adjustTextScale(delta) {
             currentTextScale = Math.max(14, Math.min(26, currentTextScale + delta));
             const textNode = document.getElementById('material-text-node');
-            if (textNode) {
-                textNode.style.fontSize = `${currentTextScale}px`;
-            }
+            if (textNode) textNode.style.fontSize = `${currentTextScale}px`;
         }
 
         function setReaderTheme(themeKey) {
-            currentActiveTheme = themeKey;
-            const styleMap = themeStyles[themeKey];
-
+            currentActiveTheme = themeKey; const styleMap = themeStyles[themeKey];
             const drawer = document.getElementById('material-drawer-content');
             const header = document.getElementById('modal-header-container');
             const body = document.getElementById('modal-material-body');
@@ -316,34 +245,67 @@
             const footerBtn = document.querySelector('#modal-footer-container button');
             const textNode = document.getElementById('material-text-node');
 
-            if (drawer) drawer.className = `w-full max-w-2xl ${styleMap.bodyBg} h-full shadow-2xl flex flex-col translate-x-full transition-transform duration-300 ${styleMap.headerText}`;
+            if (drawer) drawer.className = `w-full max-w-2xl ${styleMap.bodyBg} h-full shadow-2xl flex flex-col translate-x-full text-slate-900 ${styleMap.headerText}`;
             if (header) header.className = `p-4 border-b ${styleMap.border} flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${styleMap.headerBg}`;
             if (body) body.className = `flex-grow overflow-y-auto p-6 md:p-8 ${styleMap.bodyBg} transition-colors duration-200`;
             if (footer) footer.className = `p-4 border-t ${styleMap.border} ${styleMap.headerBg} flex justify-end`;
             if (footerBtn) footerBtn.className = `px-5 py-2.5 ${styleMap.btnBg} ${styleMap.btnText} rounded-xl text-xs font-black shadow transition uppercase tracking-wider`;
-
-            if (textNode) {
-                textNode.className = `font-sans leading-relaxed tracking-wide whitespace-pre-wrap select-text tamil-fix ${styleMap.text}`;
-            }
+            if (textNode) textNode.className = `font-sans leading-relaxed tracking-wide whitespace-pre-wrap select-text tamil-fix ${styleMap.text}`;
         }
 
         function closeMaterialModal() {
-            const modal = document.getElementById('material-modal');
-            const drawer = document.getElementById('material-drawer-content');
-
-            drawer.classList.add('translate-x-full');
-            drawer.style.transform = '';
-
-            modal.classList.remove('opacity-100');
-            modal.classList.add('invisible');
-            modal.style.display = 'none';
+            const modal = document.getElementById('material-modal'); const drawer = document.getElementById('material-drawer-content');
+            drawer.classList.add('translate-x-full'); drawer.style.transform = '';
+            modal.classList.remove('opacity-100'); modal.classList.add('invisible'); modal.style.display = 'none';
         }
 
+        // NAVBAR & INTERACTION ROUTERS (Guarantees navigation links run perfectly)
         async function loadSharedSiteNavbar() {
             try {
                 const res = await fetch(`../navbar.html?v=${new Date().getTime()}`);
-                if (res.ok) document.getElementById('navbar-placeholder').innerHTML = await res.text();
-            } catch (e) { console.error("Navbar loading blocked:", e); }
+                if (res.ok) {
+                    document.getElementById('navbar-placeholder').innerHTML = await res.text();
+                    initializeGlobalNavigationHooks();
+                }
+            } catch (e) { console.error(e); }
+        }
+
+        function initializeGlobalNavigationHooks() {
+            document.removeEventListener('click', closeAllDropdowns);
+            document.addEventListener('click', closeAllDropdowns);
+        }
+
+        function toggleNavigationMenu(event, targetMenuId) {
+            event.stopPropagation();
+            const targetMenu = document.getElementById(targetMenuId);
+            if (!targetMenu) return;
+            if (targetMenuId.includes('mobile-')) {
+                const isHidden = targetMenu.classList.contains('hidden');
+                document.querySelectorAll('[id*="mobile-menu-"]').forEach(m => m.classList.add('hidden'));
+                if (isHidden) targetMenu.classList.remove('hidden');
+            } else {
+                const isOpen = targetMenu.classList.contains('dropdown-active');
+                document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('dropdown-active'));
+                if (!isOpen) targetMenu.classList.add('dropdown-active');
+            }
+        }
+
+        function toggleMobileMenu(open) {
+            const drawer = document.getElementById('mobile-drawer');
+            const content = document.getElementById('drawer-content');
+            if (!drawer || !content) return;
+            if (open) {
+                drawer.classList.remove('invisible');
+                setTimeout(() => content.classList.remove('translate-x-full'), 10);
+            } else {
+                content.classList.add('translate-x-full');
+                setTimeout(() => drawer.classList.add('invisible'), 300);
+            }
+        }
+
+        function closeAllDropdowns() {
+            document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('dropdown-active'));
+            document.querySelectorAll('[id*="mobile-menu-"]').forEach(m => m.classList.add('hidden'));
         }
 
         window.addEventListener('DOMContentLoaded', () => {
