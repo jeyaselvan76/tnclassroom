@@ -6,8 +6,7 @@
     <title>Samacheer Book Back Solutions | TN Classroom</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- MathJax Processing Engine Configuration -->
+
     <script>
       window.MathJax = {
         tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], processEscapes: true },
@@ -15,15 +14,15 @@
       };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    
+
     <style>
-        .dropdown-group:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+        .dropdown-active { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; }
         .tamil-fix { font-family: 'Segoe UI', 'Latha', sans-serif !important; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-900 flex flex-col min-h-screen font-sans">
 
-    <!-- Top Adsense Leaderboard Strip -->
+    <!-- Top Advertisement Leaderboard Strip -->
     <div class="w-full bg-white border-b border-slate-200 py-1.5 flex justify-center items-center text-[10px] text-gray-400">
         <div class="text-center">
             <span class="block uppercase tracking-wider font-bold mb-0.5 text-[9px]">Advertisement</span>
@@ -33,295 +32,234 @@
         </div>
     </div>
 
-  <div id="navbar-placeholder"></div>
+    <!-- Dynamic Navigation Target Placeholder (Desktop + Mobile Layouts Sync Location) -->
+    <div id="navbar-placeholder"></div>
 
-    <!-- Core Layout Work Canvas Grid -->
-    <main class="flex-grow max-w-7xl w-full mx-auto p-4 lg:py-8 grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
-        
-        <!-- SIDEBAR NAVIGATION FILTERS -->
-        <aside class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-4">
-            <h3 class="font-black text-xs uppercase tracking-wider text-slate-400 border-b pb-2 flex items-center gap-2">
-                <i class="fa-solid fa-filter text-emerald-500"></i> Navigation Filters
-            </h3>
-            
-            <!-- Filter Option 1: Class Selector -->
-            <div class="space-y-1.5">
-                <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wide">1. Select Class</label>
-                <select id="filter-class" onchange="buildSubjectDropdown()" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold focus:border-emerald-500 outline-none transition"></select>
+    <main class="flex-grow max-w-7xl w-full mx-auto p-4 lg:py-8 grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
+
+        <div class="lg:col-span-3 space-y-8">
+
+            <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm">
+                <h1 class="text-2xl font-black text-slate-900 sm:text-3xl flex items-center gap-2">
+                    <span class="p-2 bg-emerald-50 text-emerald-600 rounded-xl"><i class="fa-solid fa-graduation-cap"></i></span>
+                    Samacheer Book Back Solutions
+                </h1>
+                <p class="text-slate-500 text-sm mt-2 leading-relaxed">Follow the step-by-step layout framework to access localized study guides, textbook answer keys, and inline equations solutions formulas.</p>
             </div>
 
-            <!-- Filter Option 2: Subject Selector -->
-            <div class="space-y-1.5">
-                <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wide">2. Select Subject</label>
-                <select id="filter-subject" onchange="displayMatchingUnits()" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold focus:border-emerald-500 outline-none transition" disabled>
-                    <option value="">Choose Subject</option>
-                </select>
-            </div>
-
-            <!-- Sidebar Ad Component Slot -->
-            <div class="w-full bg-slate-50 border border-dashed border-slate-300 p-2 rounded-xl text-center pt-4">
-                <span class="text-[8px] font-black text-slate-400 uppercase tracking-widest block mb-2">Sponsored Material</span>
-                <div class="h-44 bg-white rounded-lg border border-slate-100 flex items-center justify-center text-[11px] text-slate-400 font-mono">
-                    Sidebar Contextual Banner Box
+            <!-- SECTION 1: CLASS SELECTION -->
+            <section id="section-classes" class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm space-y-4">
+                <div class="border-b border-slate-100 pb-3 flex items-center gap-3">
+                    <span class="w-7 h-7 bg-emerald-600 text-white font-black rounded-lg flex items-center justify-center text-xs">1</span>
+                    <h2 class="font-black text-slate-900 text-base uppercase tracking-tight">Select Class / வகுப்பைத் தேர்வுசெய்</h2>
                 </div>
-            </div>
-        </aside>
-
-        <!-- MAIN INTERACTIVE CANVAS STREAM AREA -->
-        <section class="lg:col-span-2 space-y-4">
-            
-            <!-- Interactive Unit Selector Deck Panel -->
-            <div id="unit-deck-panel" class="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm space-y-3">
-                <h2 id="active-title-indicator" class="text-base font-black text-slate-900 uppercase tracking-tight">Samacheer Book Back Directory</h2>
-                <div id="test-alert-badge" class="hidden bg-amber-50 border border-amber-200 text-amber-800 text-[11px] font-bold p-2.5 rounded-xl">
-                    <i class="fa-solid fa-triangle-exclamation mr-1"></i> Running in Fallback Sandbox Mode! Cross-check Google Sheets configuration setup.
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                    <script>
+                        for(let i=1; i<=12; i++) {
+                            document.write(`
+                                <a href="#section-subjects" class="p-3 text-center bg-slate-50 border border-slate-200 rounded-xl font-bold text-sm text-slate-700 hover:bg-emerald-50 hover:border-emerald-400 hover:text-emerald-900 transition shadow-sm flex flex-col justify-center items-center gap-0.5">
+                                    <span class="text-[10px] uppercase font-black tracking-wider text-slate-400">Standard</span>
+                                    Class ${i}
+                                </a>
+                            `);
+                        }
+                    </script>
                 </div>
-                <p class="text-xs text-slate-400">Please select a class and subject combination from the sidebar navigation tree to isolate system unit links.</p>
-                
-                <!-- Dynamic Target Output Grid for JavaScript Buttons -->
-                <div id="units-action-grid" class="grid grid-cols-1 gap-2 pt-2"></div>
-            </div>
+            </section>
 
-            <!-- SYSTEM TEXT ANSWER CANVAS VIEWER BOX -->
-            <div id="solution-viewer-canvas" class="hidden bg-white border border-slate-100 rounded-2xl p-6 shadow-sm space-y-4 relative">
-                <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-                    <div>
-                        <span id="solution-badge" class="text-[10px] font-black bg-emerald-50 text-emerald-700 px-2.5 py-0.5 rounded-md uppercase border border-emerald-100">UNIT ANSWERS</span>
-                        <h3 id="solution-heading" class="font-black text-slate-900 text-base mt-1.5"></h3>
+            <!-- SECTION 2: SUBJECT & MEDIUM -->
+            <section id="section-subjects" class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm space-y-4">
+                <div class="border-b border-slate-100 pb-3 flex items-center gap-3">
+                    <span class="w-7 h-7 bg-emerald-600 text-white font-black rounded-lg flex items-center justify-center text-xs">2</span>
+                    <h2 class="font-black text-slate-900 text-base uppercase tracking-tight">Select Subject & Medium / பாடம் மற்றும் ஊடகம்</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-between group hover:border-emerald-300 transition">
+                        <div>
+                            <h3 class="font-extrabold text-slate-800 text-sm tracking-tight">Mathematics / கணிதம்</h3>
+                            <span class="inline-block text-[10px] font-black bg-slate-200/60 text-slate-600 px-2 py-0.5 rounded uppercase mt-1 tracking-wider">English Medium</span>
+                        </div>
+                        <a href="#section-units" class="bg-white hover:bg-emerald-600 hover:text-white border border-slate-200 text-slate-700 font-bold text-xs px-3 py-2 rounded-lg transition shadow-sm">View Units ›</a>
                     </div>
-                    <button onclick="closeSolutionCanvas()" class="text-slate-400 hover:text-slate-600 transition p-2 bg-slate-50 hover:bg-slate-100 rounded-xl text-xs font-bold"><i class="fa-solid fa-circle-xmark"></i> Close</button>
+
+                    <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-between group hover:border-emerald-300 transition">
+                        <div>
+                            <h3 class="font-extrabold text-slate-800 text-sm tracking-tight">Science / அறிவியல்</h3>
+                            <span class="inline-block text-[10px] font-black bg-emerald-50 text-emerald-700 border border-emerald-100 px-2 py-0.5 rounded uppercase mt-1 tracking-wider">Tamil Medium / தமிழ் வழி</span>
+                        </div>
+                        <button onclick="fetchAndRenderExternalSolutionFile('../solutions/test.txt', 'Class 10 Science: Laws of Motion')" class="bg-white hover:bg-emerald-600 hover:text-white border border-slate-200 text-slate-700 font-bold text-xs px-3 py-2 rounded-lg transition shadow-sm">View Units ›</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 3: UNIT DIRECTORY -->
+            <section id="section-units" class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm space-y-4">
+                <div class="border-b border-slate-100 pb-3 flex items-center gap-3">
+                    <span class="w-7 h-7 bg-emerald-600 text-white font-black rounded-lg flex items-center justify-center text-xs">3</span>
+                    <h2 class="font-black text-slate-900 text-base uppercase tracking-tight">Select Unit Module / அலகைத் தேர்வுசெய்</h2>
+                </div>
+                <div class="grid grid-cols-1 gap-2">
+                    <button onclick="fetchAndRenderExternalSolutionFile('../solutions/test.txt', 'Unit 1: Laws of Motion / இயக்க விதிகள்')" class="w-full text-left p-3.5 bg-slate-50 border border-slate-200 rounded-xl hover:bg-emerald-50 hover:border-emerald-300 transition group flex justify-between items-center">
+                        <div>
+                            <span class="text-[9px] font-black text-slate-400 group-hover:text-emerald-700 uppercase block tracking-wider">Unit 1 &bull; Mechanics</span>
+                            <h4 class="font-bold text-slate-800 group-hover:text-slate-900 text-sm mt-0.5 tracking-tight tamil-fix">Laws of Motion / இயக்க விதிகள்</h4>
+                        </div>
+                        <i class="fa-solid fa-circle-chevron-right text-slate-300 group-hover:text-emerald-500 transition text-sm"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- SECTION 4: DISPLAY VIEWPORT -->
+            <section id="section-solutions" class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm space-y-5 scroll-mt-20">
+                <div class="border-b border-slate-100 pb-3 flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <span class="w-7 h-7 bg-emerald-600 text-white font-black rounded-lg flex items-center justify-center text-xs">4</span>
+                        <div>
+                            <span class="text-[10px] font-black bg-emerald-50 text-emerald-700 px-2.5 py-0.5 rounded-md uppercase border border-emerald-100">Verified Answer Key</span>
+                            <h2 id="solution-heading" class="font-black text-slate-900 text-base mt-0.5 uppercase tracking-tight">Solution Dataset / தீர்வுகள் விளக்கம்</h2>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Mid-Content Text Banner Ad Display Slot -->
-                <div class="bg-slate-50 border border-dashed border-slate-200 p-2 rounded-xl text-center">
+                <div class="w-full bg-slate-50 border border-dashed border-slate-200 p-2 rounded-xl text-center">
                     <div class="h-14 bg-white rounded-lg flex items-center justify-center text-xs text-slate-400 font-mono">
                         Inside Content Contextual Banner Ad Unit Block
                     </div>
                 </div>
 
-                <!-- DYNAMIC SOURCE DATA LOG ELEMENT INJECTION SCREEN -->
-                <div id="solution-raw-html-injection" class="text-sm text-slate-700 leading-relaxed pt-2"></div>
-            </div>
-        </section>
+                <div id="solution-raw-html-injection" class="text-sm text-slate-700 leading-relaxed pt-2">
+                    <p class="text-slate-400 text-xs font-medium italic"><i class="fa-solid fa-circle-info mr-1"></i> Please click a unit above to display its corresponding text database file here.</p>
+                </div>
+            </section>
 
-        <!-- RIGHT REVENUE VERTICAL AD DESK -->
+        </div>
+
+        <!-- RIGHT SIDEBAR REVENUE DESK -->
         <aside class="space-y-6 lg:sticky lg:top-24">
             <div class="bg-white p-4 rounded-2xl border border-dashed border-slate-300 text-center flex flex-col justify-center items-center shadow-sm">
                 <span class="text-[8px] font-bold text-slate-400 uppercase tracking-widest block mb-2">Sponsored Links Space</span>
-                <div class="w-full h-[250px] lg:h-[450px] bg-slate-50 rounded-xl flex items-center justify-center text-xs text-slate-400 font-mono">
+                <div class="w-full h-[250px] lg:h-[480px] bg-slate-50 rounded-xl flex items-center justify-center text-xs text-slate-400 font-mono">
                     Vertical Skyscraper Ad Space (300x600)
                 </div>
             </div>
         </aside>
+
     </main>
 
-    <!-- Base Branding Footer -->
     <footer class="bg-slate-950 text-slate-500 border-t border-slate-800 py-6 text-center text-xs mt-auto">
         <p>&copy; 2026 TN Classroom Learning Network. All content synced from structural cloud logs.</p>
     </footer>
 
-    <!-- CENTRAL AUTOMATION CONTROLLER LOOPS -->
+    <!-- CENTRAL LAYOUT ENGINE FUNCTIONS -->
     <script>
-        const SHEET_DATABASE_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vT0TIqiqJaA918jRivJnDFFV7V2C1FryGE28uLmSWlSZTHTwkXXXm5rcWW97K_C2p9_JqGYD1Jtp5fG/pub?gid=671655309&single=true&output=csv";
-        let masterDatabaseArray = [];
-
-        async function initializeLearningHub() {
-            try {
-                if (SHEET_DATABASE_CSV_URL.includes("YOUR_SPREADSHEET_ID")) {
-                    throw new Error("Placeholder URL configuration mismatch.");
-                }
-                const response = await fetch(SHEET_DATABASE_CSV_URL);
-                const dataText = await response.text();
-                
-                const rows = dataText.split('\n').slice(1);
-                masterDatabaseArray = [];
-
-                rows.forEach(row => {
-                    const cleanRow = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-                    if (cleanRow.length < 5) return;
-
-                    masterDatabaseArray.push({
-                        className: cleanRow[0].replace(/"/g, '').trim(),
-                        subject:   cleanRow[1].replace(/"/g, '').trim(),
-                        unitNo:    cleanRow[2].replace(/"/g, '').trim(),
-                        unitName:  cleanRow[3].replace(/"/g, '').trim(),
-                        fileUrl:   cleanRow[4].replace(/"/g, '').trim(),
-                        category:  cleanRow[5] ? cleanRow[5].replace(/"/g, '').trim() : 'General'
-                    });
-                });
-
-            } catch (error) {
-                console.log("Sandbox execution mode fallback active:", error.message);
-                document.getElementById('test-alert-badge').classList.remove('hidden');
-                
-                masterDatabaseArray = [
-                    {
-                        className: "Class 10",
-                        subject: "Science",
-                        unitNo: "Unit 1",
-                        unitName: "Laws of Motion / இயக்க விதிகள்",
-                        fileUrl: "../solutions/test.txt",
-                        category: "Physics"
-                    },
-                    {
-                        className: "Class 12",
-                        subject: "Mathematics",
-                        unitNo: "Unit 1",
-                        unitName: "Applications of Matrices",
-                        fileUrl: "../solutions/test2.txt",
-                        category: "Maths"
-                    }
-                ];
-            }
-            buildClassDropdown();
-        }
-
-        function buildClassDropdown() {
-            const classSelect = document.getElementById('filter-class');
-            const uniqueClasses = [...new Set(masterDatabaseArray.map(item => item.className))];
-            
-            classSelect.innerHTML = '<option value="">Choose Class / வகுப்பைத் தேர்வுசெய்</option>';
-            uniqueClasses.forEach(c => classSelect.add(new Option(c, c)));
-        }
-
-        function buildSubjectDropdown() {
-            const selectedClass = document.getElementById('filter-class').value;
-            const subSelect = document.getElementById('filter-subject');
-            
-            subSelect.innerHTML = '<option value="">Choose Subject / பாடம்</option>';
-            document.getElementById('units-action-grid').innerHTML = ''; 
-            
-            if (!selectedClass) { subSelect.disabled = true; return; }
-
-            const filteredSubjects = [...new Set(masterDatabaseArray.filter(item => item.className === selectedClass).map(item => item.subject))];
-            filteredSubjects.forEach(s => subSelect.add(new Option(s, s)));
-            subSelect.disabled = false;
-        }
-
-        function displayMatchingUnits() {
-            const selectedClass = document.getElementById('filter-class').value;
-            const selectedSubject = document.getElementById('filter-subject').value;
-            const gridContainer = document.getElementById('units-action-grid');
-            
-            gridContainer.innerHTML = '';
-            closeSolutionCanvas();
-
-            if (!selectedClass || !selectedSubject) return;
-
-            document.getElementById('active-title-indicator').innerText = `${selectedClass} | ${selectedSubject}`;
-            
-            const matchingRows = masterDatabaseArray.filter(item => item.className === selectedClass && item.subject === selectedSubject);
-            
-            matchingRows.forEach(row => {
-                const btn = document.createElement('button');
-                btn.className = "w-full text-left p-3.5 bg-slate-50 border border-slate-200 rounded-xl hover:bg-emerald-50 hover:border-emerald-300 transition group flex justify-between items-center";
-                btn.innerHTML = `
-                    <div>
-                        <span class="text-[9px] font-black text-slate-400 group-hover:text-emerald-700 uppercase block tracking-wider">${row.unitNo} &bull; ${row.category}</span>
-                        <h4 class="font-bold text-slate-800 group-hover:text-slate-900 text-sm mt-0.5 tracking-tight tamil-fix">${row.unitName}</h4>
-                    </div>
-                    <i class="fa-solid fa-circle-chevron-right text-slate-300 group-hover:text-emerald-500 transition text-sm"></i>
-                `;
-                btn.onclick = () => fetchAndRenderExternalSolutionFile(row.fileUrl, `${row.unitNo}: ${row.unitName}`);
-                gridContainer.appendChild(btn);
-            });
-        }
-
+        // 1. TEXT EXTRACTOR ENGINE
         async function fetchAndRenderExternalSolutionFile(filePath, titleText) {
-            const targetViewer = document.getElementById('solution-viewer-canvas');
             const injectionTarget = document.getElementById('solution-raw-html-injection');
-            
-            injectionTarget.innerHTML = `<div class="text-center py-6 text-slate-400 font-medium text-xs"><i class="fa-solid fa-circle-notch fa-spin text-emerald-500 mr-1.5"></i> Extracting answer logs from source module file references...</div>`;
+            injectionTarget.innerHTML = `<div class="text-center py-6 text-slate-400 font-medium text-xs"><i class="fa-solid fa-circle-notch fa-spin text-emerald-500 mr-1.5"></i> Loading raw solution file...</div>`;
             document.getElementById('solution-heading').innerText = titleText;
-            targetViewer.classList.remove('hidden');
-            targetViewer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            document.getElementById('section-solutions').scrollIntoView({ behavior: 'smooth', block: 'start' });
 
             try {
                 const response = await fetch(filePath);
-                if (!response.ok) throw new Error("File fetch failure status logs returned empty.");
-                
-                const rawContentText = await response.text();
-                injectionTarget.innerHTML = rawContentText;
+                if (!response.ok) throw new Error("File asset read error.");
+                let textData = await response.text();
+                textData = textData.replace(/\n/g, '<br>');
+                injectionTarget.innerHTML = `<div class="font-sans text-sm text-slate-700 leading-relaxed space-y-2 select-text">${textData}</div>`;
 
-                // Re-compile MathJax formulas dynamically
                 if (window.MathJax && window.MathJax.typesetPromise) {
                     window.MathJax.typesetPromise([injectionTarget]);
                 }
             } catch (error) {
-                injectionTarget.innerHTML = `<p class="text-red-500 font-bold text-xs p-4 bg-red-50 border border-red-100 rounded-xl">Error fetching file: Be sure your file is located exactly at: <span class="font-mono bg-white p-1 rounded border text-slate-700">${filePath}</span> inside your repository folder.</p>`;
+                injectionTarget.innerHTML = `<p class="text-rose-600 font-bold text-xs p-4 bg-rose-50 border border-rose-100 rounded-xl"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Error loading file.</p>`;
             }
         }
 
-        function closeSolutionCanvas() {
-            document.getElementById('solution-viewer-canvas').classList.add('hidden');
-        }
+        // 2. FIXED: CACHE-BUSTING NAVIGATION INJECTOR MODULE
+        async function loadSharedSiteNavbar() {
+    try {
+        const cacheBusterToken = new Date().getTime();
 
-        window.onload = initializeLearningHub;
-    </script>
-<script>
-    // AUTOMATED SYSTEM-WIDE NAVBAR INJECTOR ENGINE
-    async function loadSharedSiteNavbar() {
-        try {
-            // Fetch directly from your public GitHub content link to completely bypass folder path blocks
-            const githubRawNavbarUrl = "https://raw.githubusercontent.com/jeyaselvan76/tnclassroom/main/navbar.html";
-            
-            const response = await fetch(githubRawNavbarUrl);
-            if (!response.ok) throw new Error("Network response mismatch while extracting navbar assets.");
-            
-            const htmlContent = await response.text();
-            document.getElementById('navbar-placeholder').innerHTML = htmlContent;
-            
-            // Re-bind global document drop-down click event boundaries
-            initializeDropdownListeners();
-        } catch (error) {
-            console.error("Error loading shared navigation bar component:", error);
-        }
+        // CHANGED: Bypasses GitHub entirely and loads the navbar file right from your local directory
+        const localNavbarUrl = `/tnclassroom/navbar.html?v=${cacheBusterToken}`;
+
+        const response = await fetch(localNavbarUrl);
+        if (!response.ok) throw new Error("Local navbar file asset extraction mismatch.");
+
+        const htmlContent = await response.text();
+        document.getElementById('navbar-placeholder').innerHTML = htmlContent;
+
+        initializeDropdownListeners();
+    } catch (error) {
+        console.error("Error loading local navigation bar component:", error);
     }
+}
 
-    // Toggle menu dropdown execution parameters
-    function toggleNavigationMenu(event, targetMenuId) {
-        event.stopPropagation(); 
-        const targetMenu = document.getElementById(targetMenuId);
-        if (!targetMenu) return;
-        
-        const isOpen = targetMenu.classList.contains('dropdown-active');
-        
+        // 3. FIXED: SYNCED INTERACTIVE ROUTING FOR COMPUTER DROPDOWNS & MOBILE DRAWER LINKS
+       function toggleNavigationMenu(event, targetMenuId) {
+    event.stopPropagation();
+    const targetMenu = document.getElementById(targetMenuId);
+    if (!targetMenu) return;
+
+    // Check if the target ID belongs to the mobile tree
+    const isMobileElement = targetMenuId.includes('mobile-');
+
+    if (isMobileElement) {
+        const isCurrentlyHidden = targetMenu.classList.contains('hidden');
+
+        // Hide all mobile drop containers
+        document.querySelectorAll('[id*="mobile-menu-"]').forEach(menu => {
+            menu.classList.add('hidden');
+        });
+
+        // Toggle target window visibility
+        if (isCurrentlyHidden) {
+            targetMenu.classList.remove('hidden');
+        }
+    } else {
+        const isCurrentlyOpen = targetMenu.classList.contains('dropdown-active');
+
+        // Reset all desktop drop menus
         document.querySelectorAll('.dropdown-menu').forEach(menu => {
             menu.classList.remove('dropdown-active');
         });
-        
-        if (!isOpen) {
+
+        if (!isCurrentlyOpen) {
             targetMenu.classList.add('dropdown-active');
         }
     }
+}
 
-    function toggleMobileMenu(open) {
-        const drawer = document.getElementById('mobile-drawer');
-        const content = document.getElementById('drawer-content');
-        if (!drawer || !content) return;
-        
-        if (open) {
-            drawer.classList.remove('invisible');
-            setTimeout(() => content.classList.remove('translate-x-full'), 10);
-        } else {
-            content.classList.add('translate-x-full');
-            setTimeout(() => drawer.classList.add('invisible'), 300);
+        function toggleMobileMenu(open) {
+            const drawer = document.getElementById('mobile-drawer');
+            const content = document.getElementById('drawer-content');
+            if (!drawer || !content) return;
+
+            if (open) {
+                drawer.classList.remove('invisible');
+                setTimeout(() => content.classList.remove('translate-x-full'), 10);
+            } else {
+                content.classList.add('translate-x-full');
+                setTimeout(() => drawer.classList.add('invisible'), 300);
+            }
         }
-    }
 
-    function initializeDropdownListeners() {
-        document.removeEventListener('click', closeAllDropdowns);
-        document.addEventListener('click', closeAllDropdowns);
-    }
+        function initializeDropdownListeners() {
+            document.removeEventListener('click', closeAllDropdowns);
+            document.addEventListener('click', closeAllDropdowns);
+        }
 
-    function closeAllDropdowns() {
-        document.querySelectorAll('.dropdown-menu').forEach(menu => {
-            menu.classList.remove('dropdown-active');
-        });
-    }
+        function closeAllDropdowns() {
+    // Dismiss desktop views
+    document.querySelectorAll('.dropdown-menu').forEach(menu => {
+        menu.classList.remove('dropdown-active');
+    });
+    // Dismiss mobile views
+    document.querySelectorAll('[id*="mobile-menu-"]').forEach(menu => {
+        menu.classList.add('hidden');
+    });
+}
 
-    window.addEventListener('DOMContentLoaded', loadSharedSiteNavbar);
-</script>
-    
+        window.addEventListener('DOMContentLoaded', loadSharedSiteNavbar);
+    </script>
 </body>
 </html>

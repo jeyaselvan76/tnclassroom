@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,56 +8,287 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <script>
-        // 1. LOCAL CONFIGURATION FLAG
-        window.TNC_PAGE_STATUS = "Maintenance";
+        // LOCAL CONFIGURATION FLAG: Change to "Maintenance" to lock, or "Live" to unlock.
+        window.TNC_PAGE_STATUS = "Live";
 
         if (window.TNC_PAGE_STATUS === "Maintenance") {
-            // Block everything immediately by writing a custom style directly into the DOM stream
             document.write(`
-                <style>html, body { display: none !important; }</style>
-                <body class="bg-slate-900 text-slate-100 min-h-screen m-0 p-0" style="display: block !important;">
-                    <div class="min-h-screen bg-slate-900 flex flex-col items-center justify-center p-4 antialiased font-sans">
-                        <div class="max-w-md w-full bg-slate-950 border border-slate-800 rounded-[2.5rem] p-8 text-center shadow-2xl relative overflow-hidden">
-                            <div class="absolute -right-10 -top-10 text-slate-900/40 text-9xl font-black select-none pointer-events-none">TNC</div>
-                            
-                            <div class="w-16 h-16 bg-slate-900 border border-slate-800 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-6 shadow-inner">
-                                <i class="fa-solid fa-compass-drafting text-emerald-500 animate-pulse"></i>
-                            </div>
-                            
-                            <span class="text-[9px] font-black tracking-widest text-emerald-400 uppercase bg-emerald-950/40 border border-emerald-900/50 px-3 py-1 rounded-full">Portal Lock Active</span>
-                            
-                            <h2 class="text-xl font-extrabold text-white mt-4 tracking-tight uppercase">Module Under Construction</h2>
-                            <p class="text-xs text-slate-400 leading-relaxed mt-2.5 px-2">
-                                This specific educational channel dashboard is currently under active structural development. 
-                                Live test datasets and analytics tracking will resume shortly.
-                            </p>
-                            
-                            <div class="mt-6 pt-5 border-t border-slate-900 flex flex-col items-center justify-center gap-2">
-                                <a href="/tnclassroom/" class="bg-slate-900 hover:bg-slate-850 border border-slate-800 text-slate-300 font-bold text-xs px-5 py-2.5 rounded-xl transition w-full">
-                                    ‹ Back to Main Directory
-                                </a>
-                                <span class="text-[9px] text-slate-600 font-mono tracking-wider mt-2">TN Classroom Network Control • 2026</span>
-                            </div>
+                <style>
+                    html, body { margin: 0; padding: 0; background-color: #0f172a !important; font-family: sans-serif; display: block !important; }
+                    .wrapper { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px; box-sizing: border-box; }
+                    .card { max-width: 448px; width: 100%; background-color: #020617; border: 1px solid #1e293b; border-radius: 40px; padding: 32px; text-align: center; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); position: relative; }
+                    .icon-box { width: 64px; height: 64px; background-color: #0f172a; border: 1px solid #1e293b; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin: 0 auto 24px auto; }
+                    .badge { font-size: 9px; font-weight: 900; color: #34d399; text-transform: uppercase; background-color: rgba(6,78,59,0.4); border: 1px solid rgba(6,95,70,0.5); padding: 4px 12px; border-radius: 9999px; letter-spacing: 1px; }
+                    .title { font-size: 20px; font-weight: 800; color: #ffffff; margin-top: 16px; text-transform: uppercase; letter-spacing: -0.5px; }
+                    .desc { font-size: 12px; color: #94a3b8; line-height: 1.6; margin-top: 10px; padding: 0 8px; }
+                    .btn { display: block; background-color: #0f172a; border: 1px solid #1e293b; color: #cbd5e1; font-weight: 700; font-size: 12px; padding: 10px 20px; border-radius: 12px; text-decoration: none; margin-top: 24px; transition: background 0.2s; }
+                    .btn:hover { background-color: #1e293b; color: #ffffff; }
+                    .footer-text { display: block; font-size: 9px; color: #475569; font-family: monospace; margin-top: 16px; }
+                </style>
+                <div class="wrapper">
+                    <div class="card">
+                        <div class="icon-box">
+                            <i class="fa-solid fa-compass-drafting" style="color: #10b981;"></i>
                         </div>
+                        <span class="badge">PORTAL LOCK ACTIVE</span>
+                        <h2 class="title">Module Under Construction</h2>
+                        <p class="desc">This specific educational channel dashboard is currently under active structural development. Live test datasets and analytics tracking will resume shortly.</p>
+                        <a href="/tnclassroom/" class="btn">‹ Back to Main Directory</a>
+                        <span class="footer-text">TN Classroom Network Control • 2026</span>
                     </div>
-                </body>
+                </div>
             `);
-            // Stop processing the rest of the old file entirely
             window.stop();
         }
     </script>
-    
+
     <style>
         .dropdown-active { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; }
         .tamil-fix { font-family: 'Segoe UI', 'Latha', sans-serif !important; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-900 flex flex-col min-h-screen font-sans">
+
     <div id="navbar-placeholder"></div>
+
+    <div class="w-full bg-white border-b border-slate-200 py-2 flex justify-center items-center text-[10px] text-gray-400 font-sans">
+        <div class="text-center">
+            <span class="block uppercase tracking-wider font-semibold mb-1">Advertisement</span>
+            <div class="bg-gray-100 border border-dashed border-gray-300 w-[320px] h-[50px] md:w-[728px] md:h-[60px] flex items-center justify-center rounded font-mono text-xs">
+                Top Leaderboard Banner Ad Box
+            </div>
+        </div>
+    </div>
+
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm mb-8">
-            <h1 class="text-2xl font-black text-slate-900 sm:text-3xl flex items-center gap-2">Primary School Text Books (Class 1 - 5)</h1>
+            <h1 class="text-2xl font-black text-slate-900 sm:text-3xl flex items-center gap-2">
+                <span class="p-2 bg-emerald-50 text-emerald-600 rounded-xl"><i class="fa-solid fa-book"></i></span>
+                Primary School Text Books (Class 1 - 5)
+            </h1>
+            <p class="text-slate-500 text-sm mt-2 leading-relaxed">Download official Tamil Nadu State Board digital textbook resources organized cleanly by term, subject, and instructional medium streams.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+            <div class="lg:col-span-2 space-y-6">
+
+                <div class="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden hidden md:block">
+                    <table class="min-w-full divide-y divide-slate-200 text-sm font-medium">
+                        <thead class="bg-slate-950 text-slate-200 text-xs uppercase tracking-wider font-bold">
+                            <tr>
+                                <th class="px-6 py-4 text-left">SNo</th>
+                                <th class="px-6 py-4 text-left">Class</th>
+                                <th class="px-6 py-4 text-left">Term</th>
+                                <th class="px-6 py-4 text-left">Subject</th>
+                                <th class="px-6 py-4 text-left">Medium</th>
+                                <th class="px-6 py-4 text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 text-slate-700 bg-white">
+                            <tr class="hover:bg-slate-50/70 transition">
+                                <td class="px-6 py-4 text-slate-400 font-mono">1</td>
+                                <td class="px-6 py-4">Class 1</td>
+                                <td class="px-6 py-4"><span class="bg-slate-100 text-slate-700 text-xs px-2 py-0.5 rounded font-bold">Term 1</span></td>
+                                <td class="px-6 py-4 font-bold text-slate-900">Tamil</td>
+                                <td class="px-6 py-4">Tamil / தமிழ்</td>
+                                <td class="px-6 py-4 text-center">
+                                    <a href="PASTE_TAMIL_BOOK_DOWNLOAD_LINK_HERE" class="inline-flex items-center gap-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-3 py-2 rounded-xl transition shadow-sm"><i class="fa-solid fa-circle-down"></i> Download</a>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/70 transition">
+                                <td class="px-6 py-4 text-slate-400 font-mono">2</td>
+                                <td class="px-6 py-4">Class 1</td>
+                                <td class="px-6 py-4"><span class="bg-slate-100 text-slate-700 text-xs px-2 py-0.5 rounded font-bold">Term 1</span></td>
+                                <td class="px-6 py-4 font-bold text-slate-900">English</td>
+                                <td class="px-6 py-4">English</td>
+                                <td class="px-6 py-4 text-center">
+                                    <a href="PASTE_ENGLISH_BOOK_DOWNLOAD_LINK_HERE" class="inline-flex items-center gap-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-3 py-2 rounded-xl transition shadow-sm"><i class="fa-solid fa-circle-down"></i> Download</a>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/70 transition">
+                                <td class="px-6 py-4 text-slate-400 font-mono">3</td>
+                                <td class="px-6 py-4">Class 1</td>
+                                <td class="px-6 py-4"><span class="bg-slate-100 text-slate-700 text-xs px-2 py-0.5 rounded font-bold">Term 1</span></td>
+                                <td class="px-6 py-4 font-bold text-slate-900">Maths</td>
+                                <td class="px-6 py-4">Tamil / தமிழ்</td>
+                                <td class="px-6 py-4 text-center">
+                                    <a href="PASTE_MATHS_TAMIL_BOOK_DOWNLOAD_LINK_HERE" class="inline-flex items-center gap-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-3 py-2 rounded-xl transition shadow-sm"><i class="fa-solid fa-circle-down"></i> Download</a>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/70 transition">
+                                <td class="px-6 py-4 text-slate-400 font-mono">4</td>
+                                <td class="px-6 py-4">Class 1</td>
+                                <td class="px-6 py-4"><span class="bg-slate-100 text-slate-700 text-xs px-2 py-0.5 rounded font-bold">Term 1</span></td>
+                                <td class="px-6 py-4 font-bold text-slate-900">Maths</td>
+                                <td class="px-6 py-4">English</td>
+                                <td class="px-6 py-4 text-center">
+                                    <a href="PASTE_MATHS_ENGLISH_BOOK_DOWNLOAD_LINK_HERE" class="inline-flex items-center gap-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-3 py-2 rounded-xl transition shadow-sm"><i class="fa-solid fa-circle-down"></i> Download</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="md:hidden space-y-3">
+                    <div class="bg-white border border-slate-100 rounded-xl p-4 shadow-sm flex flex-col justify-between gap-3">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <div class="flex items-center gap-2 mb-1.5">
+                                    <span class="text-[10px] font-bold tracking-wide bg-slate-100 text-slate-700 px-2 py-0.5 rounded">Class 1</span>
+                                    <span class="text-[10px] font-bold tracking-wide bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded">Term 1</span>
+                                </div>
+                                <h3 class="font-bold text-slate-900 text-base">Tamil</h3>
+                                <p class="text-xs text-slate-400 mt-0.5">Medium: Tamil / தமிழ்</p>
+                            </div>
+                        </div>
+                        <a href="PASTE_TAMIL_BOOK_DOWNLOAD_LINK_HERE" class="w-full text-center bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs py-2.5 rounded-xl transition shadow-sm block"><i class="fa-solid fa-circle-down mr-1"></i> Download PDF</a>
+                    </div>
+
+                    <div class="bg-white border border-slate-100 rounded-xl p-4 shadow-sm flex flex-col justify-between gap-3">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <div class="flex items-center gap-2 mb-1.5">
+                                    <span class="text-[10px] font-bold tracking-wide bg-slate-100 text-slate-700 px-2 py-0.5 rounded">Class 1</span>
+                                    <span class="text-[10px] font-bold tracking-wide bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded">Term 1</span>
+                                </div>
+                                <h3 class="font-bold text-slate-900 text-base">English</h3>
+                                <p class="text-xs text-slate-400 mt-0.5">Medium: English</p>
+                            </div>
+                        </div>
+                        <a href="PASTE_ENGLISH_BOOK_DOWNLOAD_LINK_HERE" class="w-full text-center bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs py-2.5 rounded-xl transition shadow-sm block"><i class="fa-solid fa-circle-down mr-1"></i> Download PDF</a>
+                    </div>
+
+                    <div class="bg-white border border-slate-100 rounded-xl p-4 shadow-sm flex flex-col justify-between gap-3">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <div class="flex items-center gap-2 mb-1.5">
+                                    <span class="text-[10px] font-bold tracking-wide bg-slate-100 text-slate-700 px-2 py-0.5 rounded">Class 1</span>
+                                    <span class="text-[10px] font-bold tracking-wide bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded">Term 1</span>
+                                </div>
+                                <h3 class="font-bold text-slate-900 text-base">Maths</h3>
+                                <p class="text-xs text-slate-400 mt-0.5">Medium: Tamil / தமிழ்</p>
+                            </div>
+                        </div>
+                        <a href="PASTE_MATHS_TAMIL_BOOK_DOWNLOAD_LINK_HERE" class="w-full text-center bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs py-2.5 rounded-xl transition shadow-sm block"><i class="fa-solid fa-circle-down mr-1"></i> Download PDF</a>
+                    </div>
+
+                    <div class="bg-white border border-slate-100 rounded-xl p-4 shadow-sm flex flex-col justify-between gap-3">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <div class="flex items-center gap-2 mb-1.5">
+                                    <span class="text-[10px] font-bold tracking-wide bg-slate-100 text-slate-700 px-2 py-0.5 rounded">Class 1</span>
+                                    <span class="text-[10px] font-bold tracking-wide bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded">Term 1</span>
+                                </div>
+                                <h3 class="font-bold text-slate-900 text-base">Maths</h3>
+                                <p class="text-xs text-slate-400 mt-0.5">Medium: English</p>
+                            </div>
+                        </div>
+                        <a href="PASTE_MATHS_ENGLISH_BOOK_DOWNLOAD_LINK_HERE" class="w-full text-center bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs py-2.5 rounded-xl transition shadow-sm block"><i class="fa-solid fa-circle-down mr-1"></i> Download PDF</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-6 lg:sticky lg:top-24">
+                <div class="bg-white p-4 rounded-2xl border border-dashed border-slate-300 text-center flex flex-col justify-center items-center">
+                    <span class="text-[8px] font-bold text-slate-400 uppercase tracking-widest block mb-2">Sponsored Content</span>
+                    <div class="w-full h-[250px] lg:h-[480px] bg-slate-50 rounded-xl flex items-center justify-center text-xs text-slate-400 font-mono">
+                        Sidebar Vertical Skyscraper Ad Box (300x600)
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
+
+    <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-6 text-center text-xs mt-auto">
+        <p>&copy; 2026 TN Classroom. Textbook assets are copyright material properties of the TN Text Book Corporation.</p>
+    </footer>
+
+    <script>
+        // Cache-busting automated navbar extractor engine
+        async function loadSharedSiteNavbar() {
+    try {
+        const cacheBusterToken = new Date().getTime();
+
+        // FIXED: Using relative paths ensures it targets the navbar one folder up
+        const localNavbarUrl = `../navbar.html?v=${cacheBusterToken}`;
+
+        const response = await fetch(localNavbarUrl);
+        if (!response.ok) throw new Error("Navbar file not found.");
+
+        const htmlContent = await response.text();
+        document.getElementById('navbar-placeholder').innerHTML = htmlContent;
+
+        initializeDropdownListeners();
+    } catch (error) {
+        console.error("Error loading local navigation bar component:", error);
+    }
+}
+
+       function toggleNavigationMenu(event, targetMenuId) {
+    event.stopPropagation();
+    const targetMenu = document.getElementById(targetMenuId);
+    if (!targetMenu) return;
+
+    // Check if the target ID belongs to the mobile tree
+    const isMobileElement = targetMenuId.includes('mobile-');
+
+    if (isMobileElement) {
+        const isCurrentlyHidden = targetMenu.classList.contains('hidden');
+
+        // Hide all mobile drop containers
+        document.querySelectorAll('[id*="mobile-menu-"]').forEach(menu => {
+            menu.classList.add('hidden');
+        });
+
+        // Toggle target window visibility
+        if (isCurrentlyHidden) {
+            targetMenu.classList.remove('hidden');
+        }
+    } else {
+        const isCurrentlyOpen = targetMenu.classList.contains('dropdown-active');
+
+        // Reset all desktop drop menus
+        document.querySelectorAll('.dropdown-menu').forEach(menu => {
+            menu.classList.remove('dropdown-active');
+        });
+
+        if (!isCurrentlyOpen) {
+            targetMenu.classList.add('dropdown-active');
+        }
+    }
+}
+
+        function toggleMobileMenu(open) {
+            const drawer = document.getElementById('mobile-drawer');
+            const content = document.getElementById('drawer-content');
+            if (!drawer || !content) return;
+
+            if (open) {
+                drawer.classList.remove('invisible');
+                setTimeout(() => content.classList.remove('translate-x-full'), 10);
+            } else {
+                content.classList.add('translate-x-full');
+                setTimeout(() => drawer.classList.add('invisible'), 300);
+            }
+        }
+
+        function initializeDropdownListeners() {
+            document.removeEventListener('click', closeAllDropdowns);
+            document.addEventListener('click', closeAllDropdowns);
+        }
+
+        function closeAllDropdowns() function closeAllDropdowns() {
+    // Dismiss desktop views
+    document.querySelectorAll('.dropdown-menu').forEach(menu => {
+        menu.classList.remove('dropdown-active');
+    });
+    // Dismiss mobile views
+    document.querySelectorAll('[id*="mobile-menu-"]').forEach(menu => {
+        menu.classList.add('hidden');
+    });
+}
+
+        window.addEventListener('DOMContentLoaded', loadSharedSiteNavbar);
+    </script>
 </body>
 </html>

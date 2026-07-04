@@ -6,7 +6,7 @@
     <title>NMMS Scholarship Portal | TN Classroom</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <script>
       window.MathJax = {
         tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], processEscapes: true },
@@ -16,8 +16,7 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
-        /* Exact positioning match with hover triggers */
-        .dropdown-group:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+        .dropdown-active { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; }
         .tamil-fix { font-family: 'Segoe UI', 'Latha', sans-serif !important; }
     </style>
 </head>
@@ -32,26 +31,7 @@
         </div>
     </div>
 
- <!-- PASTE THIS INSTEAD -->
-<div id="navbar-placeholder"></div>
-
-    <div id="mobile-drawer" class="fixed inset-0 z-50 invisible transition-all duration-300 font-sans">
-        <div onclick="toggleMobileMenu(false)" class="absolute inset-0 bg-slate-950/70 backdrop-blur-sm"></div>
-        <div id="drawer-content" class="absolute top-0 right-0 w-80 max-w-sm h-full bg-slate-900 shadow-2xl p-6 flex flex-col space-y-4 transform translate-x-full transition-transform duration-300 ease-in-out border-l border-slate-800 overflow-y-auto">
-            <div class="flex items-center justify-between pb-3 border-b border-slate-800">
-                <span class="font-black text-emerald-400 tracking-wider text-xs uppercase">Navigation Channels</span>
-                <button onclick="toggleMobileMenu(false)" class="text-slate-400 hover:text-white text-lg"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <nav class="flex flex-col space-y-1.5 text-sm">
-                <a href="../" class="w-full text-left px-3 py-2.5 rounded-xl text-slate-200 hover:bg-slate-800 transition flex items-center gap-3"><i class="fa-solid fa-house text-slate-500 w-4"></i> Home</a>
-                <div class="pt-2 px-3 text-[11px] font-bold text-slate-500 tracking-widest uppercase">NMMS Track</div>
-                <a href="../nmms-sat/" class="w-full text-left px-6 py-2 rounded-xl text-emerald-400 bg-slate-800 font-semibold transition">&bull; SAT Materials</a>
-                <a href="../nmms-mat/" class="w-full text-left px-6 py-2 rounded-xl text-slate-300 hover:bg-slate-800 transition">&bull; MAT Analytics</a>
-                <a href="../learning-support/" class="w-full text-left px-3 py-2.5 rounded-xl text-slate-200 hover:bg-slate-800 transition flex items-center gap-3"><i class="fa-solid fa-graduation-cap text-slate-500 w-4"></i> Learning Support</a>
-                <a href="../results/" class="w-full text-left px-3 py-2.5 rounded-xl text-slate-200 hover:bg-slate-800 transition flex items-center gap-3"><i class="fa-solid fa-square-poll-vertical text-slate-500 w-4"></i> Test Results</a>
-            </nav>
-        </div>
-    </div>
+    <div id="navbar-placeholder"></div>
 
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm mb-8">
@@ -59,144 +39,317 @@
                 <span class="p-2 bg-emerald-50 text-emerald-600 rounded-xl"><i class="fa-solid fa-graduation-cap"></i></span>
                 NMMS SAT Study Center
             </h1>
-            <p class="text-slate-500 text-sm mt-2 leading-relaxed">Access targeted multiple-choice online assessments and download structured study materials tailored for the National Means Cum Merit Scholarship evaluation.</p>
+            <p class="text-slate-500 text-sm mt-2 leading-relaxed">
+                Access structured academic learning modules for the Scholastic Aptitude Test (SAT). Master Class 7 and Class 8 Science, Social Science, and Mathematics with targeted video courses, revision texts, and diagnostic live exams.
+            </p>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-            <div class="lg:col-span-2 space-y-8">
-                <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm space-y-4">
-                    <h2 class="font-bold text-slate-900 text-lg flex items-center gap-2"><i class="fa-brands fa-youtube text-red-600"></i> Video Class Module</h2>
-                    <div class="aspect-video w-full rounded-xl overflow-hidden bg-black shadow-inner">
-                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/videoseries?list=YOUR_NMMS_PLAYLIST_ID" title="YouTube Video Player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                </div>
+        <div id="subject-tabs-container" class="flex flex-wrap gap-2 mb-6"></div>
 
-                <div class="space-y-3">
-                    <h2 class="font-bold text-slate-700 uppercase tracking-wider text-xs pl-1">Online Interactive Mock Exams</h2>
-
-                    <a href="../mcq/?id=YOUR_GOOGLE_SHEET_ID_FOR_NMMS_TEST1" class="block p-5 bg-white border border-slate-100 hover:border-emerald-300 transition group flex justify-between items-center rounded-2xl shadow-sm">
-                        <div class="flex justify-between items-center w-full">
-                            <div>
-                                <span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-100 px-2 py-0.5 rounded uppercase tracking-wider mb-2 inline-block">Science</span>
-                                <h3 class="font-bold text-slate-900 group-hover:text-emerald-600 transition text-base tracking-tight tamil-fix">Class 8 Science — NMMS Important Questions</h3>
-                                <p class="text-xs text-slate-400 mt-1">Bilingual (Tamil & English) • 25 Questions • Instant Grading</p>
-                            </div>
-                            <div class="w-8 h-8 rounded-full bg-slate-50 group-hover:bg-emerald-500 text-slate-400 group-hover:text-white transition flex items-center justify-center">
-                                <i class="fa-solid fa-play text-xs pl-0.5"></i>
-                            </div>
-                        </div>
-                    </a>
-
-                    <div class="bg-white border border-dashed border-slate-300 p-4 rounded-2xl text-center">
-                        <span class="text-[9px] text-slate-400 uppercase tracking-widest font-bold mb-2 block">Sponsored Content</span>
-                        <div class="h-32 bg-slate-50 rounded-xl flex items-center justify-center text-xs text-slate-400 font-mono">
-                            Native In-Feed Square Ad Spot
-                        </div>
-                    </div>
-
-                    <a href="../mcq/?id=YOUR_GOOGLE_SHEET_ID_FOR_NMMS_TEST2" class="block p-5 bg-white border border-slate-100 hover:border-emerald-200 hover:bg-emerald-50/20 rounded-2xl transition group flex justify-between items-center shadow-sm">
-                        <div class="flex justify-between items-center w-full">
-                            <div>
-                                <span class="text-[10px] font-bold text-blue-700 bg-blue-50 border border-blue-100 px-2 py-0.5 rounded uppercase tracking-wider mb-2 inline-block">Social Science</span>
-                                <h3 class="font-bold text-slate-900 group-hover:text-emerald-600 transition text-base tracking-tight tamil-fix">Class 8 Social Science — History & Geography Drill</h3>
-                                <p class="text-xs text-slate-400 mt-1">Bilingual (Tamil & English) • 35 Questions • Verification Tracking</p>
-                            </div>
-                            <div class="w-8 h-8 rounded-full bg-slate-50 group-hover:bg-emerald-500 group-hover:text-white flex items-center justify-center transition shadow-sm">
-                                <i class="fa-solid fa-play text-xs pl-0.5"></i>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-            <div class="space-y-6 lg:sticky lg:top-24">
-                <div class="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm space-y-3">
-                    <h3 class="font-bold text-slate-900 text-sm border-b border-slate-100 pb-2 flex items-center gap-2">
-                        <i class="fa-solid fa-file-pdf text-red-500"></i> PDF Downloads
-                    </h3>
-                    <ul class="space-y-2 text-xs font-medium">
-                        <li><a href="#" class="block p-2 text-slate-600 hover:text-emerald-600 hover:bg-slate-50 rounded transition">&bull; NMMS Syllabus Guidelines</a></li>
-                        <li><a href="#" class="block p-2 text-slate-600 hover:text-emerald-600 hover:bg-slate-50 rounded transition">&bull; Class 8 Math Formula Notebook</a></li>
-                    </ul>
-                </div>
-
-                <div class="bg-white p-4 rounded-2xl border border-dashed border-slate-300 flex flex-col justify-center items-center text-center shadow-sm">
-                    <span class="text-[9px] text-slate-400 uppercase tracking-widest font-bold mb-2">Sponsored Resources</span>
-                    <div class="w-full h-[250px] lg:h-[450px] bg-slate-50 rounded-xl flex items-center justify-center text-xs text-slate-400 font-mono">
-                        Vertical Skyscraper Ad Slot (300x600)
-                    </div>
-                </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="units-master-deck">
+            <div class="col-span-full text-center py-12 text-slate-400 font-medium text-xs bg-white border border-slate-100 rounded-2xl shadow-sm">
+                <i class="fa-solid fa-circle-notch fa-spin text-emerald-500 mr-1.5"></i> Connecting to cloud logs database...
             </div>
         </div>
     </main>
 
-    <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-6 text-center text-xs space-y-2 mt-auto">
-        <p>&copy; 2026 TN Classroom. All evaluation logs securely compiled under Google Cloud frameworks.</p>
+    <div id="material-modal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex justify-end invisible opacity-0 transition-all duration-300" onclick="closeMaterialModal()">
+        <div class="w-full max-w-2xl bg-white h-full shadow-2xl flex flex-col translate-x-full transition-transform duration-300 text-slate-900" id="material-drawer-content" onclick="event.stopPropagation()">
+            <div class="p-4 border-b border-slate-200/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-50" id="modal-header-container">
+                <div>
+                    <span id="modal-unit-badge" class="text-[9px] font-black text-emerald-700 bg-emerald-50 border border-emerald-100 px-2 py-0.5 rounded uppercase tracking-wider">Notes</span>
+                    <h2 id="modal-material-title" class="font-black text-slate-900 text-base tracking-tight mt-1 tamil-fix">Study Material Viewer</h2>
+                </div>
+                <div class="flex items-center gap-3 self-end sm:self-auto">
+                    <div class="flex items-center border border-slate-200 bg-white rounded-lg p-0.5 shadow-sm text-xs font-bold text-slate-600">
+                        <button onclick="adjustTextScale(-1)" class="w-7 h-7 hover:bg-slate-100 rounded flex items-center justify-center font-mono" title="Decrease Font size">A-</button>
+                        <button onclick="adjustTextScale(1)" class="w-7 h-7 hover:bg-slate-100 rounded flex items-center justify-center font-mono border-l border-slate-100" title="Increase Font size">A+</button>
+                    </div>
+                    <div class="flex items-center border border-slate-200 bg-white rounded-lg p-0.5 shadow-sm">
+                        <button onclick="setReaderTheme('light')" class="w-7 h-7 rounded flex items-center justify-center text-amber-500 hover:bg-slate-100" title="Light Mode"><i class="fa-solid fa-sun text-xs"></i></button>
+                        <button onclick="setReaderTheme('sepia')" class="w-7 h-7 rounded flex items-center justify-center text-amber-800 bg-amber-50 hover:bg-amber-100/60 font-serif font-bold text-xs" title="Sepia Eye Protection Mode">S</button>
+                        <button onclick="setReaderTheme('dark')" class="w-7 h-7 rounded flex items-center justify-center text-slate-400 hover:bg-slate-800" title="Dark Mode"><i class="fa-solid fa-moon text-xs"></i></button>
+                    </div>
+                    <button onclick="closeMaterialModal()" class="w-8 h-8 rounded-full bg-white hover:bg-slate-100 border flex items-center justify-center text-slate-500 shadow-sm transition">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="flex-grow overflow-y-auto p-6 md:p-8 bg-white transition-colors duration-200" id="modal-material-body"></div>
+            <div class="p-4 border-t border-slate-200/60 bg-slate-50 flex justify-end" id="modal-footer-container">
+                <button onclick="closeMaterialModal()" class="px-5 py-2.5 bg-slate-950 text-white rounded-xl text-xs font-black shadow transition uppercase tracking-wider">Close Material</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-6 text-center text-xs mt-auto">
+        <p>&copy; 2026 TN Classroom. All evaluation learning modules securely synced under Google Cloud frameworks.</p>
     </footer>
 
-   <script>
-    // AUTOMATED SYSTEM-WIDE NAVBAR INJECTOR ENGINE
-    async function loadSharedSiteNavbar() {
-        try {
-            // Fetch directly from your public GitHub content link to completely bypass folder path blocks
-            const githubRawNavbarUrl = "https://raw.githubusercontent.com/jeyaselvan76/tnclassroom/main/navbar.html";
-            
-            const response = await fetch(githubRawNavbarUrl);
-            if (!response.ok) throw new Error("Network response mismatch while extracting navbar assets.");
-            
-            const htmlContent = await response.text();
-            document.getElementById('navbar-placeholder').innerHTML = htmlContent;
-            
-            // Re-bind global document drop-down click event boundaries
-            initializeDropdownListeners();
-        } catch (error) {
-            console.error("Error loading shared navigation bar component:", error);
-        }
-    }
+    <script>
+        const DATABASE_CSV_URL = "https://docs.google.com/spreadsheets/d/1j2C7jpFskw2TrYoRKDmPJBkHezAfRW0aFshbULLgUvc/gviz/tq?tqx=out:csv&sheet=Sheet1";
+        let masterDatabaseRecords = [];
+        let globallySelectedSubject = "";
 
-    // Toggle menu dropdown execution parameters
-    function toggleNavigationMenu(event, targetMenuId) {
-        event.stopPropagation(); 
-        const targetMenu = document.getElementById(targetMenuId);
-        if (!targetMenu) return;
-        
-        const isOpen = targetMenu.classList.contains('dropdown-active');
-        
-        document.querySelectorAll('.dropdown-menu').forEach(menu => {
-            menu.classList.remove('dropdown-active');
+        function parseCsvRows(text) {
+            let lines = [];
+            let row = [];
+            let cell = '';
+            let inQuotes = false;
+            for (let i = 0; i < text.length; i++) {
+                let c = text[i];
+                if (c === '"') { inQuotes = !inQuotes; }
+                else if (c === ',' && !inQuotes) { row.push(cell.trim()); cell = ''; }
+                else if ((c === '\n' || c === '\r') && !inQuotes) {
+                    row.push(cell.trim());
+                    if (row.length > 0 && row.some(x => x !== '')) lines.push(row);
+                    row = []; cell = '';
+                    if (c === '\r' && text[i+1] === '\n') i++;
+                } else { cell += c; }
+            }
+            if (cell || row.length > 0) { row.push(cell.trim()); lines.push(row); }
+            return lines;
+        }
+
+        async function bootNmmsPortal() {
+            try {
+                const res = await fetch(DATABASE_CSV_URL);
+                if (!res.ok) throw new Error("Dataset extraction connection offline.");
+                const txt = await res.text();
+
+                const lines = parseCsvRows(txt);
+                const dataRows = lines.slice(1);
+
+                masterDatabaseRecords = [];
+
+                dataRows.forEach((cols, index) => {
+                    if (!cols || cols.length < 4 || !cols[3]) return;
+
+                    let clsName = cols[0] ? cols[0].replace(/^"|"$/g, '').trim() : 'Class 8';
+                    let subj    = cols[1] ? cols[1].replace(/^"|"$/g, '').trim() : 'Science';
+                    let uNo     = cols[2] ? cols[2].replace(/^"|"$/g, '').trim() : '';
+                    let uName   = cols[3] ? cols[3].replace(/^"|"$/g, '').trim() : '';
+
+                    let vUrl    = (cols[4] && cols[4].trim() !== "") ? cols[4].replace(/^"|"$/g, '').trim() : '#';
+                    let fUrl    = cols[5] ? cols[5].replace(/^"|"$/g, '').replace(/^\.\//, '').trim() : '#';
+                    let rawMcq  = cols[6] ? cols[6].replace(/^"|"$/g, '').trim() : '#';
+
+                    if (rawMcq.startsWith('http') && !rawMcq.includes('../mcq/')) {
+                        rawMcq = `../mcq/?id=${encodeURIComponent(rawMcq)}`;
+                    }
+
+                    masterDatabaseRecords.push({
+                        id: index,
+                        className: clsName,
+                        subject:   subj,
+                        unitNo:    uNo,
+                        unitName:  uName,
+                        videoUrl:  vUrl,
+                        fileUrl:   fUrl,
+                        mcqUrl:    rawMcq
+                    });
+                });
+
+                buildSubjectTabs();
+            } catch (error) {
+                console.error("Database connection failure:", error);
+                document.getElementById('units-master-deck').innerHTML = `
+                    <div class="col-span-full p-4 bg-red-50 text-red-700 text-xs font-bold rounded-xl border border-red-100 text-center">
+                        Error reading spreadsheet entries. Verify document general visibility share levels.
+                    </div>
+                `;
+            }
+        }
+
+        function buildSubjectTabs() {
+            const container = document.getElementById('subject-tabs-container');
+            const subjects = [...new Set(masterDatabaseRecords.map(x => x.subject))].filter(Boolean);
+            container.innerHTML = "";
+
+            subjects.forEach((sub, i) => {
+                if (i === 0) globallySelectedSubject = sub;
+                const btn = document.createElement('button');
+                btn.className = `px-4 py-2 rounded-xl text-xs font-extrabold border transition shadow-sm ${sub === globallySelectedSubject ? 'bg-slate-950 text-white border-slate-950' : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'}`;
+                btn.innerText = sub;
+                btn.onclick = () => {
+                    globallySelectedSubject = sub;
+                    document.querySelectorAll('#subject-tabs-container button').forEach(b => b.className = "px-4 py-2 rounded-xl text-xs font-extrabold border bg-white text-slate-700 border-slate-200 hover:bg-slate-50 transition shadow-sm");
+                    btn.className = "px-4 py-2 rounded-xl text-xs font-extrabold border bg-slate-950 text-white border-slate-950 transition shadow-sm";
+                    renderActiveSubjectDeck();
+                };
+                container.appendChild(btn);
+            });
+            renderActiveSubjectDeck();
+        }
+
+        function renderActiveSubjectDeck() {
+            const deck = document.getElementById('units-master-deck');
+            deck.innerHTML = "";
+            const rows = masterDatabaseRecords.filter(x => x.subject === globallySelectedSubject);
+
+            rows.forEach(row => {
+                const communitiesWatchVideo = row.videoUrl !== '#';
+                let displayUnitName = row.unitName.replace(/\r?\n/g, '<br>');
+
+                const card = document.createElement('div');
+                card.className = "bg-white border border-slate-200/80 rounded-2xl p-5 shadow-sm flex flex-col justify-between hover:border-emerald-400 transition group";
+                card.innerHTML = `
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest font-mono">${row.unitNo}</span>
+                            <span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-100 px-2.5 py-0.5 rounded-md uppercase tracking-wider">${row.className}</span>
+                        </div>
+                        <div>
+                            <h3 class="font-black text-slate-900 text-base tracking-tight group-hover:text-emerald-600 transition tamil-fix">${displayUnitName}</h3>
+                        </div>
+                        <div class="pt-2 space-y-2 border-t border-slate-100">
+                            ${communitiesWatchVideo ? `
+                            <a href="${row.videoUrl}" target="_blank" class="flex items-center gap-2 text-xs font-bold text-slate-600 hover:text-red-600 transition">
+                                <i class="fa-brands fa-youtube text-red-500 text-sm w-4 text-center"></i> Video Class Material
+                            </a>` : `
+                            <span class="flex items-center gap-2 text-xs font-bold text-slate-300 cursor-not-allowed">
+                                <i class="fa-brands fa-youtube text-slate-200 text-sm w-4 text-center"></i> Video Coming Soon
+                            </span>`}
+
+                            <button data-id="${row.id}" onclick="triggerMaterialOpen(this)" class="flex items-center gap-2 text-xs font-bold text-slate-600 hover:text-emerald-600 transition text-left w-full">
+                                <i class="fa-solid fa-file-lines text-blue-500 text-sm w-4 text-center"></i> Text & Revision Notes
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mt-5 pt-3 border-t border-slate-100">
+                        <a href="${row.mcqUrl}" class="w-full text-center bg-slate-950 hover:bg-emerald-600 text-white font-black text-xs py-3 rounded-xl transition shadow-md block uppercase tracking-wider">
+                            <i class="fa-solid fa-square-poll-vertical mr-1"></i> Start Interactive MCQ Test
+                        </a>
+                    </div>
+                `;
+                deck.appendChild(card);
+            });
+        }
+
+        function triggerMaterialOpen(buttonElement) {
+            const targetId = parseInt(buttonElement.getAttribute('data-id'));
+            const record = masterDatabaseRecords.find(x => x.id === targetId);
+            if (record) {
+                openMaterialModal(record.fileUrl, record.unitName, record.unitNo);
+            }
+        }
+
+        let currentTextScale = 16;
+        let currentActiveTheme = 'light';
+
+        const themeStyles = {
+            light: { bodyBg: 'bg-white', text: 'text-slate-800', border: 'border-slate-200/60', headerBg: 'bg-slate-50', headerText: 'text-slate-900', btnBg: 'bg-slate-950', btnText: 'text-white' },
+            sepia: { bodyBg: 'bg-[#f4ecd8]', text: 'text-[#5b4636]', border: 'border-[#e4d8bc]', headerBg: 'bg-[#eae0c6]', headerText: 'text-[#433225]', btnBg: 'bg-[#433225]', btnText: 'text-[#f4ecd8]' },
+            dark:  { bodyBg: 'bg-slate-950', text: 'text-slate-200', border: 'border-slate-800', headerBg: 'bg-slate-900', headerText: 'text-white', btnBg: 'bg-slate-800', btnText: 'text-slate-200' }
+        };
+
+        // RENDER NATIVE STUDY CONTENT WITHOUT IFRAMES
+        async function openMaterialModal(fileUrl, unitName, unitNo) {
+            const modal = document.getElementById('material-modal');
+            const drawer = document.getElementById('material-drawer-content');
+            const body = document.getElementById('modal-material-body');
+
+            document.getElementById('modal-material-title').innerHTML = unitName.replace(/\r?\n/g, ' - ');
+            document.getElementById('modal-unit-badge').innerText = unitNo;
+
+            // Force visibility updates instantly
+            modal.style.setProperty('display', 'flex', 'important');
+            modal.classList.remove('invisible');
+            modal.classList.add('opacity-100');
+
+            // Remove the slide constraint instantly
+            drawer.classList.remove('translate-x-full');
+            drawer.style.transform = 'none';
+
+            body.innerHTML = `<div class="text-center py-12 text-slate-400 text-xs"><i class="fa-solid fa-circle-notch fa-spin mr-2"></i>Loading study material...</div>`;
+
+            let processedUrl = fileUrl;
+            if (!fileUrl.startsWith('http') && !fileUrl.startsWith('/') && !fileUrl.startsWith('.')) {
+                processedUrl = `./${fileUrl}`;
+            }
+
+            try {
+                const res = await fetch(processedUrl);
+                if (!res.ok) throw new Error(`Status: ${res.status}`);
+                const rawText = await res.text();
+
+                body.innerHTML = `
+                    <pre id="material-text-node" class="font-sans leading-relaxed tracking-wide whitespace-pre-wrap select-text tamil-fix" style="font-size: ${currentTextScale}px;"></pre>
+                `;
+
+                const textContainer = document.getElementById('material-text-node');
+                let cleanHtmlContent = rawText.replace(/[\u0b80-\u0bff]+/g, (match) => `<span class="tamil-fix font-medium">${match}</span>`);
+                textContainer.innerHTML = cleanHtmlContent;
+
+                setReaderTheme(currentActiveTheme);
+
+                if (window.MathJax && window.MathJax.typesetPromise) {
+                    window.MathJax.typesetPromise([textContainer]);
+                }
+            } catch(e) {
+                console.error(e);
+                body.innerHTML = `
+                    <div class="p-5 bg-red-50 text-red-700 text-xs font-bold rounded-2xl border border-red-100 text-center">
+                        <i class="fa-solid fa-circle-exclamation mr-1.5"></i> Failed to parse text material file.<br>
+                        <span class="font-mono text-[10px] text-slate-400 block mt-1">Verify filename matches: ${processedUrl}</span>
+                    </div>
+                `;
+            }
+        }
+
+        function adjustTextScale(delta) {
+            currentTextScale = Math.max(14, Math.min(26, currentTextScale + delta));
+            const textNode = document.getElementById('material-text-node');
+            if (textNode) {
+                textNode.style.fontSize = `${currentTextScale}px`;
+            }
+        }
+
+        function setReaderTheme(themeKey) {
+            currentActiveTheme = themeKey;
+            const styleMap = themeStyles[themeKey];
+
+            const drawer = document.getElementById('material-drawer-content');
+            const header = document.getElementById('modal-header-container');
+            const body = document.getElementById('modal-material-body');
+            const footer = document.getElementById('modal-footer-container');
+            const footerBtn = document.querySelector('#modal-footer-container button');
+            const textNode = document.getElementById('material-text-node');
+
+            if (drawer) drawer.className = `w-full max-w-2xl ${styleMap.bodyBg} h-full shadow-2xl flex flex-col translate-x-full transition-transform duration-300 ${styleMap.headerText}`;
+            if (header) header.className = `p-4 border-b ${styleMap.border} flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${styleMap.headerBg}`;
+            if (body) body.className = `flex-grow overflow-y-auto p-6 md:p-8 ${styleMap.bodyBg} transition-colors duration-200`;
+            if (footer) footer.className = `p-4 border-t ${styleMap.border} ${styleMap.headerBg} flex justify-end`;
+            if (footerBtn) footerBtn.className = `px-5 py-2.5 ${styleMap.btnBg} ${styleMap.btnText} rounded-xl text-xs font-black shadow transition uppercase tracking-wider`;
+
+            if (textNode) {
+                textNode.className = `font-sans leading-relaxed tracking-wide whitespace-pre-wrap select-text tamil-fix ${styleMap.text}`;
+            }
+        }
+
+        function closeMaterialModal() {
+            const modal = document.getElementById('material-modal');
+            const drawer = document.getElementById('material-drawer-content');
+
+            drawer.classList.add('translate-x-full');
+            drawer.style.transform = '';
+
+            modal.classList.remove('opacity-100');
+            modal.classList.add('invisible');
+            modal.style.display = 'none';
+        }
+
+        async function loadSharedSiteNavbar() {
+            try {
+                const res = await fetch(`../navbar.html?v=${new Date().getTime()}`);
+                if (res.ok) document.getElementById('navbar-placeholder').innerHTML = await res.text();
+            } catch (e) { console.error("Navbar loading blocked:", e); }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            loadSharedSiteNavbar();
+            bootNmmsPortal();
         });
-        
-        if (!isOpen) {
-            targetMenu.classList.add('dropdown-active');
-        }
-    }
-
-    function toggleMobileMenu(open) {
-        const drawer = document.getElementById('mobile-drawer');
-        const content = document.getElementById('drawer-content');
-        if (!drawer || !content) return;
-        
-        if (open) {
-            drawer.classList.remove('invisible');
-            setTimeout(() => content.classList.remove('translate-x-full'), 10);
-        } else {
-            content.classList.add('translate-x-full');
-            setTimeout(() => drawer.classList.add('invisible'), 300);
-        }
-    }
-
-    function initializeDropdownListeners() {
-        document.removeEventListener('click', closeAllDropdowns);
-        document.addEventListener('click', closeAllDropdowns);
-    }
-
-    function closeAllDropdowns() {
-        document.querySelectorAll('.dropdown-menu').forEach(menu => {
-            menu.classList.remove('dropdown-active');
-        });
-    }
-
-    window.addEventListener('DOMContentLoaded', loadSharedSiteNavbar);
-</script>
+    </script>
 </body>
 </html>
