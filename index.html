@@ -3,124 +3,382 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TN Classroom | Professional Educational Repository</title>
+    <title>TN Classroom | Educational Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        body { -webkit-tap-highlight-color: transparent; font-family: sans-serif; background-color: #f8fafc; }
         .dropdown-active { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; }
         .tamil-fix { font-family: 'Segoe UI', 'Latha', sans-serif !important; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #1e3a8a; border-radius: 10px; }
+
+        /* Eye Safety Reading Matrix Themes */
+        .theme-light { background-color: #ffffff !important; color: #1e293b !important; }
+        .theme-sepia { background-color: #f4ecd8 !important; color: #5b4636 !important; }
+        .theme-dark  { background-color: #0f172a !important; color: #cbd5e1 !important; }
+
+        .theme-light .inner-card { background-color: #f8fafc; border-color: #e2e8f0; }
+        .theme-sepia .inner-card { background-color: #eadecc; border-color: #d3c4a8; color: #433225; }
+        .theme-dark .inner-card  { background-color: #1e293b; border-color: #334155; color: #e2e8f0; }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-900 flex flex-col min-h-screen">
+<body class="antialiased min-h-screen flex flex-col">
 
-    <div class="w-full bg-white border-b border-slate-200 py-2 flex justify-center items-center text-[10px] text-gray-400 font-sans">
-        <div class="text-center">
-            <span class="block uppercase tracking-wider font-semibold mb-1">Advertisement</span>
-            <div class="bg-gray-100 border border-dashed border-gray-300 w-[320px] h-[50px] md:w-[728px] md:h-[90px] flex items-center justify-center rounded font-mono">
-                Top Leaderboard Banner Ad Box
-            </div>
-        </div>
-    </div>
-
+    <!-- Top Navigation Menu Pipeline Placeholder -->
     <div id="navbar-placeholder"></div>
 
-    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-100 flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="space-y-3 max-w-xl">
-                <span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2.5 py-1 rounded-full uppercase tracking-wider">Official Portal</span>
-                <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">TN Classroom Repository</h1>
-                <p class="text-slate-600 text-base leading-relaxed">Modernized bilingual resources dashboard optimized for TNTET, NMMS, and textbook data access tracks.</p>
+    <!-- MAIN HUB DASHBOARD -->
+    <main class="flex-grow max-w-4xl w-full mx-auto p-4 md:p-8 space-y-8">
+
+        <!-- BRAND HERO MODULE -->
+        <div class="bg-white border border-slate-100 rounded-3xl p-6 shadow-xl space-y-2">
+            <h1 class="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2">
+                <span class="p-2 bg-blue-50 text-blue-600 rounded-xl"><i class="fa-solid fa-school"></i></span>
+                TN Classroom Portal
+            </h1>
+            <p class="text-slate-500 text-xs">Automated institutional frameworks and synchronized campus resource ledgers.</p>
+        </div>
+
+        <!-- NEW CENTRAL PRAYER CONTROL CARD MODULE -->
+        <div id="prayer-trigger-card" onclick="triggerPrayerModalOpen()" class="bg-white border border-slate-200/80 p-6 rounded-3xl shadow-md hover:border-blue-500 cursor-pointer transition group flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div class="flex items-center gap-4">
+                <div id="prayer-icon-badge" class="w-12 h-12 rounded-2xl flex items-center justify-center text-lg bg-slate-100 text-slate-400">
+                    <i class="fa-solid fa-circle-notch fa-spin"></i>
+                </div>
+                <div>
+                    <span class="text-[9px] font-black uppercase tracking-widest text-slate-400 block">Morning Assembly Board</span>
+                    <h3 class="font-black text-slate-900 text-base tracking-tight mt-0.5 group-hover:text-blue-600 transition">View Today's Assembly Board</h3>
+                    <p id="prayer-card-status-text" class="text-slate-400 text-xs mt-0.5">Checking administrative sync parameters...</p>
+                </div>
+            </div>
+            <span class="text-slate-400 group-hover:text-blue-600 group-hover:translate-x-1 transition self-end sm:self-auto"><i class="fa-solid fa-arrow-right-long text-lg"></i></span>
+        </div>
+
+        <!-- PORTAL INTERSECTION ACCESS ROUTERS -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <a href="./tntet-psychology/" class="bg-white border border-slate-200/60 p-6 rounded-2xl shadow-sm hover:border-indigo-500 transition group flex items-start gap-4">
+                <span class="p-3 bg-indigo-50 text-indigo-600 rounded-xl group-hover:bg-indigo-600 group-hover:text-white transition"><i class="fa-solid fa-book-open text-lg"></i></span>
+                <div>
+                    <h3 class="font-black text-slate-900 text-base">TNTET Study Center</h3>
+                    <p class="text-slate-400 text-xs mt-1 leading-relaxed">Direct path access points for Psychology evaluation logs, English, and Science assets.</p>
+                </div>
+            </a>
+            <a href="./nmms-sat/" class="bg-white border border-slate-200/60 p-6 rounded-2xl shadow-sm hover:border-emerald-500 transition group flex items-start gap-4">
+                <span class="p-3 bg-emerald-50 text-emerald-600 rounded-xl group-hover:bg-emerald-600 group-hover:text-white transition"><i class="fa-solid fa-graduation-cap text-lg"></i></span>
+                <div>
+                    <h3 class="font-black text-slate-900 text-base">NMMS Merit Academy</h3>
+                    <p class="text-slate-400 text-xs mt-1 leading-relaxed">Comprehensive tracking structures for active MAT logic modules and SAT curriculum notebooks.</p>
+                </div>
+            </a>
+        </div>
+
+        <!-- FAST SCORE TRACKER INDEX BLOCK -->
+        <div class="bg-gradient-to-br from-slate-900 to-blue-950 text-white p-6 rounded-3xl shadow-md border border-slate-800 space-y-4 max-w-md mx-auto">
+            <div>
+                <h3 class="font-black text-sm tracking-tight">Performance Tracker</h3>
+                <p class="text-slate-400 text-[11px] mt-0.5 leading-relaxed">Input your verified 10-digit smartphone registration marker to open scores profiles.</p>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-3">
+                <input type="tel" id="homeMobileCheck" maxlength="10" placeholder="ENTER MOBILE NUMBER" class="flex-grow bg-white/10 border border-white/10 rounded-xl p-3 text-center font-mono font-bold text-sm tracking-widest text-white placeholder-white/20 outline-none focus:border-cyan-400">
+                <button onclick="routeToScores()" class="bg-cyan-400 hover:bg-white text-blue-950 font-black text-xs px-6 py-3 rounded-xl transition uppercase tracking-wider shadow whitespace-nowrap">Fetch Scores</button>
             </div>
         </div>
     </main>
 
+    <!-- PRAYER ACTIVITY VIEW MODAL DRAWER FRAMEWORK -->
+    <div id="prayer-modal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex justify-end invisible opacity-0 transition-all duration-300" onclick="closePrayerModal()">
+        <div class="w-full max-w-2xl bg-white h-full shadow-2xl flex flex-col translate-x-full transition-transform duration-300 text-slate-900 transition-colors duration-200" id="prayer-drawer-content" onclick="event.stopPropagation()">
+
+            <!-- Modal Head Panel Adjuster with Eye Safety Utilities -->
+            <div class="p-4 border-b border-slate-200/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-50 border-b">
+                <div class="flex items-center gap-2">
+                    <span class="p-2 bg-blue-50 text-blue-600 rounded-xl text-xs"><i class="fa-solid fa-school-flag"></i></span>
+                    <div>
+                        <h2 class="font-black text-slate-900 text-base tracking-tight">Daily Morning Assembly</h2>
+                        <p class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Live Synchronized Board Material</p>
+                    </div>
+                </div>
+
+                <!-- EYE SAFETY UTILITY BAR -->
+                <div class="flex items-center gap-3 self-end sm:self-auto">
+                    <div class="flex items-center border border-slate-200 bg-white rounded-lg p-0.5 shadow-sm text-xs font-bold text-slate-600">
+                        <button onclick="adjustFontSize(-1)" class="w-7 h-7 hover:bg-slate-100 rounded flex items-center justify-center font-mono" title="Decrease Font">A-</button>
+                        <button onclick="adjustFontSize(1)" class="w-7 h-7 hover:bg-slate-100 rounded flex items-center justify-center font-mono border-l border-slate-100" title="Increase Font">A+</button>
+                    </div>
+                    <div class="flex items-center border border-slate-200 bg-white rounded-lg p-0.5 shadow-sm">
+                        <button onclick="changeReaderTheme('light')" class="w-7 h-7 rounded flex items-center justify-center text-amber-500 hover:bg-slate-100" title="Light Theme"><i class="fa-solid fa-sun text-xs"></i></button>
+                        <button onclick="changeReaderTheme('sepia')" class="w-7 h-7 rounded flex items-center justify-center text-amber-800 bg-amber-50 hover:bg-amber-100/60 font-serif font-bold text-xs" title="Sepia Theme">S</button>
+                        <button onclick="changeReaderTheme('dark')" class="w-7 h-7 rounded flex items-center justify-center text-slate-400 hover:bg-slate-800" title="Dark Eye-Safety Theme"><i class="fa-solid fa-moon text-xs"></i></button>
+                    </div>
+                    <button onclick="closePrayerModal()" class="w-8 h-8 rounded-full bg-white hover:bg-slate-100 border flex items-center justify-center text-slate-500 shadow-sm transition">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Native Dynamic Drawer Content Block -->
+            <div class="flex-grow overflow-y-auto p-6 md:p-8 space-y-6 custom-scrollbar transition-all duration-150" id="modal-prayer-body" style="font-size: 15px;">
+                <!-- Data sets populate dynamically inside here -->
+            </div>
+
+            <!-- Footer Controls -->
+            <div class="p-4 border-t border-slate-200/60 bg-slate-50 flex justify-end" id="modal-footer-strip">
+                <button onclick="closePrayerModal()" class="px-5 py-2.5 bg-slate-950 text-white rounded-xl text-xs font-black shadow transition uppercase tracking-wider">Dismiss Board</button>
+            </div>
+        </div>
+    </div>
+
     <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-6 text-center text-xs mt-auto">
-        <p>&copy; 2026 TN Classroom. All rights reserved.</p>
+        <p>&copy; 2026 TN Classroom. Campus workflow modules driven seamlessly via unified automated sheets pipelines.</p>
     </footer>
 
+    <!-- ENGINE SCRIPTS MATRIX -->
     <script>
-        // 1. DYNAMIC NAVBAR LOADER (Loads from local directory for testing, with cache-busting token)
+        const DATABASE_STREAM_URL = "https://docs.google.com/spreadsheets/d/1j2C7jpFskw2TrYoRKDmPJBkHezAfRW0aFshbULLgUvc/gviz/tq?tqx=out:csv&sheet=Sheet4";
+
+        let currentPrayerApprovalStatus = "PENDING";
+        let parsedAssemblyHtmlContent = "";
+        let globalTextScale = 15;
+        let globalCurrentTheme = "light";
+
+        function parseCsvRows(text) {
+            let lines = []; let row = []; let cell = ''; let inQuotes = false;
+            for (let i = 0; i < text.length; i++) {
+                let c = text[i];
+                if (c === '"') { inQuotes = !inQuotes; }
+                else if (c === ',' && !inQuotes) { row.push(cell.trim()); cell = ''; }
+                else if ((c === '\n' || c === '\r') && !inQuotes) {
+                    row.push(cell.trim());
+                    if (row.length > 0 && row.some(x => x !== '')) lines.push(row);
+                    row = []; cell = '';
+                    if (c === '\r' && text[i+1] === '\n') i++;
+                } else { cell += c; }
+            }
+            if (cell || row.length > 0) { row.push(cell.trim()); lines.push(row); }
+            return lines;
+        }
+
+        async function bootstrapAutomatedHub() {
+            try {
+                const res = await fetch(DATABASE_STREAM_URL);
+                if (!res.ok) throw new Error();
+                const text = await res.text();
+                const gridRows = parseCsvRows(text);
+
+                // 1. EVALUATE APPROVAL KEY FROM CELL B1
+                if(gridRows[0] && gridRows[0][1]) {
+                    currentPrayerApprovalStatus = gridRows[0][1].replace(/^"|"$/g, '').trim().toUpperCase();
+
+                    const triggerCard = document.getElementById('prayer-trigger-card');
+                    const iconBadge = document.getElementById('prayer-icon-badge');
+                    const cardStatusTxt = document.getElementById('prayer-card-status-text');
+
+                    if (currentPrayerApprovalStatus === 'APPROVED') {
+                        iconBadge.className = "w-12 h-12 rounded-2xl flex items-center justify-center text-lg bg-emerald-500 text-white shadow-sm animate-pulse";
+                        iconBadge.innerHTML = `<i class="fa-solid fa-circle-check"></i>`;
+                        cardStatusTxt.className = "text-emerald-600 font-bold text-xs mt-0.5";
+                        cardStatusTxt.innerText = "Active • Assembly items approved by administrator.";
+                    } else {
+                        iconBadge.className = "w-12 h-12 rounded-2xl flex items-center justify-center text-lg bg-amber-500 text-white shadow-sm";
+                        iconBadge.innerHTML = `<i class="fa-solid fa-lock"></i>`;
+                        cardStatusTxt.className = "text-amber-600 font-bold text-xs mt-0.5";
+                        cardStatusTxt.innerText = "Locked • Board content awaiting admin authorization clearance.";
+                    }
+                }
+
+                let kuralHtml = "";
+                let activeClubHtml = "";
+                let tamilNewsArray = [];
+                let englishNewsArray = [];
+                let systemDayOfWeek = new Date().getDay();
+
+                gridRows.forEach((cols, rowIndex) => {
+                    if (!cols || cols.length < 2) return;
+
+                    let typeFlag     = cols[0] ? cols[0].replace(/^"|"$/g, '').trim() : '';
+                    let titleTamil   = cols[1] ? cols[1].replace(/^"|"$/g, '').trim() : '';
+                    let titleEnglish = cols[2] ? cols[2].replace(/^"|"$/g, '').trim() : '';
+                    let contentBox   = cols[3] ? cols[3].replace(/^"|"$/g, '').trim() : '';
+
+                    // Parse Kural
+                    if (rowIndex === 7 || typeFlag === 'kural') {
+                        kuralHtml = `
+                            <div class="inner-card border p-5 rounded-2xl shadow-sm space-y-2">
+                                <span class="text-[10px] font-black uppercase bg-orange-500 text-white tracking-wider px-2.5 py-1 rounded-md"><i class="fa-solid fa-scroll mr-1"></i> திருக்குறள் / Daily Thirukkural</span>
+                                <p class="text-sm font-semibold whitespace-pre-line leading-relaxed mt-3 tamil-fix">${titleTamil}</p>
+                            </div>
+                        `;
+                    }
+
+                    // Parse Active Day Club Card Item
+                    if (typeFlag === 'CLUB') {
+                        let rowDayId = rowIndex - 1;
+                        if (rowDayId === systemDayOfWeek) {
+                            activeClubHtml = `
+                                <div class="inner-card border p-5 rounded-2xl shadow-sm space-y-3 border-emerald-500/30">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-[10px] font-black uppercase bg-emerald-600 text-white tracking-wider px-2.5 py-1 rounded-md"><i class="fa-solid fa-calendar-day mr-1"></i> Today's Club Forum</span>
+                                        <span class="text-[9px] font-extrabold text-emerald-600 uppercase font-mono tracking-wider flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span> Live Forum</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-black text-sm tracking-tight tamil-fix">${titleTamil}</h4>
+                                        <h5 class="opacity-60 font-bold text-[10px] mt-0.5">${titleEnglish}</h5>
+                                    </div>
+                                    <p class="text-xs leading-relaxed pt-2 border-t border-slate-200/40 text-justify italic tamil-fix">${contentBox}</p>
+                                </div>
+                            `;
+                        }
+                    }
+
+                    // Collect News items separately starting from row index 8
+                    if (rowIndex >= 8 && typeFlag !== 'CLUB' && typeFlag !== 'kural' && typeFlag !== 'prayer') {
+                        if (titleTamil && titleTamil.trim() !== "") tamilNewsArray.push(titleTamil.trim());
+                        if (titleEnglish && titleEnglish.trim() !== "") englishNewsArray.push(titleEnglish.trim());
+                    }
+                });
+
+                // COMBINE TAMIL NEWS ITEMS INTO ONE BOX WITH CONSECUTIVE ITEM INDEX NUMBERS
+                let combinedTamilNewsContent = "";
+                tamilNewsArray.forEach((news, idx) => {
+                    combinedTamilNewsContent += `<div class="py-2 border-b border-slate-200/40 last:border-0 flex items-start gap-2"><span class="font-bold text-blue-500 text-xs mt-0.5">[${idx + 1}]</span> <p class="text-xs font-semibold leading-relaxed tamil-fix">${news}</p></div>`;
+                });
+
+                // COMBINE ENGLISH NEWS ITEMS INTO ONE BOX WITH CONSECUTIVE ITEM INDEX NUMBERS
+                let combinedEnglishNewsContent = "";
+                englishNewsArray.forEach((news, idx) => {
+                    combinedEnglishNewsContent += `<div class="py-2 border-b border-slate-200/40 last:border-0 flex items-start gap-2"><span class="font-bold text-indigo-500 text-xs mt-0.5">[${idx + 1}]</span> <p class="text-xs font-medium leading-relaxed">${news}</p></div>`;
+                });
+
+                // Wrap into combined news layout containers
+                let unifiedNewsBoxesHtml = `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Combined Tamil News Module -->
+                        <div class="inner-card border p-5 rounded-2xl shadow-sm space-y-3">
+                            <span class="text-[9px] font-black tracking-wider bg-blue-600 text-white px-2.5 py-1 rounded-md uppercase block w-max tamil-fix">தமிழ் செய்திப் பதிவுகள்</span>
+                            <div class="divide-y divide-slate-100/30">${combinedTamilNewsContent || '<p class="text-xs opacity-60">செய்திகள் இல்லை</p>'}</div>
+                        </div>
+
+                        <!-- Combined English News Module -->
+                        <div class="inner-card border p-5 rounded-2xl shadow-sm space-y-3">
+                            <span class="text-[9px] font-black tracking-wider bg-indigo-600 text-white px-2.5 py-1 rounded-md uppercase block w-max">English Bulletins</span>
+                            <div class="divide-y divide-slate-100/30">${combinedEnglishNewsContent || '<p class="text-xs opacity-60">No items submitted.</p>'}</div>
+                        </div>
+                    </div>
+                `;
+
+                // Set global dynamic drawer content variable layout
+                parsedAssemblyHtmlContent = `
+                    ${kuralHtml}
+                    ${activeClubHtml}
+                    <div class="space-y-2">
+                        <h4 class="opacity-50 font-black text-[10px] uppercase tracking-widest pl-1"><i class="fa-solid fa-radio mr-1"></i> Central Broadcast Ledger</h4>
+                        ${unifiedNewsBoxesHtml}
+                    </div>
+                `;
+
+            } catch (err) {
+                console.error(err);
+                document.getElementById('prayer-card-status-text').innerText = "Sync failure. Verify data parameters.";
+            }
+        }
+
+        // EYE SAFETY CONTROL: Font Scale Adjuster
+        function adjustFontSize(delta) {
+            globalTextScale = Math.max(13, Math.min(24, globalTextScale + delta));
+            document.getElementById('modal-prayer-body').style.fontSize = globalTextScale + "px";
+        }
+
+        // EYE SAFETY CONTROL: Reader View Theme Toggler
+        function changeReaderTheme(themeKey) {
+            globalCurrentTheme = themeKey;
+            const contentDrawer = document.getElementById('prayer-drawer-content');
+
+            // Clear out prior themes
+            contentDrawer.classList.remove('theme-light', 'theme-sepia', 'theme-dark');
+
+            if (themeKey === 'light') {
+                contentDrawer.classList.add('theme-light');
+            } else if (themeKey === 'sepia') {
+                contentDrawer.classList.add('theme-sepia');
+            } else if (themeKey === 'dark') {
+                contentDrawer.classList.add('theme-dark');
+            }
+        }
+
+        function triggerPrayerModalOpen() {
+            if (currentPrayerApprovalStatus !== 'APPROVED') {
+                alert("🔒 Access Denied: Today's morning assembly board materials have not received admin clearance approval yet. Please try again later.");
+                return;
+            }
+
+            const modal = document.getElementById('prayer-modal');
+            const drawer = document.getElementById('prayer-drawer-content');
+            const body = document.getElementById('modal-prayer-body');
+
+            body.innerHTML = parsedAssemblyHtmlContent;
+
+            // Enforce current view setup criteria seamlessly
+            changeReaderTheme(globalCurrentTheme);
+            document.getElementById('modal-prayer-body').style.fontSize = globalTextScale + "px";
+
+            modal.style.setProperty('display', 'flex', 'important');
+            modal.classList.remove('invisible');
+            modal.classList.add('opacity-100');
+            drawer.classList.remove('translate-x-full');
+            drawer.style.transform = 'none';
+        }
+
+        function closePrayerModal() {
+            const modal = document.getElementById('prayer-modal');
+            const drawer = document.getElementById('prayer-drawer-content');
+            drawer.classList.add('translate-x-full');
+            drawer.style.transform = '';
+            modal.classList.remove('opacity-100');
+            modal.classList.add('invisible');
+            modal.style.display = 'none';
+        }
+
+        function routeToScores() {
+            const num = document.getElementById('homeMobileCheck').value.trim();
+            if (num.length !== 10) return alert("Please enter a valid 10-digit mobile sequence.");
+            window.location.href = `./results/?search=${num}`;
+        }
+
         async function loadSharedSiteNavbar() {
             try {
-                const cacheBusterToken = new Date().getTime();
-
-                // Pointing to relative path so it loads immediately on localhost server configurations
-                const localNavbarUrl = `./navbar.html?v=${cacheBusterToken}`;
-
-                const response = await fetch(localNavbarUrl);
-                if (!response.ok) throw new Error("Root workspace navbar asset extraction mismatch.");
-
-                const htmlContent = await response.text();
-                document.getElementById('navbar-placeholder').innerHTML = htmlContent;
-
-                initializeDropdownListeners();
-            } catch (error) {
-                console.error("Error loading shared navigation bar component:", error);
-            }
+                const res = await fetch(`./navbar.html?v=${new Date().getTime()}`);
+                if (res.ok) document.getElementById('navbar-placeholder').innerHTML = await res.text();
+            } catch (e) { console.error(e); }
         }
 
-        // 2. CONSOLIDATED NAVIGATION ROUTING TOGGLE (Desktop + Mobile Sync Mechanics)
-        function toggleNavigationMenu(event, targetMenuId) {
+        window.toggleNavigationMenu = (event, id) => {
             event.stopPropagation();
-            const targetMenu = document.getElementById(targetMenuId);
-            if (!targetMenu) return;
-
-            const isMobileMenu = targetMenuId.includes('mobile-');
-
-            if (isMobileMenu) {
-                // Mobile Accordion Mechanism
-                const isHidden = targetMenu.classList.contains('hidden');
-
-                document.querySelectorAll('[id*="mobile-menu-"]').forEach(menu => {
-                    menu.classList.add('hidden');
-                });
-
-                if (isHidden) {
-                    targetMenu.classList.remove('hidden');
-                }
+            const menu = document.getElementById(id);
+            if (!menu) return;
+            if (id.includes('mobile-')) {
+                const isHidden = menu.classList.contains('hidden');
+                document.querySelectorAll('[id*="mobile-menu-"]').forEach(m => m.classList.add('hidden'));
+                if (isHidden) menu.classList.remove('hidden');
             } else {
-                // Desktop Dropdown Floating Menu Mechanism
-                const isOpen = targetMenu.classList.contains('dropdown-active');
-
-                document.querySelectorAll('.dropdown-menu').forEach(menu => {
-                    menu.classList.remove('dropdown-active');
-                });
-
-                if (!isOpen) {
-                    targetMenu.classList.add('dropdown-active');
-                }
+                const isOpen = menu.classList.contains('dropdown-active');
+                document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('dropdown-active'));
+                if (!isOpen) menu.classList.add('dropdown-active');
             }
-        }
+        };
 
-        function toggleMobileMenu(open) {
-            const drawer = document.getElementById('mobile-drawer');
-            const content = document.getElementById('drawer-content');
-            if (!drawer || !content) return;
+        window.toggleMobileMenu = (open) => {
+            const d = document.getElementById('mobile-drawer');
+            const c = document.getElementById('drawer-content');
+            if (open) { d.classList.remove('invisible'); setTimeout(() => c.classList.remove('translate-x-full'), 10); }
+            else { c.classList.add('translate-x-full'); setTimeout(() => d.classList.add('invisible'), 300); }
+        };
 
-            if (open) {
-                drawer.classList.remove('invisible');
-                setTimeout(() => content.classList.remove('translate-x-full'), 10);
-            } else {
-                content.classList.add('translate-x-full');
-                setTimeout(() => drawer.classList.add('invisible'), 300);
-            }
-        }
-
-        function initializeDropdownListeners() {
-            document.removeEventListener('click', closeAllDropdowns);
-            document.addEventListener('click', closeAllDropdowns);
-        }
-
-        function closeAllDropdowns() {
-            document.querySelectorAll('.dropdown-menu').forEach(menu => {
-                menu.classList.remove('dropdown-active');
-            });
-            document.querySelectorAll('[id*="mobile-menu-"]').forEach(menu => {
-                menu.classList.add('hidden');
-            });
-        }
-
-        window.addEventListener('DOMContentLoaded', loadSharedSiteNavbar);
+        window.addEventListener('DOMContentLoaded', () => {
+            loadSharedSiteNavbar();
+            bootstrapAutomatedHub();
+        });
     </script>
 </body>
 </html>
