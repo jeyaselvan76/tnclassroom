@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Performance Dashboard | WWW.TNCLASSROOM.COM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { -webkit-tap-highlight-color: transparent; font-family: sans-serif; background-color: #f8fafc; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #1e3a8a; border-radius: 10px; }
+        .glass-header { background: rgba(30, 58, 138, 0.95); backdrop-filter: blur(10px); }
+        .dropdown-active { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; }
+        .tamil-fix { font-family: 'Segoe UI', 'Latha', sans-serif !important; }
+    </style>
+</head>
+<body class="antialiased flex flex-col min-h-screen">
+
+    <div id="navbar-placeholder"></div>
+
+    <div class="glass-header text-white p-6 shadow-lg sticky top-0 z-40">
+        <div class="max-w-5xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div>
+                <h1 class="text-xl font-black tracking-tighter uppercase flex items-center gap-2">
+                    <i class="fa-solid fa-square-poll-vertical text-cyan-300"></i> My Results Portal
+                </h1>
+                <p class="text-[10px] text-cyan-300 font-bold tracking-widest uppercase">WWW.TNCLASSROOM.COM</p>
+            </div>
+            <button onclick="downloadMyResults()" id="downloadBtn" class="hidden bg-green-500 hover:bg-green-600 text-white px-5 py-2.5 rounded-xl font-black text-xs transition shadow-md flex items-center gap-2 tracking-wider uppercase">
+                <i class="fa-solid fa-file-excel"></i> Download Excel
+            </button>
+        </div>
+    </div>
+
+    <main class="flex-grow max-w-5xl w-full mx-auto p-4 md:p-8 space-y-12">
+
+        <section class="space-y-6">
+            <div class="bg-white rounded-[2rem] p-6 md:p-8 shadow-xl border border-slate-100">
+                <h2 class="text-center text-[#1e3a8a] text-[11px] font-black uppercase tracking-[0.2em] mb-4">
+                    <i class="fa-solid fa-shield-halved mr-1"></i> Secure MCQ Evaluation Tracker (TNTET / NMMS)
+                </h2>
+                <div class="flex flex-col md:flex-row gap-4">
+                    <input type="tel" id="searchMobile" maxlength="10"
+                        class="flex-grow p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-blue-500 transition-all font-mono font-bold text-lg text-center tracking-widest"
+                        placeholder="ENTER 10 DIGIT MOBILE">
+                    <button onclick="fetchUserResults()"
+                        class="bg-[#1e3a8a] hover:bg-blue-800 text-white px-8 py-4 rounded-2xl font-black shadow-md active:scale-95 transition-all text-sm uppercase tracking-widest flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-magnifying-glass"></i> View My Scores
+                    </button>
+                </div>
+                <p id="statusMsg" class="text-center text-xs mt-4 font-bold text-slate-400 italic"></p>
+            </div>
+
+            <div id="resultsWrapper" class="hidden transition-all duration-500">
+                <div class="bg-white rounded-[2rem] shadow-xl overflow-hidden border border-slate-100">
+                    <div class="overflow-x-auto custom-scrollbar">
+                        <table class="w-full text-left border-collapse">
+                            <thead class="bg-slate-50 border-b border-slate-100">
+                                <tr>
+                                    <th class="p-5 text-[10px] font-black uppercase text-slate-500 tracking-widest">Date & Time</th>
+                                    <th class="p-5 text-[10px] font-black uppercase text-slate-500 tracking-widest">Assessment System / Quiz ID</th>
+                                    <th class="p-5 text-[10px] font-black uppercase text-slate-500 tracking-widest text-center">Final Score</th>
+                                </tr>
+                            </thead>
+                            <tbody id="userResultsBody" class="divide-y divide-slate-100"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="space-y-6">
+            <div class="border-b border-slate-200 pb-3">
+                <h2 class="text-lg font-black text-slate-800 flex items-center gap-2">
+                    <i class="fa-solid fa-building-columns text-[#1e3a8a]"></i> Government Examination Portals
+                </h2>
+                <p class="text-slate-400 text-xs mt-0.5">Direct institutional gateway links to check formal state evaluations, school rankings, and merit logs.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <div class="bg-white border border-slate-200/60 rounded-2xl p-5 shadow-sm flex flex-col justify-between hover:border-blue-500 transition group">
+                    <div>
+                        <span class="text-[9px] font-black text-blue-600 bg-blue-50 border border-blue-100 px-2.5 py-0.5 rounded uppercase tracking-wider">Class 10</span>
+                        <h3 class="font-black text-slate-900 text-base mt-2 tracking-tight group-hover:text-[#1e3a8a] transition">SSLC Board Results</h3>
+                        <p class="text-slate-400 text-xs mt-1 leading-relaxed">Access instant state marks cards, marks metrics documentation, and individual registration number checks.</p>
+                    </div>
+                    <a href="https://tnresults.nic.in" target="_blank" class="mt-5 text-center bg-slate-950 hover:bg-[#1e3a8a] text-white font-black text-xs py-3 rounded-xl transition uppercase tracking-wider block shadow-sm">
+                        <i class="fa-solid fa-arrow-up-right-from-square mr-1.5"></i> Visit TN Results
+                    </a>
+                </div>
+
+                <div class="bg-white border border-slate-200/60 rounded-2xl p-5 shadow-sm flex flex-col justify-between hover:border-blue-500 transition group">
+                    <div>
+                        <span class="text-[9px] font-black text-blue-600 bg-blue-50 border border-blue-100 px-2.5 py-0.5 rounded uppercase tracking-wider">Class 12</span>
+                        <h3 class="font-black text-slate-900 text-base mt-2 tracking-tight group-hover:text-[#1e3a8a] transition">HSC Board Results</h3>
+                        <p class="text-slate-400 text-xs mt-1 leading-relaxed">Direct pipeline access points for Higher Secondary general, science, and vocational performance distributions.</p>
+                    </div>
+                    <a href="https://tnresults.nic.in" target="_blank" class="mt-5 text-center bg-slate-950 hover:bg-[#1e3a8a] text-white font-black text-xs py-3 rounded-xl transition uppercase tracking-wider block shadow-sm">
+                        <i class="fa-solid fa-arrow-up-right-from-square mr-1.5"></i> Visit HSC Tracker
+                    </a>
+                </div>
+
+                <div class="bg-white border border-slate-200/60 rounded-2xl p-5 shadow-sm flex flex-col justify-between hover:border-blue-500 transition group">
+                    <div>
+                        <span class="text-[9px] font-black text-emerald-600 bg-emerald-50 border border-emerald-100 px-2.5 py-0.5 rounded uppercase tracking-wider">Scholarship</span>
+                        <h3 class="font-black text-slate-900 text-base mt-2 tracking-tight group-hover:text-emerald-600 transition">NMMS Government List</h3>
+                        <p class="text-slate-400 text-xs mt-1 leading-relaxed">Official Director of Government Examinations merit roll arrays, cutoff rankings, and selected list tracks.</p>
+                    </div>
+                    <a href="https://www.dge.tn.gov.in" target="_blank" class="mt-5 text-center bg-slate-950 hover:bg-emerald-600 text-white font-black text-xs py-3 rounded-xl transition uppercase tracking-wider block shadow-sm">
+                        <i class="fa-solid fa-building-columns mr-1.5"></i> Open DGE Portal
+                    </a>
+                </div>
+
+                <div class="bg-white border border-slate-200/60 rounded-2xl p-5 shadow-sm flex flex-col justify-between hover:border-blue-500 transition group">
+                    <div>
+                        <span class="text-[9px] font-black text-purple-600 bg-purple-50 border border-purple-100 px-2.5 py-0.5 rounded uppercase tracking-wider">Rural Talent</span>
+                        <h3 class="font-black text-slate-900 text-base mt-2 tracking-tight group-hover:text-purple-600 transition">TRUST Exam Archive</h3>
+                        <p class="text-slate-400 text-xs mt-1 leading-relaxed">Tamil Nadu Rural Students Talent Search Examination placement sheets and allocation ledgers.</p>
+                    </div>
+                    <a href="https://www.dge.tn.gov.in" target="_blank" class="mt-5 text-center bg-slate-950 hover:bg-purple-600 text-white font-black text-xs py-3 rounded-xl transition uppercase tracking-wider block shadow-sm">
+                        <i class="fa-solid fa-arrow-up-right-from-square mr-1.5"></i> View TRUST Records
+                    </a>
+                </div>
+
+                <div class="bg-white border border-slate-200/60 rounded-2xl p-5 shadow-sm flex flex-col justify-between hover:border-blue-500 transition group">
+                    <div>
+                        <span class="text-[9px] font-black text-amber-600 bg-amber-50 border border-amber-100 px-2.5 py-0.5 rounded uppercase tracking-wider">State Scheme</span>
+                        <h3 class="font-black text-slate-900 text-base mt-2 tracking-tight group-hover:text-amber-600 transition">CM Talent Search Exam</h3>
+                        <p class="text-slate-400 text-xs mt-1 leading-relaxed">Elite scholarship selection status matrix charts for premium high school candidate allocations.</p>
+                    </div>
+                    <a href="https://www.dge.tn.gov.in" target="_blank" class="mt-5 text-center bg-slate-950 hover:bg-amber-600 text-white font-black text-xs py-3 rounded-xl transition uppercase tracking-wider block shadow-sm">
+                        <i class="fa-solid fa-building-columns mr-1.5"></i> Access CM Portal
+                    </a>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-6 text-center text-xs mt-auto">
+        <p>&copy; 2026 TN Classroom. All student candidate dashboard indices securely routed using active Cloud systems.</p>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, getDocs, query, where, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBW92t7GWAf6vIHdJ83n7Nz7Io3y2GArVw",
+            authDomain: "tnclassroom-mcq-new.firebaseapp.com",
+            projectId: "tnclassroom-mcq-new",
+            storageBucket: "tnclassroom-mcq-new.firebasestorage.app",
+            messagingSenderId: "808928665241",
+            appId: "1:808928665241:web:5a8a9e3f4ee5b885c9a208",
+            measurementId: "G-L059C061EY"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        let userData = [];
+
+        window.fetchUserResults = async () => {
+            const mobile = document.getElementById('searchMobile').value.trim();
+            const status = document.getElementById('statusMsg');
+            const wrapper = document.getElementById('resultsWrapper');
+            const body = document.getElementById('userResultsBody');
+            const dlBtn = document.getElementById('downloadBtn');
+
+            if (mobile.length !== 10) return alert("Please enter a valid 10-digit mobile number.");
+
+            status.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin text-[#1e3a8a] mr-1.5"></i>Searching database ledger records...`;
+            body.innerHTML = "";
+            wrapper.classList.add('hidden');
+            dlBtn.classList.add('hidden');
+
+            try {
+                const q = query(
+                    collection(db, "results"),
+                    where("mobile", "==", mobile),
+                    orderBy("timestamp", "desc")
+                );
+
+                const querySnapshot = await getDocs(q);
+                userData = querySnapshot.docs.map(doc => doc.data());
+
+                if (userData.length === 0) {
+                    status.innerText = "No examination records captured for this phone metric.";
+                    return;
+                }
+
+                userData.forEach(item => {
+                    const dt = item.timestamp?.toDate ? item.timestamp.toDate().toLocaleString() : "—";
+                    const scoreColor = (item.score / item.total) >= 0.5 ? 'text-green-600' : 'text-red-500';
+
+                    // Client side clean tag parsing tracker logic
+                    let displayQuizId = item.quizId || 'General Assessment';
+                    let categoryBadge = "";
+                    if(displayQuizId.toLowerCase().includes('tet')) {
+                        categoryBadge = `<span class="text-[9px] bg-blue-50 text-blue-700 border border-blue-100 font-extrabold px-1.5 py-0.5 rounded mr-1.5">TNTET</span>`;
+                    } else if (displayQuizId.toLowerCase().includes('nmms')) {
+                        categoryBadge = `<span class="text-[9px] bg-emerald-50 text-emerald-700 border border-emerald-100 font-extrabold px-1.5 py-0.5 rounded mr-1.5">NMMS</span>`;
+                    }
+
+                    const row = `
+                        <tr class="hover:bg-blue-50/50 transition-colors">
+                            <td class="p-5">
+                                <p class="text-xs font-bold text-slate-600 font-mono">${dt}</p>
+                            </td>
+                            <td class="p-5">
+                                <div class="flex items-center">
+                                    ${categoryBadge}
+                                    <p class="text-xs font-black text-[#1e3a8a] tracking-wide uppercase">${displayQuizId}</p>
+                                </div>
+                            </td>
+                            <td class="p-5 text-center">
+                                <div class="inline-block px-3 py-1 rounded-xl bg-slate-100">
+                                    <span class="text-base font-black ${scoreColor}">${item.score}</span>
+                                    <span class="text-[10px] font-bold text-slate-400">/${item.total}</span>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                    body.insertAdjacentHTML('beforeend', row);
+                });
+
+                status.innerText = `Successfully parsed ${userData.length} individual evaluation track(s).`;
+                wrapper.classList.remove('hidden');
+                dlBtn.classList.remove('hidden');
+
+            } catch (error) {
+                console.error(error);
+                status.innerText = "Query Error: If running initial test frames, check index configs in the Firestore profile console.";
+            }
+        };
+
+        window.downloadMyResults = () => {
+            if (userData.length === 0) return;
+
+            const excelData = userData.map(item => ({
+                "Date": item.timestamp?.toDate ? item.timestamp.toDate().toLocaleString() : "N/A",
+                "Quiz ID": item.quizId || "",
+                "Marks Obtained": item.score ?? 0,
+                "Total Marks": item.total || 0,
+                "Percentage": item.total ? ((item.score / item.total) * 100).toFixed(2) + "%" : "0%"
+            }));
+
+            const worksheet = XLSX.utils.json_to_sheet(excelData);
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, "My Scores");
+            XLSX.writeFile(workbook, `My_Results_${document.getElementById('searchMobile').value}.xlsx`);
+        };
+
+        // SHARED LAYER GLOBAL NAVBAR INITIALIZATION
+        async function loadSharedSiteNavbar() {
+            try {
+                const res = await fetch(`../navbar.html?v=${new Date().getTime()}`);
+                if (res.ok) {
+                    document.getElementById('navbar-placeholder').innerHTML = await res.text();
+                    initializeGlobalNavigationHooks();
+                }
+            } catch (e) { console.error("Shared layout routing blocked:", e); }
+        }
+
+        function initializeGlobalNavigationHooks() {
+            document.removeEventListener('click', closeAllDropdowns);
+            document.addEventListener('click', closeAllDropdowns);
+        }
+
+        window.toggleNavigationMenu = (event, targetMenuId) => {
+            event.stopPropagation();
+            const targetMenu = document.getElementById(targetMenuId);
+            if (!targetMenu) return;
+            if (targetMenuId.includes('mobile-')) {
+                const isHidden = targetMenu.classList.contains('hidden');
+                document.querySelectorAll('[id*="mobile-menu-"]').forEach(m => m.classList.add('hidden'));
+                if (isHidden) targetMenu.classList.remove('hidden');
+            } else {
+                const isOpen = targetMenu.classList.contains('dropdown-active');
+                document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('dropdown-active'));
+                if (!isOpen) targetMenu.classList.add('dropdown-active');
+            }
+        };
+
+        window.toggleMobileMenu = (open) => {
+            const drawer = document.getElementById('mobile-drawer');
+            const content = document.getElementById('drawer-content');
+            if (!drawer || !content) return;
+            if (open) {
+                drawer.classList.remove('invisible');
+                setTimeout(() => content.classList.remove('translate-x-full'), 10);
+            } else {
+                content.classList.add('translate-x-full');
+                setTimeout(() => drawer.classList.add('invisible'), 300);
+            }
+        };
+
+        function closeAllDropdowns() {
+            document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('dropdown-active'));
+            document.querySelectorAll('[id*="mobile-menu-"]').forEach(m => m.classList.add('hidden'));
+        }
+
+        window.addEventListener('DOMContentLoaded', loadSharedSiteNavbar);
+    </script>
+</body>
+</html>
