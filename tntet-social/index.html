@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TNTET Social Science</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+      window.MathJax = {
+        tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], processEscapes: true },
+        options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        .dropdown-active { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; }
+        .tamil-fix { font-family: 'Segoe UI', 'Latha', sans-serif !important; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 flex flex-col min-h-screen font-sans">
+
+    <div id="navbar-placeholder"></div>
+
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm mb-8">
+            <h1 class="text-2xl font-black text-slate-900 sm:text-3xl flex items-center gap-2">
+                <span class="p-2 bg-amber-50 text-amber-700 rounded-xl"><i class="fa-solid fa-earth-americas"></i></span>
+                TNTET Social Science
+            </h1>
+            <p class="text-slate-500 text-sm mt-2 leading-relaxed">
+                Comprehensive study center for TNTET Social Science covering History, Geography, Civics, Economics, and specialized Pedagogy. Access structured lesson sessions, interactive MCQ evaluation tests, scanned resource folders, and video archives.
+            </p>
+        </div>
+
+        <div id="category-tabs-container" class="flex flex-wrap gap-2 mb-6"></div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="sessions-master-deck">
+            <div class="col-span-full text-center py-12 text-slate-400 font-medium text-xs bg-white border border-slate-100 rounded-2xl shadow-sm">
+                <i class="fa-solid fa-circle-notch fa-spin text-amber-600 mr-1.5"></i> Mapping educational database tracks...
+            </div>
+        </div>
+    </main>
+
+    <div id="material-modal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex justify-end invisible opacity-0 transition-all duration-300" onclick="closeMaterialModal()">
+        <div class="w-full max-w-2xl bg-white h-full shadow-2xl flex flex-col translate-x-full transition-transform duration-300 text-slate-900" id="material-drawer-content" onclick="event.stopPropagation()">
+
+            <div class="p-4 border-b border-slate-200/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-50" id="modal-header-container">
+                <div>
+                    <span id="modal-session-badge" class="text-[9px] font-black text-amber-800 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded uppercase tracking-wider">Session</span>
+                    <h2 id="modal-material-title" class="font-black text-slate-900 text-base tracking-tight mt-1 tamil-fix">Study Material Viewer</h2>
+                </div>
+                <div class="flex items-center gap-3 self-end sm:self-auto">
+                    <div class="flex items-center border border-slate-200 bg-white rounded-lg p-0.5 shadow-sm text-xs font-bold text-slate-600">
+                        <button onclick="adjustTextScale(-1)" class="w-7 h-7 hover:bg-slate-100 rounded flex items-center justify-center font-mono" title="Decrease Font size">A-</button>
+                        <button onclick="adjustTextScale(1)" class="w-7 h-7 hover:bg-slate-100 rounded flex items-center justify-center font-mono border-l border-slate-100" title="Increase Font size">A+</button>
+                    </div>
+                    <div class="flex items-center border border-slate-200 bg-white rounded-lg p-0.5 shadow-sm">
+                        <button onclick="setReaderTheme('light')" class="w-7 h-7 rounded flex items-center justify-center text-amber-500 hover:bg-slate-100" title="Light Mode"><i class="fa-solid fa-sun text-xs"></i></button>
+                        <button onclick="setReaderTheme('sepia')" class="w-7 h-7 rounded flex items-center justify-center text-amber-800 bg-amber-50 hover:bg-amber-100/60 font-serif font-bold text-xs" title="Sepia Eye Protection Mode">S</button>
+                        <button onclick="setReaderTheme('dark')" class="w-7 h-7 rounded flex items-center justify-center text-slate-400 hover:bg-slate-800" title="Dark Mode"><i class="fa-solid fa-moon text-xs"></i></button>
+                    </div>
+                    <button onclick="closeMaterialModal()" class="w-8 h-8 rounded-full bg-white hover:bg-slate-100 border flex items-center justify-center text-slate-500 shadow-sm transition">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex-grow overflow-y-auto p-6 md:p-8 bg-white transition-colors duration-200" id="modal-material-body"></div>
+
+            <div class="p-4 border-t border-slate-200/60 bg-slate-50 flex justify-end" id="modal-footer-container">
+                <button onclick="closeMaterialModal()" class="px-5 py-2.5 bg-slate-950 text-white rounded-xl text-xs font-black shadow transition uppercase tracking-wider">Close Material</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-6 text-center text-xs mt-auto">
+        <p>&copy; 2026 TN Classroom. All TNTET educator assets securely linked to active cloud frameworks.</p>
+    </footer>
+
+    <script>
+        // =========================================================================
+        // PLACE YOUR SPREADSHEET PUBLISHED LINK HERE (Targeting your social sheet tab parameters)
+        // =========================================================================
+        const DATABASE_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRxrNjhYpkr5ZNT3WvwWMS8kZLlzocCLiEFBJm68HanMXEfajPTWW9Aus26pAWTXQil2MWvtNUbYHS4/pub?gid=1044842070&single=true&output=csv";
+
+        let masterDatabaseRecords = [];
+        let globallySelectedCategory = "";
+
+        // ROBUST WHITESPACE-SAFE CSV ENGINE
+        function parseCsvRows(text) {
+            let lines = [];
+            let row = [];
+            let cell = '';
+            let inQuotes = false;
+            for (let i = 0; i < text.length; i++) {
+                let c = text[i];
+                if (c === '"') { inQuotes = !inQuotes; }
+                else if (c === ',' && !inQuotes) { row.push(cell.trim()); cell = ''; }
+                else if ((c === '\n' || c === '\r') && !inQuotes) {
+                    row.push(cell.trim());
+                    if (row.length > 0 && row.some(x => x !== '')) lines.push(row);
+                    row = []; cell = '';
+                    if (c === '\r' && text[i+1] === '\n') i++;
+                } else { cell += c; }
+            }
+            if (cell || row.length > 0) { row.push(cell.trim()); lines.push(row); }
+            return lines;
+        }
+
+        async function bootTntetPortal() {
+            try {
+                const res = await fetch(DATABASE_CSV_URL);
+                if (!res.ok) throw new Error("Database network stream offline.");
+                const txt = await res.text();
+
+                const lines = parseCsvRows(txt);
+                const dataRows = lines.slice(1);
+
+                masterDatabaseRecords = [];
+
+                dataRows.forEach((cols, index) => {
+                    if (!cols || cols.length < 2 || !cols[1]) return;
+
+                    let sessionNo = cols[0] ? cols[0].replace(/^"|"$/g, '').trim() : '';
+                    let topicName = cols[1] ? cols[1].replace(/^"|"$/g, '').trim() : '';
+                    let pdfPath   = cols[2] ? cols[2].replace(/^"|"$/g, '').replace(/^\.\//, '').trim() : '#';
+                    let videoLink = cols[3] ? cols[3].replace(/^"|"$/g, '').trim() : '#';
+                    let mcqRouter = cols[4] ? cols[4].replace(/^"|"$/g, '').trim() : '#';
+                    let category  = cols[5] ? cols[5].replace(/^"|"$/g, '').trim() : 'Social Science';
+
+                    masterDatabaseRecords.push({
+                        id: index,
+                        session: sessionNo,
+                        topic: topicName,
+                        pdfUrl: pdfPath,
+                        videoUrl: videoLink,
+                        mcqUrl: mcqRouter,
+                        subject: category
+                    });
+                });
+
+                buildCategoryTabs();
+            } catch (error) {
+                console.error("TNTET Social Science portal boot failure:", error);
+                document.getElementById('sessions-master-deck').innerHTML = `
+                    <div class="col-span-full p-4 bg-red-50 text-red-700 text-xs font-bold rounded-xl border border-red-100 text-center">
+                        Error reading spreadsheet database parameters. Verify share permissions.
+                    </div>
+                `;
+            }
+
+            // Auto-route search parameters from shared links if present
+            const urlQueryStrings = new URLSearchParams(window.location.search);
+            const parametersSessionId = urlQueryStrings.get('session');
+            if (parametersSessionId) {
+                const associatedRecord = masterDatabaseRecords.find(x => x.session.toLowerCase() === parametersSessionId.toLowerCase());
+                if (associatedRecord) {
+                    globallySelectedCategory = associatedRecord.subject;
+                    buildCategoryTabs();
+                }
+            }
+        }
+
+        function buildCategoryTabs() {
+            const container = document.getElementById('category-tabs-container');
+            const categories = [...new Set(masterDatabaseRecords.map(x => x.subject))].filter(Boolean);
+            container.innerHTML = "";
+
+            categories.forEach((cat, i) => {
+                if (i === 0 && !globallySelectedCategory) globallySelectedCategory = cat;
+                const btn = document.createElement('button');
+                btn.className = `px-4 py-2 rounded-xl text-xs font-extrabold border transition shadow-sm ${cat === globallySelectedCategory ? 'bg-amber-950 text-white border-amber-950' : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'}`;
+                btn.innerText = cat;
+                btn.onclick = () => {
+                    globallySelectedCategory = cat;
+                    document.querySelectorAll('#category-tabs-container button').forEach(b => b.className = "px-4 py-2 rounded-xl text-xs font-extrabold border bg-white text-slate-700 border-slate-200 hover:bg-slate-50 transition shadow-sm");
+                    btn.className = "px-4 py-2 rounded-xl text-xs font-extrabold border bg-amber-950 text-white border-amber-950 transition shadow-sm";
+                    renderActiveSessionsDeck();
+                };
+                container.appendChild(btn);
+            });
+            renderActiveSessionsDeck();
+        }
+
+        function renderActiveSessionsDeck() {
+            const deck = document.getElementById('sessions-master-deck');
+            deck.innerHTML = "";
+
+            const matchedRows = masterDatabaseRecords.filter(x => x.subject === globallySelectedCategory);
+
+            matchedRows.forEach(row => {
+                const hasVideo = row.videoUrl !== '#';
+                const hasMcq = row.mcqUrl !== '#';
+                let formattedTopic = row.topic.replace(/\r?\n/g, '<br>');
+
+                const card = document.createElement('div');
+                card.className = "bg-white border border-slate-200/80 rounded-2xl p-5 shadow-sm flex flex-col justify-between hover:border-amber-500 transition group relative";
+                card.innerHTML = `
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center gap-2">
+                                <span class="text-[10px] font-black text-amber-700 uppercase tracking-widest font-mono">${row.session}</span>
+                                <span class="text-[9px] font-bold text-slate-400 border border-slate-100 px-2 py-0.5 rounded uppercase tracking-wider">${globallySelectedCategory}</span>
+                            </div>
+                            <button onclick="shareTopicCard(event, '${row.session}', '${row.topic.replace(/'/g, "\\'")}')" class="text-slate-400 hover:text-amber-700 p-1.5 rounded-lg hover:bg-slate-50 transition" title="Share Topic Link">
+                                <i class="fa-solid fa-share-nodes text-xs"></i>
+                            </button>
+                        </div>
+                        <div>
+                            <h3 class="font-black text-slate-900 text-base tracking-tight group-hover:text-amber-700 transition tamil-fix">${formattedTopic}</h3>
+                        </div>
+                        <div class="pt-2 space-y-2 border-t border-slate-100">
+                            <button data-id="${row.id}" onclick="triggerMaterialOpen(this)" class="flex items-center gap-2 text-xs font-bold text-slate-600 hover:text-amber-700 transition text-left w-full">
+                                <i class="fa-solid fa-file-pdf text-red-500 text-sm w-4 text-center"></i> Read PDF Material Notes
+                            </button>
+
+                            ${hasVideo ? `
+                            <a href="${row.videoUrl}" target="_blank" class="flex items-center gap-2 text-xs font-bold text-slate-600 hover:text-red-600 transition">
+                                <i class="fa-brands fa-youtube text-red-500 text-sm w-4 text-center"></i> Video Class Reference
+                            </a>` : `
+                            <span class="flex items-center gap-2 text-xs font-bold text-slate-300 cursor-not-allowed">
+                                <i class="fa-brands fa-youtube text-slate-200 text-sm w-4 text-center"></i> Video Coming Soon
+                            </span>`}
+                        </div>
+                    </div>
+                    <div class="mt-5 pt-3 border-t border-slate-100">
+                        ${hasMcq ? `
+                        <a href="${row.mcqUrl}" target="_blank" class="w-full text-center bg-amber-800 hover:bg-amber-900 text-white font-black text-xs py-3 rounded-xl transition shadow-md block uppercase tracking-wider">
+                            <i class="fa-solid fa-bolt mr-1"></i> Launch Interactive Quiz
+                        </a>` : `
+                        <button disabled class="w-full text-center bg-slate-100 text-slate-400 font-bold text-xs py-3 rounded-xl block uppercase tracking-wider cursor-not-allowed border border-slate-200/40">
+                            Evaluation Quiz Coming Soon
+                        </button>`}
+                    </div>
+                `;
+                deck.appendChild(card);
+            });
+        }
+
+        function triggerMaterialOpen(buttonElement) {
+            const targetId = parseInt(buttonElement.getAttribute('data-id'));
+            const record = masterDatabaseRecords.find(x => x.id === targetId);
+            if (record) {
+                openMaterialModal(record.pdfUrl, record.topic, record.session);
+            }
+        }
+
+        let currentTextScale = 16;
+        let currentActiveTheme = 'light';
+
+        const themeStyles = {
+            light: { bodyBg: 'bg-white', text: 'text-slate-800', border: 'border-slate-200/60', headerBg: 'bg-slate-50', headerText: 'text-slate-900', btnBg: 'bg-slate-950', btnText: 'text-white' },
+            sepia: { bodyBg: 'bg-[#f4ecd8]', text: 'text-[#5b4636]', border: 'border-[#e4d8bc]', headerBg: 'bg-[#eae0c6]', headerText: 'text-[#433225]', btnBg: 'bg-[#433225]', btnText: 'text-[#f4ecd8]' },
+            dark:  { bodyBg: 'bg-slate-950', text: 'text-slate-200', border: 'border-slate-800', headerBg: 'bg-slate-900', headerText: 'text-white', btnBg: 'bg-slate-800', btnText: 'text-slate-200' }
+        };
+
+        async function openMaterialModal(fileUrl, unitName, unitNo) {
+            const modal = document.getElementById('material-modal');
+            const drawer = document.getElementById('material-drawer-content');
+            const body = document.getElementById('modal-material-body');
+
+            document.getElementById('modal-material-title').innerHTML = unitName.replace(/\r?\n/g, ' - ');
+            document.getElementById('modal-session-badge').innerText = unitNo;
+
+            modal.style.setProperty('display', 'flex', 'important');
+            modal.classList.remove('invisible');
+            modal.classList.add('opacity-100');
+            drawer.classList.remove('translate-x-full');
+            drawer.style.transform = 'none';
+
+            let processedUrl = fileUrl.trim();
+            if (!processedUrl.startsWith('http') && !processedUrl.startsWith('/') && !processedUrl.startsWith('.')) {
+                processedUrl = `./${processedUrl}`;
+            }
+
+            if (processedUrl.toLowerCase().endsWith('.pdf')) {
+                body.innerHTML = `
+                    <div class="w-full h-[73vh] rounded-xl overflow-hidden border border-slate-200 shadow-inner bg-slate-100">
+                        <object data="${processedUrl}" type="application/pdf" class="w-full h-full">
+                            <iframe src="${processedUrl}" class="w-full h-full border-0">
+                                <div class="p-4 text-center text-xs font-bold text-slate-500">
+                                    Unable to preview PDF document natively.
+                                    <a href="${processedUrl}" target="_blank" class="text-amber-700 underline block mt-1">Click here to open or download instead</a>
+                                </div>
+                            </iframe>
+                        </object>
+                    </div>
+                `;
+                setReaderTheme(currentActiveTheme);
+            } else {
+                body.innerHTML = `<div class="text-center py-12 text-slate-400 text-xs"><i class="fa-solid fa-circle-notch fa-spin mr-2"></i>Loading text material...</div>`;
+                try {
+                    const res = await fetch(processedUrl);
+                    if (!res.ok) throw new Error(`Status: ${res.status}`);
+                    const rawText = await res.text();
+
+                    body.innerHTML = `
+                        <pre id="material-text-node" class="font-sans leading-relaxed tracking-wide whitespace-pre-wrap select-text tamil-fix" style="font-size: ${currentTextScale}px;"></pre>
+                    `;
+
+                    const textContainer = document.getElementById('material-text-node');
+                    let cleanHtmlContent = rawText.replace(/[\u0b80-\u0bff]+/g, (match) => `<span class="tamil-fix font-medium">${match}</span>`);
+                    textContainer.innerHTML = cleanHtmlContent;
+
+                    setReaderTheme(currentActiveTheme);
+
+                    if (window.MathJax && window.MathJax.typesetPromise) {
+                        window.MathJax.typesetPromise([textContainer]);
+                    }
+                } catch(e) {
+                    console.error(e);
+                    body.innerHTML = `
+                        <div class="p-5 bg-red-50 text-red-700 text-xs font-bold rounded-2xl border border-red-100 text-center">
+                            <i class="fa-solid fa-circle-exclamation mr-1.5"></i> Missing or unmapped material file documentation.<br>
+                            <span class="font-mono text-[10px] text-slate-400 block mt-1">Expected file path location: ${processedUrl}</span>
+                        </div>
+                    `;
+                }
+            }
+        }
+
+        function shareTopicCard(event, sessionNo, topicTitle) {
+            event.stopPropagation();
+
+            const formattedTitle = topicTitle.replace(/<br>/g, ' ').trim();
+            const cleanCurrentUrl = window.location.href.split('?')[0];
+            const targetShareUrl = `${cleanCurrentUrl}?session=${encodeURIComponent(sessionNo)}`;
+
+            const contextText = `📚 *TNTET ${globallySelectedCategory}* \n📌 *${sessionNo}*: ${formattedTitle}\n\n👇 Study Link:\n${targetShareUrl}`;
+
+            if (navigator.share) {
+                navigator.share({
+                    title: `TNTET - ${sessionNo}`,
+                    text: contextText,
+                    url: targetShareUrl
+                }).catch(err => console.log('Share canceled'));
+            } else {
+                navigator.clipboard.writeText(contextText).then(() => {
+                    alert(`📋 Link copied for ${sessionNo}! You can now paste and share it directly on WhatsApp.`);
+                }).catch(() => {
+                    const dummyInput = document.createElement('textarea');
+                    document.body.appendChild(dummyInput);
+                    dummyInput.value = contextText;
+                    dummyInput.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(dummyInput);
+                    alert(`📋 Link copied for ${sessionNo}!`);
+                });
+            }
+        }
+
+        function adjustTextScale(delta) {
+            currentTextScale = Math.max(14, Math.min(26, currentTextScale + delta));
+            const textNode = document.getElementById('material-text-node');
+            if (textNode) textNode.style.fontSize = `${currentTextScale}px`;
+        }
+
+        function setReaderTheme(themeKey) {
+            currentActiveTheme = themeKey;
+            const styleMap = themeStyles[themeKey];
+
+            const drawer = document.getElementById('material-drawer-content');
+            const header = document.getElementById('modal-header-container');
+            const body = document.getElementById('modal-material-body');
+            const footer = document.getElementById('modal-footer-container');
+            const footerBtn = document.querySelector('#modal-footer-container button');
+            const textNode = document.getElementById('material-text-node');
+
+            if (drawer) drawer.className = `w-full max-w-2xl ${styleMap.bodyBg} h-full shadow-2xl flex flex-col translate-x-full text-slate-900 ${styleMap.headerText}`;
+            if (header) header.className = `p-4 border-b ${styleMap.border} flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${styleMap.headerBg}`;
+            if (body) body.className = `flex-grow overflow-y-auto p-6 md:p-8 ${styleMap.bodyBg} transition-colors duration-200`;
+            if (footer) footer.className = `p-4 border-t ${styleMap.border} ${styleMap.headerBg} flex justify-end`;
+            if (footerBtn) footerBtn.className = `px-5 py-2.5 ${styleMap.btnBg} ${styleMap.btnText} rounded-xl text-xs font-black shadow transition uppercase tracking-wider`;
+            if (textNode) textNode.className = `font-sans leading-relaxed tracking-wide whitespace-pre-wrap select-text tamil-fix ${styleMap.text}`;
+        }
+
+        function closeMaterialModal() {
+            const modal = document.getElementById('material-modal');
+            const drawer = document.getElementById('material-drawer-content');
+            drawer.classList.add('translate-x-full');
+            drawer.style.transform = '';
+            modal.classList.remove('opacity-100');
+            modal.classList.add('invisible');
+            modal.style.display = 'none';
+        }
+
+        async function loadSharedSiteNavbar() {
+            try {
+                const res = await fetch(`../navbar.html?v=${new Date().getTime()}`);
+                if (res.ok) {
+                    document.getElementById('navbar-placeholder').innerHTML = await res.text();
+                    initializeGlobalNavigationHooks();
+                }
+            } catch (e) { console.error("Navigation setup blocked:", e); }
+        }
+
+        function initializeGlobalNavigationHooks() {
+            document.removeEventListener('click', closeAllDropdowns);
+            document.addEventListener('click', closeAllDropdowns);
+        }
+
+        function toggleNavigationMenu(event, targetMenuId) {
+            event.stopPropagation();
+            const targetMenu = document.getElementById(targetMenuId);
+            if (!targetMenu) return;
+
+            const isMobileElement = targetMenuId.includes('mobile-');
+
+            if (isMobileElement) {
+                const isCurrentlyHidden = targetMenu.classList.contains('hidden');
+                document.querySelectorAll('[id*="mobile-menu-"]').forEach(menu => menu.classList.add('hidden'));
+                if (isCurrentlyHidden) targetMenu.classList.remove('hidden');
+            } else {
+                const isCurrentlyOpen = targetMenu.classList.contains('dropdown-active');
+                document.querySelectorAll('.dropdown-menu').forEach(menu => menu.classList.remove('dropdown-active'));
+                if (!isCurrentlyOpen) targetMenu.classList.add('dropdown-active');
+            }
+        }
+
+        function toggleMobileMenu(open) {
+            const drawer = document.getElementById('mobile-drawer');
+            const content = document.getElementById('drawer-content');
+            if (!drawer || !content) return;
+
+            if (open) {
+                drawer.classList.remove('invisible');
+                setTimeout(() => content.classList.remove('translate-x-full'), 10);
+            } else {
+                content.classList.add('translate-x-full');
+                setTimeout(() => drawer.classList.add('invisible'), 300);
+            }
+        }
+
+        function closeAllDropdowns() {
+            document.querySelectorAll('.dropdown-menu').forEach(menu => menu.classList.remove('dropdown-active'));
+            document.querySelectorAll('[id*="mobile-menu-"]').forEach(menu => menu.classList.add('hidden'));
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            loadSharedSiteNavbar();
+            bootTntetPortal();
+        });
+    </script>
+</body>
+</html>

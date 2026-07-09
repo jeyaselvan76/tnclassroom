@@ -163,6 +163,18 @@
                     </div>
                 `;
             }
+
+            // Auto-route search parameters from shared links if present
+const urlQueryStrings = new URLSearchParams(window.location.search);
+const parametersSessionId = urlQueryStrings.get('session');
+if (parametersSessionId) {
+    const associatedRecord = masterDatabaseRecords.find(x => x.session.toLowerCase() === parametersSessionId.toLowerCase());
+    if (associatedRecord) {
+        globallySelectedCategory = associatedRecord.subject;
+        buildCategoryTabs(); // Redraw tabs to ensure correct category active state indicators highlight
+    }
+}
+
         }
 
         function buildCategoryTabs() {
@@ -237,6 +249,54 @@
                 `;
                 deck.appendChild(card);
             });
+
+            matchedRows.forEach(row => {
+    const hasVideo = row.videoUrl !== '#';
+    const hasMcq = row.mcqUrl !== '#';
+    let formattedTopic = row.topic.replace(/\r?\n/g, '<br>');
+
+    const card = document.createElement('div');
+    card.className = "bg-white border border-slate-200/80 rounded-2xl p-5 shadow-sm flex flex-col justify-between hover:border-purple-400 transition group relative";
+    card.innerHTML = `
+        <div class="space-y-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center gap-2">
+                    <span class="text-[10px] font-black text-purple-600 uppercase tracking-widest font-mono">${row.session}</span>
+                    <span class="text-[9px] font-bold text-slate-400 border border-slate-100 px-2 py-0.5 rounded uppercase tracking-wider">${globallySelectedCategory}</span>
+                </div>
+                <button onclick="shareTopicCard(event, '${row.session}', '${row.topic.replace(/'/g, "\\'")}')" class="text-slate-400 hover:text-purple-600 p-1.5 rounded-lg hover:bg-slate-50 transition" title="Share Topic Link">
+                    <i class="fa-solid fa-share-nodes text-xs"></i>
+                </button>
+            </div>
+            <div>
+                <h3 class="font-black text-slate-900 text-base tracking-tight group-hover:text-purple-600 transition tamil-fix">${formattedTopic}</h3>
+            </div>
+            <div class="pt-2 space-y-2 border-t border-slate-100">
+                <button data-id="${row.id}" onclick="triggerMaterialOpen(this)" class="flex items-center gap-2 text-xs font-bold text-slate-600 hover:text-purple-600 transition text-left w-full">
+                    <i class="fa-solid fa-file-pdf text-red-500 text-sm w-4 text-center"></i> Read PDF Material Notes
+                </button>
+                ${hasVideo ? `
+                <a href="${row.videoUrl}" target="_blank" class="flex items-center gap-2 text-xs font-bold text-slate-600 hover:text-red-600 transition">
+                    <i class="fa-brands fa-youtube text-red-500 text-sm w-4 text-center"></i> Video Class Reference
+                </a>` : `
+                <span class="flex items-center gap-2 text-xs font-bold text-slate-300 cursor-not-allowed">
+                    <i class="fa-brands fa-youtube text-slate-200 text-sm w-4 text-center"></i> Video Coming Soon
+                </span>`}
+            </div>
+        </div>
+        <div class="mt-5 pt-3 border-t border-slate-100">
+            ${hasMcq ? `
+            <a href="${row.mcqUrl}" target="_blank" class="w-full text-center bg-purple-900 hover:bg-purple-950 text-white font-black text-xs py-3 rounded-xl transition shadow-md block uppercase tracking-wider">
+                <i class="fa-solid fa-bolt mr-1"></i> Launch Interactive Quiz
+            </a>` : `
+            <button disabled class="w-full text-center bg-slate-100 text-slate-400 font-bold text-xs py-3 rounded-xl block uppercase tracking-wider cursor-not-allowed border border-slate-200/40">
+                Evaluation Quiz Coming Soon
+            </button>`}
+        </div>
+    `;
+    deck.appendChild(card);
+});
+
         }
 
         function triggerMaterialOpen(buttonElement) {
@@ -321,6 +381,41 @@
                 }
             }
         }
+
+        function shareTopicCard(event, sessionNo, topicTitle) {
+    event.stopPropagation(); // Prevents clicking the button from triggering underlying card clicks
+
+    // Clean up title text strings for cleaner presentation layout
+    const formattedTitle = topicTitle.replace(/<br>/g, ' ').trim();
+    const cleanCurrentUrl = window.location.href.split('?')[0];
+    const targetShareUrl = `${cleanCurrentUrl}?session=${encodeURIComponent(sessionNo)}`;
+
+    const contextText = `📚 *TNTET ${globallySelectedCategory}* \n📌 *${sessionNo}*: ${formattedTitle}\n\n👇 Study Link:\n${targetShareUrl}`;
+
+    // Use Native Web Share API if running on Mobile/Secure contexts
+    if (navigator.share) {
+        navigator.share({
+            title: `TNTET - ${sessionNo}`,
+            text: contextText,
+            url: targetShareUrl
+        }).catch(err => console.log('Share canceled'));
+    } else {
+        // Desktop Fallback: Copy customized context directly to clipboard
+        navigator.clipboard.writeText(contextText).then(() => {
+            alert(`📋 Link copied for ${sessionNo}! You can now paste and share it directly on WhatsApp.`);
+        }).catch(() => {
+            // Alternative input fallback element if permissions drop
+            const dummyInput = document.createElement('textarea');
+            document.body.appendChild(dummyInput);
+            dummyInput.value = contextText;
+            dummyInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(dummyInput);
+            alert(`📋 Link copied for ${sessionNo}!`);
+        });
+    }
+}
+
 
         function adjustTextScale(delta) {
             currentTextScale = Math.max(14, Math.min(26, currentTextScale + delta));
