@@ -218,21 +218,22 @@
             }
         }
 
-        async function loadSharedSiteNavbar() {
-            try {
-                const cacheBusterToken = new Date().getTime();
+       async function loadSharedSiteNavbar() {
+    try {
+        const cacheBusterToken = new Date().getTime();
 
-                // CHANGED: Automatically switches between local subdirectories and root production domain structure smoothly
-                const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-                const localNavbarUrl = isLocal ? '/navbar.html?v=' + cacheBusterToken : '/navbar.html?v=' + cacheBusterToken;
+        // Go up one level to the main folder where navbar.html lives
+        const localNavbarUrl = `../navbar.html?v=${cacheBusterToken}`;
 
-                const response = await fetch(localNavbarUrl);
-                if (response.ok) {
-                    document.getElementById('navbar-placeholder').innerHTML = await response.text();
-                    initializeDropdownListeners();
-                }
-            } catch (error) { console.error(error); }
+        const response = await fetch(localNavbarUrl);
+        if (response.ok) {
+            document.getElementById('navbar-placeholder').innerHTML = await response.text();
+            initializeDropdownListeners();
+        } else {
+            console.error("Navbar file not found at path: " + localNavbarUrl);
         }
+    } catch (error) { console.error(error); }
+}
 
         function toggleNavigationMenu(event, targetMenuId) {
             event.stopPropagation();

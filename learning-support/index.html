@@ -174,25 +174,27 @@
             }
         }
 
-        // 2. FIXED: CACHE-BUSTING NAVIGATION INJECTOR MODULE
+       // 2. FIXED: CACHE-BUSTING NAVIGATION INJECTOR MODULE
         async function loadSharedSiteNavbar() {
-    try {
-        const cacheBusterToken = new Date().getTime();
+            try {
+                const cacheBusterToken = new Date().getTime();
 
-        // CHANGED: Bypasses GitHub entirely and loads the navbar file right from your local directory
-        const localNavbarUrl = `/tnclassroom/navbar.html?v=${cacheBusterToken}`;
+                // Dynamically detects the path prefix based on whether it is running on a local server or production root
+                const isSubfolder = window.location.pathname.split('/').filter(Boolean).length > 0;
+                const relativePrefix = isSubfolder ? '../' : './';
+                const localNavbarUrl = `${relativePrefix}navbar.html?v=${cacheBusterToken}`;
 
-        const response = await fetch(localNavbarUrl);
-        if (!response.ok) throw new Error("Local navbar file asset extraction mismatch.");
+                const response = await fetch(localNavbarUrl);
+                if (!response.ok) throw new Error("Local navbar file asset extraction mismatch.");
 
-        const htmlContent = await response.text();
-        document.getElementById('navbar-placeholder').innerHTML = htmlContent;
+                const htmlContent = await response.text();
+                document.getElementById('navbar-placeholder').innerHTML = htmlContent;
 
-        initializeDropdownListeners();
-    } catch (error) {
-        console.error("Error loading local navigation bar component:", error);
-    }
-}
+                initializeDropdownListeners();
+            } catch (error) {
+                console.error("Error loading local navigation bar component:", error);
+            }
+        }
 
         // 3. FIXED: SYNCED INTERACTIVE ROUTING FOR COMPUTER DROPDOWNS & MOBILE DRAWER LINKS
        function toggleNavigationMenu(event, targetMenuId) {
