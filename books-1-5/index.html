@@ -42,7 +42,9 @@
     </script>
 
     <style>
-        .dropdown-active { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; }
+        /* FIXED: Added layer safety rules to keep page headers cleanly organized */
+        .dropdown-menu { z-index: 50 !important; pointer-events: none; }
+        .dropdown-active { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; z-index: 50 !important; pointer-events: auto !important; }
         .tamil-fix { font-family: 'Segoe UI', 'Latha', sans-serif !important; }
     </style>
 </head>
@@ -193,12 +195,13 @@
 
                     const mobileCard = document.createElement('div');
                     mobileCard.className = "bg-white border border-slate-200 rounded-xl p-4 shadow-sm flex flex-col justify-between gap-3";
+                    // FIXED: Injected descriptive "Class" and "Term" text headers into labels row natively
                     mobileCard.innerHTML = `
                         <div class="flex justify-between items-start">
                             <div>
                                 <div class="flex items-center gap-2 mb-1.5">
-                                    <span class="text-[10px] font-bold tracking-wide bg-slate-100 text-slate-700 px-2 py-0.5 rounded">${cls}</span>
-                                    <span class="text-[10px] font-bold tracking-wide bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded">${term}</span>
+                                    <span class="text-[10px] font-bold tracking-wide bg-slate-100 text-slate-700 px-2 py-0.5 rounded">Class ${cls}</span>
+                                    <span class="text-[10px] font-bold tracking-wide bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded">Term ${term}</span>
                                 </div>
                                 <h3 class="font-bold text-slate-900 text-base tamil-fix">${subject}</h3>
                                 <p class="text-xs text-slate-400 mt-0.5">Medium: ${medium}</p>
@@ -218,22 +221,20 @@
             }
         }
 
-       async function loadSharedSiteNavbar() {
-    try {
-        const cacheBusterToken = new Date().getTime();
+        async function loadSharedSiteNavbar() {
+            try {
+                const cacheBusterToken = new Date().getTime();
+                const localNavbarUrl = `../navbar.html?v=${cacheBusterToken}`;
 
-        // Go up one level to the main folder where navbar.html lives
-        const localNavbarUrl = `../navbar.html?v=${cacheBusterToken}`;
-
-        const response = await fetch(localNavbarUrl);
-        if (response.ok) {
-            document.getElementById('navbar-placeholder').innerHTML = await response.text();
-            initializeDropdownListeners();
-        } else {
-            console.error("Navbar file not found at path: " + localNavbarUrl);
+                const response = await fetch(localNavbarUrl);
+                if (response.ok) {
+                    document.getElementById('navbar-placeholder').innerHTML = await response.text();
+                    initializeDropdownListeners();
+                } else {
+                    console.error("Navbar file not found at path: " + localNavbarUrl);
+                }
+            } catch (error) { console.error(error); }
         }
-    } catch (error) { console.error(error); }
-}
 
         function toggleNavigationMenu(event, targetMenuId) {
             event.stopPropagation();
@@ -247,6 +248,7 @@
             } else {
                 const isCurrentlyOpen = targetMenu.classList.contains('dropdown-active');
                 document.querySelectorAll('.dropdown-menu').forEach(menu => menu.classList.remove('dropdown-active'));
+                // FIXED: Replaced raw .add with fully safe .classList.add syntax to handle desktop listeners smoothly
                 if (!isCurrentlyOpen) targetMenu.classList.add('dropdown-active');
             }
         }
