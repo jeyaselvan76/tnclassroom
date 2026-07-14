@@ -169,15 +169,40 @@
             <p class="text-slate-500 text-xs">Automated institutional frameworks and synchronized campus resource ledgers.</p>
         </div>
 
-        <!-- FIXED ROTATING PORTAL INTERSECTION INTERFACE -->
-        <section class="py-12 bg-white border border-slate-200/60 rounded-3xl shadow-xl flex flex-col items-center justify-center gap-6 min-h-[420px]">
+        <!-- PORTAL INTERSECTION INTERFACE -->
+        <section class="py-12 bg-white border border-slate-200/60 rounded-3xl shadow-xl flex flex-col items-center justify-center gap-6 min-h-[420px] px-6">
             <div class="text-center space-y-1">
                 <span class="text-[9px] font-black uppercase tracking-widest text-slate-400 block">Interactive Control Interface</span>
                 <h2 class="text-xl font-black text-slate-900">Explore Academic Portals</h2>
-                <p class="text-slate-400 text-xs">Hover or tap the central core to launch tracking channels.</p>
+                <p class="text-slate-400 text-xs hidden sm:block">Hover or tap the central core to launch tracking channels.</p>
+                <p class="text-slate-400 text-xs sm:hidden">Select an active program category track to browse materials.</p>
             </div>
 
-            <nav class="edu-nav-container" aria-label="Educational Platform Directory">
+            <!-- MOBILE MOBILE VIEWS LIST BLOCK: Renders cleanly stacked touch targets to avoid overflow -->
+            <div class="w-full max-w-sm flex flex-col gap-3 sm:hidden mt-2">
+                <div class="border border-slate-100 rounded-2xl p-4 bg-slate-50/50 space-y-3">
+                    <span class="text-[10px] font-extrabold text-indigo-600 uppercase tracking-wider block font-mono"><i class="fa-solid fa-book-open mr-1"></i> TNTET Exam Portals</span>
+                    <div class="grid grid-cols-2 gap-2">
+                        <a href="./tntet-psychology/" class="p-2.5 bg-white border rounded-xl text-center text-xs font-bold text-slate-700 hover:text-indigo-600 hover:border-indigo-200 transition">Psychology</a>
+                        <a href="./tntet-tamil/" class="p-2.5 bg-white border rounded-xl text-center text-xs font-bold text-slate-700 hover:text-indigo-600 hover:border-indigo-200 transition">Tamil</a>
+                        <a href="./tntet-english/" class="p-2.5 bg-white border rounded-xl text-center text-xs font-bold text-slate-700 hover:text-indigo-600 hover:border-indigo-200 transition">English</a>
+                        <a href="./tntet-maths/" class="p-2.5 bg-white border rounded-xl text-center text-xs font-bold text-slate-700 hover:text-indigo-600 hover:border-indigo-200 transition">Maths</a>
+                        <a href="./tntet-science/" class="p-2.5 bg-white border rounded-xl text-center text-xs font-bold text-slate-700 hover:text-indigo-600 hover:border-indigo-200 transition">Science</a>
+                        <a href="./tntet-social/" class="p-2.5 bg-white border rounded-xl text-center text-xs font-bold text-slate-700 hover:text-indigo-600 hover:border-indigo-200 transition col-span-2">Social Science</a>
+                    </div>
+                </div>
+
+                <div class="border border-slate-100 rounded-2xl p-4 bg-slate-50/50 space-y-3">
+                    <span class="text-[10px] font-extrabold text-emerald-600 uppercase tracking-wider block font-mono"><i class="fa-solid fa-graduation-cap mr-1"></i> NMMS Channels</span>
+                    <div class="grid grid-cols-2 gap-2">
+                        <a href="./nmms-sat/" class="p-3 bg-white border rounded-xl text-center text-xs font-black text-slate-700 hover:text-emerald-600 hover:border-emerald-200 transition">SAT Portal</a>
+                        <a href="./nmms-mat/" class="p-3 bg-white border rounded-xl text-center text-xs font-black text-slate-700 hover:text-emerald-600 hover:border-emerald-200 transition">MAT Logic</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DESKTOP INTERACTIVE NAVIGATION VIEW (Safely preserved for larger screens) -->
+            <nav class="edu-nav-container hidden sm:block" aria-label="Educational Platform Directory">
                 <!-- Central Active Core Anchor -->
                 <button class="edu-core-btn" aria-label="Open Navigation Directory">
                     Explore
@@ -212,17 +237,17 @@
             </nav>
         </section>
 
-         <!-- FAST SCORE TRACKER INDEX BLOCK -->
-       <div class="bg-gradient-to-br from-slate-900 to-blue-950 text-white p-6 rounded-3xl shadow-md border border-slate-800 space-y-4 max-w-md mx-auto">
-    <div>
-        <h3 class="font-black text-sm tracking-tight">Performance Tracker</h3>
-        <p class="text-slate-400 text-[11px] mt-0.5 leading-relaxed">Input your verified 10-digit smartphone registration marker to open scores profiles.</p>
-    </div>
-    <div class="flex flex-col sm:flex-row gap-3">
-        <input type="tel" id="homeMobileCheck" maxlength="10" placeholder="ENTER MOBILE NUMBER" class="flex-grow bg-white/10 border border-white/10 rounded-xl p-3 text-center font-mono font-bold text-sm tracking-widest text-white placeholder-white/20 outline-none focus:border-cyan-400">
-        <button onclick="routeToScores(event)" class="bg-cyan-400 hover:bg-white text-blue-950 font-black text-xs px-6 py-3 rounded-xl transition uppercase tracking-wider shadow whitespace-nowrap">Fetch Scores</button>
-    </div>
-</div>
+        <!-- FAST SCORE TRACKER INDEX BLOCK -->
+        <div class="bg-gradient-to-br from-slate-900 to-blue-950 text-white p-6 rounded-3xl shadow-md border border-slate-800 space-y-4 max-w-md mx-auto w-full">
+            <div>
+                <h3 class="font-black text-sm tracking-tight">Performance Tracker</h3>
+                <p class="text-slate-400 text-[11px] mt-0.5 leading-relaxed">Input your verified 10-digit smartphone registration marker to open scores profiles.</p>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-3">
+                <input type="tel" id="homeMobileCheck" maxlength="10" placeholder="ENTER MOBILE NUMBER" class="flex-grow bg-white/10 border border-white/10 rounded-xl p-3 text-center font-mono font-bold text-sm tracking-widest text-white placeholder-white/20 outline-none focus:border-cyan-400">
+                <button onclick="routeToScores(event)" class="bg-cyan-400 hover:bg-white text-blue-950 font-black text-xs px-6 py-3 rounded-xl transition uppercase tracking-wider shadow whitespace-nowrap">Fetch Scores</button>
+            </div>
+        </div>
 
         <!-- SOCIAL MEDIA CHANNELS MATRIX MODULE -->
         <section class="space-y-4">
@@ -278,7 +303,6 @@
             </div>
         </section>
 
-
     </main>
 
     <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-6 text-center text-xs mt-auto">
@@ -287,22 +311,19 @@
 
     <!-- ENGINE SCRIPTS MATRIX -->
     <script>
-     function routeToScores(event) {
-    // Stop any form or button bubble side-effects completely
-    if (event) {
-        event.preventDefault();
-        event.stopPropagation();
-    }
+        function routeToScores(event) {
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
 
-    const num = document.getElementById('homeMobileCheck').value.trim();
-    if (num.length !== 10) return alert("Please enter a valid 10-digit mobile sequence.");
+            const num = document.getElementById('homeMobileCheck').value.trim();
+            if (num.length !== 10) return alert("Please enter a valid 10-digit mobile sequence.");
 
-    // Encode the parameter safely for clean browser path transitions
-    const encodedNum = encodeURIComponent(num);
+            const encodedNum = encodeURIComponent(num);
+            window.location.replace(`./results/?mobile=${encodedNum}`);
+        }
 
-    // Direct hard target to the exact query string key your results page reads
-    window.location.replace(`./results/?mobile=${encodedNum}`);
-}
         async function loadSharedSiteNavbar() {
             try {
                 const res = await fetch(`./navbar.html?v=${new Date().getTime()}`);
