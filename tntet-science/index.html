@@ -16,8 +16,10 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
-        .dropdown-active { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; }
-        .tamil-fix { font-family: 'Segoe UI', 'Latha', sans-serif !important; }
+        /* FIXED: Blocks hidden desktop menus from hijacking user clicks on empty space */
+        .dropdown-menu { z-index: 50 !important; pointer-events: none; }
+        .dropdown-active { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; z-index: 50 !important; pointer-events: auto !important; }
+        .tamil-fix { font-family: 'Segoe UI', 'Latha', 'Apple Tamil', sans-serif !important; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-900 flex flex-col min-h-screen font-sans">
@@ -53,7 +55,7 @@
                     <span id="modal-session-badge" class="text-[9px] font-black text-emerald-700 bg-emerald-50 border border-emerald-100 px-2 py-0.5 rounded uppercase tracking-wider">Session</span>
                     <h2 id="modal-material-title" class="font-black text-slate-900 text-base tracking-tight mt-1 tamil-fix">Study Material Viewer</h2>
                 </div>
-                <div class="flex items-center gap-3 self-end sm:self-auto">
+                <div class="flex items-center gap-3 self-end sm:flex-row sm:items-center justify-between gap-3">
                     <div class="flex items-center border border-slate-200 bg-white rounded-lg p-0.5 shadow-sm text-xs font-bold text-slate-600">
                         <button onclick="adjustTextScale(-1)" class="w-7 h-7 hover:bg-slate-100 rounded flex items-center justify-center font-mono" title="Decrease Font size">A-</button>
                         <button onclick="adjustTextScale(1)" class="w-7 h-7 hover:bg-slate-100 rounded flex items-center justify-center font-mono border-l border-slate-100" title="Increase Font size">A+</button>
@@ -82,20 +84,13 @@
     </footer>
 
     <script>
-        // =========================================================================
-        // PLACE YOUR SPREADSHEET PUBLISHED LINK HERE (Ensure target sheet tab parameter matches)
-        // =========================================================================
         const DATABASE_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRxrNjhYpkr5ZNT3WvwWMS8kZLlzocCLiEFBJm68HanMXEfajPTWW9Aus26pAWTXQil2MWvtNUbYHS4/pub?gid=1782685620&single=true&output=csv";
 
         let masterDatabaseRecords = [];
-        let globallySelectedCategory = "";
+        let globallySelectedCategory = "ALL"; // TET 2 Correction: Default changed to ALL
 
-        // ROBUST WHITESPACE-SAFE CSV ENGINE
         function parseCsvRows(text) {
-            let lines = [];
-            let row = [];
-            let cell = '';
-            let inQuotes = false;
+            let lines = []; let row = []; let cell = ''; let inQuotes = false;
             for (let i = 0; i < text.length; i++) {
                 let c = text[i];
                 if (c === '"') { inQuotes = !inQuotes; }
@@ -143,6 +138,22 @@
                     });
                 });
 
+                // TET 2 Correction: Sessions sequentially ordered numerically across mixed subjects
+                masterDatabaseRecords.sort((a, b) => {
+                    const numA = parseInt(a.session.replace(/\D/g, '')) || 0;
+                    const numB = parseInt(b.session.replace(/\D/g, '')) || 0;
+                    return numA - numB;
+                });
+
+                const urlQueryStrings = new URLSearchParams(window.location.search);
+                const parametersSessionId = urlQueryStrings.get('session');
+                if (parametersSessionId) {
+                    const associatedRecord = masterDatabaseRecords.find(x => x.session.toLowerCase() === parametersSessionId.toLowerCase());
+                    if (associatedRecord) {
+                        globallySelectedCategory = associatedRecord.subject;
+                    }
+                }
+
                 buildCategoryTabs();
             } catch (error) {
                 console.error("TNTET Science portal boot failure:", error);
@@ -152,18 +163,6 @@
                     </div>
                 `;
             }
-
-            // Auto-route search parameters from shared links if present
-const urlQueryStrings = new URLSearchParams(window.location.search);
-const parametersSessionId = urlQueryStrings.get('session');
-if (parametersSessionId) {
-    const associatedRecord = masterDatabaseRecords.find(x => x.session.toLowerCase() === parametersSessionId.toLowerCase());
-    if (associatedRecord) {
-        globallySelectedCategory = associatedRecord.subject;
-        buildCategoryTabs(); // Redraw tabs to ensure correct category active state indicators highlight
-    }
-}
-
         }
 
         function buildCategoryTabs() {
@@ -171,8 +170,19 @@ if (parametersSessionId) {
             const categories = [...new Set(masterDatabaseRecords.map(x => x.subject))].filter(Boolean);
             container.innerHTML = "";
 
-            categories.forEach((cat, i) => {
-                if (i === 0) globallySelectedCategory = cat;
+            // TET 2 Correction: Create "Show All" controller panel tab explicitly
+            const allBtn = document.createElement('button');
+            allBtn.className = `px-4 py-2 rounded-xl text-xs font-extrabold border transition shadow-sm ${globallySelectedCategory === 'ALL' ? 'bg-emerald-950 text-white border-emerald-950' : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'}`;
+            allBtn.innerText = "Show All / அனைத்தும்";
+            allBtn.onclick = () => {
+                globallySelectedCategory = "ALL";
+                document.querySelectorAll('#category-tabs-container button').forEach(b => b.className = "px-4 py-2 rounded-xl text-xs font-extrabold border bg-white text-slate-700 border-slate-200 hover:bg-slate-50 transition shadow-sm");
+                allBtn.className = "px-4 py-2 rounded-xl text-xs font-extrabold border bg-emerald-950 text-white border-emerald-950 transition shadow-sm";
+                renderActiveSessionsDeck();
+            };
+            container.appendChild(allBtn);
+
+            categories.forEach((cat) => {
                 const btn = document.createElement('button');
                 btn.className = `px-4 py-2 rounded-xl text-xs font-extrabold border transition shadow-sm ${cat === globallySelectedCategory ? 'bg-emerald-950 text-white border-emerald-950' : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'}`;
                 btn.innerText = cat;
@@ -191,20 +201,29 @@ if (parametersSessionId) {
             const deck = document.getElementById('sessions-master-deck');
             deck.innerHTML = "";
 
-            const matchedRows = masterDatabaseRecords.filter(x => x.subject === globallySelectedCategory);
+            // TET 2 Correction: Conditionally branch between global data or subject specific arrays
+            const matchedRows = globallySelectedCategory === "ALL"
+                ? masterDatabaseRecords
+                : masterDatabaseRecords.filter(x => x.subject === globallySelectedCategory);
 
+            // TET 2 Correction: Retained only the single loop that generates cards with the native share feature
             matchedRows.forEach(row => {
                 const hasVideo = row.videoUrl !== '#';
                 const hasMcq = row.mcqUrl !== '#';
                 let formattedTopic = row.topic.replace(/\r?\n/g, '<br>');
 
                 const card = document.createElement('div');
-                card.className = "bg-white border border-slate-200/80 rounded-2xl p-5 shadow-sm flex flex-col justify-between hover:border-emerald-400 transition group";
+                card.className = "bg-white border border-slate-200/80 rounded-2xl p-5 shadow-sm flex flex-col justify-between hover:border-emerald-400 transition group relative";
                 card.innerHTML = `
                     <div class="space-y-4">
                         <div class="flex justify-between items-center">
-                            <span class="text-[10px] font-black text-emerald-600 uppercase tracking-widest font-mono">${row.session}</span>
-                            <span class="text-[9px] font-bold text-slate-400 border border-slate-100 px-2 py-0.5 rounded uppercase tracking-wider">${globallySelectedCategory}</span>
+                            <div class="flex items-center gap-2">
+                                <span class="text-[10px] font-black text-emerald-600 uppercase tracking-widest font-mono">${row.session}</span>
+                                <span class="text-[9px] font-bold text-slate-400 border border-slate-100 px-2 py-0.5 rounded uppercase tracking-wider">${row.subject}</span>
+                            </div>
+                            <button onclick="shareTopicCard(event, '${row.session}', '${row.topic.replace(/'/g, "\\'")}', '${row.subject}')" class="text-slate-400 hover:text-emerald-600 p-1.5 rounded-lg hover:bg-slate-50 transition" title="Share Topic Link">
+                                <i class="fa-solid fa-share-nodes text-xs"></i>
+                            </button>
                         </div>
                         <div>
                             <h3 class="font-black text-slate-900 text-base tracking-tight group-hover:text-emerald-600 transition tamil-fix">${formattedTopic}</h3>
@@ -213,7 +232,6 @@ if (parametersSessionId) {
                             <button data-id="${row.id}" onclick="triggerMaterialOpen(this)" class="flex items-center gap-2 text-xs font-bold text-slate-600 hover:text-emerald-600 transition text-left w-full">
                                 <i class="fa-solid fa-file-pdf text-red-500 text-sm w-4 text-center"></i> Read Material Content
                             </button>
-
                             ${hasVideo ? `
                             <a href="${row.videoUrl}" target="_blank" class="flex items-center gap-2 text-xs font-bold text-slate-600 hover:text-red-600 transition">
                                 <i class="fa-brands fa-youtube text-red-500 text-sm w-4 text-center"></i> Video Class Reference
@@ -236,55 +254,48 @@ if (parametersSessionId) {
                 deck.appendChild(card);
             });
 
+            const urlQueryStrings = new URLSearchParams(window.location.search);
+            const targetSession = urlQueryStrings.get('session');
+            if (targetSession) {
+                setTimeout(() => {
+                    const cards = document.querySelectorAll('#sessions-master-deck > div');
+                    for (let card of cards) {
+                        if (card.innerHTML.includes(targetSession)) {
+                            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            card.classList.add('border-emerald-500', 'ring-2', 'ring-emerald-200');
+                            break;
+                        }
+                    }
+                }, 300);
+            }
+        }
 
-            matchedRows.forEach(row => {
-    const hasVideo = row.videoUrl !== '#';
-    const hasMcq = row.mcqUrl !== '#';
-    let formattedTopic = row.topic.replace(/\r?\n/g, '<br>');
+        function shareTopicCard(event, sessionNo, topicTitle, cardSubject) {
+            event.stopPropagation();
+            const formattedTitle = topicTitle.replace(/<br>/g, ' ').trim();
+            const cleanCurrentUrl = window.location.href.split('?')[0];
+            const targetShareUrl = `${cleanCurrentUrl}?session=${encodeURIComponent(sessionNo)}`;
+            const contextText = `📚 *TNTET ${cardSubject}* \n📌 *${sessionNo}*: ${formattedTitle}\n\n👇 Study Link:\n${targetShareUrl}`;
 
-    const card = document.createElement('div');
-    card.className = "bg-white border border-slate-200/80 rounded-2xl p-5 shadow-sm flex flex-col justify-between hover:border-purple-400 transition group relative";
-    card.innerHTML = `
-        <div class="space-y-4">
-            <div class="flex justify-between items-center">
-                <div class="flex items-center gap-2">
-                    <span class="text-[10px] font-black text-purple-600 uppercase tracking-widest font-mono">${row.session}</span>
-                    <span class="text-[9px] font-bold text-slate-400 border border-slate-100 px-2 py-0.5 rounded uppercase tracking-wider">${globallySelectedCategory}</span>
-                </div>
-                <button onclick="shareTopicCard(event, '${row.session}', '${row.topic.replace(/'/g, "\\'")}')" class="text-slate-400 hover:text-purple-600 p-1.5 rounded-lg hover:bg-slate-50 transition" title="Share Topic Link">
-                    <i class="fa-solid fa-share-nodes text-xs"></i>
-                </button>
-            </div>
-            <div>
-                <h3 class="font-black text-slate-900 text-base tracking-tight group-hover:text-purple-600 transition tamil-fix">${formattedTopic}</h3>
-            </div>
-            <div class="pt-2 space-y-2 border-t border-slate-100">
-                <button data-id="${row.id}" onclick="triggerMaterialOpen(this)" class="flex items-center gap-2 text-xs font-bold text-slate-600 hover:text-purple-600 transition text-left w-full">
-                    <i class="fa-solid fa-file-pdf text-red-500 text-sm w-4 text-center"></i> Read PDF Material Notes
-                </button>
-                ${hasVideo ? `
-                <a href="${row.videoUrl}" target="_blank" class="flex items-center gap-2 text-xs font-bold text-slate-600 hover:text-red-600 transition">
-                    <i class="fa-brands fa-youtube text-red-500 text-sm w-4 text-center"></i> Video Class Reference
-                </a>` : `
-                <span class="flex items-center gap-2 text-xs font-bold text-slate-300 cursor-not-allowed">
-                    <i class="fa-brands fa-youtube text-slate-200 text-sm w-4 text-center"></i> Video Coming Soon
-                </span>`}
-            </div>
-        </div>
-        <div class="mt-5 pt-3 border-t border-slate-100">
-            ${hasMcq ? `
-            <a href="${row.mcqUrl}" target="_blank" class="w-full text-center bg-purple-900 hover:bg-purple-950 text-white font-black text-xs py-3 rounded-xl transition shadow-md block uppercase tracking-wider">
-                <i class="fa-solid fa-bolt mr-1"></i> Launch Interactive Quiz
-            </a>` : `
-            <button disabled class="w-full text-center bg-slate-100 text-slate-400 font-bold text-xs py-3 rounded-xl block uppercase tracking-wider cursor-not-allowed border border-slate-200/40">
-                Evaluation Quiz Coming Soon
-            </button>`}
-        </div>
-    `;
-    deck.appendChild(card);
-});
-
-
+            if (navigator.share) {
+                navigator.share({
+                    title: `TNTET - ${sessionNo}`,
+                    text: contextText,
+                    url: targetShareUrl
+                }).catch(err => console.log('Share canceled'));
+            } else {
+                navigator.clipboard.writeText(contextText).then(() => {
+                    alert(`📋 Link copied for ${sessionNo}! You can now paste and share it directly on WhatsApp.`);
+                }).catch(() => {
+                    const dummyInput = document.createElement('textarea');
+                    document.body.appendChild(dummyInput);
+                    dummyInput.value = contextText;
+                    dummyInput.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(dummyInput);
+                    alert(`📋 Link copied for ${sessionNo}!`);
+                });
+            }
         }
 
         function triggerMaterialOpen(buttonElement) {
@@ -303,41 +314,6 @@ if (parametersSessionId) {
             sepia: { bodyBg: 'bg-[#f4ecd8]', text: 'text-[#5b4636]', border: 'border-[#e4d8bc]', headerBg: 'bg-[#eae0c6]', headerText: 'text-[#433225]', btnBg: 'bg-[#433225]', btnText: 'text-[#f4ecd8]' },
             dark:  { bodyBg: 'bg-slate-950', text: 'text-slate-200', border: 'border-slate-800', headerBg: 'bg-slate-900', headerText: 'text-white', btnBg: 'bg-slate-800', btnText: 'text-slate-200' }
         };
-
-        function shareTopicCard(event, sessionNo, topicTitle) {
-    event.stopPropagation(); // Prevents clicking the button from triggering underlying card clicks
-
-    // Clean up title text strings for cleaner presentation layout
-    const formattedTitle = topicTitle.replace(/<br>/g, ' ').trim();
-    const cleanCurrentUrl = window.location.href.split('?')[0];
-    const targetShareUrl = `${cleanCurrentUrl}?session=${encodeURIComponent(sessionNo)}`;
-
-    const contextText = `📚 *TNTET ${globallySelectedCategory}* \n📌 *${sessionNo}*: ${formattedTitle}\n\n👇 Study Link:\n${targetShareUrl}`;
-
-    // Use Native Web Share API if running on Mobile/Secure contexts
-    if (navigator.share) {
-        navigator.share({
-            title: `TNTET - ${sessionNo}`,
-            text: contextText,
-            url: targetShareUrl
-        }).catch(err => console.log('Share canceled'));
-    } else {
-        // Desktop Fallback: Copy customized context directly to clipboard
-        navigator.clipboard.writeText(contextText).then(() => {
-            alert(`📋 Link copied for ${sessionNo}! You can now paste and share it directly on WhatsApp.`);
-        }).catch(() => {
-            // Alternative input fallback element if permissions drop
-            const dummyInput = document.createElement('textarea');
-            document.body.appendChild(dummyInput);
-            dummyInput.value = contextText;
-            dummyInput.select();
-            document.execCommand('copy');
-            document.body.removeChild(dummyInput);
-            alert(`📋 Link copied for ${sessionNo}!`);
-        });
-    }
-}
-
 
         async function openMaterialModal(fileUrl, unitName, unitNo) {
             const modal = document.getElementById('material-modal');
@@ -358,7 +334,6 @@ if (parametersSessionId) {
                 processedUrl = `./${processedUrl}`;
             }
 
-            // Handles Image-based scanned binary PDF objects perfectly
             if (processedUrl.toLowerCase().endsWith('.pdf')) {
                 body.innerHTML = `
                     <div class="w-full h-[73vh] rounded-xl overflow-hidden border border-slate-200 shadow-inner bg-slate-100">
@@ -440,7 +415,6 @@ if (parametersSessionId) {
             modal.style.display = 'none';
         }
 
-        // NAVIGATION COMPONENT HANDLER & MOBILE DROPDOWN REBINDER
         async function loadSharedSiteNavbar() {
             try {
                 const res = await fetch(`../navbar.html?v=${new Date().getTime()}`);

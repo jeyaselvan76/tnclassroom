@@ -10,18 +10,146 @@
         body { -webkit-tap-highlight-color: transparent; font-family: sans-serif; background-color: #f8fafc; }
         .dropdown-active { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; }
         .tamil-fix { font-family: 'Segoe UI', 'Latha', sans-serif !important; }
-        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #1e3a8a; border-radius: 10px; }
 
-        /* Eye Safety Reading Matrix Themes */
-        .theme-light { background-color: #ffffff !important; color: #1e293b !important; }
-        .theme-sepia { background-color: #f4ecd8 !important; color: #5b4636 !important; }
-        .theme-dark  { background-color: #0f172a !important; color: #cbd5e1 !important; }
+        /* Base Navigation Container Setup */
+        .edu-nav-container {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 40px auto;
+        }
 
-        .theme-light .inner-card { background-color: #f8fafc; border-color: #e2e8f0; }
-        .theme-sepia .inner-card { background-color: #eadecc; border-color: #d3c4a8; color: #433225; }
-        .theme-dark .inner-card  { background-color: #1e293b; border-color: #334155; color: #e2e8f0; }
+        /* Central Trigger Button */
+        .edu-core-btn {
+            position: absolute;
+            z-index: 10;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: #10b981; /* Primary Educational Green */
+            color: white;
+            border: 4px solid #ffffff;
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3), 0 4px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.3s ease;
+        }
+
+        /* The spinning structural layer */
+        .edu-orbit-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform: rotate(0deg) scale(0.6);
+            opacity: 0;
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        /* Hover & Active States: Rotates the architecture frame */
+        .edu-nav-container:hover .edu-orbit-layer,
+        .edu-nav-container:focus-within .edu-orbit-layer {
+            opacity: 1;
+            transform: rotate(180deg) scale(1);
+            pointer-events: auto;
+        }
+
+        .edu-nav-container:hover .edu-core-btn {
+            background: #059669;
+            transform: scale(0.95);
+        }
+
+        /* Individual Target Nodes holding the Menus */
+        .edu-node {
+            position: absolute;
+            width: 160px;
+            /* Compensatory counter-rotation loops the text elements back straight */
+            transform: rotate(-180deg);
+            transition: transform 0.5s ease;
+            z-index: 20;
+        }
+
+        /* Left Side: NMMS Hub */
+        .node-left {
+            right: 130%;
+            top: 10px;
+        }
+
+        /* Right Side: TNTET Hub */
+        .node-right {
+            left: 130%;
+            top: 10px;
+        }
+
+        /* Main Section Buttons */
+        .node-title {
+            width: 100%;
+            padding: 12px 16px;
+            color: #ffffff;
+            border: none;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 0.95rem;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: background-color 0.2s ease, transform 0.2s;
+        }
+
+        .node-left .node-title { background: #059669; }
+        .node-left .node-title:hover { background: #047857; }
+
+        .node-right .node-title { background: #4f46e5; }
+        .node-right .node-title:hover { background: #4338ca; }
+
+        /* Submenu Layout Structure */
+        .edu-sub-panel {
+            list-style: none;
+            padding: 6px;
+            margin: 8px 0 0 0;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            opacity: 0;
+            transform: translateY(-10px);
+            visibility: hidden;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+        }
+
+        /* Reveal Submenu on Node Hover */
+        .edu-node:hover .edu-sub-panel {
+            opacity: 1;
+            transform: translateY(0);
+            visibility: visible;
+        }
+
+        .edu-sub-panel a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            color: #475569;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 700;
+            border-radius: 8px;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .node-left .edu-sub-panel a:hover {
+            background: #ecfdf5;
+            color: #059669;
+        }
+
+        .node-right .edu-sub-panel a:hover {
+            background: #eef2ff;
+            color: #4f46e5;
+        }
     </style>
 </head>
 <body class="antialiased min-h-screen flex flex-col">
@@ -30,7 +158,7 @@
     <div id="navbar-placeholder"></div>
 
     <!-- MAIN HUB DASHBOARD -->
-    <main class="flex-grow max-w-4xl w-full mx-auto p-4 md:p-8 space-y-8">
+    <main class="flex-grow max-w-4xl w-full mx-auto p-4 md:p-8 space-y-12">
 
         <!-- BRAND HERO MODULE -->
         <div class="bg-white border border-slate-100 rounded-3xl p-6 shadow-xl space-y-2">
@@ -41,94 +169,117 @@
             <p class="text-slate-500 text-xs">Automated institutional frameworks and synchronized campus resource ledgers.</p>
         </div>
 
-        <!-- NEW CENTRAL PRAYER CONTROL CARD MODULE -->
-        <div id="prayer-trigger-card" onclick="triggerPrayerModalOpen()" class="bg-white border border-slate-200/80 p-6 rounded-3xl shadow-md hover:border-blue-500 cursor-pointer transition group flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div class="flex items-center gap-4">
-                <div id="prayer-icon-badge" class="w-12 h-12 rounded-2xl flex items-center justify-center text-lg bg-slate-100 text-slate-400">
-                    <i class="fa-solid fa-circle-notch fa-spin"></i>
-                </div>
-                <div>
-                    <span class="text-[9px] font-black uppercase tracking-widest text-slate-400 block">Morning Assembly Board</span>
-                    <h3 class="font-black text-slate-900 text-base tracking-tight mt-0.5 group-hover:text-blue-600 transition">View Today's Assembly Board</h3>
-                    <p id="prayer-card-status-text" class="text-slate-400 text-xs mt-0.5">Checking administrative sync parameters...</p>
-                </div>
+        <!-- FIXED ROTATING PORTAL INTERSECTION INTERFACE -->
+        <section class="py-12 bg-white border border-slate-200/60 rounded-3xl shadow-xl flex flex-col items-center justify-center gap-6 min-h-[420px]">
+            <div class="text-center space-y-1">
+                <span class="text-[9px] font-black uppercase tracking-widest text-slate-400 block">Interactive Control Interface</span>
+                <h2 class="text-xl font-black text-slate-900">Explore Academic Portals</h2>
+                <p class="text-slate-400 text-xs">Hover or tap the central core to launch tracking channels.</p>
             </div>
-            <span class="text-slate-400 group-hover:text-blue-600 group-hover:translate-x-1 transition self-end sm:self-auto"><i class="fa-solid fa-arrow-right-long text-lg"></i></span>
-        </div>
 
-        <!-- PORTAL INTERSECTION ACCESS ROUTERS -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <a href="./tntet-psychology/" class="bg-white border border-slate-200/60 p-6 rounded-2xl shadow-sm hover:border-indigo-500 transition group flex items-start gap-4">
-                <span class="p-3 bg-indigo-50 text-indigo-600 rounded-xl group-hover:bg-indigo-600 group-hover:text-white transition"><i class="fa-solid fa-book-open text-lg"></i></span>
-                <div>
-                    <h3 class="font-black text-slate-900 text-base">TNTET Study Center</h3>
-                    <p class="text-slate-400 text-xs mt-1 leading-relaxed">Direct path access points for Psychology evaluation logs, English, and Science assets.</p>
-                </div>
-            </a>
-            <a href="./nmms-sat/" class="bg-white border border-slate-200/60 p-6 rounded-2xl shadow-sm hover:border-emerald-500 transition group flex items-start gap-4">
-                <span class="p-3 bg-emerald-50 text-emerald-600 rounded-xl group-hover:bg-emerald-600 group-hover:text-white transition"><i class="fa-solid fa-graduation-cap text-lg"></i></span>
-                <div>
-                    <h3 class="font-black text-slate-900 text-base">NMMS Merit Academy</h3>
-                    <p class="text-slate-400 text-xs mt-1 leading-relaxed">Comprehensive tracking structures for active MAT logic modules and SAT curriculum notebooks.</p>
-                </div>
-            </a>
-        </div>
+            <nav class="edu-nav-container" aria-label="Educational Platform Directory">
+                <!-- Central Active Core Anchor -->
+                <button class="edu-core-btn" aria-label="Open Navigation Directory">
+                    Explore
+                </button>
 
-        <!-- FAST SCORE TRACKER INDEX BLOCK -->
-        <div class="bg-gradient-to-br from-slate-900 to-blue-950 text-white p-6 rounded-3xl shadow-md border border-slate-800 space-y-4 max-w-md mx-auto">
-            <div>
-                <h3 class="font-black text-sm tracking-tight">Performance Tracker</h3>
-                <p class="text-slate-400 text-[11px] mt-0.5 leading-relaxed">Input your verified 10-digit smartphone registration marker to open scores profiles.</p>
-            </div>
-            <div class="flex flex-col sm:flex-row gap-3">
-                <input type="tel" id="homeMobileCheck" maxlength="10" placeholder="ENTER MOBILE NUMBER" class="flex-grow bg-white/10 border border-white/10 rounded-xl p-3 text-center font-mono font-bold text-sm tracking-widest text-white placeholder-white/20 outline-none focus:border-cyan-400">
-                <button onclick="routeToScores()" class="bg-cyan-400 hover:bg-white text-blue-950 font-black text-xs px-6 py-3 rounded-xl transition uppercase tracking-wider shadow whitespace-nowrap">Fetch Scores</button>
-            </div>
-        </div>
-    </main>
+                <!-- Structural Rotating Orbit Layer -->
+                <div class="edu-orbit-layer">
 
-    <!-- PRAYER ACTIVITY VIEW MODAL DRAWER FRAMEWORK -->
-    <div id="prayer-modal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex justify-end invisible opacity-0 transition-all duration-300" onclick="closePrayerModal()">
-        <div class="w-full max-w-2xl bg-white h-full shadow-2xl flex flex-col translate-x-full transition-transform duration-300 text-slate-900 transition-colors duration-200" id="prayer-drawer-content" onclick="event.stopPropagation()">
-
-            <!-- Modal Head Panel Adjuster with Eye Safety Utilities -->
-            <div class="p-4 border-b border-slate-200/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-50 border-b">
-                <div class="flex items-center gap-2">
-                    <span class="p-2 bg-blue-50 text-blue-600 rounded-xl text-xs"><i class="fa-solid fa-school-flag"></i></span>
-                    <div>
-                        <h2 class="font-black text-slate-900 text-base tracking-tight">Daily Morning Assembly</h2>
-                        <p class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Live Synchronized Board Material</p>
+                    <!-- MENU 1: NMMS Academy (Positioned Left) -->
+                    <div class="edu-node node-left">
+                        <button class="node-title" tabindex="-1">NMMS</button>
+                        <ul class="edu-sub-panel">
+                            <li><a href="./nmms-sat/"><i class="fa-solid fa-chart-pie opacity-70"></i> SAT Exam Portal</a></li>
+                            <li><a href="./nmms-mat/"><i class="fa-solid fa-brain opacity-70"></i> MAT Logic Center</a></li>
+                        </ul>
                     </div>
-                </div>
 
-                <!-- EYE SAFETY UTILITY BAR -->
-                <div class="flex items-center gap-3 self-end sm:self-auto">
-                    <div class="flex items-center border border-slate-200 bg-white rounded-lg p-0.5 shadow-sm text-xs font-bold text-slate-600">
-                        <button onclick="adjustFontSize(-1)" class="w-7 h-7 hover:bg-slate-100 rounded flex items-center justify-center font-mono" title="Decrease Font">A-</button>
-                        <button onclick="adjustFontSize(1)" class="w-7 h-7 hover:bg-slate-100 rounded flex items-center justify-center font-mono border-l border-slate-100" title="Increase Font">A+</button>
+                    <!-- MENU 2: TNTET Study Hub (Positioned Right) -->
+                    <div class="edu-node node-right">
+                        <button class="node-title" tabindex="-1">TNTET</button>
+                        <ul class="edu-sub-panel">
+                            <li><a href="./tntet-psychology/"><i class="fa-solid fa-brain opacity-70"></i> Psychology</a></li>
+                            <li><a href="./tntet-tamil/"><i class="fa-solid fa-language opacity-70"></i> Tamil</a></li>
+                            <li><a href="./tntet-english/"><i class="fa-solid fa-font opacity-70"></i> English</a></li>
+                            <li><a href="./tntet-maths/"><i class="fa-solid fa-calculator opacity-70"></i> Mathematics</a></li>
+                            <li><a href="./tntet-science/"><i class="fa-solid fa-flask opacity-70"></i> Science Pack</a></li>
+                            <li><a href="./tntet-social/"><i class="fa-solid fa-earth-americas opacity-70"></i> Social Science</a></li>
+                        </ul>
                     </div>
-                    <div class="flex items-center border border-slate-200 bg-white rounded-lg p-0.5 shadow-sm">
-                        <button onclick="changeReaderTheme('light')" class="w-7 h-7 rounded flex items-center justify-center text-amber-500 hover:bg-slate-100" title="Light Theme"><i class="fa-solid fa-sun text-xs"></i></button>
-                        <button onclick="changeReaderTheme('sepia')" class="w-7 h-7 rounded flex items-center justify-center text-amber-800 bg-amber-50 hover:bg-amber-100/60 font-serif font-bold text-xs" title="Sepia Theme">S</button>
-                        <button onclick="changeReaderTheme('dark')" class="w-7 h-7 rounded flex items-center justify-center text-slate-400 hover:bg-slate-800" title="Dark Eye-Safety Theme"><i class="fa-solid fa-moon text-xs"></i></button>
-                    </div>
-                    <button onclick="closePrayerModal()" class="w-8 h-8 rounded-full bg-white hover:bg-slate-100 border flex items-center justify-center text-slate-500 shadow-sm transition">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
+
                 </div>
-            </div>
+            </nav>
+        </section>
 
-            <!-- Native Dynamic Drawer Content Block -->
-            <div class="flex-grow overflow-y-auto p-6 md:p-8 space-y-6 custom-scrollbar transition-all duration-150" id="modal-prayer-body" style="font-size: 15px;">
-                <!-- Data sets populate dynamically inside here -->
-            </div>
-
-            <!-- Footer Controls -->
-            <div class="p-4 border-t border-slate-200/60 bg-slate-50 flex justify-end" id="modal-footer-strip">
-                <button onclick="closePrayerModal()" class="px-5 py-2.5 bg-slate-950 text-white rounded-xl text-xs font-black shadow transition uppercase tracking-wider">Dismiss Board</button>
-            </div>
-        </div>
+         <!-- FAST SCORE TRACKER INDEX BLOCK -->
+       <div class="bg-gradient-to-br from-slate-900 to-blue-950 text-white p-6 rounded-3xl shadow-md border border-slate-800 space-y-4 max-w-md mx-auto">
+    <div>
+        <h3 class="font-black text-sm tracking-tight">Performance Tracker</h3>
+        <p class="text-slate-400 text-[11px] mt-0.5 leading-relaxed">Input your verified 10-digit smartphone registration marker to open scores profiles.</p>
     </div>
+    <div class="flex flex-col sm:flex-row gap-3">
+        <input type="tel" id="homeMobileCheck" maxlength="10" placeholder="ENTER MOBILE NUMBER" class="flex-grow bg-white/10 border border-white/10 rounded-xl p-3 text-center font-mono font-bold text-sm tracking-widest text-white placeholder-white/20 outline-none focus:border-cyan-400">
+        <button onclick="routeToScores(event)" class="bg-cyan-400 hover:bg-white text-blue-950 font-black text-xs px-6 py-3 rounded-xl transition uppercase tracking-wider shadow whitespace-nowrap">Fetch Scores</button>
+    </div>
+</div>
+
+        <!-- SOCIAL MEDIA CHANNELS MATRIX MODULE -->
+        <section class="space-y-4">
+            <div class="flex items-center gap-2 px-1">
+                <span class="inline-block w-2 h-2 rounded-full bg-blue-600"></span>
+                <span class="text-[10px] font-black tracking-widest text-slate-400 uppercase">Connect With Our Communities</span>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <!-- YouTube Card -->
+                <a href="https://www.youtube.com/@tnsedthanjavur" target="_blank" class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm hover:shadow-md hover:border-red-500 transition flex flex-col items-center text-center gap-2 group">
+                    <span class="w-10 h-10 rounded-xl bg-red-50 text-red-600 flex items-center justify-center text-base group-hover:bg-red-600 group-hover:text-white transition duration-200">
+                        <i class="fa-brands fa-youtube"></i>
+                    </span>
+                    <div>
+                        <h4 class="font-black text-slate-800 text-xs tracking-tight">YouTube Channel</h4>
+                        <p class="text-[10px] text-slate-400 mt-0.5">Video Lectures Keys</p>
+                    </div>
+                </a>
+
+                <!-- Facebook Card -->
+                <a href="https://www.facebook.com/share/1HJHjaMd55/" target="_blank" class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm hover:shadow-md hover:border-blue-600 transition flex flex-col items-center text-center gap-2 group">
+                    <span class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-base group-hover:bg-blue-600 group-hover:text-white transition duration-200">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </span>
+                    <div>
+                        <h4 class="font-black text-slate-800 text-xs tracking-tight">Facebook Page</h4>
+                        <p class="text-[10px] text-slate-400 mt-0.5">Educational Feed News</p>
+                    </div>
+                </a>
+
+                <!-- Instagram Card -->
+                <a href="https://www.instagram.com/tnclassroom/" target="_blank" class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm hover:shadow-md hover:border-pink-500 transition flex flex-col items-center text-center gap-2 group">
+                    <span class="w-10 h-10 rounded-xl bg-pink-50 text-pink-600 flex items-center justify-center text-base group-hover:bg-gradient-to-tr group-hover:from-amber-500 group-hover:to-purple-600 group-hover:text-white transition duration-200">
+                        <i class="fa-brands fa-instagram"></i>
+                    </span>
+                    <div>
+                        <h4 class="font-black text-slate-800 text-xs tracking-tight">Instagram Feed</h4>
+                        <p class="text-[10px] text-slate-400 mt-0.5">Infographics & Alerts</p>
+                    </div>
+                </a>
+
+                <!-- WhatsApp Card -->
+                <a href="https://whatsapp.com/channel/tnclassroom" target="_blank" class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm hover:shadow-md hover:border-emerald-500 transition flex flex-col items-center text-center gap-2 group">
+                    <span class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-base group-hover:bg-emerald-600 group-hover:text-white transition duration-200">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </span>
+                    <div>
+                        <h4 class="font-black text-slate-800 text-xs tracking-tight">WhatsApp Channel</h4>
+                        <p class="text-[10px] text-slate-400 mt-0.5">Instant Tracker Alerts</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+
+    </main>
 
     <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-6 text-center text-xs mt-auto">
         <p>&copy; 2026 TN Classroom. Campus workflow modules driven seamlessly via unified automated sheets pipelines.</p>
@@ -136,216 +287,22 @@
 
     <!-- ENGINE SCRIPTS MATRIX -->
     <script>
-        const DATABASE_STREAM_URL = "https://docs.google.com/spreadsheets/d/1j2C7jpFskw2TrYoRKDmPJBkHezAfRW0aFshbULLgUvc/gviz/tq?tqx=out:csv&sheet=Sheet4";
+     function routeToScores(event) {
+    // Stop any form or button bubble side-effects completely
+    if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
 
-        let currentPrayerApprovalStatus = "PENDING";
-        let parsedAssemblyHtmlContent = "";
-        let globalTextScale = 15;
-        let globalCurrentTheme = "light";
+    const num = document.getElementById('homeMobileCheck').value.trim();
+    if (num.length !== 10) return alert("Please enter a valid 10-digit mobile sequence.");
 
-        function parseCsvRows(text) {
-            let lines = []; let row = []; let cell = ''; let inQuotes = false;
-            for (let i = 0; i < text.length; i++) {
-                let c = text[i];
-                if (c === '"') { inQuotes = !inQuotes; }
-                else if (c === ',' && !inQuotes) { row.push(cell.trim()); cell = ''; }
-                else if ((c === '\n' || c === '\r') && !inQuotes) {
-                    row.push(cell.trim());
-                    if (row.length > 0 && row.some(x => x !== '')) lines.push(row);
-                    row = []; cell = '';
-                    if (c === '\r' && text[i+1] === '\n') i++;
-                } else { cell += c; }
-            }
-            if (cell || row.length > 0) { row.push(cell.trim()); lines.push(row); }
-            return lines;
-        }
+    // Encode the parameter safely for clean browser path transitions
+    const encodedNum = encodeURIComponent(num);
 
-        async function bootstrapAutomatedHub() {
-            try {
-                const res = await fetch(DATABASE_STREAM_URL);
-                if (!res.ok) throw new Error();
-                const text = await res.text();
-                const gridRows = parseCsvRows(text);
-
-                // 1. EVALUATE APPROVAL KEY FROM CELL B1
-                if(gridRows[0] && gridRows[0][1]) {
-                    currentPrayerApprovalStatus = gridRows[0][1].replace(/^"|"$/g, '').trim().toUpperCase();
-
-                    const triggerCard = document.getElementById('prayer-trigger-card');
-                    const iconBadge = document.getElementById('prayer-icon-badge');
-                    const cardStatusTxt = document.getElementById('prayer-card-status-text');
-
-                    if (currentPrayerApprovalStatus === 'APPROVED') {
-                        iconBadge.className = "w-12 h-12 rounded-2xl flex items-center justify-center text-lg bg-emerald-500 text-white shadow-sm animate-pulse";
-                        iconBadge.innerHTML = `<i class="fa-solid fa-circle-check"></i>`;
-                        cardStatusTxt.className = "text-emerald-600 font-bold text-xs mt-0.5";
-                        cardStatusTxt.innerText = "Active • Assembly items approved by administrator.";
-                    } else {
-                        iconBadge.className = "w-12 h-12 rounded-2xl flex items-center justify-center text-lg bg-amber-500 text-white shadow-sm";
-                        iconBadge.innerHTML = `<i class="fa-solid fa-lock"></i>`;
-                        cardStatusTxt.className = "text-amber-600 font-bold text-xs mt-0.5";
-                        cardStatusTxt.innerText = "Locked • Board content awaiting admin authorization clearance.";
-                    }
-                }
-
-                let kuralHtml = "";
-                let activeClubHtml = "";
-                let tamilNewsArray = [];
-                let englishNewsArray = [];
-                let systemDayOfWeek = new Date().getDay();
-
-                gridRows.forEach((cols, rowIndex) => {
-                    if (!cols || cols.length < 2) return;
-
-                    let typeFlag     = cols[0] ? cols[0].replace(/^"|"$/g, '').trim() : '';
-                    let titleTamil   = cols[1] ? cols[1].replace(/^"|"$/g, '').trim() : '';
-                    let titleEnglish = cols[2] ? cols[2].replace(/^"|"$/g, '').trim() : '';
-                    let contentBox   = cols[3] ? cols[3].replace(/^"|"$/g, '').trim() : '';
-
-                    // Parse Kural
-                    if (rowIndex === 7 || typeFlag === 'kural') {
-                        kuralHtml = `
-                            <div class="inner-card border p-5 rounded-2xl shadow-sm space-y-2">
-                                <span class="text-[10px] font-black uppercase bg-orange-500 text-white tracking-wider px-2.5 py-1 rounded-md"><i class="fa-solid fa-scroll mr-1"></i> திருக்குறள் / Daily Thirukkural</span>
-                                <p class="text-sm font-semibold whitespace-pre-line leading-relaxed mt-3 tamil-fix">${titleTamil}</p>
-                            </div>
-                        `;
-                    }
-
-                    // Parse Active Day Club Card Item
-                    if (typeFlag === 'CLUB') {
-                        let rowDayId = rowIndex - 1;
-                        if (rowDayId === systemDayOfWeek) {
-                            activeClubHtml = `
-                                <div class="inner-card border p-5 rounded-2xl shadow-sm space-y-3 border-emerald-500/30">
-                                    <div class="flex justify-between items-center">
-                                        <span class="text-[10px] font-black uppercase bg-emerald-600 text-white tracking-wider px-2.5 py-1 rounded-md"><i class="fa-solid fa-calendar-day mr-1"></i> Today's Club Forum</span>
-                                        <span class="text-[9px] font-extrabold text-emerald-600 uppercase font-mono tracking-wider flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span> Live Forum</span>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-black text-sm tracking-tight tamil-fix">${titleTamil}</h4>
-                                        <h5 class="opacity-60 font-bold text-[10px] mt-0.5">${titleEnglish}</h5>
-                                    </div>
-                                    <p class="text-xs leading-relaxed pt-2 border-t border-slate-200/40 text-justify italic tamil-fix">${contentBox}</p>
-                                </div>
-                            `;
-                        }
-                    }
-
-                    // Collect News items separately starting from row index 8
-                    if (rowIndex >= 8 && typeFlag !== 'CLUB' && typeFlag !== 'kural' && typeFlag !== 'prayer') {
-                        if (titleTamil && titleTamil.trim() !== "") tamilNewsArray.push(titleTamil.trim());
-                        if (titleEnglish && titleEnglish.trim() !== "") englishNewsArray.push(titleEnglish.trim());
-                    }
-                });
-
-                // COMBINE TAMIL NEWS ITEMS INTO ONE BOX WITH CONSECUTIVE ITEM INDEX NUMBERS
-                let combinedTamilNewsContent = "";
-                tamilNewsArray.forEach((news, idx) => {
-                    combinedTamilNewsContent += `<div class="py-2 border-b border-slate-200/40 last:border-0 flex items-start gap-2"><span class="font-bold text-blue-500 text-xs mt-0.5">[${idx + 1}]</span> <p class="text-xs font-semibold leading-relaxed tamil-fix">${news}</p></div>`;
-                });
-
-                // COMBINE ENGLISH NEWS ITEMS INTO ONE BOX WITH CONSECUTIVE ITEM INDEX NUMBERS
-                let combinedEnglishNewsContent = "";
-                englishNewsArray.forEach((news, idx) => {
-                    combinedEnglishNewsContent += `<div class="py-2 border-b border-slate-200/40 last:border-0 flex items-start gap-2"><span class="font-bold text-indigo-500 text-xs mt-0.5">[${idx + 1}]</span> <p class="text-xs font-medium leading-relaxed">${news}</p></div>`;
-                });
-
-                // Wrap into combined news layout containers
-                let unifiedNewsBoxesHtml = `
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <!-- Combined Tamil News Module -->
-                        <div class="inner-card border p-5 rounded-2xl shadow-sm space-y-3">
-                            <span class="text-[9px] font-black tracking-wider bg-blue-600 text-white px-2.5 py-1 rounded-md uppercase block w-max tamil-fix">தமிழ் செய்திப் பதிவுகள்</span>
-                            <div class="divide-y divide-slate-100/30">${combinedTamilNewsContent || '<p class="text-xs opacity-60">செய்திகள் இல்லை</p>'}</div>
-                        </div>
-
-                        <!-- Combined English News Module -->
-                        <div class="inner-card border p-5 rounded-2xl shadow-sm space-y-3">
-                            <span class="text-[9px] font-black tracking-wider bg-indigo-600 text-white px-2.5 py-1 rounded-md uppercase block w-max">English Bulletins</span>
-                            <div class="divide-y divide-slate-100/30">${combinedEnglishNewsContent || '<p class="text-xs opacity-60">No items submitted.</p>'}</div>
-                        </div>
-                    </div>
-                `;
-
-                // Set global dynamic drawer content variable layout
-                parsedAssemblyHtmlContent = `
-                    ${kuralHtml}
-                    ${activeClubHtml}
-                    <div class="space-y-2">
-                        <h4 class="opacity-50 font-black text-[10px] uppercase tracking-widest pl-1"><i class="fa-solid fa-radio mr-1"></i> Central Broadcast Ledger</h4>
-                        ${unifiedNewsBoxesHtml}
-                    </div>
-                `;
-
-            } catch (err) {
-                console.error(err);
-                document.getElementById('prayer-card-status-text').innerText = "Sync failure. Verify data parameters.";
-            }
-        }
-
-        // EYE SAFETY CONTROL: Font Scale Adjuster
-        function adjustFontSize(delta) {
-            globalTextScale = Math.max(13, Math.min(24, globalTextScale + delta));
-            document.getElementById('modal-prayer-body').style.fontSize = globalTextScale + "px";
-        }
-
-        // EYE SAFETY CONTROL: Reader View Theme Toggler
-        function changeReaderTheme(themeKey) {
-            globalCurrentTheme = themeKey;
-            const contentDrawer = document.getElementById('prayer-drawer-content');
-
-            // Clear out prior themes
-            contentDrawer.classList.remove('theme-light', 'theme-sepia', 'theme-dark');
-
-            if (themeKey === 'light') {
-                contentDrawer.classList.add('theme-light');
-            } else if (themeKey === 'sepia') {
-                contentDrawer.classList.add('theme-sepia');
-            } else if (themeKey === 'dark') {
-                contentDrawer.classList.add('theme-dark');
-            }
-        }
-
-        function triggerPrayerModalOpen() {
-            if (currentPrayerApprovalStatus !== 'APPROVED') {
-                alert("🔒 Access Denied: Today's morning assembly board materials have not received admin clearance approval yet. Please try again later.");
-                return;
-            }
-
-            const modal = document.getElementById('prayer-modal');
-            const drawer = document.getElementById('prayer-drawer-content');
-            const body = document.getElementById('modal-prayer-body');
-
-            body.innerHTML = parsedAssemblyHtmlContent;
-
-            // Enforce current view setup criteria seamlessly
-            changeReaderTheme(globalCurrentTheme);
-            document.getElementById('modal-prayer-body').style.fontSize = globalTextScale + "px";
-
-            modal.style.setProperty('display', 'flex', 'important');
-            modal.classList.remove('invisible');
-            modal.classList.add('opacity-100');
-            drawer.classList.remove('translate-x-full');
-            drawer.style.transform = 'none';
-        }
-
-        function closePrayerModal() {
-            const modal = document.getElementById('prayer-modal');
-            const drawer = document.getElementById('prayer-drawer-content');
-            drawer.classList.add('translate-x-full');
-            drawer.style.transform = '';
-            modal.classList.remove('opacity-100');
-            modal.classList.add('invisible');
-            modal.style.display = 'none';
-        }
-
-        function routeToScores() {
-            const num = document.getElementById('homeMobileCheck').value.trim();
-            if (num.length !== 10) return alert("Please enter a valid 10-digit mobile sequence.");
-            window.location.href = `./results/?search=${num}`;
-        }
-
+    // Direct hard target to the exact query string key your results page reads
+    window.location.replace(`./results/?mobile=${encodedNum}`);
+}
         async function loadSharedSiteNavbar() {
             try {
                 const res = await fetch(`./navbar.html?v=${new Date().getTime()}`);
@@ -377,7 +334,6 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             loadSharedSiteNavbar();
-            bootstrapAutomatedHub();
         });
     </script>
 </body>

@@ -100,52 +100,55 @@
         }
 
         async function bootNmmsPortal() {
-    try {
-        const res = await fetch(DATABASE_CSV_URL);
-        if (!res.ok) throw new Error("Dataset offline.");
-        const txt = await res.text();
-        const lines = parseCsvRows(txt);
-        const dataRows = lines.slice(1);
-        masterDatabaseRecords = [];
+            try {
+                const res = await fetch(DATABASE_CSV_URL);
+                if (!res.ok) throw new Error("Dataset offline.");
+                const txt = await res.text();
+                const lines = parseCsvRows(txt);
+                const dataRows = lines.slice(1);
+                masterDatabaseRecords = [];
 
-        dataRows.forEach((cols, index) => {
-            if (!cols || cols.length < 4 || !cols[3]) return;
-            let clsName = cols[0] ? cols[0].replace(/^"|"$/g, '').trim() : 'Class 8';
-            let subj    = cols[1] ? cols[1].replace(/^"|"$/g, '').trim() : 'Science';
-            let uNo     = cols[2] ? cols[2].replace(/^"|"$/g, '').trim() : '';
-            let uName   = cols[3] ? cols[3].replace(/^"|"$/g, '').trim() : '';
-            let vUrl    = (cols[4] && cols[4].trim() !== "") ? cols[4].replace(/^"|"$/g, '').trim() : '#';
-            let fUrl    = cols[5] ? cols[5].replace(/^"|"$/g, '').replace(/^\.\//, '').trim() : '#';
+                dataRows.forEach((cols, index) => {
+                    if (!cols || cols.length < 4 || !cols[3]) return;
+                    let clsName = cols[0] ? cols[0].replace(/^"|"$/g, '').trim() : 'Class 8';
+                    let subj    = cols[1] ? cols[1].replace(/^"|"$/g, '').trim() : 'Science';
+                    let uNo     = cols[2] ? cols[2].replace(/^"|"$/g, '').trim() : '';
+                    let uName   = cols[3] ? cols[3].replace(/^"|"$/g, '').trim() : '';
+                    let vUrl    = (cols[4] && cols[4].trim() !== "") ? cols[4].replace(/^"|"$/g, '').trim() : '#';
+                    let fUrl    = cols[5] ? cols[5].replace(/^"|"$/g, '').replace(/^\.\//, '').trim() : '#';
 
-            // Extract the raw MCQ string
-            let rawMcq  = cols[6] ? cols[6].replace(/^"|"$/g, '').trim() : '#';
+                    // Extract the raw MCQ string
+                    let rawMcq  = cols[6] ? cols[6].replace(/^"|"$/g, '').trim() : '#';
 
-            // Intercept and rewrite old URLs to match the new mcq.tnclassroom.com subdomain
-            if (rawMcq !== '#') {
-                if (rawMcq.includes('jeyaselvan76.github.io/MCQ/')) {
-                    rawMcq = rawMcq.replace('https://jeyaselvan76.github.io/MCQ/', 'https://mcq.tnclassroom.com/');
-                } else if (rawMcq.startsWith('/MCQ/')) {
-                    rawMcq = rawMcq.replace('/MCQ/', 'https://mcq.tnclassroom.com/');
-                }
+                    // CHANGED: Intercepts and maps raw cell values cleanly to your dedicated subdomain
+                    if (rawMcq !== '#') {
+                        if (rawMcq.includes('jeyaselvan76.github.io/nmms-mcq/')) {
+                            rawMcq = rawMcq.replace('https://jeyaselvan76.github.io/nmms-mcq/', 'https://nmmsmcq.tnclassroom.com/');
+                        } else if (rawMcq.startsWith('/nmms-mcq/')) {
+                            rawMcq = rawMcq.replace('/nmms-mcq/', 'https://nmmsmcq.tnclassroom.com/');
+                        } else if (rawMcq.includes('jeyaselvan76.github.io/MCQ/')) {
+                            // Backup catcher in case some rows still point to the old MCQ repository structure
+                            rawMcq = rawMcq.replace('https://jeyaselvan76.github.io/MCQ/', 'https://nmmsmcq.tnclassroom.com/');
+                        }
+                    }
+
+                    masterDatabaseRecords.push({
+                        id: index,
+                        className: clsName,
+                        subject: subj,
+                        unitNo: uNo,
+                        unitName: uName,
+                        videoUrl: vUrl,
+                        pdfUrl: fUrl,
+                        mcqUrl: rawMcq
+                    });
+                });
+                buildSubjectTabs();
+            } catch (error) {
+                console.error(error);
+                document.getElementById('units-master-deck').innerHTML = `<div class="col-span-full p-4 bg-red-50 text-red-700 text-xs font-bold rounded-xl border border-red-100 text-center">Error reading entries.</div>`;
             }
-
-            masterDatabaseRecords.push({
-                id: index,
-                className: clsName,
-                subject: subj,
-                unitNo: uNo,
-                unitName: uName,
-                videoUrl: vUrl,
-                pdfUrl: fUrl,
-                mcqUrl: rawMcq
-            });
-        });
-        buildSubjectTabs();
-    } catch (error) {
-        console.error(error);
-        document.getElementById('units-master-deck').innerHTML = `<div class="col-span-full p-4 bg-red-50 text-red-700 text-xs font-bold rounded-xl border border-red-100 text-center">Error reading entries.</div>`;
-    }
-}
+        }
 
         function buildSubjectTabs() {
             const container = document.getElementById('subject-tabs-container');
@@ -277,7 +280,6 @@
             modal.classList.remove('opacity-100'); modal.classList.add('invisible'); modal.style.display = 'none';
         }
 
-        // NAVBAR & INTERACTION ROUTERS (Guarantees navigation links run perfectly)
         async function loadSharedSiteNavbar() {
             try {
                 const res = await fetch(`../navbar.html?v=${new Date().getTime()}`);

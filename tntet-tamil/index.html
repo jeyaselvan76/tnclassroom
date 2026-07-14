@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ta">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,8 +15,10 @@
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
-    <style>
-        .dropdown-active { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; }
+   <style>
+        /* FIXED: Blocks hidden desktop menus from hijacking user clicks on empty space */
+        .dropdown-menu { z-index: 50 !important; pointer-events: none; }
+        .dropdown-active { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; z-index: 50 !important; pointer-events: auto !important; }
         .tamil-fix { font-family: 'Segoe UI', 'Latha', 'Apple Tamil', sans-serif !important; }
     </style>
 </head>
@@ -82,20 +84,13 @@
     </footer>
 
     <script>
-        // =========================================================================
-        // PLACE YOUR SPREADSHEET PUBLISHED LINK FOR THE TAMIL TAB HERE
-        // =========================================================================
         const DATABASE_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRxrNjhYpkr5ZNT3WvwWMS8kZLlzocCLiEFBJm68HanMXEfajPTWW9Aus26pAWTXQil2MWvtNUbYHS4/pub?gid=133264384&single=true&output=csv";
 
         let masterDatabaseRecords = [];
-        let globallySelectedCategory = "";
+        let globallySelectedCategory = "ALL"; // TET 2 Correction: Initialized cleanly to ALL
 
-        // ROBUST WHITESPACE-SAFE CSV ENGINE
         function parseCsvRows(text) {
-            let lines = [];
-            let row = [];
-            let cell = '';
-            let inQuotes = false;
+            let lines = []; let row = []; let cell = ''; let inQuotes = false;
             for (let i = 0; i < text.length; i++) {
                 let c = text[i];
                 if (c === '"') { inQuotes = !inQuotes; }
@@ -143,6 +138,22 @@
                     });
                 });
 
+                // TET 2 Correction: Sort sessions numerically for uniform progression index displays
+                masterDatabaseRecords.sort((a, b) => {
+                    const numA = parseInt(a.session.replace(/\D/g, '')) || 0;
+                    const numB = parseInt(b.session.replace(/\D/g, '')) || 0;
+                    return numA - numB;
+                });
+
+                const urlQueryStrings = new URLSearchParams(window.location.search);
+                const parametersSessionId = urlQueryStrings.get('session');
+                if (parametersSessionId) {
+                    const associatedRecord = masterDatabaseRecords.find(x => x.session.toLowerCase() === parametersSessionId.toLowerCase());
+                    if (associatedRecord) {
+                        globallySelectedCategory = associatedRecord.subject;
+                    }
+                }
+
                 buildCategoryTabs();
             } catch (error) {
                 console.error("TNTET Tamil portal boot failure:", error);
@@ -152,17 +163,6 @@
                     </div>
                 `;
             }
-
-            // Auto-route search parameters from shared links if present
-            const urlQueryStrings = new URLSearchParams(window.location.search);
-            const parametersSessionId = urlQueryStrings.get('session');
-            if (parametersSessionId) {
-                const associatedRecord = masterDatabaseRecords.find(x => x.session.toLowerCase() === parametersSessionId.toLowerCase());
-                if (associatedRecord) {
-                    globallySelectedCategory = associatedRecord.subject;
-                    buildCategoryTabs();
-                }
-            }
         }
 
         function buildCategoryTabs() {
@@ -170,8 +170,19 @@
             const categories = [...new Set(masterDatabaseRecords.map(x => x.subject))].filter(Boolean);
             container.innerHTML = "";
 
-            categories.forEach((cat, i) => {
-                if (i === 0 && !globallySelectedCategory) globallySelectedCategory = cat;
+            // TET 2 Correction: Inject explicit global overview selection control button first
+            const allBtn = document.createElement('button');
+            allBtn.className = `px-4 py-2 rounded-xl text-xs font-extrabold border transition shadow-sm ${globallySelectedCategory === 'ALL' ? 'bg-purple-950 text-white border-purple-950' : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'}`;
+            allBtn.innerText = "Show All / அனைத்தும்";
+            allBtn.onclick = () => {
+                globallySelectedCategory = "ALL";
+                document.querySelectorAll('#category-tabs-container button').forEach(b => b.className = "px-4 py-2 rounded-xl text-xs font-extrabold border bg-white text-slate-700 border-slate-200 hover:bg-slate-50 transition shadow-sm");
+                allBtn.className = "px-4 py-2 rounded-xl text-xs font-extrabold border bg-purple-950 text-white border-purple-950 transition shadow-sm";
+                renderActiveSessionsDeck();
+            };
+            container.appendChild(allBtn);
+
+            categories.forEach((cat) => {
                 const btn = document.createElement('button');
                 btn.className = `px-4 py-2 rounded-xl text-xs font-extrabold border transition shadow-sm ${cat === globallySelectedCategory ? 'bg-purple-950 text-white border-purple-950' : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'}`;
                 btn.innerText = cat;
@@ -190,7 +201,10 @@
             const deck = document.getElementById('sessions-master-deck');
             deck.innerHTML = "";
 
-            const matchedRows = masterDatabaseRecords.filter(x => x.subject === globallySelectedCategory);
+            // TET 2 Correction: Determine context target criteria sets sequentially
+            const matchedRows = globallySelectedCategory === "ALL"
+                ? masterDatabaseRecords
+                : masterDatabaseRecords.filter(x => x.subject === globallySelectedCategory);
 
             if (matchedRows.length === 0) {
                 deck.innerHTML = `
@@ -200,6 +214,7 @@
                 return;
             }
 
+            // TET 2 Correction: Retained single clean data loop mapping only sharing-enabled elements cards
             matchedRows.forEach(row => {
                 const hasVideo = row.videoUrl !== '#';
                 const hasMcq = row.mcqUrl !== '#';
@@ -212,9 +227,9 @@
                         <div class="flex justify-between items-center">
                             <div class="flex items-center gap-2">
                                 <span class="text-[10px] font-black text-purple-600 uppercase tracking-widest font-mono">${row.session}</span>
-                                <span class="text-[9px] font-bold text-slate-400 border border-slate-100 px-2 py-0.5 rounded uppercase tracking-wider">${globallySelectedCategory}</span>
+                                <span class="text-[9px] font-bold text-slate-400 border border-slate-100 px-2 py-0.5 rounded uppercase tracking-wider">${row.subject}</span>
                             </div>
-                            <button onclick="shareTopicCard(event, '${row.session}', '${row.topic.replace(/'/g, "\\'")}')" class="text-slate-400 hover:text-purple-600 p-1.5 rounded-lg hover:bg-slate-50 transition" title="Share Topic Link">
+                            <button onclick="shareTopicCard(event, '${row.session}', '${row.topic.replace(/'/g, "\\'")}', '${row.subject}')" class="text-slate-400 hover:text-purple-600 p-1.5 rounded-lg hover:bg-slate-50 transition" title="Share Topic Link">
                                 <i class="fa-solid fa-share-nodes text-xs"></i>
                             </button>
                         </div>
@@ -246,6 +261,49 @@
                 `;
                 deck.appendChild(card);
             });
+
+            const urlQueryStrings = new URLSearchParams(window.location.search);
+            const targetSession = urlQueryStrings.get('session');
+            if (targetSession) {
+                setTimeout(() => {
+                    const cards = document.querySelectorAll('#sessions-master-deck > div');
+                    for (let card of cards) {
+                        if (card.innerHTML.includes(targetSession)) {
+                            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            card.classList.add('border-purple-500', 'ring-2', 'ring-purple-200');
+                            break;
+                        }
+                    }
+                }, 300);
+            }
+        }
+
+        function shareTopicCard(event, sessionNo, topicTitle, cardSubject) {
+            event.stopPropagation();
+            const formattedTitle = topicTitle.replace(/<br>/g, ' ').trim();
+            const cleanCurrentUrl = window.location.href.split('?')[0];
+            const targetShareUrl = `${cleanCurrentUrl}?session=${encodeURIComponent(sessionNo)}`;
+            const contextText = `📚 *TNTET ${cardSubject}* \n📌 *${sessionNo}*: ${formattedTitle}\n\n👇 Study Link:\n${targetShareUrl}`;
+
+            if (navigator.share) {
+                navigator.share({
+                    title: `TNTET - ${sessionNo}`,
+                    text: contextText,
+                    url: targetShareUrl
+                }).catch(err => console.log('Share canceled'));
+            } else {
+                navigator.clipboard.writeText(contextText).then(() => {
+                    alert(`📋 Link copied for ${sessionNo}! You can now paste and share it directly on WhatsApp.`);
+                }).catch(() => {
+                    const dummyInput = document.createElement('textarea');
+                    document.body.appendChild(dummyInput);
+                    dummyInput.value = contextText;
+                    dummyInput.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(dummyInput);
+                    alert(`📋 Link copied for ${sessionNo}!`);
+                });
+            }
         }
 
         function triggerMaterialOpen(buttonElement) {
@@ -330,35 +388,6 @@
             }
         }
 
-        function shareTopicCard(event, sessionNo, topicTitle) {
-            event.stopPropagation();
-            const formattedTitle = topicTitle.replace(/<br>/g, ' ').trim();
-            const cleanCurrentUrl = window.location.href.split('?')[0];
-            const targetShareUrl = `${cleanCurrentUrl}?session=${encodeURIComponent(sessionNo)}`;
-
-            const contextText = `📚 *TNTET ${globallySelectedCategory}* \n📌 *${sessionNo}*: ${formattedTitle}\n\n👇 Study Link:\n${targetShareUrl}`;
-
-            if (navigator.share) {
-                navigator.share({
-                    title: `TNTET - ${sessionNo}`,
-                    text: contextText,
-                    url: targetShareUrl
-                }).catch(err => console.log('Share canceled'));
-            } else {
-                navigator.clipboard.writeText(contextText).then(() => {
-                    alert(`📋 Link copied for ${sessionNo}! You can now paste and share it directly on WhatsApp.`);
-                }).catch(() => {
-                    const dummyInput = document.createElement('textarea');
-                    document.body.appendChild(dummyInput);
-                    dummyInput.value = contextText;
-                    dummyInput.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(dummyInput);
-                    alert(`📋 Link copied for ${sessionNo}!`);
-                });
-            }
-        }
-
         function adjustTextScale(delta) {
             currentTextScale = Math.max(14, Math.min(26, currentTextScale + delta));
             const textNode = document.getElementById('material-text-node');
@@ -409,7 +438,7 @@
             document.addEventListener('click', closeAllDropdowns);
         }
 
-        function toggleNavigationMenu(event, targetMenuId) {
+       function toggleNavigationMenu(event, targetMenuId) {
             event.stopPropagation();
             const targetMenu = document.getElementById(targetMenuId);
             if (!targetMenu) return;
@@ -423,6 +452,7 @@
             } else {
                 const isCurrentlyOpen = targetMenu.classList.contains('dropdown-active');
                 document.querySelectorAll('.dropdown-menu').forEach(menu => menu.classList.remove('dropdown-active'));
+                // FIXED: Replaced .add() with .classList.add() to resolve desktop click blocks
                 if (!isCurrentlyOpen) targetMenu.classList.add('dropdown-active');
             }
         }
