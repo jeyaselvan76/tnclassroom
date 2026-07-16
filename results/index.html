@@ -7,6 +7,18 @@
    <script src="/tailwind.js"></script>
 <script src="/xlsx.js"></script>
 <link rel="stylesheet" href="/fontawesome.css">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MZZ985WL51"></script>
+<script>
+  window.dataLayer = window.location.hostname === 'localhost' ? [] : (window.dataLayer || []);
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MZZ985WL51', {
+    page_path: window.location.pathname,
+    cookie_flags: 'max-age=7200;Secure;SameSite=None'
+  });
+</script>
     <style>
         body { -webkit-tap-highlight-color: transparent; font-family: sans-serif; background-color: #f8fafc; }
         .custom-scrollbar::-webkit-scrollbar { width: 6px; }
