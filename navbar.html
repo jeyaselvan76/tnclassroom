@@ -115,3 +115,18 @@
         </nav>
     </div>
 </div>
+
+<!-- GLOBAL SITE CONFIGURATION LAYER (GA4 ANALYTICS ENGINE) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  // Block internal tracking during local development
+  window.dataLayer = window.location.hostname === 'localhost' ? [] : (window.dataLayer || []);
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  // Track page tracking configurations accurately across subfolder paths
+  gtag('config', 'G-MZZ985WL51', {
+    page_path: window.location.pathname,
+    cookie_flags: 'max-age=7200;Secure;SameSite=None'
+  });
+</script>
