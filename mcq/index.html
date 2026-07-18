@@ -241,7 +241,7 @@
             }
 
             const dataRows = lines.slice(1);
-            questions = dataRows.map(cols => {
+            let parsedQuestions = dataRows.map(cols => {
                 if (cols.length < 6) return null;
                 return {
                     question: cols[0] ? cols[0].replace(/^"|"$/g, '') : '',
@@ -255,6 +255,17 @@
                     imageUrl: cols[6] ? cols[6].replace(/^"|"$/g, '') : ''
                 };
             }).filter(Boolean);
+
+            // FIXED: Pure array-level Fisher-Yates element layout shuffling
+            let shuffled = [...parsedQuestions];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                let temp = shuffled[i];
+                shuffled[i] = shuffled[j];
+                shuffled[j] = temp;
+            }
+
+            questions = shuffled;
         }
 
         async function startQuiz() {
@@ -271,7 +282,9 @@
             }
 
             try {
-                const response = await fetch(TARGET_SHEET_CSV_URL);
+                // FIXED: Direct cache busting string forces the network container to update dynamically on parallel browsers
+                const cacheBusterUrl = `${TARGET_SHEET_CSV_URL}&nocache=${new Date().getTime()}`;
+                const response = await fetch(cacheBusterUrl);
                 if (!response.ok) throw new Error("Spreadsheet fetch failed.");
 
                 const rawCsvText = await response.text();
@@ -279,6 +292,7 @@
 
                 if (questions.length === 0) return alert("MCQ Question data blank or parameters invalid.");
 
+                currentIdx = 0; // FIXED: Force runtime counter validation reset
                 answers = new Array(questions.length).fill(null);
                 skipped = new Array(questions.length).fill(false);
 

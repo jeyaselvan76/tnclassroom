@@ -5,248 +5,172 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TN Classroom | Educational Hub</title>
     <script src="/tailwind.js"></script>
-   <link rel="stylesheet" href="/fontawesome.css">
-
+    <link rel="stylesheet" href="/fontawesome.css">
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-MZZ985WL51"></script>
-<script>
-  window.dataLayer = window.location.hostname === 'localhost' ? [] : (window.dataLayer || []);
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <script>
+      window.dataLayer = window.location.hostname === 'localhost' ? [] : (window.dataLayer || []);
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-  gtag('config', 'G-MZZ985WL51', {
-    page_path: window.location.pathname,
-    cookie_flags: 'max-age=7200;Secure;SameSite=None'
-  });
-</script>
+      gtag('config', 'G-MZZ985WL51', {
+        page_path: window.location.pathname,
+        cookie_flags: 'max-age=7200;Secure;SameSite=None'
+      });
+    </script>
 
     <style>
         body { -webkit-tap-highlight-color: transparent; font-family: sans-serif; background-color: #f8fafc; }
-        .dropdown-active { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; }
         .tamil-fix { font-family: 'Segoe UI', 'Latha', sans-serif !important; }
 
-        /* Base Navigation Container Setup */
-        .edu-nav-container {
-            position: relative;
-            width: 120px;
-            height: 120px;
-            margin: 40px auto;
+        /* ==========================================
+           FIXED: Prevents invisible dropdown menus from hijacking clicks
+           ========================================== */
+        .dropdown-menu { z-index: 50 !important; pointer-events: none; }
+        .dropdown-active { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; z-index: 50 !important; pointer-events: auto !important; }
+
+        /* ==========================================
+           CLEAN MINIMALIST WIDGET LAYOUT (DESKTOP)
+           ========================================== */
+        @media (min-width: 640px) {
+            .clean-hub-grid {
+                display: grid;
+                grid-template-cols: repeat(2, minmax(0, 1fr));
+                gap: 1.5rem;
+                width: 100%;
+                max-w: 720px;
+                margin: 1.5rem auto;
+            }
+            .hub-card {
+                background: #ffffff;
+                border: 1px solid #e2e8f0;
+                border-radius: 20px;
+                padding: 1.5rem;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            .hub-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
+            }
         }
 
-        /* Central Trigger Button */
-        .edu-core-btn {
-            position: absolute;
-            z-index: 10;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: #10b981; /* Primary Educational Green */
-            color: white;
-            border: 4px solid #ffffff;
-            font-size: 1.05rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            cursor: pointer;
-            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3), 0 4px 10px rgba(0, 0, 0, 0.05);
-            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.3s ease;
-        }
-
-        /* The spinning structural layer */
-        .edu-orbit-layer {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            transform: rotate(0deg) scale(0.6);
-            opacity: 0;
-            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
-            pointer-events: none;
-        }
-
-        /* Hover & Active States: Rotates the architecture frame */
-        .edu-nav-container:hover .edu-orbit-layer,
-        .edu-nav-container:focus-within .edu-orbit-layer {
-            opacity: 1;
-            transform: rotate(180deg) scale(1);
-            pointer-events: auto;
-        }
-
-        .edu-nav-container:hover .edu-core-btn {
-            background: #059669;
-            transform: scale(0.95);
-        }
-
-        /* Individual Target Nodes holding the Menus */
-        .edu-node {
-            position: absolute;
-            width: 160px;
-            /* Compensatory counter-rotation loops the text elements back straight */
-            transform: rotate(-180deg);
-            transition: transform 0.5s ease;
-            z-index: 20;
-        }
-
-        /* Left Side: NMMS Hub */
-        .node-left {
-            right: 130%;
-            top: 10px;
-        }
-
-        /* Right Side: TNTET Hub */
-        .node-right {
-            left: 130%;
-            top: 10px;
-        }
-
-        /* Main Section Buttons */
-        .node-title {
-            width: 100%;
-            padding: 12px 16px;
-            color: #ffffff;
-            border: none;
-            border-radius: 12px;
-            font-weight: 800;
-            font-size: 0.95rem;
-            text-align: center;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            transition: background-color 0.2s ease, transform 0.2s;
-        }
-
-        .node-left .node-title { background: #059669; }
-        .node-left .node-title:hover { background: #047857; }
-
-        .node-right .node-title { background: #4f46e5; }
-        .node-right .node-title:hover { background: #4338ca; }
-
-        /* Submenu Layout Structure */
-        .edu-sub-panel {
-            list-style: none;
-            padding: 6px;
-            margin: 8px 0 0 0;
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            opacity: 0;
-            transform: translateY(-10px);
-            visibility: hidden;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
-        }
-
-        /* Reveal Submenu on Node Hover */
-        .edu-node:hover .edu-sub-panel {
-            opacity: 1;
-            transform: translateY(0);
-            visibility: visible;
-        }
-
-        .edu-sub-panel a {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 12px;
-            color: #475569;
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 700;
-            border-radius: 8px;
-            transition: background-color 0.2s ease, color 0.2s ease;
-        }
-
-        .node-left .edu-sub-panel a:hover {
-            background: #ecfdf5;
-            color: #059669;
-        }
-
-        .node-right .edu-sub-panel a:hover {
-            background: #eef2ff;
-            color: #4f46e5;
+        /* ==========================================
+           MOBILE ACCORDION DROPDOWN STYLES
+           ========================================== */
+        @media (max-width: 639px) {
+            .mobile-accordion-header[data-open="true"] .accordion-icon {
+                transform: rotate(180deg);
+            }
+            .mobile-accordion-content {
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            }
         }
     </style>
 </head>
-<body class="antialiased min-h-screen flex flex-col">
+<body class="antialiased min-h-screen flex flex-col relative">
 
     <!-- Top Navigation Menu Pipeline Placeholder -->
     <div id="navbar-placeholder"></div>
 
     <!-- MAIN HUB DASHBOARD -->
-    <main class="flex-grow max-w-4xl w-full mx-auto p-4 md:p-8 space-y-12">
+    <main class="flex-grow max-w-4xl w-full mx-auto p-4 md:p-8 space-y-12 pb-24">
 
         <!-- BRAND HERO MODULE -->
         <div class="bg-white border border-slate-100 rounded-3xl p-6 shadow-xl space-y-2">
-            <h1 class="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2">
-                <span class="p-2 bg-blue-50 text-blue-600 rounded-xl"><i class="fa-solid fa-school"></i></span>
-                TN Classroom Portal
+            <h1 class="text-2xl font-black tracking-tight flex items-center gap-2">
+                <span class="p-2 bg-blue-50 text-blue-600 rounded-xl">
+                    <i class="fa-solid fa-school"></i>
+                </span>
+                <span>
+                    <span class="text-slate-900">TN</span><span class="text-red-600">CLASSROOM</span>
+                </span>
             </h1>
-            <p class="text-slate-500 text-xs">Automated institutional frameworks and synchronized campus resource ledgers.</p>
+            <p class="text-slate-500 text-xs leading-relaxed">This portal is a comprehensive, free digital learning platform dedicated to supporting teachers, school students, TNTET aspirants, and candidates preparing for competitive examinations such as TNPSC, Banking, SSC, and other government recruitment exams. Through curated study materials, practice tests, and interactive learning resources, we strive to make quality education accessible to all. </p>
         </div>
 
         <!-- PORTAL INTERSECTION INTERFACE -->
-        <section class="py-12 bg-white border border-slate-200/60 rounded-3xl shadow-xl flex flex-col items-center justify-center gap-6 min-h-[420px] px-6">
-            <div class="text-center space-y-1">
-                <span class="text-[9px] font-black uppercase tracking-widest text-slate-400 block">Interactive Control Interface</span>
-                <h2 class="text-xl font-black text-slate-900">Explore Academic Portals</h2>
-                <p class="text-slate-400 text-xs hidden sm:block">Hover or tap the central core to launch tracking channels.</p>
-                <p class="text-slate-400 text-xs sm:hidden">Select an active program category track to browse materials.</p>
+        <section class="py-8 bg-white border border-slate-200/60 rounded-3xl shadow-xl flex flex-col items-center justify-center min-h-[350px] px-4 sm:px-8">
+            <div class="text-center space-y-1 mb-6">
+                <h2 class="text-xl font-black text-slate-900 tracking-tight">Explore Learning Resources</h2>
+                <p class="text-slate-400 text-xs hidden sm:block">Choose a program category below to view learning materials and resources.</p>
+                <p class="text-slate-400 text-[11px] sm:hidden">Tap categories below to view portal curriculum paths</p>
             </div>
 
-            <!-- MOBILE MOBILE VIEWS LIST BLOCK: Renders cleanly stacked touch targets to avoid overflow -->
-            <div class="w-full max-w-sm flex flex-col gap-3 sm:hidden mt-2">
-                <div class="border border-slate-100 rounded-2xl p-4 bg-slate-50/50 space-y-3">
-                    <span class="text-[10px] font-extrabold text-indigo-600 uppercase tracking-wider block font-mono"><i class="fa-solid fa-book-open mr-1"></i> TNTET Exam Portals</span>
-                    <div class="grid grid-cols-2 gap-2">
-                        <a href="./tntet-psychology/" class="p-2.5 bg-white border rounded-xl text-center text-xs font-bold text-slate-700 hover:text-indigo-600 hover:border-indigo-200 transition">Psychology</a>
-                        <a href="./tntet-tamil/" class="p-2.5 bg-white border rounded-xl text-center text-xs font-bold text-slate-700 hover:text-indigo-600 hover:border-indigo-200 transition">Tamil</a>
-                        <a href="./tntet-english/" class="p-2.5 bg-white border rounded-xl text-center text-xs font-bold text-slate-700 hover:text-indigo-600 hover:border-indigo-200 transition">English</a>
-                        <a href="./tntet-maths/" class="p-2.5 bg-white border rounded-xl text-center text-xs font-bold text-slate-700 hover:text-indigo-600 hover:border-indigo-200 transition">Maths</a>
-                        <a href="./tntet-science/" class="p-2.5 bg-white border rounded-xl text-center text-xs font-bold text-slate-700 hover:text-indigo-600 hover:border-indigo-200 transition">Science</a>
-                        <a href="./tntet-social/" class="p-2.5 bg-white border rounded-xl text-center text-xs font-bold text-slate-700 hover:text-indigo-600 hover:border-indigo-200 transition col-span-2">Social Science</a>
+            <!-- ==========================================
+               MOBILE VIEWS LIST STACK (SM BLOCK HIDE)
+               ========================================== -->
+            <div class="w-full max-w-sm flex flex-col gap-3 sm:hidden">
+                <!-- NMMS Accordion -->
+                <div class="border border-slate-100 rounded-2xl overflow-hidden bg-slate-50/40">
+                    <button onclick="toggleMobileAccordion('mob-nmms-panel', this)" class="mobile-accordion-header w-full p-4 flex justify-between items-center bg-white border-b border-slate-100 font-black text-xs text-emerald-600 uppercase tracking-wider" data-open="false">
+                        <span><i class="fa-solid fa-graduation-cap mr-2"></i> NMMS HUB </span>
+                        <i class="fa-solid fa-chevron-down accordion-icon transition-transform duration-300"></i>
+                    </button>
+                    <div id="mob-nmms-panel" class="mobile-accordion-content">
+                        <div class="p-3 grid grid-cols-2 gap-2 bg-slate-50/50">
+                            <a href="./nmms-sat/" class="p-3 bg-white border rounded-xl text-center text-xs font-bold text-slate-700 active:bg-emerald-50 active:text-emerald-600 transition">SAT PORTAL</a>
+                            <a href="./nmms-mat/" class="p-3 bg-white border rounded-xl text-center text-xs font-bold text-slate-700 active:bg-emerald-50 active:text-emerald-600 transition">MAT PORTAL</a>
+                        </div>
                     </div>
                 </div>
 
-                <div class="border border-slate-100 rounded-2xl p-4 bg-slate-50/50 space-y-3">
-                    <span class="text-[10px] font-extrabold text-emerald-600 uppercase tracking-wider block font-mono"><i class="fa-solid fa-graduation-cap mr-1"></i> NMMS Channels</span>
-                    <div class="grid grid-cols-2 gap-2">
-                        <a href="./nmms-sat/" class="p-3 bg-white border rounded-xl text-center text-xs font-black text-slate-700 hover:text-emerald-600 hover:border-emerald-200 transition">SAT Portal</a>
-                        <a href="./nmms-mat/" class="p-3 bg-white border rounded-xl text-center text-xs font-black text-slate-700 hover:text-emerald-600 hover:border-emerald-200 transition">MAT Logic</a>
+                <!-- TNTET Accordion -->
+                <div class="border border-slate-100 rounded-2xl overflow-hidden bg-slate-50/40">
+                    <button onclick="toggleMobileAccordion('mob-tntet-panel', this)" class="mobile-accordion-header w-full p-4 flex justify-between items-center bg-white border-b border-slate-100 font-black text-xs text-indigo-600 uppercase tracking-wider" data-open="false">
+                        <span><i class="fa-solid fa-book-open mr-2"></i> TNTET Exam Hub</span>
+                        <i class="fa-solid fa-chevron-down accordion-icon transition-transform duration-300"></i>
+                    </button>
+                    <div id="mob-tntet-panel" class="mobile-accordion-content">
+                        <div class="p-3 grid grid-cols-2 gap-2 bg-slate-50/50">
+                            <a href="./tntet-psychology/" class="p-2.5 bg-white border rounded-xl text-center text-xs font-semibold text-slate-700">Psychology</a>
+                            <a href="./tntet-tamil/" class="p-2.5 bg-white border rounded-xl text-center text-xs font-semibold text-slate-700">Tamil</a>
+                            <a href="./tntet-english/" class="p-2.5 bg-white border rounded-xl text-center text-xs font-semibold text-slate-700">English</a>
+                            <a href="./tntet-maths/" class="p-2.5 bg-white border rounded-xl text-center text-xs font-semibold text-slate-700">Maths</a>
+                            <a href="./tntet-science/" class="p-2.5 bg-white border rounded-xl text-center text-xs font-semibold text-slate-700">Science</a>
+                            <a href="./tntet-social/" class="p-2.5 bg-white border rounded-xl text-center text-xs font-semibold text-slate-700">Social Science</a>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- DESKTOP INTERACTIVE NAVIGATION VIEW (Safely preserved for larger screens) -->
-            <nav class="edu-nav-container hidden sm:block" aria-label="Educational Platform Directory">
-                <!-- Central Active Core Anchor -->
-                <button class="edu-core-btn" aria-label="Open Navigation Directory">
-                    Explore
-                </button>
-
-                <!-- Structural Rotating Orbit Layer -->
-                <div class="edu-orbit-layer">
-
-                    <!-- MENU 1: NMMS Academy (Positioned Left) -->
-                    <div class="edu-node node-left">
-                        <button class="node-title" tabindex="-1">NMMS</button>
-                        <ul class="edu-sub-panel">
-                            <li><a href="./nmms-sat/"><i class="fa-solid fa-chart-pie opacity-70"></i> SAT Exam Portal</a></li>
-                            <li><a href="./nmms-mat/"><i class="fa-solid fa-brain opacity-70"></i> MAT Logic Center</a></li>
-                        </ul>
+            <!-- ==========================================
+               DESKTOP CLEAN AND MODERN CARD HUB
+               ========================================== -->
+            <nav class="clean-hub-grid hidden sm:grid" aria-label="Educational Platform Directory">
+                <!-- NMMS Card Module -->
+                <div class="hub-card border-l-4 border-emerald-500 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-2 pb-2 mb-3 border-b border-slate-100">
+                            <span class="p-2 bg-emerald-50 text-emerald-600 rounded-xl text-sm"><i class="fa-solid fa-graduation-cap"></i></span>
+                            <h4 class="font-black text-slate-900 text-sm uppercase tracking-wider">NMMS Hub</h4>
+                        </div>
+                        <p class="text-[11px] text-slate-400 mb-4 leading-normal">Access National Means-cum-Merit Scholarship preparatory portals for SAT and MAT streams.</p>
                     </div>
-
-                    <!-- MENU 2: TNTET Study Hub (Positioned Right) -->
-                    <div class="edu-node node-right">
-                        <button class="node-title" tabindex="-1">TNTET</button>
-                        <ul class="edu-sub-panel">
-                            <li><a href="./tntet-psychology/"><i class="fa-solid fa-brain opacity-70"></i> Psychology</a></li>
-                            <li><a href="./tntet-tamil/"><i class="fa-solid fa-language opacity-70"></i> Tamil</a></li>
-                            <li><a href="./tntet-english/"><i class="fa-solid fa-font opacity-70"></i> English</a></li>
-                            <li><a href="./tntet-maths/"><i class="fa-solid fa-calculator opacity-70"></i> Mathematics</a></li>
-                            <li><a href="./tntet-science/"><i class="fa-solid fa-flask opacity-70"></i> Science Pack</a></li>
-                            <li><a href="./tntet-social/"><i class="fa-solid fa-earth-americas opacity-70"></i> Social Science</a></li>
-                        </ul>
+                    <div class="grid grid-cols-2 gap-2">
+                        <a href="./nmms-sat/" class="flex items-center justify-center gap-2 p-2.5 border border-slate-200 hover:border-emerald-200 hover:text-emerald-600 hover:bg-emerald-50/30 rounded-xl text-xs font-bold text-slate-700 transition"><i class="fa-solid fa-chart-pie text-xs opacity-70"></i> SAT Portal</a>
+                        <a href="./nmms-mat/" class="flex items-center justify-center gap-2 p-2.5 border border-slate-200 hover:border-emerald-200 hover:text-emerald-600 hover:bg-emerald-50/30 rounded-xl text-xs font-bold text-slate-700 transition"><i class="fa-solid fa-brain text-xs opacity-70"></i> MAT Portal</a>
                     </div>
+                </div>
 
+                <!-- TNTET Card Module -->
+                <div class="hub-card border-l-4 border-indigo-500 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-2 pb-2 mb-3 border-b border-slate-100">
+                            <span class="p-2 bg-indigo-50 text-indigo-600 rounded-xl text-sm"><i class="fa-solid fa-book-open"></i></span>
+                            <h4 class="font-black text-slate-900 text-sm uppercase tracking-wider">TNTET Hub</h4>
+                        </div>
+                        <p class="text-[11px] text-slate-400 mb-4 leading-normal">Video,Text and online Test material built specifically for Tamil Nadu Teacher Eligibility Test aspirants.</p>
+                    </div>
+                    <div class="grid grid-cols-3 gap-1.5">
+                        <a href="./tntet-psychology/" class="p-2 text-center border border-slate-100 hover:border-indigo-200 hover:text-indigo-600 hover:bg-indigo-50/30 rounded-xl text-[10px] font-bold text-slate-600 transition">Psychology</a>
+                        <a href="./tntet-tamil/" class="p-2 text-center border border-slate-100 hover:border-indigo-200 hover:text-indigo-600 hover:bg-indigo-50/30 rounded-xl text-[10px] font-bold text-slate-600 transition">Tamil</a>
+                        <a href="./tntet-english/" class="p-2 text-center border border-slate-100 hover:border-indigo-200 hover:text-indigo-600 hover:bg-indigo-50/30 rounded-xl text-[10px] font-bold text-slate-600 transition">English</a>
+                        <a href="./tntet-maths/" class="p-2 text-center border border-slate-100 hover:border-indigo-200 hover:text-indigo-600 hover:bg-indigo-50/30 rounded-xl text-[10px] font-bold text-slate-600 transition">Maths</a>
+                        <a href="./tntet-science/" class="p-2 text-center border border-slate-100 hover:border-indigo-200 hover:text-indigo-600 hover:bg-indigo-50/30 rounded-xl text-[10px] font-bold text-slate-600 transition">Science</a>
+                        <a href="./tntet-social/" class="p-2 text-center border border-slate-100 hover:border-indigo-200 hover:text-indigo-600 hover:bg-indigo-50/30 rounded-xl text-[10px] font-bold text-slate-600 transition">Social</a>
+                    </div>
                 </div>
             </nav>
         </section>
@@ -254,12 +178,12 @@
         <!-- FAST SCORE TRACKER INDEX BLOCK -->
         <div class="bg-gradient-to-br from-slate-900 to-blue-950 text-white p-6 rounded-3xl shadow-md border border-slate-800 space-y-4 max-w-md mx-auto w-full">
             <div>
-                <h3 class="font-black text-sm tracking-tight">Performance Tracker</h3>
-                <p class="text-slate-400 text-[11px] mt-0.5 leading-relaxed">Input your verified 10-digit smartphone registration marker to open scores profiles.</p>
+                <h3 class="font-black text-sm tracking-tight">Test Scores Tracker</h3>
+                <p class="text-slate-400 text-[11px] mt-0.5 leading-relaxed">Teachers-Type your Mobile number.Students-Type your EMIS Number </p>
             </div>
             <div class="flex flex-col sm:flex-row gap-3">
-                <input type="tel" id="homeMobileCheck" maxlength="10" placeholder="ENTER MOBILE NUMBER" class="flex-grow bg-white/10 border border-white/10 rounded-xl p-3 text-center font-mono font-bold text-sm tracking-widest text-white placeholder-white/20 outline-none focus:border-cyan-400">
-                <button onclick="routeToScores(event)" class="bg-cyan-400 hover:bg-white text-blue-950 font-black text-xs px-6 py-3 rounded-xl transition uppercase tracking-wider shadow whitespace-nowrap">Fetch Scores</button>
+                <input type="tel" id="homeMobileCheck" maxlength="10" placeholder="MOBILE/EMIS NUMBER" class="flex-grow bg-white/10 border border-white/10 rounded-xl p-3 text-center font-mono font-bold text-sm tracking-widest text-white placeholder-white/20 outline-none focus:border-cyan-400">
+                <button onclick="routeToScores(event)" class="bg-cyan-400 hover:bg-white text-blue-950 font-black text-xs px-6 py-3 rounded-xl transition uppercase tracking-wider shadow whitespace-nowrap">View My  Scores</button>
             </div>
         </div>
 
@@ -267,18 +191,29 @@
         <section class="space-y-4">
             <div class="flex items-center gap-2 px-1">
                 <span class="inline-block w-2 h-2 rounded-full bg-blue-600"></span>
-                <span class="text-[10px] font-black tracking-widest text-slate-400 uppercase">Connect With Our Communities</span>
+                <span class="text-[10px] font-black tracking-widest text-slate-400 uppercase">Our Official Social Media Pages</span>
             </div>
 
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <!-- WhatsApp Card -->
+                <a href="https://chat.whatsapp.com/EXeIlEkacgIGolsUZ9S9sQ" target="_blank" class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm hover:shadow-md hover:border-emerald-500 transition flex flex-col items-center text-center gap-2 group">
+                    <span class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-base group-hover:bg-emerald-600 group-hover:text-white transition duration-200">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </span>
+                    <div>
+                        <h4 class="font-black text-slate-800 text-xs tracking-tight">WhatsApp Group</h4>
+                        <p class="text-[10px] text-slate-400 mt-0.5">Join to Attend Classes</p>
+                    </div>
+                </a>
+
                 <!-- YouTube Card -->
                 <a href="https://www.youtube.com/@tnsedthanjavur" target="_blank" class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm hover:shadow-md hover:border-red-500 transition flex flex-col items-center text-center gap-2 group">
                     <span class="w-10 h-10 rounded-xl bg-red-50 text-red-600 flex items-center justify-center text-base group-hover:bg-red-600 group-hover:text-white transition duration-200">
                         <i class="fa-brands fa-youtube"></i>
                     </span>
                     <div>
-                        <h4 class="font-black text-slate-800 text-xs tracking-tight">YouTube Channel</h4>
-                        <p class="text-[10px] text-slate-400 mt-0.5">Video Lectures Keys</p>
+                        <h4 class="font-black text-slate-800 text-xs tracking-tight">Our YouTube Channel</h4>
+                        <p class="text-[10px] text-slate-400 mt-0.5">Free Video Lessons</p>
                     </div>
                 </a>
 
@@ -289,7 +224,7 @@
                     </span>
                     <div>
                         <h4 class="font-black text-slate-800 text-xs tracking-tight">Facebook Page</h4>
-                        <p class="text-[10px] text-slate-400 mt-0.5">Educational Feed News</p>
+                        <p class="text-[10px] text-slate-400 mt-0.5">Educational Content Updates</p>
                     </div>
                 </a>
 
@@ -300,31 +235,152 @@
                     </span>
                     <div>
                         <h4 class="font-black text-slate-800 text-xs tracking-tight">Instagram Feed</h4>
-                        <p class="text-[10px] text-slate-400 mt-0.5">Infographics & Alerts</p>
-                    </div>
-                </a>
-
-                <!-- WhatsApp Card -->
-                <a href="https://whatsapp.com/channel/tnclassroom" target="_blank" class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm hover:shadow-md hover:border-emerald-500 transition flex flex-col items-center text-center gap-2 group">
-                    <span class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-base group-hover:bg-emerald-600 group-hover:text-white transition duration-200">
-                        <i class="fa-brands fa-whatsapp"></i>
-                    </span>
-                    <div>
-                        <h4 class="font-black text-slate-800 text-xs tracking-tight">WhatsApp Channel</h4>
-                        <p class="text-[10px] text-slate-400 mt-0.5">Instant Tracker Alerts</p>
+                        <p class="text-[10px] text-slate-400 mt-0.5">Educational Content Updates</p>
                     </div>
                 </a>
             </div>
         </section>
-
     </main>
 
+    <!-- Floating Trigger Button for Modal Popup -->
+    <button onclick="toggleFeedbackModal(true)" class="fixed bottom-6 right-6 z-40 bg-[#10b981] hover:bg-[#059669] text-white px-5 py-3 rounded-full font-black text-xs uppercase tracking-wider shadow-2xl transition flex items-center gap-2 border-2 border-white">
+        <i class="fa-solid fa-comment-dots text-sm"></i> FeedBack
+    </button>
+
+    <!-- Feedback Form Overlay Modal Structure -->
+    <div id="feedback-modal" class="fixed inset-0 bg-slate-950/40 backdrop-blur-sm z-50 flex items-center justify-center p-4 invisible opacity-0 transition-all duration-300" onclick="toggleFeedbackModal(false)">
+        <div class="w-full max-w-md bg-white rounded-[2rem] p-6 shadow-2xl relative border border-slate-100 transform scale-95 transition-transform duration-300" onclick="event.stopPropagation()">
+
+            <div class="flex justify-between items-center mb-4">
+                <div class="flex items-center gap-2">
+                    <span class="inline-block w-2 h-2 rounded-full bg-[#10b981]"></span>
+                    <h3 class="text-sm font-black tracking-widest text-slate-800 uppercase">Share Your Suggestions</h3>
+                </div>
+                <button onclick="toggleFeedbackModal(false)" class="w-7 h-7 rounded-full bg-slate-50 hover:bg-slate-100 flex items-center justify-center text-slate-400 transition">
+                    <i class="fa-solid fa-xmark text-xs"></i>
+                </button>
+            </div>
+
+            <form id="native-feedback-form" onsubmit="submitFeedbackToFirebase(event)" class="space-y-4">
+                <div class="space-y-3">
+                    <div>
+                        <input type="text" id="fb-name" required placeholder="Full Name" class="w-full p-3.5 bg-slate-50 border border-slate-100 rounded-xl outline-none font-bold text-xs text-slate-700 placeholder-slate-400 focus:border-[#10b981] transition">
+                    </div>
+
+                    <div>
+                        <input type="tel" id="fb-mobile" pattern="[0-9]{10}" placeholder="Mobile Number (Optional)" class="w-full p-3.5 bg-slate-50 border border-slate-100 rounded-xl outline-none font-bold text-xs text-slate-700 placeholder-slate-400 focus:border-[#10b981] transition">
+                    </div>
+
+                    <div>
+                        <input type="email" id="fb-email" placeholder="Email Address (Optional)" class="w-full p-3.5 bg-slate-50 border border-slate-100 rounded-xl outline-none font-bold text-xs text-slate-700 placeholder-slate-400 focus:border-[#10b981] transition">
+                    </div>
+
+                    <div>
+                        <textarea id="fb-text" required placeholder="Write your feedback or suggestions here..." class="w-full p-3.5 bg-slate-50 border border-slate-100 rounded-xl outline-none font-bold text-xs text-slate-700 placeholder-slate-400 h-28 resize-none focus:border-[#10b981] transition"></textarea>
+                    </div>
+                </div>
+
+                <button type="submit" id="fb-submit-btn" class="w-full bg-[#10b981] hover:bg-[#059669] text-white py-3.5 rounded-xl font-black text-xs uppercase tracking-wider shadow transition">
+                    Submit Feedback
+                </button>
+            </form>
+        </div>
+    </div>
+
     <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-6 text-center text-xs mt-auto">
-        <p>&copy; 2026 TN Classroom. Campus workflow modules driven seamlessly via unified automated sheets pipelines.</p>
+        <p>&copy;  2026 tnclassroom.com | A Professional Learning Platform for Students & Teachers</p>
     </footer>
+
+    <!-- FIREBASE CORE MODULE INITIALIZER -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        const firebaseConfig = {
+            apiKey: "AIzaSyBW92t7GWAf6vIHdJ83n7Nz7Io3y2GArVw",
+            authDomain: "tnclassroom-mcq-new.firebaseapp.com",
+            projectId: "tnclassroom-mcq-new",
+            storageBucket: "tnclassroom-mcq-new.firebasestorage.app",
+            messagingSenderId: "808928665241",
+            appId: "1:808928665241:web:5a8a9e3f4ee5b885c9a208",
+            measurementId: "G-L059C061EY"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        window.dbRef = db; window.setDocDoc = doc; window.writeDoc = setDoc;
+    </script>
 
     <!-- ENGINE SCRIPTS MATRIX -->
     <script>
+        function toggleMobileAccordion(panelId, headerElement) {
+            const panel = document.getElementById(panelId);
+            const isOpen = headerElement.getAttribute('data-open') === 'true';
+
+            document.querySelectorAll('.mobile-accordion-content').forEach(p => p.style.maxHeight = null);
+            document.querySelectorAll('.mobile-accordion-header').forEach(h => h.setAttribute('data-open', 'false'));
+
+            if (!isOpen) {
+                headerElement.setAttribute('data-open', 'true');
+                panel.style.maxHeight = panel.scrollHeight + "px";
+            }
+        }
+
+        function toggleFeedbackModal(show) {
+            const modal = document.getElementById('feedback-modal');
+            const dialog = modal.querySelector('div');
+            if (show) {
+                modal.classList.remove('invisible');
+                modal.classList.add('opacity-100');
+                dialog.classList.remove('scale-95');
+                dialog.classList.add('scale-100');
+            } else {
+                modal.classList.remove('opacity-100');
+                modal.classList.add('invisible');
+                dialog.classList.remove('scale-100');
+                dialog.classList.add('scale-95');
+            }
+        }
+
+        async function submitFeedbackToFirebase(event) {
+            event.preventDefault();
+            const btn = document.getElementById('fb-submit-btn');
+            btn.disabled = true;
+            btn.innerText = "SENDING...";
+
+            const name = document.getElementById('fb-name').value.trim();
+            const mobile = document.getElementById('fb-mobile').value.trim();
+            const email = document.getElementById('fb-email').value.trim();
+            const feedback = document.getElementById('fb-text').value.trim();
+
+            const generatedTimestamp = new Date().getTime();
+            const customFeedbackId = `feedback-${generatedTimestamp}`;
+
+            try {
+                if (!window.dbRef || !window.writeDoc) {
+                    throw new Error("SDK references not initialized.");
+                }
+
+                await window.writeDoc(window.setDocDoc(window.dbRef, "feedback", customFeedbackId), {
+                    feedbackId: customFeedbackId,
+                    name: name,
+                    mobileNumber: mobile || "Not Provided",
+                    emailAddress: email || "Not Provided",
+                    messageContent: feedback,
+                    submittedAt: new Date()
+                });
+
+                alert("Thank you! Your feedback has been logged securely.");
+                document.getElementById('native-feedback-form').reset();
+                toggleFeedbackModal(false);
+            } catch (error) {
+                console.error("Firebase write error: ", error);
+                alert("Database logging failed. Verify your active connection properties.");
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "SUBMIT FEEDBACK";
+            }
+        }
+
         function routeToScores(event) {
             if (event) {
                 event.preventDefault();
@@ -341,8 +397,16 @@
         async function loadSharedSiteNavbar() {
             try {
                 const res = await fetch(`./navbar.html?v=${new Date().getTime()}`);
-                if (res.ok) document.getElementById('navbar-placeholder').innerHTML = await res.text();
+                if (res.ok) {
+                    document.getElementById('navbar-placeholder').innerHTML = await res.text();
+                    initializeGlobalNavigationHooks();
+                }
             } catch (e) { console.error(e); }
+        }
+
+        function initializeGlobalNavigationHooks() {
+            document.removeEventListener('click', closeAllDropdowns);
+            document.addEventListener('click', closeAllDropdowns);
         }
 
         window.toggleNavigationMenu = (event, id) => {
@@ -366,6 +430,11 @@
             if (open) { d.classList.remove('invisible'); setTimeout(() => c.classList.remove('translate-x-full'), 10); }
             else { c.classList.add('translate-x-full'); setTimeout(() => d.classList.add('invisible'), 300); }
         };
+
+        function closeAllDropdowns() {
+            document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('dropdown-active'));
+            document.querySelectorAll('[id*="mobile-menu-"]').forEach(m => m.classList.add('hidden'));
+        }
 
         window.addEventListener('DOMContentLoaded', () => {
             loadSharedSiteNavbar();
