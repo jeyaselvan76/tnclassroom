@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Textbooks | TN Classroom</title>
+    <script src="/tailwind.js"></script>
+    <link rel="stylesheet" href="/fontawesome.css">
+    <style>
+        .dropdown-menu { z-index: 50 !important; pointer-events: none; }
+        .dropdown-active { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; z-index: 50 !important; pointer-events: auto !important; }
+        .tamil-fix { font-family: 'Segoe UI', 'Latha', sans-serif !important; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 flex flex-col min-h-screen font-sans">
+
+    <div id="navbar-placeholder"></div>
+
+    <!-- Leaderboard Banner Advertisement Area -->
+    <div class="w-full bg-white border-b border-slate-200 py-2 flex justify-center items-center text-[10px] text-gray-400 font-sans">
+        <div class="text-center">
+            <span class="block uppercase tracking-wider font-semibold mb-1">Advertisement</span>
+            <div class="bg-gray-100 border border-dashed border-gray-300 w-[320px] h-[50px] md:w-[728px] md:h-[60px] flex items-center justify-center rounded font-mono text-xs">
+                Top Leaderboard Banner Ad Box
+            </div>
+        </div>
+    </div>
+
+    <main class="flex-grow max-w-5xl w-full mx-auto px-4 py-8 space-y-6">
+
+      <!-- Back Navigation Header Controls -->
+<div class="flex justify-between items-center mb-2 relative z-10">
+    <div class="inline-block">
+        <!-- Steps back out of /view/ into /books-6-8/index.html -->
+        <a href="../index.html" class="inline-flex items-center gap-2 text-xs font-black text-slate-600 hover:text-emerald-600 uppercase tracking-wider transition cursor-pointer">
+            <i class="fa-solid fa-arrow-left"></i> Change Selection
+        </a>
+    </div>
+</div>
+
+        <!-- MAIN OVERVIEW CONTAINER CARD -->
+        <div class="bg-white border border-slate-200 rounded-3xl p-6 md:p-8 shadow-sm space-y-6">
+
+            <!-- Breadcrumb Badge Status Strip -->
+            <div class="flex flex-wrap items-center gap-2 border-b border-slate-100 pb-4">
+                <span id="view-class-badge" class="text-xs font-bold text-slate-700 bg-slate-100 px-3 py-1 rounded-xl uppercase tracking-wider">Class Loading...</span>
+                <span id="view-term-badge" class="text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-100 px-3 py-1 rounded-xl uppercase tracking-wider">Term Loading...</span>
+                <span id="view-medium-badge" class="text-xs font-bold text-blue-700 bg-blue-50 border border-blue-100 px-3 py-1 rounded-xl uppercase tracking-wider">Medium Loading...</span>
+            </div>
+
+            <div>
+                <h1 id="view-header-title" class="font-black text-slate-900 text-xl md:text-2xl tracking-tight leading-snug">
+                    Textbook Resources
+                </h1>
+            </div>
+
+            <!-- Dynamic text paragraph pulled from Column G -->
+            <div id="dynamic-column-g-paragraph" class="text-justify bg-slate-50/70 border border-slate-100 p-5 rounded-2xl text-sm md:text-base text-slate-600 leading-relaxed tracking-normal tamil-fix w-full break-words">
+                <i class="fa-solid fa-circle-notch fa-spin text-emerald-500 mr-2 text-xs"></i>Loading context guidelines text analytics...
+            </div>
+
+            <!-- TEXTBOOK DOWNLOADS SEGMENT SECTION -->
+            <div class="space-y-4 pt-4 border-t border-slate-100">
+                <h3 class="text-xs font-black uppercase tracking-wider text-slate-400">Available Textbook Downloads</h3>
+
+                <!-- Desktop Table View Grid (Incorporates table-fixed structural adjustments) -->
+                <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden hidden md:block">
+                    <table class="min-w-full border-collapse table-fixed text-sm font-medium">
+                        <thead class="bg-slate-950 text-slate-200 text-xs uppercase tracking-wider font-bold">
+                            <tr>
+                                <th class="px-6 py-4 text-left w-20">SNo</th>
+                                <th class="px-6 py-4 text-left w-auto">Subject / பாடம்</th>
+                                <th class="px-6 py-4 text-center w-56">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="desktop-books-tbody" class="text-slate-700 bg-white">
+                            <!-- Injected dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Mobile Responsive Cards View Deck -->
+                <div id="mobile-books-container" class="md:hidden space-y-3">
+                    <!-- Injected dynamically -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-6 text-center text-xs mt-auto">
+        <p>&copy; 2026 tnclassroom.com | A Professional Learning Platform for Students & Teachers</p>
+    </footer>
+
+    <script>
+        const BOOKS_DATABASE_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRwCJs-Xybe60WOhtIpsK1hQrP18HXtdGOUO4k49jMDZ-5Ok3fkpOPBk35HCow8WNYDKlqlYWSL-QzJ/pub?gid=0&single=true&output=csv";
+
+        function getUrlParameters() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                classTarget: params.get('class') || "6",
+                termTarget: params.get('term') || "1",
+                mediumTarget: params.get('medium') || "Tamil"
+            };
+        }
+
+        function makeDriveDownloadLink(driveUrl) {
+            if (!driveUrl || driveUrl === "#") return "#";
+            const match = driveUrl.match(/\/d\/([a-zA-Z0-9-_]+)/);
+            if (match && match[1]) {
+                return `https://docs.google.uc?export=download&id=${match[1]}`;
+            }
+            return driveUrl;
+        }
+
+        function parseCsvRows(text) {
+            let lines = []; let row = []; let cell = ''; let inQuotes = false;
+            for (let i = 0; i < text.length; i++) {
+                let c = text[i];
+                if (c === '"') { inQuotes = !inQuotes; }
+                else if (c === ',' && !inQuotes) { row.push(cell.trim()); cell = ''; }
+                else if ((c === '\n' || c === '\r') && !inQuotes) {
+                    row.push(cell.trim());
+                    if (row.length > 0 && row.some(x => x !== '')) lines.push(row);
+                    row = []; cell = '';
+                    if (c === '\r' && text[i+1] === '\n') i++;
+                } else { cell += c; }
+            }
+            if (cell || row.length > 0) { row.push(cell.trim()); lines.push(row); }
+            return lines;
+        }
+
+        async function processAndRenderView() {
+            const { classTarget, termTarget, mediumTarget } = getUrlParameters();
+
+            document.getElementById('view-class-badge').innerText = `Class ${classTarget}`;
+            document.getElementById('view-term-badge').innerText = termTarget === "Full" ? "Full Year" : `Term ${termTarget}`;
+            document.getElementById('view-medium-badge').innerText = `${mediumTarget} Medium`;
+            document.getElementById('view-header-title').innerText = `Class ${classTarget} - ${termTarget === "Full" ? "Full Year" : "Term " + termTarget} Textbook Resources (${mediumTarget} Medium)`;
+            document.title = `Class ${classTarget} Books (${mediumTarget} Medium) | TN Classroom`;
+
+            try {
+                const response = await fetch(BOOKS_DATABASE_URL);
+                if (!response.ok) throw new Error();
+                const dataText = await response.text();
+                // Slices out row index 1 to respect exact backend database data starting limits
+                const parsedRows = parseCsvRows(dataText).slice(1);
+
+                const desktopTbody = document.getElementById('desktop-books-tbody');
+                const mobileContainer = document.getElementById('mobile-books-container');
+                const paragraphBox = document.getElementById('dynamic-column-g-paragraph');
+
+                desktopTbody.innerHTML = "";
+                mobileContainer.innerHTML = "";
+
+                let matchedRecords = [];
+                let fallbackDescription = `Access and download the complete digital state repository textbooks directory mapped contextually for Class ${classTarget} tracking resources perfectly inside the state academic schedule tracks.`;
+                let columnGTextContent = "";
+
+                parsedRows.forEach((cols) => {
+                    if (!cols || cols.length < 6) return;
+
+                    let cls       = cols[1].replace(/^"|"$/g, '').trim();
+                    let term      = cols[2].replace(/^"|"$/g, '').trim();
+                    let subject   = cols[3].replace(/^"|"$/g, '').trim();
+                    let medium    = cols[4].replace(/^"|"$/g, '').trim();
+                    let rawPdfUrl = cols[5].replace(/^"|"$/g, '').trim();
+                    let columnGText = cols[6] ? cols[6].replace(/^"|"$/g, '').trim() : '';
+
+                    if (cls === classTarget && term.toLowerCase() === termTarget.toLowerCase() && medium.toLowerCase() === mediumTarget.toLowerCase()) {
+                        matchedRecords.push({
+                            subject: subject,
+                            downloadUrl: makeDriveDownloadLink(rawPdfUrl)
+                        });
+
+                        if (columnGText && columnGText !== "#" && !columnGTextContent) {
+                            columnGTextContent = columnGText;
+                        }
+                    }
+                });
+
+                paragraphBox.innerHTML = columnGTextContent ? columnGTextContent.replace(/\r?\n/g, '<br>') : fallbackDescription;
+
+                if (matchedRecords.length === 0) {
+                    desktopTbody.innerHTML = `<tr><td colspan="3" class="text-center py-8 text-slate-400 font-bold text-xs">No files matching the exact selectors are discovered in this directory slice.</td></tr>`;
+                    mobileContainer.innerHTML = `<div class="text-center p-6 bg-white border border-slate-100 rounded-xl text-xs font-bold text-slate-400">No downloadable files detected.</div>`;
+                    return;
+                }
+
+                matchedRecords.forEach((row, index) => {
+                    const tr = document.createElement('tr');
+                    tr.className = "hover:bg-slate-50/70 border-b border-slate-100 transition";
+                    tr.innerHTML = `
+                        <td class="px-6 py-4 text-slate-400 font-mono text-xs">${index + 1}</td>
+                        <td class="px-6 py-4 font-black text-slate-900 tamil-fix text-sm">${row.subject}</td>
+                        <td class="px-6 py-4 text-center">
+                            <a href="${row.downloadUrl}" target="_blank" class="inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-black text-[10px] px-3 py-2 rounded-xl transition shadow-sm uppercase tracking-wider">
+                                <i class="fa-solid fa-circle-down"></i> Download PDF
+                            </a>
+                        </td>
+                    `;
+                    desktopTbody.appendChild(tr);
+
+                    const mobileCard = document.createElement('div');
+                    mobileCard.className = "bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex items-center justify-between gap-3";
+                    mobileCard.innerHTML = `
+                        <div class="flex-grow">
+                            <h4 class="font-black text-slate-900 text-sm tamil-fix leading-snug">${row.subject}</h4>
+                        </div>
+                        <a href="${row.downloadUrl}" target="_blank" class="flex-shrink-0 bg-emerald-600 hover:bg-emerald-500 text-white p-3 rounded-xl transition shadow-sm flex items-center justify-center">
+                            <i class="fa-solid fa-circle-down text-sm"></i>
+                        </a>
+                    `;
+                    mobileContainer.appendChild(mobileCard);
+                });
+
+            } catch (err) {
+                console.error(err);
+                document.getElementById('dynamic-column-g-paragraph').innerText = "Failed to load active content guidelines layer.";
+            }
+        }
+
+        async function loadSharedSiteNavbar() {
+            try {
+                const res = await fetch(`../../navbar.html?v=${new Date().getTime()}`);
+                if (res.ok) {
+                    document.getElementById('navbar-placeholder').innerHTML = await res.text();
+                    initializeGlobalNavigationHooks();
+                }
+            } catch (e) { console.error(e); }
+        }
+
+        function initializeGlobalNavigationHooks() {
+            document.removeEventListener('click', closeAllDropdowns);
+            document.addEventListener('click', closeAllDropdowns);
+        }
+
+        function toggleNavigationMenu(event, targetMenuId) {
+            event.stopPropagation();
+            const targetMenu = document.getElementById(targetMenuId);
+            if (!targetMenu) return;
+            if (targetMenuId.includes('mobile-')) {
+                const isHidden = targetMenu.classList.contains('hidden');
+                document.querySelectorAll('[id*="mobile-menu-"]').forEach(m => m.classList.add('hidden'));
+                if (isHidden) targetMenu.classList.remove('hidden');
+            } else {
+                const isOpen = targetMenu.classList.contains('dropdown-active');
+                document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('dropdown-active'));
+                if (!isOpen) targetMenu.classList.add('dropdown-active');
+            }
+        }
+
+        function closeAllDropdowns() {
+            document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('dropdown-active'));
+            document.querySelectorAll('[id*="mobile-menu-"]').forEach(m => m.classList.add('hidden'));
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            loadSharedSiteNavbar();
+            processAndRenderView();
+        });
+    </script>
+</body>
+</html>

@@ -240,6 +240,16 @@
                 </a>
             </div>
         </section>
+
+        <!-- ==========================================
+           NEW: REGULATORY ADSENSE COMPLIANCE FOOTER NAVIGATION LINKS
+           ========================================== -->
+        <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 pt-4 border-t border-slate-200/60 text-xs font-bold text-slate-400" aria-label="Legal Directory">
+            <button onclick="openComplianceModal('about')" class="hover:text-indigo-600 transition cursor-pointer">About Us</button>
+            <button onclick="openComplianceModal('privacy')" class="hover:text-indigo-600 transition cursor-pointer">Privacy Policy</button>
+            <button onclick="openComplianceModal('disclaimer')" class="hover:text-indigo-600 transition cursor-pointer">Disclaimer</button>
+            <button onclick="openComplianceModal('contact')" class="hover:text-indigo-600 transition cursor-pointer">Contact Us</button>
+        </nav>
     </main>
 
     <!-- Floating Trigger Button for Modal Popup -->
@@ -250,7 +260,6 @@
     <!-- Feedback Form Overlay Modal Structure -->
     <div id="feedback-modal" class="fixed inset-0 bg-slate-950/40 backdrop-blur-sm z-50 flex items-center justify-center p-4 invisible opacity-0 transition-all duration-300" onclick="toggleFeedbackModal(false)">
         <div class="w-full max-w-md bg-white rounded-[2rem] p-6 shadow-2xl relative border border-slate-100 transform scale-95 transition-transform duration-300" onclick="event.stopPropagation()">
-
             <div class="flex justify-between items-center mb-4">
                 <div class="flex items-center gap-2">
                     <span class="inline-block w-2 h-2 rounded-full bg-[#10b981]"></span>
@@ -266,24 +275,40 @@
                     <div>
                         <input type="text" id="fb-name" required placeholder="Full Name" class="w-full p-3.5 bg-slate-50 border border-slate-100 rounded-xl outline-none font-bold text-xs text-slate-700 placeholder-slate-400 focus:border-[#10b981] transition">
                     </div>
-
                     <div>
                         <input type="tel" id="fb-mobile" pattern="[0-9]{10}" placeholder="Mobile Number (Optional)" class="w-full p-3.5 bg-slate-50 border border-slate-100 rounded-xl outline-none font-bold text-xs text-slate-700 placeholder-slate-400 focus:border-[#10b981] transition">
                     </div>
-
                     <div>
                         <input type="email" id="fb-email" placeholder="Email Address (Optional)" class="w-full p-3.5 bg-slate-50 border border-slate-100 rounded-xl outline-none font-bold text-xs text-slate-700 placeholder-slate-400 focus:border-[#10b981] transition">
                     </div>
-
                     <div>
                         <textarea id="fb-text" required placeholder="Write your feedback or suggestions here..." class="w-full p-3.5 bg-slate-50 border border-slate-100 rounded-xl outline-none font-bold text-xs text-slate-700 placeholder-slate-400 h-28 resize-none focus:border-[#10b981] transition"></textarea>
                     </div>
                 </div>
-
                 <button type="submit" id="fb-submit-btn" class="w-full bg-[#10b981] hover:bg-[#059669] text-white py-3.5 rounded-xl font-black text-xs uppercase tracking-wider shadow transition">
                     Submit Feedback
                 </button>
             </form>
+        </div>
+    </div>
+
+    <!-- ==========================================
+       NEW: DYNAMIC ADSENSE COMPLIANCE DIALOG VIEW OVERLAY MODAL
+       ========================================== -->
+    <div id="compliance-modal" class="fixed inset-0 bg-slate-950/40 backdrop-blur-sm z-50 flex items-center justify-center p-4 invisible opacity-0 transition-all duration-300" onclick="closeComplianceModal()">
+        <div class="w-full max-w-xl bg-white rounded-[2rem] p-6 md:p-8 shadow-2xl relative border border-slate-100 transform scale-95 transition-transform duration-300 flex flex-col max-h-[85vh]" onclick="event.stopPropagation()">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-4 mb-4 flex-shrink-0">
+                <div class="flex items-center gap-2">
+                    <span id="compliance-indicator" class="inline-block w-2.5 h-2.5 rounded-full bg-indigo-600"></span>
+                    <h3 id="compliance-title" class="text-sm font-black tracking-widest text-slate-900 uppercase font-mono">Legal Guidelines</h3>
+                </div>
+                <button onclick="closeComplianceModal()" class="w-7 h-7 rounded-full bg-slate-50 hover:bg-slate-100 flex items-center justify-center text-slate-400 transition cursor-pointer">
+                    <i class="fa-solid fa-xmark text-xs"></i>
+                </button>
+            </div>
+            <div id="compliance-body" class="overflow-y-auto text-slate-600 text-xs md:text-sm leading-relaxed space-y-4 pr-1 scrollbar-thin select-text">
+                <!-- Injected dynamically via script functions below -->
+            </div>
         </div>
     </div>
 
@@ -312,6 +337,106 @@
 
     <!-- ENGINE SCRIPTS MATRIX -->
     <script>
+        // Data storage map matrix for regulatory site text guidelines
+        const COMPLIANCE_REGULATORY_MAP = {
+            privacy: {
+                title: "Privacy Policy",
+                color: "bg-blue-600",
+                html: `
+                    <p class="font-bold text-slate-800">At tnclassroom, accessible from www.tnclassroom.com, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by tnclassroom and how we use it.</p>
+                    <div>
+                        <h4 class="font-black text-slate-900 mb-1 uppercase tracking-tight text-xs">Log Files</h4>
+                        <p>tnclassroom follows a standard procedure of using log files. These files log visitors when they visit websites. Most hosting companies do this as part of hosting services' analytics.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-black text-slate-900 mb-1 uppercase tracking-tight text-xs">Cookies and Web Beacons</h4>
+                        <p>Like any other website, tnclassroom uses 'cookies'. These cookies are used to store information including visitors' preferences, and the pages on the website that the visitor accessed or visited.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-black text-slate-900 mb-1 uppercase tracking-tight text-xs">Google DoubleClick DART Cookie</h4>
+                        <p>Google is one of a third-party vendor on our site. It also uses cookies, known as DART cookies, to serve ads to our site visitors based upon their visit to www.tnclassroom.com and other sites on the internet.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-black text-slate-900 mb-1 uppercase tracking-tight text-xs">Our Advertising Partners</h4>
+                        <p>Some of the advertisers on our site may use cookies and web beacons. Our advertising partners include <span class="font-bold text-slate-800">Google AdSense</span>. These third-party ad servers use technology that sends ads and links directly to your browser.</p>
+                    </div>
+                `
+            },
+            about: {
+                title: "About Us",
+                color: "bg-indigo-600",
+                html: `
+                    <p class="font-bold text-slate-800">Welcome to tnclassroom, a dedicated digital platform designed to empower students and teachers across Tamil Nadu.</p>
+                    <p>Founded by the <span class="font-semibold text-slate-800">Teachers' Network for Skills & Education Development, Thanjavur</span> who are also behind the YouTube channel <span class="text-red-600 font-semibold">TNSED - THANJAVUR</span>, our mission is to provide high-quality, accessible, and free educational resources.</p>
+                    <div>
+                        <h4 class="font-black text-slate-900 mb-1 uppercase tracking-tight text-xs">We specialize in materials for:</h4>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li>Tamil Nadu School Education syllabus structures (6th to 12th Std)</li>
+                            <li>TNTET & TRB State competitive board examination preparation packs</li>
+                            <li>Psychology and Pedagogy continuous development teaching sessions</li>
+                        </ul>
+                    </div>
+                    <p>As active educators, we deeply understand the challenges of locating well-organized study tracks. tnclassroom is engineered from the ground up to completely bridge that operational gap, offering clearly structured lessons, video tutorials, and free interactive practice tests to help every learner succeed.</p>
+                `
+            },
+            contact: {
+                title: "Contact Us",
+                color: "bg-emerald-600",
+                html: `
+                    <p>We highly value your feedback, content suggestions, and technical inquiries. If you have questions regarding our documentation, curriculum streams, or discover issues using the site interface, please connect via our channels:</p>
+                    <div class="p-4 bg-slate-50 border rounded-2xl space-y-2 font-mono text-xs">
+                        <div class="flex items-center gap-2 text-slate-700">
+                            <i class="fa-solid fa-envelope text-slate-400 w-4"></i>
+                            <span>Email: <a href="mailto:tntet2025@gmail.com" class="text-blue-600 font-bold hover:underline">tntet2025@gmail.com</a></span>
+                        </div>
+                        <div class="flex items-center gap-2 text-slate-700">
+                            <i class="fa-brands fa-youtube text-red-500 w-4"></i>
+                            <span>YouTube: <a href="https://www.youtube.com/@tnsedthanjavur" target="_blank" class="text-red-600 font-bold hover:underline">TNSED - THANJAVUR</a></span>
+                        </div>
+                    </div>
+                    <p class="italic text-slate-400 text-xs">We process and aim to respond directly to all verified email inquiries within a 48-hour operations window.</p>
+                `
+            },
+            disclaimer: {
+                title: "Disclaimer",
+                color: "bg-red-500",
+                html: `
+                    <p>All the information on this website - <span class="font-semibold text-slate-800">www.tnclassroom.com</span> - is published in good faith and for general information purposes only. The tnclassroom platform does not make any warranties about the completeness, reliability, and accuracy of this data layer.</p>
+                    <p class="font-semibold text-slate-800">Any action you take upon the information you discover on this website is strictly at your own operational risk. The tnclassroom team will not be held liable for any losses and/or damages in connection with website usage traces.</p>
+                    <p>From our console matrix, you can visit other external websites by following hyperlinks. While we strive to maintain only high-quality link pointers to useful, ethical sites, we exercise absolutely no direct layout controls over the shifting content and nature of these external properties.</p>
+                `
+            }
+        };
+
+        function openComplianceModal(key) {
+            const config = COMPLIANCE_REGULATORY_MAP[key];
+            if (!config) return;
+
+            document.getElementById('compliance-title').innerText = config.title;
+            document.getElementById('compliance-body').innerHTML = config.html;
+
+            const indicator = document.getElementById('compliance-indicator');
+            indicator.className = `inline-block w-2.5 h-2.5 rounded-full ${config.color}`;
+
+            const modal = document.getElementById('compliance-modal');
+            const dialog = modal.querySelector('div');
+
+            modal.classList.remove('invisible');
+            modal.classList.add('opacity-100');
+            dialog.classList.remove('scale-95');
+            dialog.classList.add('scale-100');
+        }
+
+        function closeComplianceModal() {
+            const modal = document.getElementById('compliance-modal');
+            const dialog = modal.querySelector('div');
+
+            modal.classList.remove('opacity-100');
+            modal.classList.add('invisible');
+            dialog.classList.remove('scale-100');
+            dialog.classList.add('scale-95');
+        }
+
         function toggleMobileAccordion(panelId, headerElement) {
             const panel = document.getElementById(panelId);
             const isOpen = headerElement.getAttribute('data-open') === 'true';

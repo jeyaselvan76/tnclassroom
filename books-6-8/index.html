@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Class 1 to 5 Text Books | TN Classroom</title>
+    <title>Class 6 to 8 Text Books | TN Classroom</title>
 
     <!-- GLOBAL SITE CONFIGURATION LAYER (GA4 ANALYTICS ENGINE) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-MZZ985WL51"></script>
@@ -66,7 +66,7 @@
         <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
             <h1 class="text-2xl font-black text-slate-900 sm:text-3xl flex items-center gap-2">
                 <span class="p-2 bg-emerald-50 text-emerald-600 rounded-xl"><i class="fa-solid fa-book"></i></span>
-                Primary School Text Books (Class 1 - 5)
+                Middle School Text Books (Class 6 - 8)
             </h1>
             <p class="text-slate-500 text-sm mt-2 leading-relaxed">Download official Tamil Nadu State Board digital textbook resources organized cleanly by term, subject, and instructional medium streams.</p>
         </div>
@@ -117,7 +117,7 @@
                     </span>
                     <div class="space-y-1">
                         <h3 class="font-black text-slate-900 text-sm uppercase tracking-wide">How to find your books:</h3>
-                        <p class="text-xs text-slate-500 max-w-md mx-auto leading-relaxed">Choose your Class, Term, and Medium from the options above, then tap "Explore Selected Resources" to see your lessons and download your books. </p>
+                        <p class="text-xs text-slate-500 max-w-md mx-auto leading-relaxed">Choose your Class, Term, and Medium from the options above, then tap "Click Here to See Books List" to see your lessons and download your books.</p>
                     </div>
                 </div>
             </div>
@@ -139,7 +139,7 @@
     </footer>
 
     <script>
-        let activeSelectedClass = "1";
+        let activeSelectedClass = "6";
         let activeSelectedTerm = "1";
         let activeSelectedMedium = "Tamil";
 
@@ -148,9 +148,9 @@
             const termContainer = document.getElementById('term-filter-row');
             const mediumContainer = document.getElementById('medium-filter-row');
 
-            // 1. Build Class Array Selection Links
+            // 1. Build Class Array Selection Buttons (Classes 6, 7, 8)
             classContainer.innerHTML = "";
-            ["1", "2", "3", "4", "5"].forEach(num => {
+            ["6", "7", "8"].forEach(num => {
                 const btn = document.createElement('button');
                 btn.className = `px-5 py-2.5 rounded-xl text-xs font-black border transition-all duration-200 cursor-pointer shadow-sm ${activeSelectedClass === num ? 'bg-slate-950 text-white border-slate-950 scale-[1.02]' : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'}`;
                 btn.innerText = `Class ${num}`;
@@ -158,17 +158,17 @@
                 classContainer.appendChild(btn);
             });
 
-            // 2. Build Term Array Selection Links
+            // 2. Build Term Array Selection Buttons (Terms 1, 2, 3, and Full)
             termContainer.innerHTML = "";
-            ["1", "2", "3"].forEach(num => {
+            ["1", "2", "3", "Full"].forEach(num => {
                 const btn = document.createElement('button');
                 btn.className = `px-4 py-2 rounded-xl text-xs font-bold border transition-all duration-200 cursor-pointer shadow-sm ${activeSelectedTerm === num ? 'bg-emerald-600 text-white border-emerald-600' : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'}`;
-                btn.innerText = `Term ${num}`;
+                btn.innerText = num === "Full" ? "Full Book" : `Term ${num}`;
                 btn.onclick = () => { activeSelectedTerm = num; renderFilterInterfaces(); };
                 termContainer.appendChild(btn);
             });
 
-            // 3. Build Medium Selection Links
+            // 3. Build Medium Selection Buttons
             mediumContainer.innerHTML = "";
             ["Tamil", "English"].forEach(med => {
                 const btn = document.createElement('button');
@@ -184,13 +184,13 @@
             const termParam = encodeURIComponent(activeSelectedTerm);
             const mediumParam = encodeURIComponent(activeSelectedMedium);
 
+            // Correctly targets the internal view folder relative layout parameters
             window.location.href = `./view/?class=${classParam}&term=${termParam}&medium=${mediumParam}`;
         }
 
         async function loadSharedSiteNavbar() {
             try {
                 const cacheBusterToken = new Date().getTime();
-                // FIXED: Mapped file tracking path down one level to find the shared asset cleanly
                 const localNavbarUrl = `../navbar.html?v=${cacheBusterToken}`;
 
                 const response = await fetch(localNavbarUrl);
