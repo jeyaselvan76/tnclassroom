@@ -28,15 +28,14 @@
 
     <main class="flex-grow max-w-5xl w-full mx-auto px-4 py-8 space-y-6">
 
-      <!-- Back Navigation Header Controls -->
-<div class="flex justify-between items-center mb-2 relative z-10">
-    <div class="inline-block">
-        <!-- Steps back out of /view/ into /books-6-8/index.html -->
-        <a href="../index.html" class="inline-flex items-center gap-2 text-xs font-black text-slate-600 hover:text-emerald-600 uppercase tracking-wider transition cursor-pointer">
-            <i class="fa-solid fa-arrow-left"></i> Change Selection
-        </a>
-    </div>
-</div>
+        <!-- Back Navigation Header Controls -->
+        <div class="flex justify-between items-center mb-2 relative z-10">
+            <div class="inline-block">
+                <a href="../index.html" class="inline-flex items-center gap-2 text-xs font-black text-slate-600 hover:text-emerald-600 uppercase tracking-wider transition cursor-pointer">
+                    <i class="fa-solid fa-arrow-left"></i> Change Selection
+                </a>
+            </div>
+        </div>
 
         <!-- MAIN OVERVIEW CONTAINER CARD -->
         <div class="bg-white border border-slate-200 rounded-3xl p-6 md:p-8 shadow-sm space-y-6">
@@ -63,7 +62,7 @@
             <div class="space-y-4 pt-4 border-t border-slate-100">
                 <h3 class="text-xs font-black uppercase tracking-wider text-slate-400">Available Textbook Downloads</h3>
 
-                <!-- Desktop Table View Grid (Incorporates table-fixed structural adjustments) -->
+                <!-- Desktop Table View Grid -->
                 <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden hidden md:block">
                     <table class="min-w-full border-collapse table-fixed text-sm font-medium">
                         <thead class="bg-slate-950 text-slate-200 text-xs uppercase tracking-wider font-bold">
@@ -87,9 +86,16 @@
         </div>
     </main>
 
-    <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-6 text-center text-xs mt-auto">
-        <p>&copy; 2026 tnclassroom.com | A Professional Learning Platform for Students & Teachers</p>
-    </footer>
+     <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-6 text-center text-xs mt-auto space-y-4">
+    <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs font-bold text-slate-400">
+        <a href="/about-us.html" class="hover:text-emerald-400 transition">About Us</a>
+        <a href="/privacy-policy.html" class="hover:text-emerald-400 transition">Privacy Policy</a>
+        <a href="/disclaimer.html" class="hover:text-emerald-400 transition">Disclaimer</a>
+        <a href="/contact-us.html" class="hover:text-emerald-400 transition">Contact Us</a>
+    </nav>
+
+    <p>&copy; 2026 tnclassroom.com | A Professional Learning Platform for Students & Teachers</p>
+</footer>
 
     <script>
         const BOOKS_DATABASE_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRwCJs-Xybe60WOhtIpsK1hQrP18HXtdGOUO4k49jMDZ-5Ok3fkpOPBk35HCow8WNYDKlqlYWSL-QzJ/pub?gid=0&single=true&output=csv";
@@ -103,11 +109,12 @@
             };
         }
 
+        // FIXED: Corrected Google Drive UC export URL path syntax
         function makeDriveDownloadLink(driveUrl) {
             if (!driveUrl || driveUrl === "#") return "#";
             const match = driveUrl.match(/\/d\/([a-zA-Z0-9-_]+)/);
             if (match && match[1]) {
-                return `https://docs.google.uc?export=download&id=${match[1]}`;
+                return `https://docs.google.com/uc?export=download&id=${match[1]}`;
             }
             return driveUrl;
         }
@@ -129,20 +136,30 @@
             return lines;
         }
 
+        // Helper function for term flexible matching (handles "Full", "Full Book", "Term 1", "1", etc.)
+        function isTermMatch(sheetTerm, targetTerm) {
+            const s = sheetTerm.toLowerCase().trim();
+            const t = targetTerm.toLowerCase().trim();
+            if (t === "full" || t === "full book") {
+                return s.includes("full");
+            }
+            return s === t || s.includes(t) || s.replace(/\D/g, '') === t;
+        }
+
         async function processAndRenderView() {
             const { classTarget, termTarget, mediumTarget } = getUrlParameters();
 
+            const isFullYear = termTarget.toLowerCase().includes("full");
             document.getElementById('view-class-badge').innerText = `Class ${classTarget}`;
-            document.getElementById('view-term-badge').innerText = termTarget === "Full" ? "Full Year" : `Term ${termTarget}`;
+            document.getElementById('view-term-badge').innerText = isFullYear ? "Full Year" : `Term ${termTarget}`;
             document.getElementById('view-medium-badge').innerText = `${mediumTarget} Medium`;
-            document.getElementById('view-header-title').innerText = `Class ${classTarget} - ${termTarget === "Full" ? "Full Year" : "Term " + termTarget} Textbook Resources (${mediumTarget} Medium)`;
+            document.getElementById('view-header-title').innerText = `Class ${classTarget} - ${isFullYear ? "Full Year" : "Term " + termTarget} Textbook Resources (${mediumTarget} Medium)`;
             document.title = `Class ${classTarget} Books (${mediumTarget} Medium) | TN Classroom`;
 
             try {
                 const response = await fetch(BOOKS_DATABASE_URL);
                 if (!response.ok) throw new Error();
                 const dataText = await response.text();
-                // Slices out row index 1 to respect exact backend database data starting limits
                 const parsedRows = parseCsvRows(dataText).slice(1);
 
                 const desktopTbody = document.getElementById('desktop-books-tbody');
@@ -157,16 +174,20 @@
                 let columnGTextContent = "";
 
                 parsedRows.forEach((cols) => {
-                    if (!cols || cols.length < 6) return;
+                    if (!cols || cols.length < 5) return;
 
-                    let cls       = cols[1].replace(/^"|"$/g, '').trim();
-                    let term      = cols[2].replace(/^"|"$/g, '').trim();
-                    let subject   = cols[3].replace(/^"|"$/g, '').trim();
-                    let medium    = cols[4].replace(/^"|"$/g, '').trim();
-                    let rawPdfUrl = cols[5].replace(/^"|"$/g, '').trim();
+                    let cls         = cols[1] ? cols[1].replace(/^"|"$/g, '').trim() : '';
+                    let term        = cols[2] ? cols[2].replace(/^"|"$/g, '').trim() : '';
+                    let subject     = cols[3] ? cols[3].replace(/^"|"$/g, '').trim() : '';
+                    let medium      = cols[4] ? cols[4].replace(/^"|"$/g, '').trim() : '';
+                    let rawPdfUrl   = cols[5] ? cols[5].replace(/^"|"$/g, '').trim() : '#';
                     let columnGText = cols[6] ? cols[6].replace(/^"|"$/g, '').trim() : '';
 
-                    if (cls === classTarget && term.toLowerCase() === termTarget.toLowerCase() && medium.toLowerCase() === mediumTarget.toLowerCase()) {
+                    const classMatches = cls === classTarget;
+                    const termMatches = isTermMatch(term, termTarget);
+                    const mediumMatches = medium.toLowerCase() === mediumTarget.toLowerCase();
+
+                    if (classMatches && termMatches && mediumMatches) {
                         matchedRecords.push({
                             subject: subject,
                             downloadUrl: makeDriveDownloadLink(rawPdfUrl)
@@ -181,7 +202,7 @@
                 paragraphBox.innerHTML = columnGTextContent ? columnGTextContent.replace(/\r?\n/g, '<br>') : fallbackDescription;
 
                 if (matchedRecords.length === 0) {
-                    desktopTbody.innerHTML = `<tr><td colspan="3" class="text-center py-8 text-slate-400 font-bold text-xs">No files matching the exact selectors are discovered in this directory slice.</td></tr>`;
+                    desktopTbody.innerHTML = `<tr><td colspan="3" class="text-center py-8 text-slate-400 font-bold text-xs">No files matching Class ${classTarget} (${mediumTarget} Medium) were found.</td></tr>`;
                     mobileContainer.innerHTML = `<div class="text-center p-6 bg-white border border-slate-100 rounded-xl text-xs font-bold text-slate-400">No downloadable files detected.</div>`;
                     return;
                 }
