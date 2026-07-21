@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Study Material - TN Classroom</title>
-   <script src="/tailwind.js"></script>
-   <link rel="stylesheet" href="/fontawesome.css">
+    <script src="/tailwind.js"></script>
+    <link rel="stylesheet" href="/fontawesome.css">
+
+    <!-- MARKED.JS CDN for Parsing Markdown Files -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
     <script>
       window.MathJax = {
@@ -16,18 +19,70 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
-        /* FIXED: Blocks hidden desktop menus from hijacking user clicks on empty space */
         .dropdown-menu { z-index: 50 !important; pointer-events: none; }
         .dropdown-active { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; z-index: 50 !important; pointer-events: auto !important; }
-        .tamil-fix { font-family: 'Segoe UI', 'Latha', 'Apple Tamil', sans-serif !important; }
+        .tamil-fix { font-family: 'Segoe UI', 'Latha', 'Apple Tamil', 'Noto Sans Tamil', sans-serif !important; }
 
-        /* PRINT STYLE SHEET MATRIX: Isolates only the core layout box targets cleanly on print paper */
+        /* Styling for Rendered Markdown Content */
+        .markdown-body h1 { font-size: 1.5rem; font-weight: 800; margin-top: 1rem; margin-bottom: 0.5rem; color: #0f172a; }
+        .markdown-body h2 { font-size: 1.25rem; font-weight: 700; margin-top: 0.875rem; margin-bottom: 0.5rem; color: #1e293b; }
+        .markdown-body h3 { font-size: 1.1rem; font-weight: 700; margin-top: 0.75rem; margin-bottom: 0.375rem; color: #334155; }
+        .markdown-body p { margin-bottom: 0.75rem; line-height: 1.6; }
+        .markdown-body ul { list-style-type: disc; padding-left: 1.25rem; margin-bottom: 0.75rem; }
+        .markdown-body ol { list-style-type: decimal; padding-left: 1.25rem; margin-bottom: 0.75rem; }
+        .markdown-body li { margin-bottom: 0.25rem; }
+        .markdown-body strong { font-weight: 800; color: #0f172a; }
+        .markdown-body blockquote { border-left: 4px solid #10b981; padding-left: 1rem; color: #475569; margin: 0.75rem 0; font-style: italic; }
+
+        /* =========================================================
+           STRICT PRINT / SAVE-AS-PDF ENGINE STYLES
+           Fixes: Scrambled fonts, missing watermark, top/bottom gaps
+           ========================================================= */
         @media print {
-            body { background-color: #ffffff !important; color: #000000 !important; }
+            @page {
+                size: A4;
+                margin: 12mm 12mm 12mm 12mm; /* Compact margins to remove big empty spaces */
+            }
+
+            body {
+                background-color: #ffffff !important;
+                color: #000000 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            /* Hide all UI shell controls except lesson content */
             body * { visibility: hidden; }
             #inline-text-material-card, #inline-text-material-card * { visibility: visible; }
-            #inline-text-material-card { position: absolute; left: 0; top: 0; width: 100%; border: none !important; box-shadow: none !important; padding: 0 !important; margin: 0 !important; }
+
+            #inline-text-material-card {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
             .no-print { display: none !important; }
+
+            /* Watermark overlay on printed PDF pages */
+            #inline-text-material-card::before {
+                content: "www.tnclassroom.com";
+                position: fixed;
+                top: 45%;
+                left: 50%;
+                transform: translate(-50%, -50%) rotate(-35deg);
+                font-size: 42pt;
+                font-weight: 900;
+                color: rgba(0, 0, 0, 0.08);
+                white-space: nowrap;
+                z-index: 9999;
+                pointer-events: none;
+                visibility: visible !important;
+            }
         }
     </style>
 </head>
@@ -45,7 +100,7 @@
             </div>
 
             <div class="flex items-center gap-2" id="action-header-controls">
-                <!-- Share button remains hooked here dynamically -->
+                <!-- Share button hooks here dynamically -->
             </div>
         </div>
 
@@ -60,7 +115,7 @@
                 <h1 id="view-unit-name" class="font-black text-slate-900 text-xl md:text-2xl tracking-tight tamil-fix leading-snug">Loading Topic Context...</h1>
             </div>
 
-            <!-- Double Description Stack: Displays both notes simultaneously if available -->
+            <!-- Double Description Stack -->
             <div class="space-y-4">
                 <!-- Tamil Notes Section -->
                 <div id="view-shortnote-box-ta" class="hidden text-justify bg-slate-50/50 border border-slate-100 p-5 rounded-2xl text-sm md:text-base text-slate-600 leading-relaxed tracking-normal tamil-fix w-full break-words"></div>
@@ -80,16 +135,15 @@
 
         <!-- DETAILED INLINE TEXT MATERIAL READER CARD -->
         <div id="inline-text-material-card" class="hidden bg-white border border-slate-200/60 rounded-3xl p-6 md:p-8 shadow-sm space-y-4">
-            <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-3 no-print">
                 <h3 class="text-xs font-black uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
                     <i class="fa-solid fa-book-open-reader text-emerald-500"></i> Full Lesson Material Content
                 </h3>
 
-                <!-- Action Controls Grid Workspace Layout Frame -->
-                <div class="flex items-center gap-3 no-print">
-                    <!-- CHANGED: Embedded standalone print option command system component -->
-                    <button onclick="window.print()" class="text-slate-500 hover:text-emerald-600 border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-bold transition shadow-sm flex items-center gap-1.5 bg-white cursor-pointer">
-                        <i class="fa-solid fa-print"></i> Print Material
+                <!-- Action Controls Toolbar -->
+                <div class="flex items-center gap-3">
+                    <button onclick="downloadAsPDF()" class="text-slate-700 hover:text-emerald-600 border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-bold transition shadow-sm flex items-center gap-1.5 bg-white cursor-pointer">
+                        <i class="fa-solid fa-file-pdf text-red-500"></i> Save as PDF
                     </button>
 
                     <!-- Font scale toolbar controls -->
@@ -99,20 +153,20 @@
                     </div>
                 </div>
             </div>
-            <div id="inline-material-text-body" class="text-slate-800 font-sans leading-relaxed tracking-wide whitespace-pre-wrap select-text tamil-fix text-base"></div>
+            <div id="inline-material-text-body" class="text-slate-800 font-sans leading-relaxed tracking-wide select-text tamil-fix text-base markdown-body"></div>
         </div>
     </main>
 
-     <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-6 text-center text-xs mt-auto space-y-4">
-    <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs font-bold text-slate-400">
-        <a href="/about-us.html" class="hover:text-emerald-400 transition">About Us</a>
-        <a href="/privacy-policy.html" class="hover:text-emerald-400 transition">Privacy Policy</a>
-        <a href="/disclaimer.html" class="hover:text-emerald-400 transition">Disclaimer</a>
-        <a href="/contact-us.html" class="hover:text-emerald-400 transition">Contact Us</a>
-    </nav>
+    <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-6 text-center text-xs mt-auto space-y-4 no-print">
+        <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs font-bold text-slate-400">
+            <a href="/about-us.html" class="hover:text-emerald-400 transition">About Us</a>
+            <a href="/privacy-policy.html" class="hover:text-emerald-400 transition">Privacy Policy</a>
+            <a href="/disclaimer.html" class="hover:text-emerald-400 transition">Disclaimer</a>
+            <a href="/contact-us.html" class="hover:text-emerald-400 transition">Contact Us</a>
+        </nav>
 
-    <p>&copy; 2026 tnclassroom.com | A Professional Learning Platform for Students & Teachers</p>
-</footer>
+        <p>&copy; 2026 tnclassroom.com | A Professional Learning Platform for Students & Teachers</p>
+    </footer>
 
     <script>
         const DATABASE_CSV_URL = "https://docs.google.com/spreadsheets/d/1j2C7jpFskw2TrYoRKDmPJBkHezAfRW0aFshbULLgUvc/gviz/tq?tqx=out:csv&sheet=Sheet1";
@@ -231,7 +285,9 @@
                 processedUrl = `../${processedUrl}`;
             }
 
-            if (processedUrl.toLowerCase().endsWith('.txt')) {
+            const isTextOrMd = processedUrl.toLowerCase().endsWith('.txt') || processedUrl.toLowerCase().endsWith('.md');
+
+            if (isTextOrMd) {
                 matContainer.innerHTML = `
                     <button onclick="scrollToAndLoadTextMaterial('${processedUrl}')" class="flex items-center justify-center gap-2.5 p-4 border border-slate-200/80 bg-white hover:border-emerald-300 rounded-2xl text-xs font-black text-slate-700 transition shadow-sm w-full cursor-pointer">
                         <i class="fa-solid fa-file-lines text-emerald-500 text-base"></i> View Study Material
@@ -295,8 +351,12 @@
                     if (!res.ok) throw new Error();
                     const rawText = await res.text();
 
-                    let processedHtml = rawText.replace(/[\u0b80-\u0bff]+/g, (match) => `<span class="tamil-fix font-medium">${match}</span>`);
-                    textBody.innerHTML = processedHtml;
+                    if (url.toLowerCase().endsWith('.md') && typeof marked !== 'undefined') {
+                        textBody.innerHTML = marked.parse(rawText);
+                    } else {
+                        let processedHtml = rawText.replace(/[\u0b80-\u0bff]+/g, (match) => `<span class="tamil-fix font-medium">${match}</span>`);
+                        textBody.innerHTML = processedHtml;
+                    }
 
                     if (window.MathJax && window.MathJax.typesetPromise) {
                         window.MathJax.typesetPromise([textBody]);
@@ -305,6 +365,11 @@
                     textBody.innerHTML = `<div class="text-red-500 font-bold text-xs p-3 bg-red-50 rounded-xl border border-red-100">Failed to load text document resource from node folder.</div>`;
                 }
             }
+        }
+
+        // TRIGGER CLEAN NATIVE PDF PRINT WITH WATERMARK & VECTOR FONTS
+        function downloadAsPDF() {
+            window.print();
         }
 
         function adjustTextScale(delta) {
