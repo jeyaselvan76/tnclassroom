@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAT Study Material - TN Classroom</title>
+    <script src="/tailwind.js"></script>
+    <link rel="stylesheet" href="/fontawesome.css">
+
+    <!-- MARKED.JS CDN for Parsing Markdown Files -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- PDF.JS CDN for Rendering PDF Pages inline as HTML elements -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <script>
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+    </script>
+
+    <script>
+      window.MathJax = {
+        tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], processEscapes: true },
+        options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        .dropdown-menu { z-index: 50 !important; pointer-events: none; }
+        .dropdown-active { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; z-index: 50 !important; pointer-events: auto !important; }
+        .tamil-fix { font-family: 'Segoe UI', 'Latha', 'Apple Tamil', 'Noto Sans Tamil', sans-serif !important; }
+
+        /* Markdown & Extracted Content Styles */
+        .markdown-body h1 { font-size: 1.5rem; font-weight: 800; margin-top: 1rem; margin-bottom: 0.5rem; color: #0f172a; }
+        .markdown-body h2 { font-size: 1.25rem; font-weight: 700; margin-top: 0.875rem; margin-bottom: 0.5rem; color: #1e293b; }
+        .markdown-body h3 { font-size: 1.1rem; font-weight: 700; margin-top: 0.75rem; margin-bottom: 0.375rem; color: #334155; }
+        .markdown-body p { margin-bottom: 0.75rem; line-height: 1.6; }
+        .markdown-body ul { list-style-type: disc; padding-left: 1.25rem; margin-bottom: 0.75rem; }
+        .markdown-body ol { list-style-type: decimal; padding-left: 1.25rem; margin-bottom: 0.75rem; }
+        .markdown-body li { margin-bottom: 0.25rem; }
+        .markdown-body strong { font-weight: 800; color: #0f172a; }
+        .markdown-body blockquote { border-left: 4px solid #6366f1; padding-left: 1rem; color: #475569; margin: 0.75rem 0; font-style: italic; }
+
+        /* STRICT PRINT / PDF ENGINE SETUP */
+        @media print {
+            @page {
+                size: A4;
+                margin: 12mm 12mm 12mm 12mm;
+            }
+
+            body {
+                background-color: #ffffff !important;
+                color: #000000 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            body * { visibility: hidden; }
+            #inline-text-material-card, #inline-text-material-card * { visibility: visible; }
+
+            #inline-text-material-card {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            .no-print { display: none !important; }
+
+            /* Diagonal Watermark Overlay */
+            #inline-text-material-card::before {
+                content: "www.tnclassroom.com";
+                position: fixed;
+                top: 45%;
+                left: 50%;
+                transform: translate(-50%, -50%) rotate(-35deg);
+                font-size: 42pt;
+                font-weight: 900;
+                color: rgba(0, 0, 0, 0.08);
+                white-space: nowrap;
+                z-index: 9999;
+                pointer-events: none;
+                visibility: visible !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 flex flex-col min-h-screen font-sans">
+
+    <div id="navbar-placeholder" class="no-print"></div>
+
+    <main class="flex-grow max-w-4xl w-full mx-auto px-4 py-8 space-y-6">
+        <!-- Back Navigation & Controls -->
+        <div class="flex justify-between items-center mb-2 relative z-10 no-print">
+            <div class="inline-block">
+                <a href="../" class="inline-flex items-center gap-2 text-xs font-black text-slate-600 hover:text-indigo-600 uppercase tracking-wider transition cursor-pointer">
+                    <i class="fa-solid fa-arrow-left"></i> Back to MAT Hub
+                </a>
+            </div>
+
+            <div class="flex items-center gap-2" id="action-header-controls"></div>
+        </div>
+
+        <!-- Main Topic Detail Container Card -->
+        <div class="bg-white border border-slate-200/60 rounded-3xl p-6 md:p-8 shadow-sm space-y-6 no-print">
+            <div class="flex flex-wrap justify-between items-center gap-2 border-b border-slate-100 pb-4">
+                <span id="view-unit-no" class="text-xs font-black text-slate-400 uppercase tracking-widest font-mono">Loading...</span>
+                <span id="view-class-badge" class="text-xs font-bold text-indigo-700 bg-indigo-50 border border-indigo-100 px-3 py-0.5 rounded-md uppercase tracking-wider">MAT</span>
+            </div>
+
+            <div>
+                <h1 id="view-unit-name" class="font-black text-slate-900 text-xl md:text-2xl tracking-tight tamil-fix leading-snug">Loading Topic Context...</h1>
+            </div>
+
+            <!-- Notes Section -->
+            <div class="space-y-4">
+                <div id="view-shortnote-box-ta" class="hidden text-justify bg-slate-50/50 border border-slate-100 p-5 rounded-2xl text-sm md:text-base text-slate-600 leading-relaxed tracking-normal tamil-fix w-full break-words"></div>
+                <div id="view-shortnote-box-en" class="hidden text-justify bg-slate-50/50 border border-slate-100 p-5 rounded-2xl text-sm md:text-base text-slate-600 leading-relaxed tracking-normal w-full break-words border-l-4 border-indigo-500"></div>
+            </div>
+
+            <!-- Action Link Module Blocks -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-slate-100">
+                <div id="material-action-container"></div>
+                <div id="video-action-container"></div>
+            </div>
+
+            <div id="quiz-action-container" class="pt-2"></div>
+        </div>
+
+        <!-- UNIVERSAL INLINE READER CARD (.md / .txt / .pdf) -->
+        <div id="inline-text-material-card" class="hidden bg-white border border-slate-200/60 rounded-3xl p-6 md:p-8 shadow-sm space-y-4">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-3 no-print">
+                <h3 class="text-xs font-black uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+                    <i class="fa-solid fa-book-open-reader text-indigo-500"></i> Full Lesson Material Content
+                </h3>
+
+                <!-- Toolbar Controls -->
+                <div class="flex items-center gap-3">
+                    <button onclick="downloadAsPDF()" class="text-slate-700 hover:text-indigo-600 border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-bold transition shadow-sm flex items-center gap-1.5 bg-white cursor-pointer">
+                        <i class="fa-solid fa-file-pdf text-red-500"></i> Save as PDF
+                    </button>
+
+                    <div class="flex items-center border border-slate-200 bg-white rounded-xl p-0.5 text-xs font-bold text-slate-600">
+                        <button onclick="adjustTextScale(-1)" class="w-7 h-7 hover:bg-slate-100 rounded-lg flex items-center justify-center font-mono">A-</button>
+                        <button onclick="adjustTextScale(1)" class="w-7 h-7 hover:bg-slate-100 rounded-lg flex items-center justify-center font-mono border-l border-slate-100">A+</button>
+                    </div>
+                </div>
+            </div>
+            <div id="inline-material-text-body" class="text-slate-800 font-sans leading-relaxed tracking-wide select-text tamil-fix text-base markdown-body"></div>
+        </div>
+    </main>
+
+    <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-6 text-center text-xs mt-auto space-y-4 no-print">
+        <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs font-bold text-slate-400">
+            <a href="/about-us.html" class="hover:text-emerald-400 transition">About Us</a>
+            <a href="/privacy-policy.html" class="hover:text-emerald-400 transition">Privacy Policy</a>
+            <a href="/disclaimer.html" class="hover:text-emerald-400 transition">Disclaimer</a>
+            <a href="/contact-us.html" class="hover:text-emerald-400 transition">Contact Us</a>
+        </nav>
+
+        <p>&copy; 2026 tnclassroom.com | A Professional Learning Platform for Students & Teachers</p>
+    </footer>
+
+    <script>
+        const DATABASE_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSgvpPMCeyjU2HrfMkVS5YttDhPsuY1eY3mGfm78PtrgIX-_Lb245ZSPANkxNvbpk5DVAbL7Gb-E_5g/pub?gid=273942769&single=true&output=csv";
+        let targetRecord = null;
+        let currentTextScale = 16;
+
+        function getUrlParameterId() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('id');
+        }
+
+        function parseCsvRows(text) {
+            let lines = []; let row = []; let cell = ''; let inQuotes = false;
+            for (let i = 0; i < text.length; i++) {
+                let c = text[i];
+                if (c === '"') { inQuotes = !inQuotes; }
+                else if (c === ',' && !inQuotes) { row.push(cell.trim()); cell = ''; }
+                else if ((c === '\n' || c === '\r') && !inQuotes) {
+                    row.push(cell.trim());
+                    if (row.length > 0 && row.some(x => x !== '')) lines.push(row);
+                    row = []; cell = '';
+                    if (c === '\r' && text[i+1] === '\n') i++;
+                } else { cell += c; }
+            }
+            if (cell || row.length > 0) { row.push(cell.trim()); lines.push(row); }
+            return lines;
+        }
+
+        async function loadTopicDetails() {
+            const targetId = parseInt(getUrlParameterId());
+            if (isNaN(targetId)) {
+                window.location.replace('../');
+                return;
+            }
+
+            try {
+                const res = await fetch(DATABASE_CSV_URL);
+                if (!res.ok) throw new Error();
+                const txt = await res.text();
+                const lines = parseCsvRows(txt);
+                const dataRows = lines.slice(1);
+
+                const cols = dataRows[targetId];
+                if (!cols) throw new Error();
+
+                let category = cols[1] ? cols[1].replace(/^"|"$/g, '').trim() : 'Mental Ability';
+                let uNo      = cols[2] ? cols[2].replace(/^"|"$/g, '').trim() : '';
+                let uName    = cols[3] ? cols[3].replace(/^"|"$/g, '').trim() : '';
+                let vUrl     = (cols[4] && cols[4].trim() !== "") ? cols[4].replace(/^"|"$/g, '').trim() : '#';
+                let fUrl     = cols[5] ? cols[5].replace(/^"|"$/g, '').replace(/^\.\//, '').trim() : '#';
+                let rawMcq   = cols[6] ? cols[6].replace(/^"|"$/g, '').trim() : '#';
+                let uShortNoteTa = cols[7] ? cols[7].replace(/^"|"$/g, '').trim() : '';
+                let uShortNoteEn = cols[8] ? cols[8].replace(/^"|"$/g, '').trim() : '';
+
+                if (rawMcq !== '#') {
+                    if (rawMcq.includes('jeyaselvan76.github.io/nmms-mcq/')) {
+                        rawMcq = rawMcq.replace('https://jeyaselvan76.github.io/nmms-mcq/', 'https://nmmsmcq.tnclassroom.com/');
+                    } else if (rawMcq.startsWith('/nmms-mcq/')) {
+                        rawMcq = rawMcq.replace('/nmms-mcq/', 'https://nmmsmcq.tnclassroom.com/');
+                    } else if (rawMcq.includes('jeyaselvan76.github.io/MCQ/')) {
+                        rawMcq = rawMcq.replace('https://jeyaselvan76.github.io/MCQ/', 'https://nmmsmcq.tnclassroom.com/');
+                    }
+                }
+
+                targetRecord = {
+                    className: "MAT",
+                    subject: category,
+                    unitNo: uNo,
+                    unitName: uName,
+                    videoUrl: vUrl,
+                    pdfUrl: fUrl,
+                    mcqUrl: rawMcq,
+                    unitShortNoteTa: uShortNoteTa,
+                    unitShortNoteEn: uShortNoteEn
+                };
+
+                renderPagePayload();
+            } catch (e) {
+                document.getElementById('view-unit-name').innerText = "Topic material entry not discovered.";
+            }
+        }
+
+        function renderPagePayload() {
+            document.title = `${targetRecord.unitNo} - ${targetRecord.unitName.replace(/\r?\n/g, ' ')}`;
+            document.getElementById('view-unit-no').innerText = targetRecord.unitNo;
+            document.getElementById('view-class-badge').innerText = targetRecord.subject;
+            document.getElementById('view-unit-name').innerHTML = targetRecord.unitName.replace(/\r?\n/g, '<br>');
+
+            const controlsContainer = document.getElementById('action-header-controls');
+            controlsContainer.innerHTML = `
+                <button onclick="shareModulePayload()" class="text-slate-500 hover:text-indigo-600 bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-bold transition shadow-sm flex items-center gap-1.5 cursor-pointer">
+                    <i class="fa-solid fa-share-nodes"></i> Share
+                </button>
+            `;
+
+            const noteBoxTa = document.getElementById('view-shortnote-box-ta');
+            const noteBoxEn = document.getElementById('view-shortnote-box-en');
+
+            if (targetRecord.unitShortNoteTa && targetRecord.unitShortNoteTa !== '#') {
+                noteBoxTa.innerHTML = targetRecord.unitShortNoteTa.replace(/\r?\n/g, '<br>');
+                noteBoxTa.classList.remove('hidden');
+            }
+
+            if (targetRecord.unitShortNoteEn && targetRecord.unitShortNoteEn !== '#') {
+                noteBoxEn.innerHTML = targetRecord.unitShortNoteEn.replace(/\r?\n/g, '<br>');
+                noteBoxEn.classList.remove('hidden');
+            }
+
+            const matContainer = document.getElementById('material-action-container');
+            const vidContainer = document.getElementById('video-action-container');
+            const quizContainer = document.getElementById('quiz-action-container');
+
+            let processedUrl = targetRecord.pdfUrl.trim();
+            if (!processedUrl.startsWith('http') && !processedUrl.startsWith('/') && !processedUrl.startsWith('.')) {
+                processedUrl = `../${processedUrl}`;
+            }
+
+            if (processedUrl !== '#') {
+                matContainer.innerHTML = `
+                    <button onclick="scrollToAndLoadMaterial('${processedUrl}')" class="flex items-center justify-center gap-2.5 p-4 border border-slate-200/80 bg-white hover:border-indigo-300 rounded-2xl text-xs font-black text-slate-700 transition shadow-sm w-full cursor-pointer">
+                        <i class="fa-solid fa-file-lines text-indigo-500 text-base"></i> View MAT Study Material
+                    </button>
+                `;
+                scrollToAndLoadMaterial(processedUrl, false);
+            } else {
+                matContainer.innerHTML = `
+                    <div class="flex items-center justify-center gap-2.5 p-4 bg-slate-100/50 border border-slate-200/40 rounded-2xl text-xs font-bold text-slate-400 w-full cursor-not-allowed">
+                        <i class="fa-solid fa-file-lines opacity-40 text-base"></i> Material Coming Soon
+                    </div>
+                `;
+            }
+
+            if (targetRecord.videoUrl !== '#') {
+                vidContainer.innerHTML = `
+                    <a href="${targetRecord.videoUrl}" target="_blank" class="flex items-center justify-center gap-2.5 p-4 border border-slate-200/80 bg-white hover:border-red-300 rounded-2xl text-xs font-black text-slate-700 transition shadow-sm w-full cursor-pointer">
+                        <i class="fa-brands fa-youtube text-red-500 text-base"></i> Watch Video Lessons
+                    </a>
+                `;
+            } else {
+                vidContainer.innerHTML = `
+                    <div class="flex items-center justify-center gap-2.5 p-4 bg-slate-100/50 border border-slate-200/40 rounded-2xl text-xs font-bold text-slate-400 w-full cursor-not-allowed">
+                        <i class="fa-brands fa-youtube opacity-40 text-base"></i> Video Coming Soon
+                    </div>
+                `;
+            }
+
+            if (targetRecord.mcqUrl !== '#') {
+                quizContainer.innerHTML = `
+                    <a href="${targetRecord.mcqUrl}" target="_blank" class="w-full text-center bg-slate-950 hover:bg-indigo-600 text-white font-black text-xs py-4 rounded-2xl transition shadow-md block uppercase tracking-wider cursor-pointer">
+                        <i class="fa-solid fa-square-poll-vertical mr-1"></i> Free Online Test
+                    </a>
+                `;
+            } else {
+                quizContainer.innerHTML = `
+                    <div class="w-full text-center bg-slate-100 text-slate-400 font-bold text-xs py-4 rounded-2xl block uppercase tracking-wider cursor-not-allowed border border-slate-200/40">
+                        Quiz Coming Soon
+                    </div>
+                `;
+            }
+
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                window.MathJax.typesetPromise([noteBoxTa, noteBoxEn]);
+            }
+        }
+
+        // UNIVERSAL LOADER: Renders .md, .txt, AND .pdf canvas pages directly into HTML
+        async function scrollToAndLoadMaterial(url, smoothScroll = true) {
+            const textCard = document.getElementById('inline-text-material-card');
+            const textBody = document.getElementById('inline-material-text-body');
+
+            textCard.classList.remove('hidden');
+            if (smoothScroll) {
+                textCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            if (textBody.innerHTML === "") {
+                textBody.innerHTML = `<div class="text-slate-400 text-xs py-4 font-medium"><i class="fa-solid fa-circle-notch fa-spin text-indigo-500 mr-2"></i>Loading MAT study material content...</div>`;
+                try {
+                    const lowerUrl = url.toLowerCase();
+
+                    // CASE 1: PDF File -> Render PDF Pages as sharp HTML Canvases
+                    if (lowerUrl.endsWith('.pdf')) {
+                        textBody.innerHTML = ""; // Clear loader
+                        const loadingTask = pdfjsLib.getDocument(url);
+                        const pdf = await loadingTask.promise;
+
+                        for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+                            const page = await pdf.getPage(pageNum);
+                            const viewport = page.getViewport({ scale: 1.5 }); // High resolution scale
+
+                            const pageWrapper = document.createElement('div');
+                            pageWrapper.className = "mb-6 pb-4 border-b border-slate-100 flex flex-col items-center";
+
+                            const pageLabel = document.createElement('span');
+                            pageLabel.className = "text-[10px] font-mono text-slate-400 block mb-2 uppercase tracking-widest self-start";
+                            pageLabel.innerText = `Page ${pageNum} of ${pdf.numPages}`;
+
+                            const canvas = document.createElement('canvas');
+                            canvas.className = "w-full shadow-sm rounded-lg border border-slate-100";
+                            const context = canvas.getContext('2d');
+                            canvas.height = viewport.height;
+                            canvas.width = viewport.width;
+
+                            pageWrapper.appendChild(pageLabel);
+                            pageWrapper.appendChild(canvas);
+                            textBody.appendChild(pageWrapper);
+
+                            await page.render({ canvasContext: context, viewport: viewport }).promise;
+                        }
+
+                    // CASE 2: Markdown File (.md) -> Parse via Marked.js
+                    } else if (lowerUrl.endsWith('.md') && typeof marked !== 'undefined') {
+                        const res = await fetch(url);
+                        if (!res.ok) throw new Error();
+                        const rawText = await res.text();
+                        textBody.innerHTML = marked.parse(rawText);
+
+                    // CASE 3: Plain Text File (.txt)
+                    } else {
+                        const res = await fetch(url);
+                        if (!res.ok) throw new Error();
+                        const rawText = await res.text();
+                        let processedHtml = rawText.replace(/[\u0b80-\u0bff]+/g, (match) => `<span class="tamil-fix font-medium">${match}</span>`);
+                        textBody.innerHTML = `<p class="whitespace-pre-wrap">${processedHtml}</p>`;
+                    }
+
+                    if (window.MathJax && window.MathJax.typesetPromise) {
+                        window.MathJax.typesetPromise([textBody]);
+                    }
+                } catch (e) {
+                    console.error(e);
+                    textBody.innerHTML = `<div class="text-red-500 font-bold text-xs p-3 bg-red-50 rounded-xl border border-red-100">Failed to load study document resource.</div>`;
+                }
+            }
+        }
+
+        function downloadAsPDF() {
+            window.print();
+        }
+
+        function adjustTextScale(delta) {
+            currentTextScale = Math.max(14, Math.min(26, currentTextScale + delta));
+            const bodyNode = document.getElementById('inline-material-text-body');
+            if (bodyNode) bodyNode.style.fontSize = `${currentTextScale}px`;
+        }
+
+        function shareModulePayload() {
+            const cleanUnitTitle = targetRecord.unitName.replace(/\r?\n/g, ' ');
+            const shareText = `🧠 *TN CLASSROOM - NMMS MAT MATERIAL*\n\n📌 *Category:* ${targetRecord.subject.toUpperCase()}\n🎯 *${targetRecord.unitNo}:* ${cleanUnitTitle}\n\n📝 *Interactive MCQ Link:*\n${targetRecord.mcqUrl !== '#' ? targetRecord.mcqUrl : 'Coming Soon'}\n\n🌐 View Chapter Module at: ${window.location.href}`;
+            if (navigator.share) {
+                navigator.share({ title: cleanUnitTitle, text: shareText }).catch(console.error);
+            } else {
+                navigator.clipboard.writeText(shareText).then(() => alert("Copied MAT share payload to clipboard!")).catch(() => {});
+            }
+        }
+
+        async function loadSharedSiteNavbar() {
+            try {
+                const res = await fetch(`../../navbar.html?v=${new Date().getTime()}`);
+                if (res.ok) {
+                    document.getElementById('navbar-placeholder').innerHTML = await res.text();
+                    initializeGlobalNavigationHooks();
+                }
+            } catch (e) { console.error(e); }
+        }
+
+        function initializeGlobalNavigationHooks() {
+            document.removeEventListener('click', closeAllDropdowns);
+            document.addEventListener('click', closeAllDropdowns);
+        }
+
+        function toggleNavigationMenu(event, targetMenuId) {
+            event.stopPropagation();
+            const targetMenu = document.getElementById(targetMenuId);
+            if (!targetMenu) return;
+            if (targetMenuId.includes('mobile-')) {
+                const isHidden = targetMenu.classList.contains('hidden');
+                document.querySelectorAll('[id*="mobile-menu-"]').forEach(m => m.classList.add('hidden'));
+                if (isHidden) targetMenu.classList.remove('hidden');
+            } else {
+                const isOpen = targetMenu.classList.contains('dropdown-active');
+                document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('dropdown-active'));
+                if (!isOpen) targetMenu.classList.add('dropdown-active');
+            }
+        }
+
+        function toggleMobileMenu(open) {
+            const drawer = document.getElementById('mobile-drawer');
+            const content = document.getElementById('drawer-content');
+            if (!drawer || !content) return;
+            if (open) {
+                drawer.classList.remove('invisible');
+                setTimeout(() => content.classList.remove('translate-x-full'), 10);
+            } else {
+                content.classList.add('translate-x-full');
+                setTimeout(() => drawer.classList.add('invisible'), 300);
+            }
+        }
+
+        function closeAllDropdowns() {
+            document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('dropdown-active'));
+            document.querySelectorAll('[id*="mobile-menu-"]').forEach(m => m.classList.add('hidden'));
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            loadSharedSiteNavbar();
+            loadTopicDetails();
+        });
+    </script>
+</body>
+</html>
