@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learning Support Resources | TN Classroom</title>
+    <title>Study Material - TN Classroom</title>
     <script src="/tailwind.js"></script>
     <link rel="stylesheet" href="/fontawesome.css">
 
     <!-- MARKED.JS CDN for Parsing Markdown Files -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
-    <!-- PDF.JS CDN for Rendering PDF Pages inline as HTML Canvases -->
+    <!-- PDF.JS CDN for Rendering PDF Pages -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
     <script>
       pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
@@ -18,7 +18,10 @@
 
     <script>
       window.MathJax = {
-        tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], processEscapes: true },
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            processEscapes: true
+        },
         options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
       };
     </script>
@@ -27,9 +30,13 @@
     <style>
         .dropdown-menu { z-index: 50 !important; pointer-events: none; }
         .dropdown-active { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; z-index: 50 !important; pointer-events: auto !important; }
-        .tamil-fix { font-family: 'Segoe UI', 'Latha', 'Apple Tamil', 'Noto Sans Tamil', sans-serif !important; }
 
-        /* Styling for Rendered Markdown Content */
+        /* தமிழ் எழுத்துருக்கள் தெளிவாகத் தெரிய சீரான Font Stack */
+        .tamil-fix {
+            font-family: 'Segoe UI', 'Latha', 'Apple Tamil', 'Noto Sans Tamil', sans-serif !important;
+        }
+
+        /* Markdown Styles */
         .markdown-body h1 { font-size: 1.5rem; font-weight: 800; margin-top: 1rem; margin-bottom: 0.5rem; color: #0f172a; }
         .markdown-body h2 { font-size: 1.25rem; font-weight: 700; margin-top: 0.875rem; margin-bottom: 0.5rem; color: #1e293b; }
         .markdown-body h3 { font-size: 1.1rem; font-weight: 700; margin-top: 0.75rem; margin-bottom: 0.375rem; color: #334155; }
@@ -40,11 +47,11 @@
         .markdown-body strong { font-weight: 800; color: #0f172a; }
         .markdown-body blockquote { border-left: 4px solid #10b981; padding-left: 1rem; color: #475569; margin: 0.75rem 0; font-style: italic; }
 
-        /* PRINT / SAVE-AS-PDF STYLES WITH WATERMARK */
+        /* PRINT / SAVE AS PDF ENGINE STYLES */
         @media print {
             @page {
                 size: A4;
-                margin: 12mm 12mm 12mm 12mm;
+                margin: 12mm;
             }
 
             body {
@@ -70,6 +77,7 @@
 
             .no-print { display: none !important; }
 
+            /* Watermark Overlay */
             #inline-text-material-card::before {
                 content: "www.tnclassroom.com";
                 position: fixed;
@@ -92,49 +100,48 @@
     <div id="navbar-placeholder" class="no-print"></div>
 
     <main class="flex-grow max-w-4xl w-full mx-auto px-4 py-8 space-y-6">
-
-        <!-- Back Navigation Header -->
+        <!-- Back Navigation Header Controls -->
         <div class="flex justify-between items-center mb-2 relative z-10 no-print">
             <div class="inline-block">
                 <a href="../" class="inline-flex items-center gap-2 text-xs font-black text-slate-600 hover:text-emerald-600 uppercase tracking-wider transition cursor-pointer">
-                    <i class="fa-solid fa-arrow-left"></i> Change Filter Selection
+                    <i class="fa-solid fa-arrow-left"></i> Back to Hub
                 </a>
             </div>
+
+            <div class="flex items-center gap-2" id="action-header-controls"></div>
         </div>
 
-        <!-- MAIN OVERVIEW CONTAINER CARD -->
+        <!-- Master Topic Detail Container Card -->
         <div class="bg-white border border-slate-200/60 rounded-3xl p-6 md:p-8 shadow-sm space-y-6 no-print">
-
-            <!-- Status Badge Strip -->
-            <div class="flex flex-wrap items-center gap-2 border-b border-slate-100 pb-4">
-                <span id="view-class-badge" class="text-xs font-bold text-slate-700 bg-slate-100 px-3 py-1 rounded-xl uppercase tracking-wider">Class Loading...</span>
-                <span id="view-second-badge" class="text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-100 px-3 py-1 rounded-xl uppercase tracking-wider">Filter Loading...</span>
-                <span id="view-subject-badge" class="text-xs font-bold text-blue-700 bg-blue-50 border border-blue-100 px-3 py-1 rounded-xl uppercase tracking-wider">Subject Loading...</span>
+            <div class="flex flex-wrap justify-between items-center gap-2 border-b border-slate-100 pb-4">
+                <span id="view-unit-no" class="text-xs font-black text-slate-400 uppercase tracking-widest font-mono">Loading...</span>
+                <span id="view-class-badge" class="text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-100 px-3 py-0.5 rounded-md uppercase tracking-wider">Loading...</span>
             </div>
 
             <div>
-                <h1 id="view-header-title" class="font-black text-slate-900 text-xl md:text-2xl tracking-tight leading-snug">
-                    Learning Support Resources
-                </h1>
+                <h1 id="view-unit-name" class="font-black text-slate-900 text-xl md:text-2xl tracking-tight tamil-fix leading-snug">Loading Topic Context...</h1>
             </div>
 
-            <!-- UNIT LIST SELECTION TABLE -->
-            <div class="space-y-4 pt-2 border-t border-slate-100">
-                <h3 class="text-xs font-black uppercase tracking-wider text-slate-400">Available Learning Support Units</h3>
-
-                <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden">
-                    <div id="units-list-container" class="divide-y divide-slate-100 text-sm">
-                        <!-- Injected dynamically -->
-                    </div>
-                </div>
+            <!-- Notes Section -->
+            <div class="space-y-4">
+                <div id="view-shortnote-box-ta" class="hidden text-justify bg-slate-50/50 border border-slate-100 p-5 rounded-2xl text-sm md:text-base text-slate-600 leading-relaxed tracking-normal tamil-fix w-full break-words"></div>
+                <div id="view-shortnote-box-en" class="hidden text-justify bg-slate-50/50 border border-slate-100 p-5 rounded-2xl text-sm md:text-base text-slate-600 leading-relaxed tracking-normal w-full break-words border-l-4 border-emerald-500"></div>
             </div>
+
+            <!-- Action Module Interface Blocks -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-slate-100">
+                <div id="material-action-container"></div>
+                <div id="video-action-container"></div>
+            </div>
+
+            <div id="quiz-action-container" class="pt-2"></div>
         </div>
 
-        <!-- INLINE READER CARD (.md / .txt / .pdf) -->
+        <!-- INLINE TEXT / MARKDOWN / PDF READER CARD -->
         <div id="inline-text-material-card" class="hidden bg-white border border-slate-200/60 rounded-3xl p-6 md:p-8 shadow-sm space-y-4">
             <div class="flex justify-between items-center border-b border-slate-100 pb-3 no-print">
-                <h3 id="reader-title" class="text-xs font-black uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-                    <i class="fa-solid fa-book-open-reader text-emerald-500"></i> Learning Support Notes
+                <h3 class="text-xs font-black uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+                    <i class="fa-solid fa-book-open-reader text-emerald-500"></i> Full Lesson Material Content
                 </h3>
 
                 <!-- Toolbar Controls -->
@@ -165,17 +172,13 @@
     </footer>
 
     <script>
-        const DATABASE_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsJKa0jUrYG7QqvDQUEJzgJbyWIUR3ZwNUPsXVrR0Na53fwnFPNFNK_b8zzi1e9U-gmEb9LyHu0NbK/pub?gid=0&single=true&output=csv";
+        const DATABASE_CSV_URL = "https://docs.google.com/spreadsheets/d/1j2C7jpFskw2TrYoRKDmPJBkHezAfRW0aFshbULLgUvc/gviz/tq?tqx=out:csv&sheet=Sheet1";
+        let targetRecord = null;
         let currentTextScale = 16;
 
-        function getUrlParameters() {
+        function getUrlParameterId() {
             const params = new URLSearchParams(window.location.search);
-            return {
-                classTarget: params.get('class') || "4",
-                termTarget: params.get('term') || "",
-                mediumTarget: params.get('medium') || "",
-                subjectTarget: params.get('subject') || "Tamil"
-            };
+            return params.get('id');
         }
 
         function parseCsvRows(text) {
@@ -195,145 +198,224 @@
             return lines;
         }
 
-        async function processAndRenderView() {
-            const { classTarget, termTarget, mediumTarget, subjectTarget } = getUrlParameters();
+        // முக்கிய அம்சம்: MathJax ஃபார்முலாவிற்குள் உள்ள தமிழ் எழுத்துக்களைச் சிதையாமல் பாதுகாக்கும் ஃபங்க்ஷன்
+        function sanitizeTamilMathJax(content) {
+            if (!content) return "";
+            return content.replace(/(\$\$[\s\S]*?\$\$|\$[^\$\n]+?\$)/g, (mathBlock) => {
+                // $...$ க்குள்ளே தமிழ் எழுத்துக்கள் இருந்தால் அவற்றை \text{...} ஆக மாற்றும்
+                return mathBlock.replace(/([\u0B80-\u0BFF]+)/g, (tamilMatch) => {
+                    return `\\text{${tamilMatch}}`;
+                });
+            });
+        }
 
-            document.getElementById('view-class-badge').innerText = `Class ${classTarget}`;
-            document.getElementById('view-second-badge').innerText = termTarget ? `Term ${termTarget}` : `${mediumTarget} Medium`;
-            document.getElementById('view-subject-badge').innerText = subjectTarget;
-            document.getElementById('view-header-title').innerText = `Class ${classTarget} ${subjectTarget} Support Notes`;
-            document.title = `Class ${classTarget} ${subjectTarget} | TN Classroom`;
+        async function loadTopicDetails() {
+            const targetId = parseInt(getUrlParameterId());
+            if (isNaN(targetId)) {
+                window.location.replace('../');
+                return;
+            }
 
             try {
-                const response = await fetch(DATABASE_CSV_URL);
-                if (!response.ok) throw new Error();
-                const dataText = await response.text();
-                const parsedRows = parseCsvRows(dataText).slice(1);
+                const res = await fetch(DATABASE_CSV_URL);
+                if (!res.ok) throw new Error();
+                const txt = await res.text();
+                const lines = parseCsvRows(txt);
+                const dataRows = lines.slice(1);
 
-                const listContainer = document.getElementById('units-list-container');
-                listContainer.innerHTML = "";
+                const cols = dataRows[targetId];
+                if (!cols) throw new Error();
 
-                let matchedRecords = [];
+                let clsName = cols[0] ? cols[0].replace(/^"|"$/g, '').trim() : 'Class 8';
+                let subj    = cols[1] ? cols[1].replace(/^"|"$/g, '').trim() : 'Science';
+                let uNo     = cols[2] ? cols[2].replace(/^"|"$/g, '').trim() : '';
+                let uName   = cols[3] ? cols[3].replace(/^"|"$/g, '').trim() : '';
+                let vUrl    = (cols[4] && cols[4].trim() !== "") ? cols[4].replace(/^"|"$/g, '').trim() : '#';
+                let fUrl    = cols[5] ? cols[5].replace(/^"|"$/g, '').replace(/^\.\//, '').trim() : '#';
+                let rawMcq  = cols[6] ? cols[6].replace(/^"|"$/g, '').trim() : '#';
+                let uShortNoteTa = cols[7] ? cols[7].replace(/^"|"$/g, '').trim() : '';
+                let uShortNoteEn = cols[8] ? cols[8].replace(/^"|"$/g, '').trim() : '';
 
-                parsedRows.forEach((cols) => {
-                    if (!cols || cols.length < 7) return;
-
-                    let cls       = cols[1] ? cols[1].replace(/^"|"$/g, '').trim() : '';
-                    let term      = cols[2] ? cols[2].replace(/^"|"$/g, '').trim() : '';
-                    let subject   = cols[3] ? cols[3].replace(/^"|"$/g, '').trim() : '';
-                    let medium    = cols[4] ? cols[4].replace(/^"|"$/g, '').trim() : '';
-                    let unit      = cols[5] ? cols[5].replace(/^"|"$/g, '').trim() : '';
-                    let fileUrl   = cols[6] ? cols[6].replace(/^"|"$/g, '').trim() : '#';
-
-                    const classMatches = cls === classTarget;
-                    const subjectMatches = subject.toLowerCase() === subjectTarget.toLowerCase();
-                    let secondaryMatches = true;
-
-                    if (termTarget) {
-                        secondaryMatches = term === termTarget;
-                    } else if (mediumTarget) {
-                        secondaryMatches = medium.toLowerCase() === mediumTarget.toLowerCase();
+                if (rawMcq !== '#') {
+                    if (rawMcq.includes('jeyaselvan76.github.io/nmms-mcq/')) {
+                        rawMcq = rawMcq.replace('https://jeyaselvan76.github.io/nmms-mcq/', 'https://nmmsmcq.tnclassroom.com/');
+                    } else if (rawMcq.startsWith('/nmms-mcq/')) {
+                        rawMcq = rawMcq.replace('/nmms-mcq/', 'https://nmmsmcq.tnclassroom.com/');
+                    } else if (rawMcq.includes('jeyaselvan76.github.io/MCQ/')) {
+                        rawMcq = rawMcq.replace('https://jeyaselvan76.github.io/MCQ/', 'https://nmmsmcq.tnclassroom.com/');
                     }
-
-                    if (classMatches && subjectMatches && secondaryMatches) {
-                        matchedRecords.push({ unit, fileUrl });
-                    }
-                });
-
-                if (matchedRecords.length === 0) {
-                    listContainer.innerHTML = `<div class="p-6 text-center text-slate-400 font-bold text-xs">No learning support files matching your selection were found.</div>`;
-                    return;
                 }
 
-                matchedRecords.forEach((row, index) => {
-                    let processedUrl = row.fileUrl;
-                    if (!processedUrl.startsWith('http') && !processedUrl.startsWith('/') && !processedUrl.startsWith('.')) {
-                        processedUrl = `../${processedUrl}`;
-                    }
+                targetRecord = {
+                    className: clsName,
+                    subject: subj,
+                    unitNo: uNo,
+                    unitName: uName,
+                    videoUrl: vUrl,
+                    pdfUrl: fUrl,
+                    mcqUrl: rawMcq,
+                    unitShortNoteTa: uShortNoteTa,
+                    unitShortNoteEn: uShortNoteEn
+                };
 
-                    const item = document.createElement('div');
-                    item.className = "p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-slate-50 transition";
-                    item.innerHTML = `
-                        <div>
-                            <span class="text-[10px] font-mono text-emerald-600 font-black uppercase tracking-widest block mb-0.5">Unit ${row.unit}</span>
-                            <h4 class="font-black text-slate-800 text-sm tamil-fix">Unit ${row.unit} Learning Support Notes</h4>
-                        </div>
-                        <button onclick="scrollToAndLoadMaterial('${processedUrl}', 'Unit ${row.unit}')" class="inline-flex items-center justify-center gap-2 bg-slate-950 hover:bg-emerald-600 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition shadow-sm cursor-pointer">
-                            <i class="fa-solid fa-file-lines text-emerald-400"></i> View Notes
-                        </button>
-                    `;
-                    listContainer.appendChild(item);
-                });
-
-            } catch (err) {
-                console.error(err);
-                document.getElementById('units-list-container').innerHTML = `<div class="p-6 text-center text-rose-500 font-bold text-xs">Failed to load support records from database.</div>`;
+                renderPagePayload();
+            } catch (e) {
+                document.getElementById('view-unit-name').innerText = "Topic material entry not discovered.";
             }
         }
 
-        async function scrollToAndLoadMaterial(url, unitTitle) {
+        function renderPagePayload() {
+            document.title = `${targetRecord.unitNo} - ${targetRecord.unitName.replace(/\r?\n/g, ' ')}`;
+            document.getElementById('view-unit-no').innerText = targetRecord.unitNo;
+            document.getElementById('view-class-badge').innerText = targetRecord.className;
+            document.getElementById('view-unit-name').innerHTML = targetRecord.unitName.replace(/\r?\n/g, '<br>');
+
+            const controlsContainer = document.getElementById('action-header-controls');
+            controlsContainer.innerHTML = `
+                <button onclick="shareModulePayload()" class="text-slate-500 hover:text-emerald-600 bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-bold transition shadow-sm flex items-center gap-1.5 cursor-pointer">
+                    <i class="fa-solid fa-share-nodes"></i> Share
+                </button>
+            `;
+
+            const noteBoxTa = document.getElementById('view-shortnote-box-ta');
+            const noteBoxEn = document.getElementById('view-shortnote-box-en');
+
+            if (targetRecord.unitShortNoteTa && targetRecord.unitShortNoteTa !== '#') {
+                noteBoxTa.innerHTML = sanitizeTamilMathJax(targetRecord.unitShortNoteTa).replace(/\r?\n/g, '<br>');
+                noteBoxTa.classList.remove('hidden');
+            }
+
+            if (targetRecord.unitShortNoteEn && targetRecord.unitShortNoteEn !== '#') {
+                noteBoxEn.innerHTML = sanitizeTamilMathJax(targetRecord.unitShortNoteEn).replace(/\r?\n/g, '<br>');
+                noteBoxEn.classList.remove('hidden');
+            }
+
+            const matContainer = document.getElementById('material-action-container');
+            const vidContainer = document.getElementById('video-action-container');
+            const quizContainer = document.getElementById('quiz-action-container');
+
+            let processedUrl = targetRecord.pdfUrl.trim();
+            if (!processedUrl.startsWith('http') && !processedUrl.startsWith('/') && !processedUrl.startsWith('.')) {
+                processedUrl = `../${processedUrl}`;
+            }
+
+            if (processedUrl !== '#') {
+                matContainer.innerHTML = `
+                    <button onclick="scrollToAndLoadMaterial('${processedUrl}')" class="flex items-center justify-center gap-2.5 p-4 border border-slate-200/80 bg-white hover:border-emerald-300 rounded-2xl text-xs font-black text-slate-700 transition shadow-sm w-full cursor-pointer">
+                        <i class="fa-solid fa-file-lines text-emerald-500 text-base"></i> View Study Material
+                    </button>
+                `;
+                scrollToAndLoadMaterial(processedUrl, false);
+            }
+
+            if (targetRecord.videoUrl !== '#') {
+                vidContainer.innerHTML = `
+                    <a href="${targetRecord.videoUrl}" target="_blank" class="flex items-center justify-center gap-2.5 p-4 border border-slate-200/80 bg-white hover:border-red-300 rounded-2xl text-xs font-black text-slate-700 transition shadow-sm w-full cursor-pointer">
+                        <i class="fa-brands fa-youtube text-red-500 text-base"></i> Watch Video Lessons
+                    </a>
+                `;
+            } else {
+                vidContainer.innerHTML = `
+                    <div class="flex items-center justify-center gap-2.5 p-4 bg-slate-100/50 border border-slate-200/40 rounded-2xl text-xs font-bold text-slate-400 w-full cursor-not-allowed">
+                        <i class="fa-brands fa-youtube opacity-40 text-base"></i> Video Coming Soon
+                    </div>
+                `;
+            }
+
+            if (targetRecord.mcqUrl !== '#') {
+                quizContainer.innerHTML = `
+                    <a href="${targetRecord.mcqUrl}" target="_blank" class="w-full text-center bg-slate-950 hover:bg-emerald-600 text-white font-black text-xs py-4 rounded-2xl transition shadow-md block uppercase tracking-wider cursor-pointer">
+                        <i class="fa-solid fa-square-poll-vertical mr-1"></i> Free Online Test
+                    </a>
+                `;
+            } else {
+                quizContainer.innerHTML = `
+                    <div class="w-full text-center bg-slate-100 text-slate-400 font-bold text-xs py-4 rounded-2xl block uppercase tracking-wider cursor-not-allowed border border-slate-200/40">
+                        Quiz Coming Soon
+                    </div>
+                `;
+            }
+
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                window.MathJax.typesetPromise([noteBoxTa, noteBoxEn]);
+            }
+        }
+
+        async function scrollToAndLoadMaterial(url, smoothScroll = true) {
             const textCard = document.getElementById('inline-text-material-card');
             const textBody = document.getElementById('inline-material-text-body');
-            const readerTitle = document.getElementById('reader-title');
 
-            readerTitle.innerHTML = `<i class="fa-solid fa-book-open-reader text-emerald-500"></i> ${unitTitle} Support Material`;
             textCard.classList.remove('hidden');
-            textCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            if (smoothScroll) {
+                textCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
 
-            textBody.innerHTML = `<div class="text-slate-400 text-xs py-4 font-medium"><i class="fa-solid fa-circle-notch fa-spin text-emerald-500 mr-2"></i>Loading material content...</div>`;
+            if (textBody.innerHTML === "") {
+                textBody.innerHTML = `<div class="text-slate-400 text-xs py-4 font-medium"><i class="fa-solid fa-circle-notch fa-spin text-emerald-500 mr-2"></i>Loading study material content...</div>`;
+                try {
+                    const lowerUrl = url.toLowerCase();
 
-            try {
-                const lowerUrl = url.toLowerCase();
+                    // PDF file handler via PDF.js Canvas
+                    if (lowerUrl.endsWith('.pdf')) {
+                        textBody.innerHTML = "";
+                        const loadingTask = pdfjsLib.getDocument(url);
+                        const pdf = await loadingTask.promise;
 
-                if (lowerUrl.endsWith('.pdf')) {
-                    textBody.innerHTML = "";
-                    const loadingTask = pdfjsLib.getDocument(url);
-                    const pdf = await loadingTask.promise;
+                        for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+                            const page = await pdf.getPage(pageNum);
+                            const viewport = page.getViewport({ scale: 1.5 });
 
-                    for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-                        const page = await pdf.getPage(pageNum);
-                        const viewport = page.getViewport({ scale: 1.5 });
+                            const pageWrapper = document.createElement('div');
+                            pageWrapper.className = "mb-6 pb-4 border-b border-slate-100 flex flex-col items-center";
 
-                        const pageWrapper = document.createElement('div');
-                        pageWrapper.className = "mb-6 pb-4 border-b border-slate-100 flex flex-col items-center";
+                            const pageLabel = document.createElement('span');
+                            pageLabel.className = "text-[10px] font-mono text-slate-400 block mb-2 uppercase tracking-widest self-start";
+                            pageLabel.innerText = `Page ${pageNum} of ${pdf.numPages}`;
 
-                        const pageLabel = document.createElement('span');
-                        pageLabel.className = "text-[10px] font-mono text-slate-400 block mb-2 uppercase tracking-widest self-start";
-                        pageLabel.innerText = `Page ${pageNum} of ${pdf.numPages}`;
+                            const canvas = document.createElement('canvas');
+                            canvas.className = "w-full shadow-sm rounded-lg border border-slate-100";
+                            const context = canvas.getContext('2d');
+                            canvas.height = viewport.height;
+                            canvas.width = viewport.width;
 
-                        const canvas = document.createElement('canvas');
-                        canvas.className = "w-full shadow-sm rounded-lg border border-slate-100";
-                        const context = canvas.getContext('2d');
-                        canvas.height = viewport.height;
-                        canvas.width = viewport.width;
+                            pageWrapper.appendChild(pageLabel);
+                            pageWrapper.appendChild(canvas);
+                            textBody.appendChild(pageWrapper);
 
-                        pageWrapper.appendChild(pageLabel);
-                        pageWrapper.appendChild(canvas);
-                        textBody.appendChild(pageWrapper);
+                            await page.render({ canvasContext: context, viewport: viewport }).promise;
+                        }
 
-                        await page.render({ canvasContext: context, viewport: viewport }).promise;
+                    // Markdown file (.md)
+                    } else if (lowerUrl.endsWith('.md') && typeof marked !== 'undefined') {
+                        const res = await fetch(url);
+                        if (!res.ok) throw new Error();
+                        let rawText = await res.text();
+
+                        // தமிழ் எழுத்துக்களை MathJax சிதைக்காமல் இருக்க சுத்திகரிப்பு
+                        rawText = sanitizeTamilMathJax(rawText);
+
+                        textBody.innerHTML = marked.parse(rawText);
+
+                    // Plain text file (.txt)
+                    } else {
+                        const res = await fetch(url);
+                        if (!res.ok) throw new Error();
+                        let rawText = await res.text();
+
+                        // தமிழ் எழுத்துக்களை MathJax சிதைக்காமல் இருக்க சுத்திகரிப்பு
+                        rawText = sanitizeTamilMathJax(rawText);
+
+                        let processedHtml = rawText.replace(/[\u0b80-\u0bff]+/g, (match) => `<span class="tamil-fix font-medium">${match}</span>`);
+                        textBody.innerHTML = `<p class="whitespace-pre-wrap">${processedHtml}</p>`;
                     }
 
-                } else if (lowerUrl.endsWith('.md') && typeof marked !== 'undefined') {
-                    const res = await fetch(url);
-                    if (!res.ok) throw new Error();
-                    const rawText = await res.text();
-                    textBody.innerHTML = marked.parse(rawText);
-
-                } else {
-                    const res = await fetch(url);
-                    if (!res.ok) throw new Error();
-                    const rawText = await res.text();
-                    let processedHtml = rawText.replace(/[\u0b80-\u0bff]+/g, (match) => `<span class="tamil-fix font-medium">${match}</span>`);
-                    textBody.innerHTML = `<p class="whitespace-pre-wrap">${processedHtml}</p>`;
+                    if (window.MathJax && window.MathJax.typesetPromise) {
+                        window.MathJax.typesetPromise([textBody]);
+                    }
+                } catch (e) {
+                    console.error(e);
+                    textBody.innerHTML = `<div class="text-red-500 font-bold text-xs p-3 bg-red-50 rounded-xl border border-red-100">Failed to load study document resource.</div>`;
                 }
-
-                if (window.MathJax && window.MathJax.typesetPromise) {
-                    window.MathJax.typesetPromise([textBody]);
-                }
-            } catch (e) {
-                console.error(e);
-                textBody.innerHTML = `<div class="text-red-500 font-bold text-xs p-3 bg-red-50 rounded-xl border border-red-100">Failed to load study document file. Verify file path.</div>`;
             }
         }
 
@@ -345,6 +427,16 @@
             currentTextScale = Math.max(14, Math.min(26, currentTextScale + delta));
             const bodyNode = document.getElementById('inline-material-text-body');
             if (bodyNode) bodyNode.style.fontSize = `${currentTextScale}px`;
+        }
+
+        function shareModulePayload() {
+            const cleanUnitTitle = targetRecord.unitName.replace(/\r?\n/g, ' ');
+            const shareText = `📚 *TN CLASSROOM - STUDY MATERIAL*\n\n📌 *Subject:* ${targetRecord.subject.toUpperCase()}\n🎯 *${targetRecord.unitNo}:* ${cleanUnitTitle}\n\n📝 *Interactive MCQ Link:*\n${targetRecord.mcqUrl !== '#' ? targetRecord.mcqUrl : 'Coming Soon'}\n\n🌐 View Chapter Module at: ${window.location.href}`;
+            if (navigator.share) {
+                navigator.share({ title: cleanUnitTitle, text: shareText }).catch(console.error);
+            } else {
+                navigator.clipboard.writeText(shareText).then(() => alert("Copied share payload to clipboard!")).catch(() => {});
+            }
         }
 
         async function loadSharedSiteNavbar() {
@@ -397,7 +489,7 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             loadSharedSiteNavbar();
-            processAndRenderView();
+            loadTopicDetails();
         });
     </script>
 </body>
