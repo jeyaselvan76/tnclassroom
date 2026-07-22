@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Support Resources | TN Classroom</title>
+    <script src="/tailwind.js"></script>
+    <link rel="stylesheet" href="/fontawesome.css">
+
+    <!-- MARKED.JS CDN for Parsing Markdown Files -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- PDF.JS CDN for Rendering PDF Pages inline as HTML Canvases -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <script>
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+    </script>
+
+    <script>
+      window.MathJax = {
+        tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], processEscapes: true },
+        options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        .dropdown-menu { z-index: 50 !important; pointer-events: none; }
+        .dropdown-active { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; z-index: 50 !important; pointer-events: auto !important; }
+        .tamil-fix { font-family: 'Segoe UI', 'Latha', 'Apple Tamil', 'Noto Sans Tamil', sans-serif !important; }
+
+        /* Styling for Rendered Markdown Content */
+        .markdown-body h1 { font-size: 1.5rem; font-weight: 800; margin-top: 1rem; margin-bottom: 0.5rem; color: #0f172a; }
+        .markdown-body h2 { font-size: 1.25rem; font-weight: 700; margin-top: 0.875rem; margin-bottom: 0.5rem; color: #1e293b; }
+        .markdown-body h3 { font-size: 1.1rem; font-weight: 700; margin-top: 0.75rem; margin-bottom: 0.375rem; color: #334155; }
+        .markdown-body p { margin-bottom: 0.75rem; line-height: 1.6; }
+        .markdown-body ul { list-style-type: disc; padding-left: 1.25rem; margin-bottom: 0.75rem; }
+        .markdown-body ol { list-style-type: decimal; padding-left: 1.25rem; margin-bottom: 0.75rem; }
+        .markdown-body li { margin-bottom: 0.25rem; }
+        .markdown-body strong { font-weight: 800; color: #0f172a; }
+        .markdown-body blockquote { border-left: 4px solid #10b981; padding-left: 1rem; color: #475569; margin: 0.75rem 0; font-style: italic; }
+
+        /* PRINT / SAVE-AS-PDF STYLES WITH WATERMARK */
+        @media print {
+            @page {
+                size: A4;
+                margin: 12mm 12mm 12mm 12mm;
+            }
+
+            body {
+                background-color: #ffffff !important;
+                color: #000000 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            body * { visibility: hidden; }
+            #inline-text-material-card, #inline-text-material-card * { visibility: visible; }
+
+            #inline-text-material-card {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            .no-print { display: none !important; }
+
+            #inline-text-material-card::before {
+                content: "www.tnclassroom.com";
+                position: fixed;
+                top: 45%;
+                left: 50%;
+                transform: translate(-50%, -50%) rotate(-35deg);
+                font-size: 42pt;
+                font-weight: 900;
+                color: rgba(0, 0, 0, 0.08);
+                white-space: nowrap;
+                z-index: 9999;
+                pointer-events: none;
+                visibility: visible !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 flex flex-col min-h-screen font-sans">
+
+    <div id="navbar-placeholder" class="no-print"></div>
+
+    <main class="flex-grow max-w-4xl w-full mx-auto px-4 py-8 space-y-6">
+
+        <!-- Back Navigation Header -->
+        <div class="flex justify-between items-center mb-2 relative z-10 no-print">
+            <div class="inline-block">
+                <a href="../" class="inline-flex items-center gap-2 text-xs font-black text-slate-600 hover:text-emerald-600 uppercase tracking-wider transition cursor-pointer">
+                    <i class="fa-solid fa-arrow-left"></i> Change Filter Selection
+                </a>
+            </div>
+        </div>
+
+        <!-- MAIN OVERVIEW CONTAINER CARD -->
+        <div class="bg-white border border-slate-200/60 rounded-3xl p-6 md:p-8 shadow-sm space-y-6 no-print">
+
+            <!-- Status Badge Strip -->
+            <div class="flex flex-wrap items-center gap-2 border-b border-slate-100 pb-4">
+                <span id="view-class-badge" class="text-xs font-bold text-slate-700 bg-slate-100 px-3 py-1 rounded-xl uppercase tracking-wider">Class Loading...</span>
+                <span id="view-second-badge" class="text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-100 px-3 py-1 rounded-xl uppercase tracking-wider">Filter Loading...</span>
+                <span id="view-subject-badge" class="text-xs font-bold text-blue-700 bg-blue-50 border border-blue-100 px-3 py-1 rounded-xl uppercase tracking-wider">Subject Loading...</span>
+            </div>
+
+            <div>
+                <h1 id="view-header-title" class="font-black text-slate-900 text-xl md:text-2xl tracking-tight leading-snug">
+                    Learning Support Resources
+                </h1>
+            </div>
+
+            <!-- UNIT LIST SELECTION TABLE -->
+            <div class="space-y-4 pt-2 border-t border-slate-100">
+                <h3 class="text-xs font-black uppercase tracking-wider text-slate-400">Available Learning Support Units</h3>
+
+                <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden">
+                    <div id="units-list-container" class="divide-y divide-slate-100 text-sm">
+                        <!-- Injected dynamically -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- INLINE READER CARD (.md / .txt / .pdf) -->
+        <div id="inline-text-material-card" class="hidden bg-white border border-slate-200/60 rounded-3xl p-6 md:p-8 shadow-sm space-y-4">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-3 no-print">
+                <h3 id="reader-title" class="text-xs font-black uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+                    <i class="fa-solid fa-book-open-reader text-emerald-500"></i> Learning Support Notes
+                </h3>
+
+                <!-- Toolbar Controls -->
+                <div class="flex items-center gap-3">
+                    <button onclick="downloadAsPDF()" class="text-slate-700 hover:text-emerald-600 border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-bold transition shadow-sm flex items-center gap-1.5 bg-white cursor-pointer">
+                        <i class="fa-solid fa-file-pdf text-red-500"></i> Save as PDF
+                    </button>
+
+                    <div class="flex items-center border border-slate-200 bg-white rounded-xl p-0.5 text-xs font-bold text-slate-600">
+                        <button onclick="adjustTextScale(-1)" class="w-7 h-7 hover:bg-slate-100 rounded-lg flex items-center justify-center font-mono">A-</button>
+                        <button onclick="adjustTextScale(1)" class="w-7 h-7 hover:bg-slate-100 rounded-lg flex items-center justify-center font-mono border-l border-slate-100">A+</button>
+                    </div>
+                </div>
+            </div>
+            <div id="inline-material-text-body" class="text-slate-800 font-sans leading-relaxed tracking-wide select-text tamil-fix text-base markdown-body"></div>
+        </div>
+    </main>
+
+    <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-6 text-center text-xs mt-auto space-y-4 no-print">
+        <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs font-bold text-slate-400">
+            <a href="/about-us.html" class="hover:text-emerald-400 transition">About Us</a>
+            <a href="/privacy-policy.html" class="hover:text-emerald-400 transition">Privacy Policy</a>
+            <a href="/disclaimer.html" class="hover:text-emerald-400 transition">Disclaimer</a>
+            <a href="/contact-us.html" class="hover:text-emerald-400 transition">Contact Us</a>
+        </nav>
+
+        <p>&copy; 2026 tnclassroom.com | A Professional Learning Platform for Students & Teachers</p>
+    </footer>
+
+    <script>
+        const DATABASE_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsJKa0jUrYG7QqvDQUEJzgJbyWIUR3ZwNUPsXVrR0Na53fwnFPNFNK_b8zzi1e9U-gmEb9LyHu0NbK/pub?gid=0&single=true&output=csv";
+        let currentTextScale = 16;
+
+        function getUrlParameters() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                classTarget: params.get('class') || "4",
+                termTarget: params.get('term') || "",
+                mediumTarget: params.get('medium') || "",
+                subjectTarget: params.get('subject') || "Tamil"
+            };
+        }
+
+        function parseCsvRows(text) {
+            let lines = []; let row = []; let cell = ''; let inQuotes = false;
+            for (let i = 0; i < text.length; i++) {
+                let c = text[i];
+                if (c === '"') { inQuotes = !inQuotes; }
+                else if (c === ',' && !inQuotes) { row.push(cell.trim()); cell = ''; }
+                else if ((c === '\n' || c === '\r') && !inQuotes) {
+                    row.push(cell.trim());
+                    if (row.length > 0 && row.some(x => x !== '')) lines.push(row);
+                    row = []; cell = '';
+                    if (c === '\r' && text[i+1] === '\n') i++;
+                } else { cell += c; }
+            }
+            if (cell || row.length > 0) { row.push(cell.trim()); lines.push(row); }
+            return lines;
+        }
+
+        async function processAndRenderView() {
+            const { classTarget, termTarget, mediumTarget, subjectTarget } = getUrlParameters();
+
+            document.getElementById('view-class-badge').innerText = `Class ${classTarget}`;
+            document.getElementById('view-second-badge').innerText = termTarget ? `Term ${termTarget}` : `${mediumTarget} Medium`;
+            document.getElementById('view-subject-badge').innerText = subjectTarget;
+            document.getElementById('view-header-title').innerText = `Class ${classTarget} ${subjectTarget} Support Notes`;
+            document.title = `Class ${classTarget} ${subjectTarget} | TN Classroom`;
+
+            try {
+                const response = await fetch(DATABASE_CSV_URL);
+                if (!response.ok) throw new Error();
+                const dataText = await response.text();
+                const parsedRows = parseCsvRows(dataText).slice(1);
+
+                const listContainer = document.getElementById('units-list-container');
+                listContainer.innerHTML = "";
+
+                let matchedRecords = [];
+
+                parsedRows.forEach((cols) => {
+                    if (!cols || cols.length < 7) return;
+
+                    let cls       = cols[1] ? cols[1].replace(/^"|"$/g, '').trim() : '';
+                    let term      = cols[2] ? cols[2].replace(/^"|"$/g, '').trim() : '';
+                    let subject   = cols[3] ? cols[3].replace(/^"|"$/g, '').trim() : '';
+                    let medium    = cols[4] ? cols[4].replace(/^"|"$/g, '').trim() : '';
+                    let unit      = cols[5] ? cols[5].replace(/^"|"$/g, '').trim() : '';
+                    let fileUrl   = cols[6] ? cols[6].replace(/^"|"$/g, '').trim() : '#';
+
+                    const classMatches = cls === classTarget;
+                    const subjectMatches = subject.toLowerCase() === subjectTarget.toLowerCase();
+                    let secondaryMatches = true;
+
+                    if (termTarget) {
+                        secondaryMatches = term === termTarget;
+                    } else if (mediumTarget) {
+                        secondaryMatches = medium.toLowerCase() === mediumTarget.toLowerCase();
+                    }
+
+                    if (classMatches && subjectMatches && secondaryMatches) {
+                        matchedRecords.push({ unit, fileUrl });
+                    }
+                });
+
+                if (matchedRecords.length === 0) {
+                    listContainer.innerHTML = `<div class="p-6 text-center text-slate-400 font-bold text-xs">No learning support files matching your selection were found.</div>`;
+                    return;
+                }
+
+                matchedRecords.forEach((row, index) => {
+                    let processedUrl = row.fileUrl;
+                    if (!processedUrl.startsWith('http') && !processedUrl.startsWith('/') && !processedUrl.startsWith('.')) {
+                        processedUrl = `../${processedUrl}`;
+                    }
+
+                    const item = document.createElement('div');
+                    item.className = "p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-slate-50 transition";
+                    item.innerHTML = `
+                        <div>
+                            <span class="text-[10px] font-mono text-emerald-600 font-black uppercase tracking-widest block mb-0.5">Unit ${row.unit}</span>
+                            <h4 class="font-black text-slate-800 text-sm tamil-fix">Unit ${row.unit} Learning Support Notes</h4>
+                        </div>
+                        <button onclick="scrollToAndLoadMaterial('${processedUrl}', 'Unit ${row.unit}')" class="inline-flex items-center justify-center gap-2 bg-slate-950 hover:bg-emerald-600 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition shadow-sm cursor-pointer">
+                            <i class="fa-solid fa-file-lines text-emerald-400"></i> View Notes
+                        </button>
+                    `;
+                    listContainer.appendChild(item);
+                });
+
+            } catch (err) {
+                console.error(err);
+                document.getElementById('units-list-container').innerHTML = `<div class="p-6 text-center text-rose-500 font-bold text-xs">Failed to load support records from database.</div>`;
+            }
+        }
+
+        async function scrollToAndLoadMaterial(url, unitTitle) {
+            const textCard = document.getElementById('inline-text-material-card');
+            const textBody = document.getElementById('inline-material-text-body');
+            const readerTitle = document.getElementById('reader-title');
+
+            readerTitle.innerHTML = `<i class="fa-solid fa-book-open-reader text-emerald-500"></i> ${unitTitle} Support Material`;
+            textCard.classList.remove('hidden');
+            textCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            textBody.innerHTML = `<div class="text-slate-400 text-xs py-4 font-medium"><i class="fa-solid fa-circle-notch fa-spin text-emerald-500 mr-2"></i>Loading material content...</div>`;
+
+            try {
+                const lowerUrl = url.toLowerCase();
+
+                if (lowerUrl.endsWith('.pdf')) {
+                    textBody.innerHTML = "";
+                    const loadingTask = pdfjsLib.getDocument(url);
+                    const pdf = await loadingTask.promise;
+
+                    for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+                        const page = await pdf.getPage(pageNum);
+                        const viewport = page.getViewport({ scale: 1.5 });
+
+                        const pageWrapper = document.createElement('div');
+                        pageWrapper.className = "mb-6 pb-4 border-b border-slate-100 flex flex-col items-center";
+
+                        const pageLabel = document.createElement('span');
+                        pageLabel.className = "text-[10px] font-mono text-slate-400 block mb-2 uppercase tracking-widest self-start";
+                        pageLabel.innerText = `Page ${pageNum} of ${pdf.numPages}`;
+
+                        const canvas = document.createElement('canvas');
+                        canvas.className = "w-full shadow-sm rounded-lg border border-slate-100";
+                        const context = canvas.getContext('2d');
+                        canvas.height = viewport.height;
+                        canvas.width = viewport.width;
+
+                        pageWrapper.appendChild(pageLabel);
+                        pageWrapper.appendChild(canvas);
+                        textBody.appendChild(pageWrapper);
+
+                        await page.render({ canvasContext: context, viewport: viewport }).promise;
+                    }
+
+                } else if (lowerUrl.endsWith('.md') && typeof marked !== 'undefined') {
+                    const res = await fetch(url);
+                    if (!res.ok) throw new Error();
+                    const rawText = await res.text();
+                    textBody.innerHTML = marked.parse(rawText);
+
+                } else {
+                    const res = await fetch(url);
+                    if (!res.ok) throw new Error();
+                    const rawText = await res.text();
+                    let processedHtml = rawText.replace(/[\u0b80-\u0bff]+/g, (match) => `<span class="tamil-fix font-medium">${match}</span>`);
+                    textBody.innerHTML = `<p class="whitespace-pre-wrap">${processedHtml}</p>`;
+                }
+
+                if (window.MathJax && window.MathJax.typesetPromise) {
+                    window.MathJax.typesetPromise([textBody]);
+                }
+            } catch (e) {
+                console.error(e);
+                textBody.innerHTML = `<div class="text-red-500 font-bold text-xs p-3 bg-red-50 rounded-xl border border-red-100">Failed to load study document file. Verify file path.</div>`;
+            }
+        }
+
+        function downloadAsPDF() {
+            window.print();
+        }
+
+        function adjustTextScale(delta) {
+            currentTextScale = Math.max(14, Math.min(26, currentTextScale + delta));
+            const bodyNode = document.getElementById('inline-material-text-body');
+            if (bodyNode) bodyNode.style.fontSize = `${currentTextScale}px`;
+        }
+
+        async function loadSharedSiteNavbar() {
+            try {
+                const res = await fetch(`../../navbar.html?v=${new Date().getTime()}`);
+                if (res.ok) {
+                    document.getElementById('navbar-placeholder').innerHTML = await res.text();
+                    initializeGlobalNavigationHooks();
+                }
+            } catch (e) { console.error(e); }
+        }
+
+        function initializeGlobalNavigationHooks() {
+            document.removeEventListener('click', closeAllDropdowns);
+            document.addEventListener('click', closeAllDropdowns);
+        }
+
+        function toggleNavigationMenu(event, targetMenuId) {
+            event.stopPropagation();
+            const targetMenu = document.getElementById(targetMenuId);
+            if (!targetMenu) return;
+            if (targetMenuId.includes('mobile-')) {
+                const isHidden = targetMenu.classList.contains('hidden');
+                document.querySelectorAll('[id*="mobile-menu-"]').forEach(m => m.classList.add('hidden'));
+                if (isHidden) targetMenu.classList.remove('hidden');
+            } else {
+                const isOpen = targetMenu.classList.contains('dropdown-active');
+                document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('dropdown-active'));
+                if (!isOpen) targetMenu.classList.add('dropdown-active');
+            }
+        }
+
+        function toggleMobileMenu(open) {
+            const drawer = document.getElementById('mobile-drawer');
+            const content = document.getElementById('drawer-content');
+            if (!drawer || !content) return;
+            if (open) {
+                drawer.classList.remove('invisible');
+                setTimeout(() => content.classList.remove('translate-x-full'), 10);
+            } else {
+                content.classList.add('translate-x-full');
+                setTimeout(() => drawer.classList.add('invisible'), 300);
+            }
+        }
+
+        function closeAllDropdowns() {
+            document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('dropdown-active'));
+            document.querySelectorAll('[id*="mobile-menu-"]').forEach(m => m.classList.add('hidden'));
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            loadSharedSiteNavbar();
+            processAndRenderView();
+        });
+    </script>
+</body>
+</html>
