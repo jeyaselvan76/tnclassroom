@@ -7,6 +7,21 @@
     <script src="/tailwind.js"></script>
     <link rel="stylesheet" href="/fontawesome.css">
 
+    <!-- MARKED.JS CDN for Parsing Text/Markdown Files -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- MATHJAX CDN for Formula Rendering -->
+    <script>
+      window.MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            processEscapes: true
+        },
+        options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
     <!-- GLOBAL SITE CONFIGURATION LAYER (GA4 ANALYTICS ENGINE) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-MZZ985WL51"></script>
     <script>
@@ -24,6 +39,16 @@
         .dropdown-menu { z-index: 50 !important; pointer-events: none; }
         .dropdown-active { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; z-index: 50 !important; pointer-events: auto !important; }
         .tamil-fix { font-family: 'Segoe UI', 'Latha', 'Apple Tamil', 'Noto Sans Tamil', sans-serif !important; }
+
+        /* Markdown Formatting */
+        .markdown-body h1 { font-size: 1.5rem; font-weight: 800; margin-top: 1rem; margin-bottom: 0.5rem; color: #0f172a; }
+        .markdown-body h2 { font-size: 1.25rem; font-weight: 700; margin-top: 0.875rem; margin-bottom: 0.5rem; color: #1e293b; }
+        .markdown-body h3 { font-size: 1.1rem; font-weight: 700; margin-top: 0.75rem; margin-bottom: 0.375rem; color: #334155; }
+        .markdown-body p { margin-bottom: 0.75rem; line-height: 1.6; }
+        .markdown-body ul { list-style-type: disc; padding-left: 1.25rem; margin-bottom: 0.75rem; }
+        .markdown-body ol { list-style-type: decimal; padding-left: 1.25rem; margin-bottom: 0.75rem; }
+        .markdown-body li { margin-bottom: 0.25rem; }
+        .markdown-body strong { font-weight: 800; color: #0f172a; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-900 flex flex-col min-h-screen font-sans">
@@ -49,11 +74,24 @@
             <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm">
                 <h1 class="text-2xl font-black text-slate-900 sm:text-3xl flex items-center gap-2">
                     <span class="p-2 bg-emerald-50 text-emerald-600 rounded-xl"><i class="fa-solid fa-book-open"></i></span>
-                    Learning Support Resources
+                    TN State Board Book Back Solutions
                 </h1>
                 <p class="text-slate-500 text-sm mt-2 leading-relaxed">
                     Select your Class, Term/Medium, and Subject below to discover dedicated chapter notes, learning guides, and lesson materials.
                 </p>
+            </div>
+
+            <!-- INTRODUCTORY CONTENT CARD (Loaded automatically from intro-learningsupport.txt for AdSense & SEO) -->
+            <div id="intro-content-card" class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm space-y-4">
+                <div class="flex items-center gap-2 border-b border-slate-100 pb-3">
+                    <i class="fa-solid fa-circle-info text-emerald-500"></i>
+                    <h2 class="text-sm font-black text-slate-700 uppercase tracking-wider">About Learning Support Portal</h2>
+                </div>
+                <div id="intro-text-body" class="text-slate-800 font-sans leading-relaxed tracking-wide select-text tamil-fix text-base markdown-body">
+                    <div class="text-slate-400 text-xs py-2 font-medium">
+                        <i class="fa-solid fa-circle-notch fa-spin text-emerald-500 mr-2"></i>Loading introductory content...
+                    </div>
+                </div>
             </div>
 
             <!-- STEP 1: SELECT CLASS (Class 4 to 12) -->
@@ -149,6 +187,56 @@
             }
             if (cell || row.length > 0) { row.push(cell.trim()); lines.push(row); }
             return lines;
+        }
+
+        function sanitizeTamilMathJax(content) {
+            if (!content) return "";
+            let clean = content;
+
+            clean = clean.replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, '');
+            clean = clean.replace(/<[\s\S]*?>/gi, '');
+
+            while (/\\text\s*\{([^{}]*)\}/.test(clean)) {
+                clean = clean.replace(/\\text\s*\{([^{}]*)\}/g, '$1');
+            }
+
+            clean = clean.replace(/(\$\$[\s\S]*?\$\$|\$[^\$\n]+?\$)/g, (mathBlock) => {
+                if (!/[\u0B80-\u0BFF]/.test(mathBlock)) return mathBlock;
+
+                let str = mathBlock.replace(/^\$\$?|\$\$?$/g, '');
+                str = str.replace(/\\frac\s*\{([^{}]*)\}\s*\{([^{}]*)\}/g, (m, num, den) => {
+                    let cleanNum = num.replace(/\\/g, '').trim();
+                    let cleanDen = den.replace(/\\/g, '').trim();
+                    return `<span class="inline-flex flex-col items-center justify-center align-middle mx-1 font-bold text-slate-800"><span class="border-b border-slate-700 px-1 pb-0.5">${cleanNum}</span><span class="px-1 pt-0.5">${cleanDen}</span></span>`;
+                });
+
+                str = str.replace(/\\times/g, ' × ');
+                str = str.replace(/\\div/g, ' ÷ ');
+                str = str.replace(/\\([^\sA-Za-z0-9])/g, '$1');
+                return `<span class="tamil-fix font-medium">${str}</span>`;
+            });
+
+            return clean;
+        }
+
+        async function fetchIntroText() {
+            const introBody = document.getElementById('intro-text-body');
+            try {
+                const res = await fetch('./intro-learningsupport.txt');
+                if (!res.ok) throw new Error("intro-learningsupport.txt not found");
+                let rawTxt = await res.text();
+
+                let cleanTxt = sanitizeTamilMathJax(rawTxt);
+                let parsedHtml = (typeof marked !== 'undefined') ? marked.parse(cleanTxt) : `<p class="whitespace-pre-wrap">${cleanTxt}</p>`;
+                introBody.innerHTML = parsedHtml;
+
+                if (window.MathJax && window.MathJax.typesetPromise) {
+                    window.MathJax.typesetPromise([introBody]);
+                }
+            } catch (err) {
+                console.error("Intro text fetch failed:", err);
+                introBody.innerHTML = `<p class="text-xs text-slate-500 font-medium">Welcome to TN Classroom Learning Support Hub. Select your Class and Subject above to access chapter solutions.</p>`;
+            }
         }
 
         async function fetchDatabaseRecords() {
@@ -302,7 +390,6 @@
             if (!matchedUnits || matchedUnits.length === 0) {
                 container.innerHTML = `<div class="p-4 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold text-slate-400 text-center">No units discovered.</div>`;
             } else {
-                // Construct clean target link to view subfolder regardless of path depth
                 let currentPath = window.location.pathname;
                 if (!currentPath.endsWith('/')) currentPath += '/';
                 const targetViewFolderUrl = `${currentPath}view/`;
@@ -380,6 +467,7 @@
 
         window.addEventListener('DOMContentLoaded', async () => {
             loadSharedSiteNavbar();
+            fetchIntroText();          // Instantly loads intro-learningsupport.txt
             renderClassButtons();
             await fetchDatabaseRecords();
         });
