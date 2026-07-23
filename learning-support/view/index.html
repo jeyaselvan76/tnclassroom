@@ -185,40 +185,40 @@
         }
 
         function sanitizeTamilMathJax(content) {
-    if (!content) return "";
+            if (!content) return "";
 
-    let clean = content;
+            let clean = content;
 
-    // 1. முதலில் அனைத்து \text{சொல்} என்பதில் உள்ள \text{} அடைப்புக்குறிகளை முற்றிலும் நீக்குதல்
-    while (/\\text\s*\{([^{}]*)\}/.test(clean)) {
-        clean = clean.replace(/\\text\s*\{([^{}]*)\}/g, '$1');
-    }
+            // 1. Remove all \text{...} wrappers inside the string cleanly
+            while (/\\text\s*\{([^{}]*)\}/.test(clean)) {
+                clean = clean.replace(/\\text\s*\{([^{}]*)\}/g, '$1');
+            }
 
-    // 2. \frac{தொகுதி}{பகுதி} பின்னங்களைச் சீரான HTML பின்னமாக (Numerator & Denominator) மாற்றுதல்
-    clean = clean.replace(/\\frac\s*\{([^{}]*)\}\s*\{([^{}]*)\}/g, (m, num, den) => {
-        let cleanNum = num.replace(/\\/g, '').trim();
-        let cleanDen = den.replace(/\\/g, '').trim();
-        return `<span class="inline-flex flex-col items-center justify-center align-middle mx-1 font-bold text-slate-800"><span class="border-b border-slate-700 px-1 pb-0.5">${cleanNum}</span><span class="px-1 pt-0.5">${cleanDen}</span></span>`;
-    });
+            // 2. Process math blocks ONLY IF they contain Tamil characters
+            clean = clean.replace(/(\$\$[\s\S]*?\$\$|\$[^\$\n]+?\$)/g, (mathBlock) => {
+                if (!/[\u0B80-\u0BFF]/.test(mathBlock)) {
+                    return mathBlock;
+                }
 
-    // 3. தேவையில்லாத Backslashes (\) மற்றும் TeX குறியீடுகளைச் சுத்தப்படுத்துதல்
-    clean = clean.replace(/\\times/g, ' × ');
-    clean = clean.replace(/\\div/g, ' ÷ ');
-    clean = clean.replace(/\\([^\sA-Za-z0-9])/g, '$1');
+                let str = mathBlock.replace(/^\$\$?|\$\$?$/g, '');
 
-    // 4. தமிழ் சொற்கள் உள்ள $ ... $ குறியீடுகளை நீக்கிச் சாதாரண உரையாக்குதல்
-    clean = clean.replace(/(\$\$[\s\S]*?\$\$|\$[^\$\n]+?\$)/g, (mathBlock) => {
-        if (/[\u0B80-\u0BFF]/.test(mathBlock)) {
-            let str = mathBlock.replace(/^\$\$?|\$\$?$/g, '');
-            str = str.replace(/\\Delta\s*([a-zA-Z]+)/g, '$\\Delta $1$');
-            return `<span class="tamil-fix font-medium">${str}</span>`;
+                str = str.replace(/\\frac\s*\{([^{}]*)\}\s*\{([^{}]*)\}/g, (m, num, den) => {
+                    let cleanNum = num.replace(/\\/g, '').trim();
+                    let cleanDen = den.replace(/\\/g, '').trim();
+                    return `<span class="inline-flex flex-col items-center justify-center align-middle mx-1 font-bold text-slate-800"><span class="border-b border-slate-700 px-1 pb-0.5">${cleanNum}</span><span class="px-1 pt-0.5">${cleanDen}</span></span>`;
+                });
+
+                str = str.replace(/\\times/g, ' × ');
+                str = str.replace(/\\div/g, ' ÷ ');
+                str = str.replace(/\\([^\sA-Za-z0-9])/g, '$1');
+
+                return `<span class="tamil-fix font-medium">${str}</span>`;
+            });
+
+            return clean;
         }
-        return mathBlock;
-    });
 
-    return clean;
-}
-        // FIXED: RE-ADDED MISSING DATA LOADER FUNCTION
+        // FETCH DATA FROM GOOGLE SHEETS FOR TARGET ITEM ID
         async function loadTopicDetails() {
             const targetId = parseInt(getUrlParameterId());
             if (isNaN(targetId)) {
@@ -334,17 +334,14 @@
                             await page.render({ canvasContext: context, viewport: viewport }).promise;
                         }
 
-                    // 2. Markdown File (.md) -> Render via Marked.js safely
-} else if (lowerUrl.endsWith('.md') && typeof marked !== 'undefined') {
-    const res = await fetch(url);
-    if (!res.ok) throw new Error();
-    let rawText = await res.text();
+                    // 2. Markdown File (.md)
+                    } else if (lowerUrl.endsWith('.md') && typeof marked !== 'undefined') {
+                        const res = await fetch(url);
+                        if (!res.ok) throw new Error();
+                        let rawText = await res.text();
 
-    // 1. முதலில் Marked.js மூலம் Markdown-ஐ HTML ஆக மாற்றுதல்
-    let parsedHtml = marked.parse(rawText);
-
-    // 2. பிறகு தமிழ் பின்னங்கள் மற்றும் MathJax குறியீடுகளைச் சீரமைத்தல்
-    textBody.innerHTML = sanitizeTamilMathJax(parsedHtml);
+                        let parsedHtml = marked.parse(rawText);
+                        textBody.innerHTML = sanitizeTamilMathJax(parsedHtml);
 
                     // 3. Plain Text File (.txt)
                     } else {
@@ -352,9 +349,8 @@
                         if (!res.ok) throw new Error();
                         let rawText = await res.text();
 
-                        rawText = sanitizeTamilMathJax(rawText);
                         let processedHtml = rawText.replace(/[\u0b80-\u0bff]+/g, (match) => `<span class="tamil-fix font-medium">${match}</span>`);
-                        textBody.innerHTML = `<p class="whitespace-pre-wrap">${processedHtml}</p>`;
+                        textBody.innerHTML = `<p class="whitespace-pre-wrap">${sanitizeTamilMathJax(processedHtml)}</p>`;
                     }
 
                     if (window.MathJax && window.MathJax.typesetPromise) {
