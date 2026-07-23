@@ -1,0 +1,6 @@
+﻿MAT -ஜூலை மாதம் முதல்  இரு வாரங்களுக்கு பாடத்திட்டம் 
+
+
+1. Number/Letter Counting (எண்/எழுத்து குறியிடல்)
+2. Coding and Decoding (குறியிடல் மற்றும் குறியீட்டின் பொருள் அறிதல்)
+3. Missing Number/Letter in the Figure (படம் மற்றும் எழுத்து தொடர்பு)

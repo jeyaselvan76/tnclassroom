@@ -1,0 +1,58 @@
+Here is a clear breakdown covering the NMMS examination in Tamil Nadu, the MAT and SAT test structure, and a practical preparation strategy.
+
+---
+
+## 1. NMMS Exam in Tamil Nadu
+
+1. **Purpose:** The National Means-cum-Merit Scholarship (NMMS) scheme is a central initiative administered by the Directorate of Government Examinations (DGE) in Tamil Nadu.
+2. **Objective:** It identifies academically talented students from economically weaker backgrounds to prevent secondary school dropouts after Class 8.
+3. **Scholarship Amount:** Selected candidates receive **₹12,000 per year** (₹1,000 per month) from Class 9 through Class 12.
+4. **Target Grade:** The exam is held exclusively for students currently studying in **Class 8**.
+5. **School Eligibility:** Students enrolled in Government, Government-Aided, or Local Body (Panchayat/Municipal) schools in Tamil Nadu are eligible. Private, KVS, and NVS students cannot apply.
+6. **Academic Prerequisite:** Candidates must have scored at least **55% marks in Class 7** (50% for SC/ST students).
+7. **Income Criterion:** The annual parental income from all sources must not exceed **₹3,50,000**.
+8. **Exam Format:** It is an offline, OMR-based test containing Multiple Choice Questions (MCQs).
+9. **No Penalty:** There is **no negative marking** for wrong answers.
+10. **Application Process:** Applications are handled via school headmasters and the official DGE website (`dge.tn.gov.in`).
+
+---
+
+## 2. Short Notes on SAT and MAT
+
+The test consists of two equal sections, totaling 180 questions for 180 marks across 3 hours.
+
+| Component | Paper | Questions / Marks | Time Limit | Focus Areas |
+| --- | --- | --- | --- | --- |
+| **MAT** | Mental Ability Test | 90 MCQs / 90 Marks | 90 Minutes | Logical reasoning, patterns, non-verbal tests |
+| **SAT** | Scholastic Aptitude Test | 90 MCQs / 90 Marks | 90 Minutes | Class 7 & 8 Science, Social, and Math |
+
+### Mental Ability Test (MAT)
+
+* **Core Focus:** Evaluates non-verbal and verbal reasoning, analytical thinking, and pattern identification.
+* **Topics Covered:** Number/letter series, analogies, odd-one-out, coding-decoding, spatial perception, hidden figures, and mirror images.
+* **Goal:** Tests general intellect and logical aptitude independent of textbook memorization.
+
+### Scholastic Aptitude Test (SAT)
+
+* **Core Focus:** Assesses academic knowledge based on Tamil Nadu State Board Samacheer Kalvi textbooks for **Class 7 (complete syllabus)** and **Class 8 (Term 1 & 2)**.
+* **Subject Breakup:**
+* **Science (35 Questions):** Physics, Chemistry, and Biology fundamentals.
+* **Social Science (35 Questions):** History, Geography, Civics, and Economics.
+* **Mathematics (20 Questions):** Basic algebra, geometry, number systems, and arithmetic.
+
+
+
+---
+
+## 3. Preparation Strategy: Syllabus Division & Practice
+
+1. **Target the Core Content:** Base SAT preparation primarily on **Class 7 and Class 8 State Board text books**.
+2. **Phase 1 – Conceptual Build (40% time):** Thoroughly cover Class 7 concepts across Science, Social, and Math, as these form the base for quick recall questions.
+3. **Phase 2 – Term Syllabus Alignment (30% time):** Study Class 8 Science and Social topics concurrently with regular school studies to avoid doubling workload.
+4. **Phase 3 – Daily MAT Drills (20% time):** Dedicate **30–45 minutes daily** to solving reasoning puzzles (series completion, classification, diagrams) rather than cramming before exams.
+5. **Phase 4 – Model Tests & PyQs (10% time):** Solve at least **5–10 previous years' official NMMS question papers** under strict timed conditions.
+6. **Master OMR Speed:** Practice shading OMR bubbles directly during full-length mock tests to avoid errors and build confidence on exam day.
+7. **Time Allocation Strategy:** Aim to spend less than **1 minute per question** (90 questions in 90 minutes per section). Skip and flag time-consuming questions for a second pass.
+8. **Focus on High-Weightage Subjects:** Prioritize Science and Social Science in SAT, as together they account for 70 of the 90 marks.
+9. **Analyze Practice Weaknesses:** Maintain a tracking notebook for missed questions in mock tests to isolate recurring errors in specific topics (e.g., algebra or non-verbal reasoning).
+10. **Attempt All Questions:** Since there is **no negative marking**, ensure every bubble on the OMR sheet is answered before time expires.
