@@ -3,121 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learning Support Hub | TN Classroom</title>
+    <title>Learning Support Material - TN Classroom</title>
     <script src="/tailwind.js"></script>
     <link rel="stylesheet" href="/fontawesome.css">
 
-    <!-- GLOBAL SITE CONFIGURATION LAYER (GA4 ANALYTICS ENGINE) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MZZ985WL51"></script>
-    <script>
-      window.dataLayer = window.location.hostname === 'localhost' ? [] : (window.dataLayer || []);
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+    <!-- MARKED.JS CDN for Parsing Markdown (.md) Files -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
-      gtag('config', 'G-MZZ985WL51', {
-        page_path: window.location.pathname,
-        cookie_flags: 'max-age=7200;Secure;SameSite=None'
-      });
+    <!-- PDF.JS CDN for Rendering PDF Pages inline via Canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <script>
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
     </script>
+
+    <!-- MATHJAX CDN for Formula Rendering -->
+    <script>
+      window.MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            processEscapes: true
+        },
+        options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
         .dropdown-menu { z-index: 50 !important; pointer-events: none; }
         .dropdown-active { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; z-index: 50 !important; pointer-events: auto !important; }
         .tamil-fix { font-family: 'Segoe UI', 'Latha', 'Apple Tamil', 'Noto Sans Tamil', sans-serif !important; }
+
+        /* Markdown Content Formatting */
+        .markdown-body h1 { font-size: 1.5rem; font-weight: 800; margin-top: 1rem; margin-bottom: 0.5rem; color: #0f172a; }
+        .markdown-body h2 { font-size: 1.25rem; font-weight: 700; margin-top: 0.875rem; margin-bottom: 0.5rem; color: #1e293b; }
+        .markdown-body h3 { font-size: 1.1rem; font-weight: 700; margin-top: 0.75rem; margin-bottom: 0.375rem; color: #334155; }
+        .markdown-body p { margin-bottom: 0.75rem; line-height: 1.6; }
+        .markdown-body ul { list-style-type: disc; padding-left: 1.25rem; margin-bottom: 0.75rem; }
+        .markdown-body ol { list-style-type: decimal; padding-left: 1.25rem; margin-bottom: 0.75rem; }
+        .markdown-body li { margin-bottom: 0.25rem; }
+        .markdown-body strong { font-weight: 800; color: #0f172a; }
+        .markdown-body blockquote { border-left: 4px solid #10b981; padding-left: 1rem; color: #475569; margin: 0.75rem 0; font-style: italic; }
+
+        /* PRINT / SAVE AS PDF ENGINE STYLES */
+        @media print {
+            @page {
+                size: A4;
+                margin: 12mm;
+            }
+
+            body {
+                background-color: #ffffff !important;
+                color: #000000 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            body * { visibility: hidden; }
+            #inline-text-material-card, #inline-text-material-card * { visibility: visible; }
+
+            #inline-text-material-card {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            .no-print { display: none !important; }
+
+            /* Watermark Overlay for PDF Export */
+            #inline-text-material-card::before {
+                content: "www.tnclassroom.com";
+                position: fixed;
+                top: 45%;
+                left: 50%;
+                transform: translate(-50%, -50%) rotate(-35deg);
+                font-size: 42pt;
+                font-weight: 900;
+                color: rgba(0, 0, 0, 0.08);
+                white-space: nowrap;
+                z-index: 9999;
+                pointer-events: none;
+                visibility: visible !important;
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-900 flex flex-col min-h-screen font-sans">
 
-    <!-- Top Advertisement Leaderboard Strip -->
-    <div class="w-full bg-white border-b border-slate-200 py-1.5 flex justify-center items-center text-[10px] text-gray-400 no-print">
-        <div class="text-center">
-            <span class="block uppercase tracking-wider font-bold mb-0.5 text-[9px]">Advertisement</span>
-            <div class="bg-gray-100 border border-dashed border-gray-300 w-[320px] h-[50px] md:w-[728px] md:h-[60px] flex items-center justify-center rounded font-mono text-xs">
-                Learning Support Top Leaderboard Banner Ad Box
-            </div>
-        </div>
-    </div>
-
-    <!-- Shared Dynamic Navigation Target -->
     <div id="navbar-placeholder" class="no-print"></div>
 
-    <main class="flex-grow max-w-7xl w-full mx-auto p-4 lg:py-8 grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
-
-        <div class="lg:col-span-3 space-y-6">
-
-            <!-- HEADER DESCRIPTION BLOCK -->
-            <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm">
-                <h1 class="text-2xl font-black text-slate-900 sm:text-3xl flex items-center gap-2">
-                    <span class="p-2 bg-emerald-50 text-emerald-600 rounded-xl"><i class="fa-solid fa-book-open"></i></span>
-                    Learning Support Resources
-                </h1>
-                <p class="text-slate-500 text-sm mt-2 leading-relaxed">
-                    Select your Class, Term/Medium, and Subject below to discover dedicated chapter notes, learning guides, and lesson materials.
-                </p>
+    <main class="flex-grow max-w-4xl w-full mx-auto px-4 py-8 space-y-6">
+        <!-- Back Navigation & Controls -->
+        <div class="flex justify-between items-center mb-2 relative z-10 no-print">
+            <div class="inline-block">
+                <a href="../" class="inline-flex items-center gap-2 text-xs font-black text-slate-600 hover:text-emerald-600 uppercase tracking-wider transition cursor-pointer">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Learning Hub
+                </a>
             </div>
 
-            <!-- SECTION 1: SELECT CLASS -->
-            <section id="section-classes" class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm space-y-4">
-                <div class="border-b border-slate-100 pb-3 flex items-center gap-3">
-                    <span class="w-7 h-7 bg-emerald-600 text-white font-black rounded-lg flex items-center justify-center text-xs">1</span>
-                    <h2 class="font-black text-slate-900 text-base uppercase tracking-tight">Step 1: Select Class / வகுப்பைத் தேர்வுசெய்</h2>
-                </div>
-                <div id="class-buttons-container" class="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-9 gap-2">
-                    <!-- Class 4 to 12 Buttons loaded dynamically -->
-                </div>
-            </section>
-
-            <!-- SECTION 2: SELECT TERM OR MEDIUM -->
-            <section id="section-term-medium" class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm space-y-4 hidden">
-                <div class="border-b border-slate-100 pb-3 flex items-center gap-3">
-                    <span class="w-7 h-7 bg-emerald-600 text-white font-black rounded-lg flex items-center justify-center text-xs">2</span>
-                    <h2 id="step2-heading" class="font-black text-slate-900 text-base uppercase tracking-tight">Step 2: Select Option</h2>
-                </div>
-                <div id="term-medium-buttons-container" class="flex flex-wrap gap-3">
-                    <!-- Loaded dynamically based on class -->
-                </div>
-            </section>
-
-            <!-- SECTION 3: SELECT SUBJECT -->
-            <section id="section-subjects" class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm space-y-4 hidden">
-                <div class="border-b border-slate-100 pb-3 flex items-center gap-3">
-                    <span class="w-7 h-7 bg-emerald-600 text-white font-black rounded-lg flex items-center justify-center text-xs">3</span>
-                    <h2 class="font-black text-slate-900 text-base uppercase tracking-tight">Step 3: Select Subject / பாடத்தைத் தேர்வுசெய்</h2>
-                </div>
-                <div id="subject-buttons-container" class="flex flex-wrap gap-3">
-                    <!-- Subjects loaded dynamically -->
-                </div>
-            </section>
-
-            <!-- SECTION 4: UNITS / UNITS DECK VIEW -->
-            <section id="section-units" class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm space-y-4 hidden scroll-mt-20">
-                <div class="border-b border-slate-100 pb-3 flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <span class="w-7 h-7 bg-emerald-600 text-white font-black rounded-lg flex items-center justify-center text-xs">4</span>
-                        <div>
-                            <span id="units-badge" class="text-[10px] font-black bg-emerald-50 text-emerald-700 px-2.5 py-0.5 rounded-md uppercase border border-emerald-100">Learning Materials</span>
-                            <h2 id="units-heading" class="font-black text-slate-900 text-base mt-0.5 uppercase tracking-tight">Available Units / அலகுகள்</h2>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="units-list-container" class="grid grid-cols-1 gap-3 pt-2">
-                    <!-- Unit cards rendered dynamically -->
-                </div>
-            </section>
-
+            <div class="flex items-center gap-2" id="action-header-controls"></div>
         </div>
 
-        <!-- RIGHT SIDEBAR REVENUE DESK -->
-        <aside class="space-y-6 lg:sticky lg:top-24 no-print">
-            <div class="bg-white p-4 rounded-2xl border border-dashed border-slate-300 text-center flex flex-col justify-center items-center shadow-sm">
-                <span class="text-[8px] font-bold text-slate-400 uppercase tracking-widest block mb-2">Sponsored Links</span>
-                <div class="w-full h-[250px] lg:h-[480px] bg-slate-50 rounded-xl flex items-center justify-center text-xs text-slate-400 font-mono">
-                    Sidebar Skyscraper Ad Box (300x600)
+        <!-- Master Topic Context Container Card -->
+        <div class="bg-white border border-slate-200/60 rounded-3xl p-6 md:p-8 shadow-sm space-y-6 no-print">
+            <div class="flex flex-wrap justify-between items-center gap-2 border-b border-slate-100 pb-4">
+                <span id="view-unit-no" class="text-xs font-black text-slate-400 uppercase tracking-widest font-mono">Loading...</span>
+                <span id="view-class-badge" class="text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-100 px-3 py-0.5 rounded-md uppercase tracking-wider">Loading...</span>
+            </div>
+
+            <div>
+                <h1 id="view-unit-name" class="font-black text-slate-900 text-xl md:text-2xl tracking-tight tamil-fix leading-snug">Loading Topic Context...</h1>
+            </div>
+
+            <!-- Action Module Interface Blocks -->
+            <div class="pt-2 border-t border-slate-100" id="material-action-container"></div>
+        </div>
+
+        <!-- INLINE TEXT / MARKDOWN / PDF READER CARD -->
+        <div id="inline-text-material-card" class="hidden bg-white border border-slate-200/60 rounded-3xl p-6 md:p-8 shadow-sm space-y-4">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-3 no-print">
+                <h3 class="text-xs font-black uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+                    <i class="fa-solid fa-book-open-reader text-emerald-500"></i> Full Lesson Material Content
+                </h3>
+
+                <!-- Toolbar Controls -->
+                <div class="flex items-center gap-3">
+                    <button onclick="downloadAsPDF()" class="text-slate-700 hover:text-emerald-600 border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-bold transition shadow-sm flex items-center gap-1.5 bg-white cursor-pointer">
+                        <i class="fa-solid fa-file-pdf text-red-500"></i> Save as PDF
+                    </button>
+
+                    <div class="flex items-center border border-slate-200 bg-white rounded-xl p-0.5 text-xs font-bold text-slate-600">
+                        <button onclick="adjustTextScale(-1)" class="w-7 h-7 hover:bg-slate-100 rounded-lg flex items-center justify-center font-mono">A-</button>
+                        <button onclick="adjustTextScale(1)" class="w-7 h-7 hover:bg-slate-100 rounded-lg flex items-center justify-center font-mono border-l border-slate-100">A+</button>
+                    </div>
                 </div>
             </div>
-        </aside>
-
+            <div id="inline-material-text-body" class="text-slate-800 font-sans leading-relaxed tracking-wide select-text tamil-fix text-base markdown-body"></div>
+        </div>
     </main>
 
     <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-6 text-center text-xs mt-auto space-y-4 no-print">
@@ -133,14 +159,13 @@
 
     <script>
         const DATABASE_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsJKa0jUrYG7QqvDQUEJzgJbyWIUR3ZwNUPsXVrR0Na53fwnFPNFNK_b8zzi1e9U-gmEb9LyHu0NbK/pub?gid=0&single=true&output=csv";
+        let targetRecord = null;
+        let currentTextScale = 16;
 
-        let rawMasterDatabase = [];
-        let state = {
-            selectedClass: null,
-            selectedTerm: null,
-            selectedMedium: null,
-            selectedSubject: null
-        };
+        function getUrlParameterId() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('id');
+        }
 
         function parseCsvRows(text) {
             let lines = []; let row = []; let cell = ''; let inQuotes = false;
@@ -159,187 +184,212 @@
             return lines;
         }
 
-        async function fetchDatabaseRecords() {
+        function sanitizeTamilMathJax(content) {
+    if (!content) return "";
+
+    let clean = content;
+
+    // 1. முதலில் அனைத்து \text{சொல்} என்பதில் உள்ள \text{} அடைப்புக்குறிகளை முற்றிலும் நீக்குதல்
+    while (/\\text\s*\{([^{}]*)\}/.test(clean)) {
+        clean = clean.replace(/\\text\s*\{([^{}]*)\}/g, '$1');
+    }
+
+    // 2. \frac{தொகுதி}{பகுதி} பின்னங்களைச் சீரான HTML பின்னமாக (Numerator & Denominator) மாற்றுதல்
+    clean = clean.replace(/\\frac\s*\{([^{}]*)\}\s*\{([^{}]*)\}/g, (m, num, den) => {
+        let cleanNum = num.replace(/\\/g, '').trim();
+        let cleanDen = den.replace(/\\/g, '').trim();
+        return `<span class="inline-flex flex-col items-center justify-center align-middle mx-1 font-bold text-slate-800"><span class="border-b border-slate-700 px-1 pb-0.5">${cleanNum}</span><span class="px-1 pt-0.5">${cleanDen}</span></span>`;
+    });
+
+    // 3. தேவையில்லாத Backslashes (\) மற்றும் TeX குறியீடுகளைச் சுத்தப்படுத்துதல்
+    clean = clean.replace(/\\times/g, ' × ');
+    clean = clean.replace(/\\div/g, ' ÷ ');
+    clean = clean.replace(/\\([^\sA-Za-z0-9])/g, '$1');
+
+    // 4. தமிழ் சொற்கள் உள்ள $ ... $ குறியீடுகளை நீக்கிச் சாதாரண உரையாக்குதல்
+    clean = clean.replace(/(\$\$[\s\S]*?\$\$|\$[^\$\n]+?\$)/g, (mathBlock) => {
+        if (/[\u0B80-\u0BFF]/.test(mathBlock)) {
+            let str = mathBlock.replace(/^\$\$?|\$\$?$/g, '');
+            str = str.replace(/\\Delta\s*([a-zA-Z]+)/g, '$\\Delta $1$');
+            return `<span class="tamil-fix font-medium">${str}</span>`;
+        }
+        return mathBlock;
+    });
+
+    return clean;
+}
+        // FIXED: RE-ADDED MISSING DATA LOADER FUNCTION
+        async function loadTopicDetails() {
+            const targetId = parseInt(getUrlParameterId());
+            if (isNaN(targetId)) {
+                window.location.replace('../');
+                return;
+            }
+
             try {
                 const res = await fetch(DATABASE_CSV_URL);
-                if (!res.ok) throw new Error("Dataset stream offline");
+                if (!res.ok) throw new Error("Spreadsheet fetch failed");
                 const txt = await res.text();
                 const lines = parseCsvRows(txt);
-                const rows = lines.slice(1);
+                const dataRows = lines.slice(1);
 
-                rawMasterDatabase = rows.map((cols, idx) => {
-                    return {
-                        id: idx,
-                        sno: cols[0] ? cols[0].replace(/^"|"$/g, '').trim() : '',
-                        classNum: cols[1] ? cols[1].replace(/^"|"$/g, '').trim() : '',
-                        term: cols[2] ? cols[2].replace(/^"|"$/g, '').trim() : '',
-                        subject: cols[3] ? cols[3].replace(/^"|"$/g, '').trim() : '',
-                        medium: cols[4] ? cols[4].replace(/^"|"$/g, '').trim() : '',
-                        unit: cols[5] ? cols[5].replace(/^"|"$/g, '').trim() : '',
-                        fileUrl: cols[6] ? cols[6].replace(/^"|"$/g, '').replace(/^\.\//, '').trim() : ''
-                    };
-                });
-            } catch (err) {
-                console.error("Database initialization error:", err);
+                const cols = dataRows[targetId];
+                if (!cols) throw new Error("Row index not found");
+
+                let sno      = cols[0] ? cols[0].replace(/^"|"$/g, '').trim() : '';
+                let clsName  = cols[1] ? cols[1].replace(/^"|"$/g, '').trim() : '';
+                let termVal  = cols[2] ? cols[2].replace(/^"|"$/g, '').trim() : '';
+                let subjVal  = cols[3] ? cols[3].replace(/^"|"$/g, '').trim() : '';
+                let medVal   = cols[4] ? cols[4].replace(/^"|"$/g, '').trim() : '';
+                let unitVal  = cols[5] ? cols[5].replace(/^"|"$/g, '').trim() : '';
+                let fileUrl  = cols[6] ? cols[6].replace(/^"|"$/g, '').replace(/^\.\//, '').trim() : '#';
+
+                targetRecord = {
+                    sno: sno,
+                    className: `Class ${clsName}`,
+                    subject: subjVal,
+                    unitNo: `Unit ${unitVal || sno}`,
+                    unitName: `${subjVal} - ${medVal || termVal || 'Study'} Material`,
+                    pdfUrl: fileUrl
+                };
+
+                renderPagePayload();
+            } catch (e) {
+                console.error(e);
+                document.getElementById('view-unit-name').innerText = "Topic material entry not discovered.";
             }
         }
 
-        function renderClassButtons() {
-            const container = document.getElementById('class-buttons-container');
-            container.innerHTML = "";
+        function renderPagePayload() {
+            document.title = `${targetRecord.unitNo} - ${targetRecord.subject}`;
+            document.getElementById('view-unit-no').innerText = targetRecord.unitNo;
+            document.getElementById('view-class-badge').innerText = targetRecord.className;
+            document.getElementById('view-unit-name').innerText = `${targetRecord.subject} Lesson Material`;
 
-            for (let c = 4; c <= 12; c++) {
-                const btn = document.createElement('button');
-                btn.className = `p-3 text-center border rounded-xl font-bold text-xs transition shadow-sm flex flex-col justify-center items-center cursor-pointer ${
-                    state.selectedClass === String(c)
-                    ? 'bg-emerald-600 border-emerald-600 text-white scale-[1.02]'
-                    : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-emerald-50 hover:border-emerald-300'
-                }`;
-                btn.innerHTML = `
-                    <span class="text-[9px] uppercase font-black tracking-wider ${state.selectedClass === String(c) ? 'text-emerald-100' : 'text-slate-400'}">Standard</span>
-                    Class ${c}
+            const controlsContainer = document.getElementById('action-header-controls');
+            controlsContainer.innerHTML = `
+                <button onclick="shareModulePayload()" class="text-slate-500 hover:text-emerald-600 bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-bold transition shadow-sm flex items-center gap-1.5 cursor-pointer">
+                    <i class="fa-solid fa-share-nodes"></i> Share
+                </button>
+            `;
+
+            const matContainer = document.getElementById('material-action-container');
+
+            let processedUrl = targetRecord.pdfUrl.trim();
+            if (!processedUrl.startsWith('http') && !processedUrl.startsWith('/') && !processedUrl.startsWith('.')) {
+                processedUrl = `../${processedUrl}`;
+            }
+
+            if (processedUrl !== '#') {
+                matContainer.innerHTML = `
+                    <button onclick="scrollToAndLoadMaterial('${processedUrl}')" class="flex items-center justify-center gap-2.5 p-4 border border-slate-200/80 bg-white hover:border-emerald-300 rounded-2xl text-xs font-black text-slate-700 transition shadow-sm w-full cursor-pointer">
+                        <i class="fa-solid fa-file-lines text-emerald-500 text-base"></i> View Lesson Material
+                    </button>
                 `;
-                btn.onclick = () => selectClass(String(c));
-                container.appendChild(btn);
+                scrollToAndLoadMaterial(processedUrl, false);
             }
         }
 
-        function selectClass(classNum) {
-            state.selectedClass = classNum;
-            state.selectedTerm = null;
-            state.selectedMedium = null;
-            state.selectedSubject = null;
+        async function scrollToAndLoadMaterial(url, smoothScroll = true) {
+            const textCard = document.getElementById('inline-text-material-card');
+            const textBody = document.getElementById('inline-material-text-body');
 
-            renderClassButtons();
-            renderStep2Options();
+            textCard.classList.remove('hidden');
+            if (smoothScroll) {
+                textCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
 
-            document.getElementById('section-term-medium').classList.remove('hidden');
-            document.getElementById('section-subjects').classList.add('hidden');
-            document.getElementById('section-units').classList.add('hidden');
+            if (textBody.innerHTML === "") {
+                textBody.innerHTML = `<div class="text-slate-400 text-xs py-4 font-medium"><i class="fa-solid fa-circle-notch fa-spin text-emerald-500 mr-2"></i>Loading study material content...</div>`;
+                try {
+                    const lowerUrl = url.toLowerCase();
+
+                    // 1. PDF File -> Canvas rendering
+                    if (lowerUrl.endsWith('.pdf')) {
+                        textBody.innerHTML = "";
+                        const loadingTask = pdfjsLib.getDocument(url);
+                        const pdf = await loadingTask.promise;
+
+                        for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+                            const page = await pdf.getPage(pageNum);
+                            const viewport = page.getViewport({ scale: 1.5 });
+
+                            const pageWrapper = document.createElement('div');
+                            pageWrapper.className = "mb-6 pb-4 border-b border-slate-100 flex flex-col items-center";
+
+                            const pageLabel = document.createElement('span');
+                            pageLabel.className = "text-[10px] font-mono text-slate-400 block mb-2 uppercase tracking-widest self-start";
+                            pageLabel.innerText = `Page ${pageNum} of ${pdf.numPages}`;
+
+                            const canvas = document.createElement('canvas');
+                            canvas.className = "w-full shadow-sm rounded-lg border border-slate-100";
+                            const context = canvas.getContext('2d');
+                            canvas.height = viewport.height;
+                            canvas.width = viewport.width;
+
+                            pageWrapper.appendChild(pageLabel);
+                            pageWrapper.appendChild(canvas);
+                            textBody.appendChild(pageWrapper);
+
+                            await page.render({ canvasContext: context, viewport: viewport }).promise;
+                        }
+
+                    // 2. Markdown File (.md) -> Render via Marked.js safely
+} else if (lowerUrl.endsWith('.md') && typeof marked !== 'undefined') {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error();
+    let rawText = await res.text();
+
+    // 1. முதலில் Marked.js மூலம் Markdown-ஐ HTML ஆக மாற்றுதல்
+    let parsedHtml = marked.parse(rawText);
+
+    // 2. பிறகு தமிழ் பின்னங்கள் மற்றும் MathJax குறியீடுகளைச் சீரமைத்தல்
+    textBody.innerHTML = sanitizeTamilMathJax(parsedHtml);
+
+                    // 3. Plain Text File (.txt)
+                    } else {
+                        const res = await fetch(url);
+                        if (!res.ok) throw new Error();
+                        let rawText = await res.text();
+
+                        rawText = sanitizeTamilMathJax(rawText);
+                        let processedHtml = rawText.replace(/[\u0b80-\u0bff]+/g, (match) => `<span class="tamil-fix font-medium">${match}</span>`);
+                        textBody.innerHTML = `<p class="whitespace-pre-wrap">${processedHtml}</p>`;
+                    }
+
+                    if (window.MathJax && window.MathJax.typesetPromise) {
+                        window.MathJax.typesetPromise([textBody]);
+                    }
+                } catch (e) {
+                    console.error(e);
+                    textBody.innerHTML = `<div class="text-red-500 font-bold text-xs p-3 bg-red-50 rounded-xl border border-red-100">Failed to load study document resource from server.</div>`;
+                }
+            }
         }
 
-        function renderStep2Options() {
-            const heading = document.getElementById('step2-heading');
-            const container = document.getElementById('term-medium-buttons-container');
-            container.innerHTML = "";
+        function downloadAsPDF() {
+            window.print();
+        }
 
-            const num = parseInt(state.selectedClass);
+        function adjustTextScale(delta) {
+            currentTextScale = Math.max(14, Math.min(26, currentTextScale + delta));
+            const bodyNode = document.getElementById('inline-material-text-body');
+            if (bodyNode) bodyNode.style.fontSize = `${currentTextScale}px`;
+        }
 
-            if (num === 4 || num === 5) {
-                heading.innerText = "Step 2: Select Term / பருவம்";
-                ["1", "2", "3"].forEach(termNum => {
-                    const btn = document.createElement('button');
-                    const isActive = state.selectedTerm === termNum;
-                    btn.className = `px-5 py-2.5 border rounded-xl font-extrabold text-xs transition shadow-sm cursor-pointer ${
-                        isActive ? 'bg-emerald-600 border-emerald-600 text-white' : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
-                    }`;
-                    btn.innerText = `Term ${termNum}`;
-                    btn.onclick = () => {
-                        state.selectedTerm = termNum;
-                        state.selectedMedium = null;
-                        renderStep2Options();
-                        renderSubjectButtons();
-                    };
-                    container.appendChild(btn);
-                });
+        function shareModulePayload() {
+            const cleanUnitTitle = targetRecord ? targetRecord.unitName.replace(/\r?\n/g, ' ') : 'Learning Material';
+            const shareText = `📚 *TN CLASSROOM - LEARNING SUPPORT*\n\n📌 *Class:* ${targetRecord ? targetRecord.className : ''}\n🎯 *Subject:* ${targetRecord ? targetRecord.subject : ''}\n\n🌐 View Chapter Module at: ${window.location.href}`;
+            if (navigator.share) {
+                navigator.share({ title: cleanUnitTitle, text: shareText }).catch(console.error);
             } else {
-                heading.innerText = "Step 2: Select Medium / பயிற்று மொழி";
-                ["Tamil", "English"].forEach(med => {
-                    const btn = document.createElement('button');
-                    const isActive = state.selectedMedium === med;
-                    btn.className = `px-5 py-2.5 border rounded-xl font-extrabold text-xs transition shadow-sm cursor-pointer ${
-                        isActive ? 'bg-emerald-600 border-emerald-600 text-white' : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
-                    }`;
-                    btn.innerText = `${med} Medium`;
-                    btn.onclick = () => {
-                        state.selectedMedium = med;
-                        state.selectedTerm = null;
-                        renderStep2Options();
-                        renderSubjectButtons();
-                    };
-                    container.appendChild(btn);
-                });
+                navigator.clipboard.writeText(shareText).then(() => alert("Copied share payload to clipboard!")).catch(() => {});
             }
-        }
-
-        function renderSubjectButtons() {
-            const container = document.getElementById('subject-buttons-container');
-            container.innerHTML = "";
-
-            let matched = rawMasterDatabase.filter(x => x.classNum === state.selectedClass);
-
-            if (state.selectedTerm) {
-                matched = matched.filter(x => x.term === state.selectedTerm || x.term.toLowerCase().includes(state.selectedTerm.toLowerCase()));
-            }
-            if (state.selectedMedium) {
-                matched = matched.filter(x => x.medium.toLowerCase() === state.selectedMedium.toLowerCase());
-            }
-
-            const availableSubjects = [...new Set(matched.map(x => x.subject))].filter(Boolean);
-
-            if (availableSubjects.length === 0) {
-                container.innerHTML = `<p class="text-xs text-slate-400 italic">No subject modules recorded for this exact criteria yet.</p>`;
-            } else {
-                availableSubjects.forEach(subj => {
-                    const btn = document.createElement('button');
-                    const isActive = state.selectedSubject === subj;
-                    btn.className = `px-4 py-2.5 border rounded-xl font-extrabold text-xs transition shadow-sm cursor-pointer ${
-                        isActive ? 'bg-slate-950 border-slate-950 text-white' : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
-                    }`;
-                    btn.innerText = subj;
-                    btn.onclick = () => {
-                        state.selectedSubject = subj;
-                        renderSubjectButtons();
-                        renderUnitsList(matched.filter(x => x.subject === subj));
-                    };
-                    container.appendChild(btn);
-                });
-            }
-
-            document.getElementById('section-subjects').classList.remove('hidden');
-            document.getElementById('section-units').classList.add('hidden');
-        }
-
-        function renderUnitsList(matchedUnits) {
-            const container = document.getElementById('units-list-container');
-            const section = document.getElementById('section-units');
-            container.innerHTML = "";
-
-            document.getElementById('units-heading').innerText = `${state.selectedSubject} - Class ${state.selectedClass} Units`;
-
-            if (!matchedUnits || matchedUnits.length === 0) {
-                container.innerHTML = `<div class="p-4 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold text-slate-400 text-center">No units discovered.</div>`;
-            } else {
-                matchedUnits.forEach(item => {
-                    const card = document.createElement('div');
-                    card.className = "p-4 bg-slate-50 border border-slate-200 rounded-xl hover:bg-emerald-50 hover:border-emerald-300 transition group flex justify-between items-center cursor-pointer";
-
-                    // FIXED DIRECT ROUTE: Navigates cleanly into the view subfolder with item id
-                    card.onclick = () => {
-                        window.location.href = `/learning-support/view/?id=${item.id}`;
-                    };
-
-                    card.innerHTML = `
-                        <div>
-                            <span class="text-[9px] font-black text-slate-400 group-hover:text-emerald-700 uppercase block tracking-wider font-mono">Unit ${item.unit || item.sno}</span>
-                            <h4 class="font-bold text-slate-800 group-hover:text-slate-900 text-sm mt-0.5 tracking-tight tamil-fix">${item.subject} - Lesson Material</h4>
-                        </div>
-                        <div class="flex items-center gap-2 text-xs font-bold text-emerald-600">
-                            <span>Open Material</span>
-                            <i class="fa-solid fa-circle-chevron-right text-emerald-500 transition text-sm"></i>
-                        </div>
-                    `;
-                    container.appendChild(card);
-                });
-            }
-
-            section.classList.remove('hidden');
-            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         async function loadSharedSiteNavbar() {
             try {
-                const res = await fetch(`../navbar.html?v=${new Date().getTime()}`);
+                const res = await fetch(`../../navbar.html?v=${new Date().getTime()}`);
                 if (res.ok) {
                     document.getElementById('navbar-placeholder').innerHTML = await res.text();
                     initializeGlobalNavigationHooks();
@@ -385,10 +435,9 @@
             document.querySelectorAll('[id*="mobile-menu-"]').forEach(m => m.classList.add('hidden'));
         }
 
-        window.addEventListener('DOMContentLoaded', async () => {
+        window.addEventListener('DOMContentLoaded', () => {
             loadSharedSiteNavbar();
-            renderClassButtons();
-            await fetchDatabaseRecords();
+            loadTopicDetails();
         });
     </script>
 </body>

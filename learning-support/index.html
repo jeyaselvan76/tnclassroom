@@ -23,73 +23,96 @@
     <style>
         .dropdown-menu { z-index: 50 !important; pointer-events: none; }
         .dropdown-active { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; z-index: 50 !important; pointer-events: auto !important; }
-        .tamil-fix { font-family: 'Segoe UI', 'Latha', sans-serif !important; }
+        .tamil-fix { font-family: 'Segoe UI', 'Latha', 'Apple Tamil', 'Noto Sans Tamil', sans-serif !important; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-900 flex flex-col min-h-screen font-sans">
 
-    <div id="navbar-placeholder"></div>
-
-    <!-- Leaderboard Banner Advertisement -->
-    <div class="w-full bg-white border-b border-slate-200 py-2 flex justify-center items-center text-[10px] text-gray-400 font-sans">
+    <!-- Top Advertisement Leaderboard Strip -->
+    <div class="w-full bg-white border-b border-slate-200 py-1.5 flex justify-center items-center text-[10px] text-gray-400 no-print">
         <div class="text-center">
-            <span class="block uppercase tracking-wider font-semibold mb-1">Advertisement</span>
+            <span class="block uppercase tracking-wider font-bold mb-0.5 text-[9px]">Advertisement</span>
             <div class="bg-gray-100 border border-dashed border-gray-300 w-[320px] h-[50px] md:w-[728px] md:h-[60px] flex items-center justify-center rounded font-mono text-xs">
-                Top Leaderboard Banner Ad Box
+                Learning Support Banner Ad Space
             </div>
         </div>
     </div>
 
-    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+    <!-- Shared Dynamic Navigation Target -->
+    <div id="navbar-placeholder" class="no-print"></div>
 
-        <!-- HEADER BLOCK -->
-        <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-            <h1 class="text-2xl font-black text-slate-900 sm:text-3xl flex items-center gap-2">
-                <span class="p-2 bg-emerald-50 text-emerald-600 rounded-xl"><i class="fa-solid fa-hands-holding-child"></i></span>
-                Learning Support Directory
-            </h1>
-            <p class="text-slate-500 text-sm mt-2 leading-relaxed">
-                Access structured unit-wise learning support notes, worksheets, and study resources tailored for Class 4 to Class 12.
-            </p>
+    <main class="flex-grow max-w-7xl w-full mx-auto p-4 lg:py-8 grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
+
+        <div class="lg:col-span-3 space-y-6">
+
+            <!-- HEADER BLOCK -->
+            <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm">
+                <h1 class="text-2xl font-black text-slate-900 sm:text-3xl flex items-center gap-2">
+                    <span class="p-2 bg-emerald-50 text-emerald-600 rounded-xl"><i class="fa-solid fa-book-open"></i></span>
+                    Learning Support Resources
+                </h1>
+                <p class="text-slate-500 text-sm mt-2 leading-relaxed">
+                    Select your Class, Term/Medium, and Subject below to discover dedicated chapter notes, learning guides, and lesson materials.
+                </p>
+            </div>
+
+            <!-- STEP 1: SELECT CLASS (Class 4 to 12) -->
+            <section id="section-classes" class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm space-y-4">
+                <div class="border-b border-slate-100 pb-3 flex items-center gap-3">
+                    <span class="w-7 h-7 bg-emerald-600 text-white font-black rounded-lg flex items-center justify-center text-xs">1</span>
+                    <h2 class="font-black text-slate-900 text-base uppercase tracking-tight">Step 1: Select Class / வகுப்பைத் தேர்வுசெய்</h2>
+                </div>
+                <div id="class-buttons-container" class="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-9 gap-2"></div>
+            </section>
+
+            <!-- STEP 2: SELECT TERM (Classes 4-5) OR MEDIUM (Classes 6-12) -->
+            <section id="section-term-medium" class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm space-y-4 hidden">
+                <div class="border-b border-slate-100 pb-3 flex items-center gap-3">
+                    <span class="w-7 h-7 bg-emerald-600 text-white font-black rounded-lg flex items-center justify-center text-xs">2</span>
+                    <h2 id="step2-heading" class="font-black text-slate-900 text-base uppercase tracking-tight">Step 2: Select Option</h2>
+                </div>
+                <div id="term-medium-buttons-container" class="flex flex-wrap gap-3"></div>
+            </section>
+
+            <!-- STEP 3: SELECT SUBJECT -->
+            <section id="section-subjects" class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm space-y-4 hidden">
+                <div class="border-b border-slate-100 pb-3 flex items-center gap-3">
+                    <span class="w-7 h-7 bg-emerald-600 text-white font-black rounded-lg flex items-center justify-center text-xs">3</span>
+                    <h2 class="font-black text-slate-900 text-base uppercase tracking-tight">Step 3: Select Subject / பாடத்தைத் தேர்வுசெய்</h2>
+                </div>
+                <div id="subject-buttons-container" class="flex flex-wrap gap-3"></div>
+            </section>
+
+            <!-- STEP 4: UNITS LISTING -->
+            <section id="section-units" class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm space-y-4 hidden scroll-mt-20">
+                <div class="border-b border-slate-100 pb-3 flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <span class="w-7 h-7 bg-emerald-600 text-white font-black rounded-lg flex items-center justify-center text-xs">4</span>
+                        <div>
+                            <span id="units-badge" class="text-[10px] font-black bg-emerald-50 text-emerald-700 px-2.5 py-0.5 rounded-md uppercase border border-emerald-100">Learning Materials</span>
+                            <h2 id="units-heading" class="font-black text-slate-900 text-base mt-0.5 uppercase tracking-tight">Available Units / அலகுகள்</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="units-list-container" class="grid grid-cols-1 gap-3 pt-2"></div>
+            </section>
+
         </div>
 
-        <!-- 3-STEP FILTERING HUB -->
-        <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-6">
-
-            <!-- STEP 1: CLASS SELECTION (Class 4 - Class 12) -->
-            <div class="space-y-2">
-                <label class="block text-[10px] font-black text-slate-400 uppercase tracking-wider font-mono">Step 1: Select Class / வகுப்பைத் தேர்ந்தெடுக்கவும்</label>
-                <div id="class-filter-row" class="flex flex-wrap gap-2">
-                    <!-- Loaded dynamically -->
+        <!-- RIGHT SIDEBAR REVENUE DESK -->
+        <aside class="space-y-6 lg:sticky lg:top-24 no-print">
+            <div class="bg-white p-4 rounded-2xl border border-dashed border-slate-300 text-center flex flex-col justify-center items-center shadow-sm">
+                <span class="text-[8px] font-bold text-slate-400 uppercase tracking-widest block mb-2">Sponsored Links</span>
+                <div class="w-full h-[250px] lg:h-[480px] bg-slate-50 rounded-xl flex items-center justify-center text-xs text-slate-400 font-mono">
+                    Skyscraper Ad Unit (300x600)
                 </div>
             </div>
+        </aside>
 
-            <!-- STEP 2: TERM OR MEDIUM SELECTION -->
-            <div class="space-y-2 pt-4 border-t border-slate-100">
-                <label id="step-2-label" class="block text-[10px] font-black text-slate-400 uppercase tracking-wider font-mono">Step 2: Select Option / தெரிவு செய்யவும்</label>
-                <div id="second-filter-row" class="flex flex-wrap gap-2">
-                    <!-- Loaded dynamically based on class selection -->
-                </div>
-            </div>
-
-            <!-- STEP 3: SUBJECT SELECTION -->
-            <div class="space-y-2 pt-4 border-t border-slate-100">
-                <label class="block text-[10px] font-black text-slate-400 uppercase tracking-wider font-mono">Step 3: Select Subject / பாடத்தைத் தேர்ந்தெடுக்கவும்</label>
-                <div id="subject-filter-row" class="flex flex-wrap gap-2">
-                    <!-- Loaded dynamically -->
-                </div>
-            </div>
-
-            <!-- ACTION BUTTON REDIRECT -->
-            <div class="pt-4 border-t border-slate-100 flex justify-end">
-                <button onclick="routeToDedicatedViewPage()" class="w-full sm:w-auto bg-slate-950 hover:bg-emerald-600 text-white font-black text-xs px-8 py-3.5 rounded-xl transition duration-200 uppercase tracking-wider shadow-md flex items-center justify-center gap-2 cursor-pointer">
-                    <i class="fa-solid fa-folder-open"></i> Explore Learning Support Notes
-                </button>
-            </div>
-        </div>
     </main>
 
-    <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-6 text-center text-xs mt-auto space-y-4">
+    <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-6 text-center text-xs mt-auto space-y-4 no-print">
         <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs font-bold text-slate-400">
             <a href="/about-us.html" class="hover:text-emerald-400 transition">About Us</a>
             <a href="/privacy-policy.html" class="hover:text-emerald-400 transition">Privacy Policy</a>
@@ -101,96 +124,210 @@
     </footer>
 
     <script>
-        let selectedClass = "4";
-        let selectedSecondFilter = "1"; // Default Term 1 for Class 4
-        let selectedSubject = "Tamil";
+        const DATABASE_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsJKa0jUrYG7QqvDQUEJzgJbyWIUR3ZwNUPsXVrR0Na53fwnFPNFNK_b8zzi1e9U-gmEb9LyHu0NbK/pub?gid=0&single=true&output=csv";
 
-        const subjectOptionsMap = {
-            primary: ["Tamil", "English", "Maths", "Science", "Social"],
-            secondary: ["Tamil", "English", "Maths", "Science", "Social Science"],
-            higher: ["Tamil", "English", "Physics", "Chemistry", "Biology", "Maths", "Computer Science"]
+        let rawMasterDatabase = [];
+        let state = {
+            selectedClass: null,
+            selectedTerm: null,
+            selectedMedium: null,
+            selectedSubject: null
         };
 
-        function renderFilterInterfaces() {
-            const classContainer = document.getElementById('class-filter-row');
-            const secondContainer = document.getElementById('second-filter-row');
-            const subjectContainer = document.getElementById('subject-filter-row');
-            const step2Label = document.getElementById('step-2-label');
-
-            // 1. Build Class Array Selection (Class 4 to 12)
-            classContainer.innerHTML = "";
-            for (let i = 4; i <= 12; i++) {
-                const num = String(i);
-                const btn = document.createElement('button');
-                btn.className = `px-4 py-2 rounded-xl text-xs font-black border transition-all duration-200 cursor-pointer shadow-sm ${selectedClass === num ? 'bg-slate-950 text-white border-slate-950 scale-[1.02]' : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'}`;
-                btn.innerText = `Class ${num}`;
-                btn.onclick = () => {
-                    selectedClass = num;
-                    if (parseInt(num) <= 5) {
-                        selectedSecondFilter = "1"; // Default Term 1
-                    } else {
-                        selectedSecondFilter = "Tamil"; // Default Tamil Medium
-                    }
-                    renderFilterInterfaces();
-                };
-                classContainer.appendChild(btn);
+        function parseCsvRows(text) {
+            let lines = []; let row = []; let cell = ''; let inQuotes = false;
+            for (let i = 0; i < text.length; i++) {
+                let c = text[i];
+                if (c === '"') { inQuotes = !inQuotes; }
+                else if (c === ',' && !inQuotes) { row.push(cell.trim()); cell = ''; }
+                else if ((c === '\n' || c === '\r') && !inQuotes) {
+                    row.push(cell.trim());
+                    if (row.length > 0 && row.some(x => x !== '')) lines.push(row);
+                    row = []; cell = '';
+                    if (c === '\r' && text[i+1] === '\n') i++;
+                } else { cell += c; }
             }
-
-            // 2. Build Step 2: Term (Class 4-5) OR Medium (Class 6-12)
-            secondContainer.innerHTML = "";
-            const isPrimary = parseInt(selectedClass) <= 5;
-
-            if (isPrimary) {
-                step2Label.innerText = "Step 2: Select Term / பருவத்தைத் தேர்ந்தெடுக்கவும்";
-                ["1", "2", "3"].forEach(term => {
-                    const btn = document.createElement('button');
-                    btn.className = `px-4 py-2 rounded-xl text-xs font-bold border transition-all duration-200 cursor-pointer shadow-sm ${selectedSecondFilter === term ? 'bg-emerald-600 text-white border-emerald-600' : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'}`;
-                    btn.innerText = `Term ${term}`;
-                    btn.onclick = () => { selectedSecondFilter = term; renderFilterInterfaces(); };
-                    secondContainer.appendChild(btn);
-                });
-            } else {
-                step2Label.innerText = "Step 2: Select Medium / பயிற்று மொழியைத் தேர்ந்தெடுக்கவும்";
-                ["Tamil", "English"].forEach(med => {
-                    const btn = document.createElement('button');
-                    btn.className = `px-4 py-2 rounded-xl text-xs font-bold border transition-all duration-200 cursor-pointer shadow-sm ${selectedSecondFilter === med ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'}`;
-                    btn.innerText = `${med} Medium`;
-                    btn.onclick = () => { selectedSecondFilter = med; renderFilterInterfaces(); };
-                    secondContainer.appendChild(btn);
-                });
-            }
-
-            // 3. Build Subject Array Selection
-            subjectContainer.innerHTML = "";
-            let currentSubjects = subjectOptionsMap.primary;
-            if (parseInt(selectedClass) >= 6 && parseInt(selectedClass) <= 10) {
-                currentSubjects = subjectOptionsMap.secondary;
-            } else if (parseInt(selectedClass) >= 11) {
-                currentSubjects = subjectOptionsMap.higher;
-            }
-
-            if (!currentSubjects.includes(selectedSubject)) {
-                selectedSubject = currentSubjects[0];
-            }
-
-            currentSubjects.forEach(sub => {
-                const btn = document.createElement('button');
-                btn.className = `px-4 py-2 rounded-xl text-xs font-bold border transition-all duration-200 cursor-pointer shadow-sm ${selectedSubject === sub ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'}`;
-                btn.innerText = sub;
-                btn.onclick = () => { selectedSubject = sub; renderFilterInterfaces(); };
-                subjectContainer.appendChild(btn);
-            });
+            if (cell || row.length > 0) { row.push(cell.trim()); lines.push(row); }
+            return lines;
         }
 
-        function routeToDedicatedViewPage() {
-            const classParam = encodeURIComponent(selectedClass);
-            const secondParam = encodeURIComponent(selectedSecondFilter);
-            const subjectParam = encodeURIComponent(selectedSubject);
+        async function fetchDatabaseRecords() {
+            try {
+                const res = await fetch(DATABASE_CSV_URL);
+                if (!res.ok) throw new Error("Dataset stream offline");
+                const txt = await res.text();
+                const lines = parseCsvRows(txt);
+                const rows = lines.slice(1);
 
-            const isPrimary = parseInt(selectedClass) <= 5;
-            const key = isPrimary ? 'term' : 'medium';
+                rawMasterDatabase = rows.map((cols, idx) => {
+                    return {
+                        id: idx,
+                        sno: cols[0] ? cols[0].replace(/^"|"$/g, '').trim() : '',
+                        classNum: cols[1] ? cols[1].replace(/^"|"$/g, '').trim() : '',
+                        term: cols[2] ? cols[2].replace(/^"|"$/g, '').trim() : '',
+                        subject: cols[3] ? cols[3].replace(/^"|"$/g, '').trim() : '',
+                        medium: cols[4] ? cols[4].replace(/^"|"$/g, '').trim() : '',
+                        unit: cols[5] ? cols[5].replace(/^"|"$/g, '').trim() : '',
+                        fileUrl: cols[6] ? cols[6].replace(/^"|"$/g, '').replace(/^\.\//, '').trim() : ''
+                    };
+                });
+            } catch (err) {
+                console.error("Database initialization error:", err);
+            }
+        }
 
-            window.location.href = `./view/?class=${classParam}&${key}=${secondParam}&subject=${subjectParam}`;
+        function renderClassButtons() {
+            const container = document.getElementById('class-buttons-container');
+            container.innerHTML = "";
+
+            for (let c = 4; c <= 12; c++) {
+                const btn = document.createElement('button');
+                btn.className = `p-3 text-center border rounded-xl font-bold text-xs transition shadow-sm flex flex-col justify-center items-center cursor-pointer ${
+                    state.selectedClass === String(c)
+                    ? 'bg-emerald-600 border-emerald-600 text-white scale-[1.02]'
+                    : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-emerald-50 hover:border-emerald-300'
+                }`;
+                btn.innerHTML = `
+                    <span class="text-[9px] uppercase font-black tracking-wider ${state.selectedClass === String(c) ? 'text-emerald-100' : 'text-slate-400'}">Standard</span>
+                    Class ${c}
+                `;
+                btn.onclick = () => selectClass(String(c));
+                container.appendChild(btn);
+            }
+        }
+
+        function selectClass(classNum) {
+            state.selectedClass = classNum;
+            state.selectedTerm = null;
+            state.selectedMedium = null;
+            state.selectedSubject = null;
+
+            renderClassButtons();
+            renderStep2Options();
+
+            document.getElementById('section-term-medium').classList.remove('hidden');
+            document.getElementById('section-subjects').classList.add('hidden');
+            document.getElementById('section-units').classList.add('hidden');
+        }
+
+        function renderStep2Options() {
+            const heading = document.getElementById('step2-heading');
+            const container = document.getElementById('term-medium-buttons-container');
+            container.innerHTML = "";
+
+            const num = parseInt(state.selectedClass);
+
+            if (num === 4 || num === 5) {
+                heading.innerText = "Step 2: Select Term / பருவம்";
+                ["1", "2", "3"].forEach(termNum => {
+                    const btn = document.createElement('button');
+                    const isActive = state.selectedTerm === termNum;
+                    btn.className = `px-5 py-2.5 border rounded-xl font-extrabold text-xs transition shadow-sm cursor-pointer ${
+                        isActive ? 'bg-emerald-600 border-emerald-600 text-white' : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
+                    }`;
+                    btn.innerText = `Term ${termNum}`;
+                    btn.onclick = () => {
+                        state.selectedTerm = termNum;
+                        state.selectedMedium = null;
+                        renderStep2Options();
+                        renderSubjectButtons();
+                    };
+                    container.appendChild(btn);
+                });
+            } else {
+                heading.innerText = "Step 2: Select Medium / பயிற்று மொழி";
+                ["Tamil", "English"].forEach(med => {
+                    const btn = document.createElement('button');
+                    const isActive = state.selectedMedium === med;
+                    btn.className = `px-5 py-2.5 border rounded-xl font-extrabold text-xs transition shadow-sm cursor-pointer ${
+                        isActive ? 'bg-emerald-600 border-emerald-600 text-white' : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
+                    }`;
+                    btn.innerText = `${med} Medium`;
+                    btn.onclick = () => {
+                        state.selectedMedium = med;
+                        state.selectedTerm = null;
+                        renderStep2Options();
+                        renderSubjectButtons();
+                    };
+                    container.appendChild(btn);
+                });
+            }
+        }
+
+        function renderSubjectButtons() {
+            const container = document.getElementById('subject-buttons-container');
+            container.innerHTML = "";
+
+            let matched = rawMasterDatabase.filter(x => x.classNum === state.selectedClass);
+
+            if (state.selectedTerm) {
+                matched = matched.filter(x => x.term === state.selectedTerm || x.term.toLowerCase().includes(state.selectedTerm.toLowerCase()));
+            }
+            if (state.selectedMedium) {
+                matched = matched.filter(x => x.medium.toLowerCase() === state.selectedMedium.toLowerCase());
+            }
+
+            const availableSubjects = [...new Set(matched.map(x => x.subject))].filter(Boolean);
+
+            if (availableSubjects.length === 0) {
+                container.innerHTML = `<p class="text-xs text-slate-400 italic">No subject modules recorded for this selection yet.</p>`;
+            } else {
+                availableSubjects.forEach(subj => {
+                    const btn = document.createElement('button');
+                    const isActive = state.selectedSubject === subj;
+                    btn.className = `px-4 py-2.5 border rounded-xl font-extrabold text-xs transition shadow-sm cursor-pointer ${
+                        isActive ? 'bg-slate-950 border-slate-950 text-white' : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
+                    }`;
+                    btn.innerText = subj;
+                    btn.onclick = () => {
+                        state.selectedSubject = subj;
+                        renderSubjectButtons();
+                        renderUnitsList(matched.filter(x => x.subject === subj));
+                    };
+                    container.appendChild(btn);
+                });
+            }
+
+            document.getElementById('section-subjects').classList.remove('hidden');
+            document.getElementById('section-units').classList.add('hidden');
+        }
+
+        function renderUnitsList(matchedUnits) {
+            const container = document.getElementById('units-list-container');
+            const section = document.getElementById('section-units');
+            container.innerHTML = "";
+
+            document.getElementById('units-heading').innerText = `${state.selectedSubject} - Class ${state.selectedClass} Units`;
+
+            if (!matchedUnits || matchedUnits.length === 0) {
+                container.innerHTML = `<div class="p-4 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold text-slate-400 text-center">No units discovered.</div>`;
+            } else {
+                // Construct clean target link to view subfolder regardless of path depth
+                let currentPath = window.location.pathname;
+                if (!currentPath.endsWith('/')) currentPath += '/';
+                const targetViewFolderUrl = `${currentPath}view/`;
+
+                matchedUnits.forEach(item => {
+                    const cardLink = document.createElement('a');
+                    cardLink.href = `${targetViewFolderUrl}?id=${item.id}`;
+                    cardLink.className = "p-4 bg-slate-50 border border-slate-200 rounded-xl hover:bg-emerald-50 hover:border-emerald-300 transition group flex justify-between items-center cursor-pointer block no-underline";
+
+                    cardLink.innerHTML = `
+                        <div>
+                            <span class="text-[9px] font-black text-slate-400 group-hover:text-emerald-700 uppercase block tracking-wider font-mono">Unit ${item.unit || item.sno}</span>
+                            <h4 class="font-bold text-slate-800 group-hover:text-slate-900 text-sm mt-0.5 tracking-tight tamil-fix">${item.subject} - Lesson Material</h4>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs font-bold text-emerald-600">
+                            <span>Open Material</span>
+                            <i class="fa-solid fa-circle-chevron-right text-emerald-500 transition text-sm"></i>
+                        </div>
+                    `;
+                    container.appendChild(cardLink);
+                });
+            }
+
+            section.classList.remove('hidden');
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         async function loadSharedSiteNavbar() {
@@ -198,12 +335,12 @@
                 const res = await fetch(`../navbar.html?v=${new Date().getTime()}`);
                 if (res.ok) {
                     document.getElementById('navbar-placeholder').innerHTML = await res.text();
-                    initializeDropdownListeners();
+                    initializeGlobalNavigationHooks();
                 }
             } catch (e) { console.error(e); }
         }
 
-        function initializeDropdownListeners() {
+        function initializeGlobalNavigationHooks() {
             document.removeEventListener('click', closeAllDropdowns);
             document.addEventListener('click', closeAllDropdowns);
         }
@@ -241,9 +378,10 @@
             document.querySelectorAll('[id*="mobile-menu-"]').forEach(m => m.classList.add('hidden'));
         }
 
-        window.addEventListener('DOMContentLoaded', () => {
+        window.addEventListener('DOMContentLoaded', async () => {
             loadSharedSiteNavbar();
-            renderFilterInterfaces();
+            renderClassButtons();
+            await fetchDatabaseRecords();
         });
     </script>
 </body>
