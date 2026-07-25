@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Study Material - TN Classroom</title>
+    <title>MAT Study Resource - TN Classroom</title>
     <script src="/tailwind.js"></script>
     <link rel="stylesheet" href="/fontawesome.css">
 
@@ -17,6 +17,19 @@
       };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- GLOBAL SITE CONFIGURATION LAYER (GA4 ANALYTICS ENGINE) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MZZ985WL51"></script>
+    <script>
+      window.dataLayer = window.location.hostname === 'localhost' ? [] : (window.dataLayer || []);
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-MZZ985WL51', {
+        page_path: window.location.pathname,
+        cookie_flags: 'max-age=7200;Secure;SameSite=None'
+      });
+    </script>
 
     <style>
         .dropdown-menu { z-index: 50 !important; pointer-events: none; }
@@ -32,16 +45,15 @@
         .markdown-body ol { list-style-type: decimal; padding-left: 1.25rem; margin-bottom: 0.75rem; }
         .markdown-body li { margin-bottom: 0.25rem; }
         .markdown-body strong { font-weight: 800; color: #0f172a; }
-        .markdown-body blockquote { border-left: 4px solid #10b981; padding-left: 1rem; color: #475569; margin: 0.75rem 0; font-style: italic; }
+        .markdown-body blockquote { border-left: 4px solid #6366f1; padding-left: 1rem; color: #475569; margin: 0.75rem 0; font-style: italic; }
 
         /* =========================================================
            STRICT PRINT / SAVE-AS-PDF ENGINE STYLES
-           Fixes: Scrambled fonts, missing watermark, top/bottom gaps
            ========================================================= */
         @media print {
             @page {
                 size: A4;
-                margin: 12mm 12mm 12mm 12mm; /* Compact margins to remove big empty spaces */
+                margin: 12mm 12mm 12mm 12mm;
             }
 
             body {
@@ -51,7 +63,6 @@
                 padding: 0 !important;
             }
 
-            /* Hide all UI shell controls except lesson content */
             body * { visibility: hidden; }
             #inline-text-material-card, #inline-text-material-card * { visibility: visible; }
 
@@ -68,7 +79,6 @@
 
             .no-print { display: none !important; }
 
-            /* Watermark overlay on printed PDF pages */
             #inline-text-material-card::before {
                 content: "www.tnclassroom.com";
                 position: fixed;
@@ -94,8 +104,8 @@
         <!-- Back Navigation & Action Header Grid -->
         <div class="flex justify-between items-center mb-2 relative z-10 no-print">
             <div class="inline-block">
-                <a href="../" class="inline-flex items-center gap-2 text-xs font-black text-slate-600 hover:text-emerald-600 uppercase tracking-wider transition cursor-pointer">
-                    <i class="fa-solid fa-arrow-left"></i> Back to Hub
+                <a href="../" class="inline-flex items-center gap-2 text-xs font-black text-slate-600 hover:text-indigo-600 uppercase tracking-wider transition cursor-pointer">
+                    <i class="fa-solid fa-arrow-left"></i> Back to MAT Hub
                 </a>
             </div>
 
@@ -107,8 +117,8 @@
         <!-- Main Topic Detail Master Container Card -->
         <div class="bg-white border border-slate-200/60 rounded-3xl p-6 md:p-8 shadow-sm space-y-6 no-print">
             <div class="flex flex-wrap justify-between items-center gap-2 border-b border-slate-100 pb-4">
-                <span id="view-unit-no" class="text-xs font-black text-slate-400 uppercase tracking-widest font-mono">Loading...</span>
-                <span id="view-class-badge" class="text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-100 px-3 py-0.5 rounded-md uppercase tracking-wider">Loading...</span>
+                <span id="view-unit-no" class="text-xs font-black text-indigo-600 uppercase tracking-widest font-mono">Loading...</span>
+                <span id="view-class-badge" class="text-xs font-bold text-indigo-700 bg-indigo-50 border border-indigo-100 px-3 py-0.5 rounded-md uppercase tracking-wider">MAT</span>
             </div>
 
             <div>
@@ -121,7 +131,7 @@
                 <div id="view-shortnote-box-ta" class="hidden text-justify bg-slate-50/50 border border-slate-100 p-5 rounded-2xl text-sm md:text-base text-slate-600 leading-relaxed tracking-normal tamil-fix w-full break-words"></div>
 
                 <!-- English Notes Section -->
-                <div id="view-shortnote-box-en" class="hidden text-justify bg-slate-50/50 border border-slate-100 p-5 rounded-2xl text-sm md:text-base text-slate-600 leading-relaxed tracking-normal w-full break-words border-l-4 border-emerald-500"></div>
+                <div id="view-shortnote-box-en" class="hidden text-justify bg-slate-50/50 border border-slate-100 p-5 rounded-2xl text-sm md:text-base text-slate-600 leading-relaxed tracking-normal w-full break-words border-l-4 border-indigo-500"></div>
             </div>
 
             <!-- Action Link Module Interface Blocks -->
@@ -137,12 +147,12 @@
         <div id="inline-text-material-card" class="hidden bg-white border border-slate-200/60 rounded-3xl p-6 md:p-8 shadow-sm space-y-4">
             <div class="flex justify-between items-center border-b border-slate-100 pb-3 no-print">
                 <h3 class="text-xs font-black uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-                    <i class="fa-solid fa-book-open-reader text-emerald-500"></i> Full Lesson Material Content
+                    <i class="fa-solid fa-book-open-reader text-indigo-500"></i> Full Lesson Material Content
                 </h3>
 
                 <!-- Action Controls Toolbar -->
                 <div class="flex items-center gap-3">
-                    <button onclick="downloadAsPDF()" class="text-slate-700 hover:text-emerald-600 border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-bold transition shadow-sm flex items-center gap-1.5 bg-white cursor-pointer">
+                    <button onclick="downloadAsPDF()" class="text-slate-700 hover:text-indigo-600 border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-bold transition shadow-sm flex items-center gap-1.5 bg-white cursor-pointer">
                         <i class="fa-solid fa-file-pdf text-red-500"></i> Save as PDF
                     </button>
 
@@ -169,7 +179,7 @@
     </footer>
 
     <script>
-        const DATABASE_CSV_URL = "https://docs.google.com/spreadsheets/d/1j2C7jpFskw2TrYoRKDmPJBkHezAfRW0aFshbULLgUvc/gviz/tq?tqx=out:csv&sheet=Sheet1";
+        const DATABASE_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSgvpPMCeyjU2HrfMkVS5YttDhPsuY1eY3mGfm78PtrgIX-_Lb245ZSPANkxNvbpk5DVAbL7Gb-E_5g/pub?gid=273942769&single=true&output=csv";
         let targetRecord = null;
         let currentTextScale = 16;
 
@@ -212,13 +222,12 @@
                 const cols = dataRows[targetId];
                 if (!cols) throw new Error();
 
-                let clsName = cols[0] ? cols[0].replace(/^"|"$/g, '').trim() : 'Class 8';
-                let subj    = cols[1] ? cols[1].replace(/^"|"$/g, '').trim() : 'Science';
-                let uNo     = cols[2] ? cols[2].replace(/^"|"$/g, '').trim() : '';
-                let uName   = cols[3] ? cols[3].replace(/^"|"$/g, '').trim() : '';
-                let vUrl    = (cols[4] && cols[4].trim() !== "") ? cols[4].replace(/^"|"$/g, '').trim() : '#';
-                let fUrl    = cols[5] ? cols[5].replace(/^"|"$/g, '').replace(/^\.\//, '').trim() : '#';
-                let rawMcq  = cols[6] ? cols[6].replace(/^"|"$/g, '').trim() : '#';
+                let category  = cols[1] ? cols[1].replace(/^"|"$/g, '').trim() : 'Mental Ability';
+                let sessionNo = cols[2] ? cols[2].replace(/^"|"$/g, '').trim() : '';
+                let topicName = cols[3] ? cols[3].replace(/^"|"$/g, '').trim() : '';
+                let vUrl      = (cols[4] && cols[4].trim() !== "") ? cols[4].replace(/^"|"$/g, '').trim() : '#';
+                let fUrl      = cols[5] ? cols[5].replace(/^"|"$/g, '').replace(/^\.\//, '').trim() : '#';
+                let rawMcq    = cols[6] ? cols[6].replace(/^"|"$/g, '').trim() : '#';
                 let uShortNoteTa = cols[7] ? cols[7].replace(/^"|"$/g, '').trim() : '';
                 let uShortNoteEn = cols[8] ? cols[8].replace(/^"|"$/g, '').trim() : '';
 
@@ -233,10 +242,10 @@
                 }
 
                 targetRecord = {
-                    className: clsName,
-                    subject: subj,
-                    unitNo: uNo,
-                    unitName: uName,
+                    className: "MAT",
+                    subject: category,
+                    unitNo: sessionNo,
+                    unitName: topicName,
                     videoUrl: vUrl,
                     pdfUrl: fUrl,
                     mcqUrl: rawMcq,
@@ -246,7 +255,7 @@
 
                 renderPagePayload();
             } catch (e) {
-                document.getElementById('view-unit-name').innerText = "Topic material entry not discovered.";
+                document.getElementById('view-unit-name').innerText = "MAT resource entry not discovered.";
             }
         }
 
@@ -258,7 +267,7 @@
 
             const controlsContainer = document.getElementById('action-header-controls');
             controlsContainer.innerHTML = `
-                <button onclick="shareModulePayload()" class="text-slate-500 hover:text-emerald-600 bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-bold transition shadow-sm flex items-center gap-1.5 cursor-pointer">
+                <button onclick="shareModulePayload()" class="text-slate-500 hover:text-indigo-600 bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-bold transition shadow-sm flex items-center gap-1.5 cursor-pointer">
                     <i class="fa-solid fa-share-nodes"></i> Share
                 </button>
             `;
@@ -282,21 +291,21 @@
 
             let processedUrl = targetRecord.pdfUrl.trim();
             if (!processedUrl.startsWith('http') && !processedUrl.startsWith('/') && !processedUrl.startsWith('.')) {
-                processedUrl = `../${processedUrl}`;
+                processedUrl = `../../${processedUrl}`;
             }
 
             const isTextOrMd = processedUrl.toLowerCase().endsWith('.txt') || processedUrl.toLowerCase().endsWith('.md');
 
             if (isTextOrMd) {
                 matContainer.innerHTML = `
-                    <button onclick="scrollToAndLoadTextMaterial('${processedUrl}')" class="flex items-center justify-center gap-2.5 p-4 border border-slate-200/80 bg-white hover:border-emerald-300 rounded-2xl text-xs font-black text-slate-700 transition shadow-sm w-full cursor-pointer">
-                        <i class="fa-solid fa-file-lines text-emerald-500 text-base"></i> View Study Material
+                    <button onclick="scrollToAndLoadTextMaterial('${processedUrl}')" class="flex items-center justify-center gap-2.5 p-4 border border-slate-200/80 bg-white hover:border-indigo-300 rounded-2xl text-xs font-black text-slate-700 transition shadow-sm w-full cursor-pointer">
+                        <i class="fa-solid fa-file-lines text-indigo-500 text-base"></i> View Study Material
                     </button>
                 `;
                 scrollToAndLoadTextMaterial(processedUrl, false);
             } else {
                 matContainer.innerHTML = `
-                    <a href="${processedUrl}" target="_blank" class="flex items-center justify-center gap-2.5 p-4 border border-slate-200/80 bg-white hover:border-emerald-300 rounded-2xl text-xs font-black text-slate-700 transition shadow-sm w-full cursor-pointer">
+                    <a href="${processedUrl}" target="_blank" class="flex items-center justify-center gap-2.5 p-4 border border-slate-200/80 bg-white hover:border-indigo-300 rounded-2xl text-xs font-black text-slate-700 transition shadow-sm w-full cursor-pointer">
                         <i class="fa-solid fa-file-pdf text-red-500 text-base"></i> View Study Material (PDF)
                     </a>
                 `;
@@ -318,7 +327,7 @@
 
             if (targetRecord.mcqUrl !== '#') {
                 quizContainer.innerHTML = `
-                    <a href="${targetRecord.mcqUrl}" target="_blank" class="w-full text-center bg-slate-950 hover:bg-emerald-600 text-white font-black text-xs py-4 rounded-2xl transition shadow-md block uppercase tracking-wider cursor-pointer">
+                    <a href="${targetRecord.mcqUrl}" target="_blank" class="w-full text-center bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs py-4 rounded-2xl transition shadow-md block uppercase tracking-wider cursor-pointer">
                         <i class="fa-solid fa-square-poll-vertical mr-1"></i> Free Online Test
                     </a>
                 `;
@@ -345,7 +354,7 @@
             }
 
             if (textBody.innerHTML === "") {
-                textBody.innerHTML = `<div class="text-slate-400 text-xs py-4 font-medium"><i class="fa-solid fa-circle-notch fa-spin text-emerald-500 mr-2"></i>Loading study material file details...</div>`;
+                textBody.innerHTML = `<div class="text-slate-400 text-xs py-4 font-medium"><i class="fa-solid fa-circle-notch fa-spin text-indigo-500 mr-2"></i>Loading study material file details...</div>`;
                 try {
                     const res = await fetch(url);
                     if (!res.ok) throw new Error();
@@ -367,7 +376,6 @@
             }
         }
 
-        // TRIGGER CLEAN NATIVE PDF PRINT WITH WATERMARK & VECTOR FONTS
         function downloadAsPDF() {
             window.print();
         }
@@ -380,7 +388,7 @@
 
         function shareModulePayload() {
             const cleanUnitTitle = targetRecord.unitName.replace(/\r?\n/g, ' ');
-            const shareText = `📚 *TN CLASSROOM - STUDY MATERIAL*\n\n📌 *Subject:* ${targetRecord.subject.toUpperCase()}\n🎯 *${targetRecord.unitNo}:* ${cleanUnitTitle} (${targetRecord.className})\n\n📝 *Interactive MCQ Link:*\n${targetRecord.mcqUrl !== '#' ? targetRecord.mcqUrl : 'Coming Soon'}\n\n🌐 View Chapter Module at: ${window.location.href}`;
+            const shareText = `🧠 *TN CLASSROOM - MAT STUDY MATERIAL*\n\n📌 *Category:* ${targetRecord.subject.toUpperCase()}\n🎯 *${targetRecord.unitNo}:* ${cleanUnitTitle}\n\n📝 *Interactive MCQ Link:*\n${targetRecord.mcqUrl !== '#' ? targetRecord.mcqUrl : 'Coming Soon'}\n\n🌐 View MAT Module at: ${window.location.href}`;
             if (navigator.share) {
                 navigator.share({ title: cleanUnitTitle, text: shareText }).catch(console.error);
             } else {
