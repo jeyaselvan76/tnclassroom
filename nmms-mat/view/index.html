@@ -3,18 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MAT Study Material - TN Classroom</title>
+    <title>MAT Study Resource - TN Classroom</title>
     <script src="/tailwind.js"></script>
     <link rel="stylesheet" href="/fontawesome.css">
 
     <!-- MARKED.JS CDN for Parsing Markdown Files -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
-    <!-- PDF.JS CDN for Rendering PDF Pages inline as HTML elements -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
-    <script>
-      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
-    </script>
 
     <script>
       window.MathJax = {
@@ -24,12 +18,25 @@
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
+    <!-- GLOBAL SITE CONFIGURATION LAYER (GA4 ANALYTICS ENGINE) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MZZ985WL51"></script>
+    <script>
+      window.dataLayer = window.location.hostname === 'localhost' ? [] : (window.dataLayer || []);
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-MZZ985WL51', {
+        page_path: window.location.pathname,
+        cookie_flags: 'max-age=7200;Secure;SameSite=None'
+      });
+    </script>
+
     <style>
         .dropdown-menu { z-index: 50 !important; pointer-events: none; }
         .dropdown-active { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; z-index: 50 !important; pointer-events: auto !important; }
         .tamil-fix { font-family: 'Segoe UI', 'Latha', 'Apple Tamil', 'Noto Sans Tamil', sans-serif !important; }
 
-        /* Markdown & Extracted Content Styles */
+        /* Styling for Rendered Markdown Content */
         .markdown-body h1 { font-size: 1.5rem; font-weight: 800; margin-top: 1rem; margin-bottom: 0.5rem; color: #0f172a; }
         .markdown-body h2 { font-size: 1.25rem; font-weight: 700; margin-top: 0.875rem; margin-bottom: 0.5rem; color: #1e293b; }
         .markdown-body h3 { font-size: 1.1rem; font-weight: 700; margin-top: 0.75rem; margin-bottom: 0.375rem; color: #334155; }
@@ -40,7 +47,9 @@
         .markdown-body strong { font-weight: 800; color: #0f172a; }
         .markdown-body blockquote { border-left: 4px solid #6366f1; padding-left: 1rem; color: #475569; margin: 0.75rem 0; font-style: italic; }
 
-        /* STRICT PRINT / PDF ENGINE SETUP */
+        /* =========================================================
+           STRICT PRINT / SAVE-AS-PDF ENGINE STYLES
+           ========================================================= */
         @media print {
             @page {
                 size: A4;
@@ -70,7 +79,6 @@
 
             .no-print { display: none !important; }
 
-            /* Diagonal Watermark Overlay */
             #inline-text-material-card::before {
                 content: "www.tnclassroom.com";
                 position: fixed;
@@ -93,7 +101,7 @@
     <div id="navbar-placeholder" class="no-print"></div>
 
     <main class="flex-grow max-w-4xl w-full mx-auto px-4 py-8 space-y-6">
-        <!-- Back Navigation & Controls -->
+        <!-- Back Navigation & Action Header Grid -->
         <div class="flex justify-between items-center mb-2 relative z-10 no-print">
             <div class="inline-block">
                 <a href="../" class="inline-flex items-center gap-2 text-xs font-black text-slate-600 hover:text-indigo-600 uppercase tracking-wider transition cursor-pointer">
@@ -101,13 +109,15 @@
                 </a>
             </div>
 
-            <div class="flex items-center gap-2" id="action-header-controls"></div>
+            <div class="flex items-center gap-2" id="action-header-controls">
+                <!-- Share button hooks here dynamically -->
+            </div>
         </div>
 
-        <!-- Main Topic Detail Container Card -->
+        <!-- Main Topic Detail Master Container Card -->
         <div class="bg-white border border-slate-200/60 rounded-3xl p-6 md:p-8 shadow-sm space-y-6 no-print">
             <div class="flex flex-wrap justify-between items-center gap-2 border-b border-slate-100 pb-4">
-                <span id="view-unit-no" class="text-xs font-black text-slate-400 uppercase tracking-widest font-mono">Loading...</span>
+                <span id="view-unit-no" class="text-xs font-black text-indigo-600 uppercase tracking-widest font-mono">Loading...</span>
                 <span id="view-class-badge" class="text-xs font-bold text-indigo-700 bg-indigo-50 border border-indigo-100 px-3 py-0.5 rounded-md uppercase tracking-wider">MAT</span>
             </div>
 
@@ -115,13 +125,16 @@
                 <h1 id="view-unit-name" class="font-black text-slate-900 text-xl md:text-2xl tracking-tight tamil-fix leading-snug">Loading Topic Context...</h1>
             </div>
 
-            <!-- Notes Section -->
+            <!-- Double Description Stack -->
             <div class="space-y-4">
+                <!-- Tamil Notes Section -->
                 <div id="view-shortnote-box-ta" class="hidden text-justify bg-slate-50/50 border border-slate-100 p-5 rounded-2xl text-sm md:text-base text-slate-600 leading-relaxed tracking-normal tamil-fix w-full break-words"></div>
+
+                <!-- English Notes Section -->
                 <div id="view-shortnote-box-en" class="hidden text-justify bg-slate-50/50 border border-slate-100 p-5 rounded-2xl text-sm md:text-base text-slate-600 leading-relaxed tracking-normal w-full break-words border-l-4 border-indigo-500"></div>
             </div>
 
-            <!-- Action Link Module Blocks -->
+            <!-- Action Link Module Interface Blocks -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-slate-100">
                 <div id="material-action-container"></div>
                 <div id="video-action-container"></div>
@@ -130,19 +143,20 @@
             <div id="quiz-action-container" class="pt-2"></div>
         </div>
 
-        <!-- UNIVERSAL INLINE READER CARD (.md / .txt / .pdf) -->
+        <!-- DETAILED INLINE TEXT MATERIAL READER CARD -->
         <div id="inline-text-material-card" class="hidden bg-white border border-slate-200/60 rounded-3xl p-6 md:p-8 shadow-sm space-y-4">
             <div class="flex justify-between items-center border-b border-slate-100 pb-3 no-print">
                 <h3 class="text-xs font-black uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
                     <i class="fa-solid fa-book-open-reader text-indigo-500"></i> Full Lesson Material Content
                 </h3>
 
-                <!-- Toolbar Controls -->
+                <!-- Action Controls Toolbar -->
                 <div class="flex items-center gap-3">
                     <button onclick="downloadAsPDF()" class="text-slate-700 hover:text-indigo-600 border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-bold transition shadow-sm flex items-center gap-1.5 bg-white cursor-pointer">
                         <i class="fa-solid fa-file-pdf text-red-500"></i> Save as PDF
                     </button>
 
+                    <!-- Font scale toolbar controls -->
                     <div class="flex items-center border border-slate-200 bg-white rounded-xl p-0.5 text-xs font-bold text-slate-600">
                         <button onclick="adjustTextScale(-1)" class="w-7 h-7 hover:bg-slate-100 rounded-lg flex items-center justify-center font-mono">A-</button>
                         <button onclick="adjustTextScale(1)" class="w-7 h-7 hover:bg-slate-100 rounded-lg flex items-center justify-center font-mono border-l border-slate-100">A+</button>
@@ -208,12 +222,12 @@
                 const cols = dataRows[targetId];
                 if (!cols) throw new Error();
 
-                let category = cols[1] ? cols[1].replace(/^"|"$/g, '').trim() : 'Mental Ability';
-                let uNo      = cols[2] ? cols[2].replace(/^"|"$/g, '').trim() : '';
-                let uName    = cols[3] ? cols[3].replace(/^"|"$/g, '').trim() : '';
-                let vUrl     = (cols[4] && cols[4].trim() !== "") ? cols[4].replace(/^"|"$/g, '').trim() : '#';
-                let fUrl     = cols[5] ? cols[5].replace(/^"|"$/g, '').replace(/^\.\//, '').trim() : '#';
-                let rawMcq   = cols[6] ? cols[6].replace(/^"|"$/g, '').trim() : '#';
+                let category  = cols[1] ? cols[1].replace(/^"|"$/g, '').trim() : 'Mental Ability';
+                let sessionNo = cols[2] ? cols[2].replace(/^"|"$/g, '').trim() : '';
+                let topicName = cols[3] ? cols[3].replace(/^"|"$/g, '').trim() : '';
+                let vUrl      = (cols[4] && cols[4].trim() !== "") ? cols[4].replace(/^"|"$/g, '').trim() : '#';
+                let fUrl      = cols[5] ? cols[5].replace(/^"|"$/g, '').replace(/^\.\//, '').trim() : '#';
+                let rawMcq    = cols[6] ? cols[6].replace(/^"|"$/g, '').trim() : '#';
                 let uShortNoteTa = cols[7] ? cols[7].replace(/^"|"$/g, '').trim() : '';
                 let uShortNoteEn = cols[8] ? cols[8].replace(/^"|"$/g, '').trim() : '';
 
@@ -230,8 +244,8 @@
                 targetRecord = {
                     className: "MAT",
                     subject: category,
-                    unitNo: uNo,
-                    unitName: uName,
+                    unitNo: sessionNo,
+                    unitName: topicName,
                     videoUrl: vUrl,
                     pdfUrl: fUrl,
                     mcqUrl: rawMcq,
@@ -241,14 +255,14 @@
 
                 renderPagePayload();
             } catch (e) {
-                document.getElementById('view-unit-name').innerText = "Topic material entry not discovered.";
+                document.getElementById('view-unit-name').innerText = "MAT resource entry not discovered.";
             }
         }
 
         function renderPagePayload() {
             document.title = `${targetRecord.unitNo} - ${targetRecord.unitName.replace(/\r?\n/g, ' ')}`;
             document.getElementById('view-unit-no').innerText = targetRecord.unitNo;
-            document.getElementById('view-class-badge').innerText = targetRecord.subject;
+            document.getElementById('view-class-badge').innerText = targetRecord.className;
             document.getElementById('view-unit-name').innerHTML = targetRecord.unitName.replace(/\r?\n/g, '<br>');
 
             const controlsContainer = document.getElementById('action-header-controls');
@@ -277,21 +291,23 @@
 
             let processedUrl = targetRecord.pdfUrl.trim();
             if (!processedUrl.startsWith('http') && !processedUrl.startsWith('/') && !processedUrl.startsWith('.')) {
-                processedUrl = `../${processedUrl}`;
+                processedUrl = `../../${processedUrl}`;
             }
 
-            if (processedUrl !== '#') {
+            const isTextOrMd = processedUrl.toLowerCase().endsWith('.txt') || processedUrl.toLowerCase().endsWith('.md');
+
+            if (isTextOrMd) {
                 matContainer.innerHTML = `
-                    <button onclick="scrollToAndLoadMaterial('${processedUrl}')" class="flex items-center justify-center gap-2.5 p-4 border border-slate-200/80 bg-white hover:border-indigo-300 rounded-2xl text-xs font-black text-slate-700 transition shadow-sm w-full cursor-pointer">
-                        <i class="fa-solid fa-file-lines text-indigo-500 text-base"></i> View MAT Study Material
+                    <button onclick="scrollToAndLoadTextMaterial('${processedUrl}')" class="flex items-center justify-center gap-2.5 p-4 border border-slate-200/80 bg-white hover:border-indigo-300 rounded-2xl text-xs font-black text-slate-700 transition shadow-sm w-full cursor-pointer">
+                        <i class="fa-solid fa-file-lines text-indigo-500 text-base"></i> View Study Material
                     </button>
                 `;
-                scrollToAndLoadMaterial(processedUrl, false);
+                scrollToAndLoadTextMaterial(processedUrl, false);
             } else {
                 matContainer.innerHTML = `
-                    <div class="flex items-center justify-center gap-2.5 p-4 bg-slate-100/50 border border-slate-200/40 rounded-2xl text-xs font-bold text-slate-400 w-full cursor-not-allowed">
-                        <i class="fa-solid fa-file-lines opacity-40 text-base"></i> Material Coming Soon
-                    </div>
+                    <a href="${processedUrl}" target="_blank" class="flex items-center justify-center gap-2.5 p-4 border border-slate-200/80 bg-white hover:border-indigo-300 rounded-2xl text-xs font-black text-slate-700 transition shadow-sm w-full cursor-pointer">
+                        <i class="fa-solid fa-file-pdf text-red-500 text-base"></i> View Study Material (PDF)
+                    </a>
                 `;
             }
 
@@ -311,7 +327,7 @@
 
             if (targetRecord.mcqUrl !== '#') {
                 quizContainer.innerHTML = `
-                    <a href="${targetRecord.mcqUrl}" target="_blank" class="w-full text-center bg-slate-950 hover:bg-indigo-600 text-white font-black text-xs py-4 rounded-2xl transition shadow-md block uppercase tracking-wider cursor-pointer">
+                    <a href="${targetRecord.mcqUrl}" target="_blank" class="w-full text-center bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs py-4 rounded-2xl transition shadow-md block uppercase tracking-wider cursor-pointer">
                         <i class="fa-solid fa-square-poll-vertical mr-1"></i> Free Online Test
                     </a>
                 `;
@@ -328,8 +344,7 @@
             }
         }
 
-        // UNIVERSAL LOADER: Renders .md, .txt, AND .pdf canvas pages directly into HTML
-        async function scrollToAndLoadMaterial(url, smoothScroll = true) {
+        async function scrollToAndLoadTextMaterial(url, smoothScroll = true) {
             const textCard = document.getElementById('inline-text-material-card');
             const textBody = document.getElementById('inline-material-text-body');
 
@@ -339,62 +354,24 @@
             }
 
             if (textBody.innerHTML === "") {
-                textBody.innerHTML = `<div class="text-slate-400 text-xs py-4 font-medium"><i class="fa-solid fa-circle-notch fa-spin text-indigo-500 mr-2"></i>Loading MAT study material content...</div>`;
+                textBody.innerHTML = `<div class="text-slate-400 text-xs py-4 font-medium"><i class="fa-solid fa-circle-notch fa-spin text-indigo-500 mr-2"></i>Loading study material file details...</div>`;
                 try {
-                    const lowerUrl = url.toLowerCase();
+                    const res = await fetch(url);
+                    if (!res.ok) throw new Error();
+                    const rawText = await res.text();
 
-                    // CASE 1: PDF File -> Render PDF Pages as sharp HTML Canvases
-                    if (lowerUrl.endsWith('.pdf')) {
-                        textBody.innerHTML = ""; // Clear loader
-                        const loadingTask = pdfjsLib.getDocument(url);
-                        const pdf = await loadingTask.promise;
-
-                        for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-                            const page = await pdf.getPage(pageNum);
-                            const viewport = page.getViewport({ scale: 1.5 }); // High resolution scale
-
-                            const pageWrapper = document.createElement('div');
-                            pageWrapper.className = "mb-6 pb-4 border-b border-slate-100 flex flex-col items-center";
-
-                            const pageLabel = document.createElement('span');
-                            pageLabel.className = "text-[10px] font-mono text-slate-400 block mb-2 uppercase tracking-widest self-start";
-                            pageLabel.innerText = `Page ${pageNum} of ${pdf.numPages}`;
-
-                            const canvas = document.createElement('canvas');
-                            canvas.className = "w-full shadow-sm rounded-lg border border-slate-100";
-                            const context = canvas.getContext('2d');
-                            canvas.height = viewport.height;
-                            canvas.width = viewport.width;
-
-                            pageWrapper.appendChild(pageLabel);
-                            pageWrapper.appendChild(canvas);
-                            textBody.appendChild(pageWrapper);
-
-                            await page.render({ canvasContext: context, viewport: viewport }).promise;
-                        }
-
-                    // CASE 2: Markdown File (.md) -> Parse via Marked.js
-                    } else if (lowerUrl.endsWith('.md') && typeof marked !== 'undefined') {
-                        const res = await fetch(url);
-                        if (!res.ok) throw new Error();
-                        const rawText = await res.text();
+                    if (url.toLowerCase().endsWith('.md') && typeof marked !== 'undefined') {
                         textBody.innerHTML = marked.parse(rawText);
-
-                    // CASE 3: Plain Text File (.txt)
                     } else {
-                        const res = await fetch(url);
-                        if (!res.ok) throw new Error();
-                        const rawText = await res.text();
                         let processedHtml = rawText.replace(/[\u0b80-\u0bff]+/g, (match) => `<span class="tamil-fix font-medium">${match}</span>`);
-                        textBody.innerHTML = `<p class="whitespace-pre-wrap">${processedHtml}</p>`;
+                        textBody.innerHTML = processedHtml;
                     }
 
                     if (window.MathJax && window.MathJax.typesetPromise) {
                         window.MathJax.typesetPromise([textBody]);
                     }
                 } catch (e) {
-                    console.error(e);
-                    textBody.innerHTML = `<div class="text-red-500 font-bold text-xs p-3 bg-red-50 rounded-xl border border-red-100">Failed to load study document resource.</div>`;
+                    textBody.innerHTML = `<div class="text-red-500 font-bold text-xs p-3 bg-red-50 rounded-xl border border-red-100">Failed to load text document resource from node folder.</div>`;
                 }
             }
         }
@@ -411,11 +388,11 @@
 
         function shareModulePayload() {
             const cleanUnitTitle = targetRecord.unitName.replace(/\r?\n/g, ' ');
-            const shareText = `🧠 *TN CLASSROOM - NMMS MAT MATERIAL*\n\n📌 *Category:* ${targetRecord.subject.toUpperCase()}\n🎯 *${targetRecord.unitNo}:* ${cleanUnitTitle}\n\n📝 *Interactive MCQ Link:*\n${targetRecord.mcqUrl !== '#' ? targetRecord.mcqUrl : 'Coming Soon'}\n\n🌐 View Chapter Module at: ${window.location.href}`;
+            const shareText = `🧠 *TN CLASSROOM - MAT STUDY MATERIAL*\n\n📌 *Category:* ${targetRecord.subject.toUpperCase()}\n🎯 *${targetRecord.unitNo}:* ${cleanUnitTitle}\n\n📝 *Interactive MCQ Link:*\n${targetRecord.mcqUrl !== '#' ? targetRecord.mcqUrl : 'Coming Soon'}\n\n🌐 View MAT Module at: ${window.location.href}`;
             if (navigator.share) {
                 navigator.share({ title: cleanUnitTitle, text: shareText }).catch(console.error);
             } else {
-                navigator.clipboard.writeText(shareText).then(() => alert("Copied MAT share payload to clipboard!")).catch(() => {});
+                navigator.clipboard.writeText(shareText).then(() => alert("Copied share payload to clipboard!")).catch(() => {});
             }
         }
 

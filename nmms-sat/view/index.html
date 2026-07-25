@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MAT Study Resource - TN Classroom</title>
+    <title>Study Material - TN Classroom</title>
     <script src="/tailwind.js"></script>
     <link rel="stylesheet" href="/fontawesome.css">
 
@@ -17,19 +17,6 @@
       };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-    <!-- GLOBAL SITE CONFIGURATION LAYER (GA4 ANALYTICS ENGINE) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MZZ985WL51"></script>
-    <script>
-      window.dataLayer = window.location.hostname === 'localhost' ? [] : (window.dataLayer || []);
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-MZZ985WL51', {
-        page_path: window.location.pathname,
-        cookie_flags: 'max-age=7200;Secure;SameSite=None'
-      });
-    </script>
 
     <style>
         .dropdown-menu { z-index: 50 !important; pointer-events: none; }
@@ -45,15 +32,16 @@
         .markdown-body ol { list-style-type: decimal; padding-left: 1.25rem; margin-bottom: 0.75rem; }
         .markdown-body li { margin-bottom: 0.25rem; }
         .markdown-body strong { font-weight: 800; color: #0f172a; }
-        .markdown-body blockquote { border-left: 4px solid #6366f1; padding-left: 1rem; color: #475569; margin: 0.75rem 0; font-style: italic; }
+        .markdown-body blockquote { border-left: 4px solid #10b981; padding-left: 1rem; color: #475569; margin: 0.75rem 0; font-style: italic; }
+        .markdown-body table { width: 100%; border-collapse: collapse; margin-top: 1rem; margin-bottom: 1rem; }
+        .markdown-body th, .markdown-body td { border: 1px solid #cbd5e1; padding: 0.5rem 0.75rem; text-align: left; }
+        .markdown-body th { background-color: #f8fafc; font-weight: 700; }
 
-        /* =========================================================
-           STRICT PRINT / SAVE-AS-PDF ENGINE STYLES
-           ========================================================= */
+        /* STRICT PRINT / SAVE-AS-PDF ENGINE STYLES */
         @media print {
             @page {
                 size: A4;
-                margin: 12mm 12mm 12mm 12mm;
+                margin: 12mm;
             }
 
             body {
@@ -64,9 +52,9 @@
             }
 
             body * { visibility: hidden; }
-            #inline-text-material-card, #inline-text-material-card * { visibility: visible; }
+            #main-content-card, #main-content-card * { visibility: visible; }
 
-            #inline-text-material-card {
+            #main-content-card {
                 position: absolute;
                 left: 0;
                 top: 0;
@@ -79,7 +67,7 @@
 
             .no-print { display: none !important; }
 
-            #inline-text-material-card::before {
+            #main-content-card::before {
                 content: "www.tnclassroom.com";
                 position: fixed;
                 top: 45%;
@@ -100,70 +88,67 @@
 
     <div id="navbar-placeholder" class="no-print"></div>
 
-    <main class="flex-grow max-w-4xl w-full mx-auto px-4 py-8 space-y-6">
-        <!-- Back Navigation & Action Header Grid -->
-        <div class="flex justify-between items-center mb-2 relative z-10 no-print">
-            <div class="inline-block">
-                <a href="../" class="inline-flex items-center gap-2 text-xs font-black text-slate-600 hover:text-indigo-600 uppercase tracking-wider transition cursor-pointer">
-                    <i class="fa-solid fa-arrow-left"></i> Back to MAT Hub
-                </a>
-            </div>
+    <!-- EXPANDED CONTAINER: Changed max-w-4xl to max-w-6xl for better screen coverage -->
+    <main class="flex-grow max-w-6xl w-full mx-auto px-4 py-6 space-y-4">
 
-            <div class="flex items-center gap-2" id="action-header-controls">
-                <!-- Share button hooks here dynamically -->
-            </div>
+        <!-- Back Navigation Header -->
+        <div class="flex justify-between items-center relative z-10 no-print">
+            <a href="../" class="inline-flex items-center gap-2 text-xs font-black text-slate-600 hover:text-emerald-600 uppercase tracking-wider transition cursor-pointer">
+                <i class="fa-solid fa-arrow-left"></i> Back to Hub
+            </a>
+            <div id="action-header-controls" class="flex items-center gap-2"></div>
         </div>
 
-        <!-- Main Topic Detail Master Container Card -->
-        <div class="bg-white border border-slate-200/60 rounded-3xl p-6 md:p-8 shadow-sm space-y-6 no-print">
-            <div class="flex flex-wrap justify-between items-center gap-2 border-b border-slate-100 pb-4">
-                <span id="view-unit-no" class="text-xs font-black text-indigo-600 uppercase tracking-widest font-mono">Loading...</span>
-                <span id="view-class-badge" class="text-xs font-bold text-indigo-700 bg-indigo-50 border border-indigo-100 px-3 py-0.5 rounded-md uppercase tracking-wider">MAT</span>
+        <!-- UNIFIED MASTER CONTENT CARD -->
+        <div id="main-content-card" class="bg-white border border-slate-200/80 rounded-2xl p-6 md:p-8 shadow-sm space-y-6">
+
+            <!-- Header Metadata -->
+            <div class="flex flex-wrap justify-between items-center gap-2 border-b border-slate-100 pb-3">
+                <span id="view-unit-no" class="text-xs font-black text-slate-400 uppercase tracking-widest font-mono">Loading...</span>
+                <span id="view-class-badge" class="text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-100 px-3 py-0.5 rounded-md uppercase tracking-wider">Loading...</span>
             </div>
 
+            <!-- Topic Title -->
             <div>
-                <h1 id="view-unit-name" class="font-black text-slate-900 text-xl md:text-2xl tracking-tight tamil-fix leading-snug">Loading Topic Context...</h1>
+                <h1 id="view-unit-name" class="font-black text-slate-900 text-xl md:text-3xl tracking-tight tamil-fix leading-snug">Loading Topic Context...</h1>
             </div>
 
-            <!-- Double Description Stack -->
-            <div class="space-y-4">
-                <!-- Tamil Notes Section -->
-                <div id="view-shortnote-box-ta" class="hidden text-justify bg-slate-50/50 border border-slate-100 p-5 rounded-2xl text-sm md:text-base text-slate-600 leading-relaxed tracking-normal tamil-fix w-full break-words"></div>
-
-                <!-- English Notes Section -->
-                <div id="view-shortnote-box-en" class="hidden text-justify bg-slate-50/50 border border-slate-100 p-5 rounded-2xl text-sm md:text-base text-slate-600 leading-relaxed tracking-normal w-full break-words border-l-4 border-indigo-500"></div>
+            <!-- Notes Section -->
+            <div class="space-y-3">
+                <div id="view-shortnote-box-ta" class="hidden text-justify bg-slate-50/70 border border-slate-200/60 p-4 rounded-xl text-sm text-slate-700 leading-relaxed tamil-fix w-full break-words"></div>
+                <div id="view-shortnote-box-en" class="hidden text-justify bg-slate-50/70 border border-slate-200/60 p-4 rounded-xl text-sm text-slate-700 leading-relaxed w-full break-words border-l-4 border-emerald-500"></div>
             </div>
 
-            <!-- Action Link Module Interface Blocks -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-slate-100">
-                <div id="material-action-container"></div>
-                <div id="video-action-container"></div>
-            </div>
+            <!-- COMPACT FULL-WIDTH ACTION TOOLBAR -->
+            <div class="no-print pt-2 border-t border-slate-100">
+                <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-50 border border-slate-200/70 p-3 rounded-xl">
 
-            <div id="quiz-action-container" class="pt-2"></div>
-        </div>
-
-        <!-- DETAILED INLINE TEXT MATERIAL READER CARD -->
-        <div id="inline-text-material-card" class="hidden bg-white border border-slate-200/60 rounded-3xl p-6 md:p-8 shadow-sm space-y-4">
-            <div class="flex justify-between items-center border-b border-slate-100 pb-3 no-print">
-                <h3 class="text-xs font-black uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-                    <i class="fa-solid fa-book-open-reader text-indigo-500"></i> Full Lesson Material Content
-                </h3>
-
-                <!-- Action Controls Toolbar -->
-                <div class="flex items-center gap-3">
-                    <button onclick="downloadAsPDF()" class="text-slate-700 hover:text-indigo-600 border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-bold transition shadow-sm flex items-center gap-1.5 bg-white cursor-pointer">
-                        <i class="fa-solid fa-file-pdf text-red-500"></i> Save as PDF
-                    </button>
-
-                    <!-- Font scale toolbar controls -->
-                    <div class="flex items-center border border-slate-200 bg-white rounded-xl p-0.5 text-xs font-bold text-slate-600">
-                        <button onclick="adjustTextScale(-1)" class="w-7 h-7 hover:bg-slate-100 rounded-lg flex items-center justify-center font-mono">A-</button>
-                        <button onclick="adjustTextScale(1)" class="w-7 h-7 hover:bg-slate-100 rounded-lg flex items-center justify-center font-mono border-l border-slate-100">A+</button>
+                    <!-- Left Actions: Links & Tests -->
+                    <div class="flex flex-wrap items-center gap-2 flex-grow">
+                        <div id="material-action-container"></div>
+                        <div id="video-action-container"></div>
+                        <div id="quiz-action-container"></div>
                     </div>
+
+                    <!-- Right Actions: Reading Tools & Print -->
+                    <div id="reading-toolbar-controls" class="flex items-center gap-2">
+                        <button onclick="downloadAsPDF()" class="text-slate-700 hover:text-emerald-600 border border-slate-200 bg-white rounded-lg px-3 py-2 text-xs font-bold transition shadow-sm flex items-center gap-1.5 cursor-pointer">
+                            <i class="fa-solid fa-file-pdf text-red-500"></i> Save as PDF
+                        </button>
+                        <div class="flex items-center border border-slate-200 bg-white rounded-lg p-0.5 text-xs font-bold text-slate-600">
+                            <button onclick="adjustTextScale(-1)" class="w-7 h-7 hover:bg-slate-100 rounded-md flex items-center justify-center font-mono">A-</button>
+                            <button onclick="adjustTextScale(1)" class="w-7 h-7 hover:bg-slate-100 rounded-md flex items-center justify-center font-mono border-l border-slate-100">A+</button>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-            <div id="inline-material-text-body" class="text-slate-800 font-sans leading-relaxed tracking-wide select-text tamil-fix text-base markdown-body"></div>
+
+            <!-- INLINE TEXT READER CONTAINER -->
+            <div id="inline-text-material-card" class="hidden pt-2">
+                <div id="inline-material-text-body" class="text-slate-800 font-sans leading-relaxed tracking-wide select-text tamil-fix text-base markdown-body"></div>
+            </div>
+
         </div>
     </main>
 
@@ -174,12 +159,11 @@
             <a href="/disclaimer.html" class="hover:text-emerald-400 transition">Disclaimer</a>
             <a href="/contact-us.html" class="hover:text-emerald-400 transition">Contact Us</a>
         </nav>
-
         <p>&copy; 2026 tnclassroom.com | A Professional Learning Platform for Students & Teachers</p>
     </footer>
 
     <script>
-        const DATABASE_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSgvpPMCeyjU2HrfMkVS5YttDhPsuY1eY3mGfm78PtrgIX-_Lb245ZSPANkxNvbpk5DVAbL7Gb-E_5g/pub?gid=273942769&single=true&output=csv";
+        const DATABASE_CSV_URL = "https://docs.google.com/spreadsheets/d/1j2C7jpFskw2TrYoRKDmPJBkHezAfRW0aFshbULLgUvc/gviz/tq?tqx=out:csv&sheet=Sheet1";
         let targetRecord = null;
         let currentTextScale = 16;
 
@@ -222,12 +206,13 @@
                 const cols = dataRows[targetId];
                 if (!cols) throw new Error();
 
-                let category  = cols[1] ? cols[1].replace(/^"|"$/g, '').trim() : 'Mental Ability';
-                let sessionNo = cols[2] ? cols[2].replace(/^"|"$/g, '').trim() : '';
-                let topicName = cols[3] ? cols[3].replace(/^"|"$/g, '').trim() : '';
-                let vUrl      = (cols[4] && cols[4].trim() !== "") ? cols[4].replace(/^"|"$/g, '').trim() : '#';
-                let fUrl      = cols[5] ? cols[5].replace(/^"|"$/g, '').replace(/^\.\//, '').trim() : '#';
-                let rawMcq    = cols[6] ? cols[6].replace(/^"|"$/g, '').trim() : '#';
+                let clsName = cols[0] ? cols[0].replace(/^"|"$/g, '').trim() : 'Class 8';
+                let subj    = cols[1] ? cols[1].replace(/^"|"$/g, '').trim() : 'Science';
+                let uNo     = cols[2] ? cols[2].replace(/^"|"$/g, '').trim() : '';
+                let uName   = cols[3] ? cols[3].replace(/^"|"$/g, '').trim() : '';
+                let vUrl    = (cols[4] && cols[4].trim() !== "") ? cols[4].replace(/^"|"$/g, '').trim() : '#';
+                let fUrl    = cols[5] ? cols[5].replace(/^"|"$/g, '').replace(/^\.\//, '').trim() : '#';
+                let rawMcq  = cols[6] ? cols[6].replace(/^"|"$/g, '').trim() : '#';
                 let uShortNoteTa = cols[7] ? cols[7].replace(/^"|"$/g, '').trim() : '';
                 let uShortNoteEn = cols[8] ? cols[8].replace(/^"|"$/g, '').trim() : '';
 
@@ -242,10 +227,10 @@
                 }
 
                 targetRecord = {
-                    className: "MAT",
-                    subject: category,
-                    unitNo: sessionNo,
-                    unitName: topicName,
+                    className: clsName,
+                    subject: subj,
+                    unitNo: uNo,
+                    unitName: uName,
                     videoUrl: vUrl,
                     pdfUrl: fUrl,
                     mcqUrl: rawMcq,
@@ -255,7 +240,7 @@
 
                 renderPagePayload();
             } catch (e) {
-                document.getElementById('view-unit-name').innerText = "MAT resource entry not discovered.";
+                document.getElementById('view-unit-name').innerText = "Topic material entry not discovered.";
             }
         }
 
@@ -267,7 +252,7 @@
 
             const controlsContainer = document.getElementById('action-header-controls');
             controlsContainer.innerHTML = `
-                <button onclick="shareModulePayload()" class="text-slate-500 hover:text-indigo-600 bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-bold transition shadow-sm flex items-center gap-1.5 cursor-pointer">
+                <button onclick="shareModulePayload()" class="text-slate-600 hover:text-emerald-600 bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs font-bold transition shadow-sm flex items-center gap-1.5 cursor-pointer">
                     <i class="fa-solid fa-share-nodes"></i> Share
                 </button>
             `;
@@ -291,50 +276,50 @@
 
             let processedUrl = targetRecord.pdfUrl.trim();
             if (!processedUrl.startsWith('http') && !processedUrl.startsWith('/') && !processedUrl.startsWith('.')) {
-                processedUrl = `../../${processedUrl}`;
+                processedUrl = `../${processedUrl}`;
             }
 
             const isTextOrMd = processedUrl.toLowerCase().endsWith('.txt') || processedUrl.toLowerCase().endsWith('.md');
 
             if (isTextOrMd) {
                 matContainer.innerHTML = `
-                    <button onclick="scrollToAndLoadTextMaterial('${processedUrl}')" class="flex items-center justify-center gap-2.5 p-4 border border-slate-200/80 bg-white hover:border-indigo-300 rounded-2xl text-xs font-black text-slate-700 transition shadow-sm w-full cursor-pointer">
-                        <i class="fa-solid fa-file-lines text-indigo-500 text-base"></i> View Study Material
+                    <button onclick="scrollToAndLoadTextMaterial('${processedUrl}')" class="flex items-center gap-2 px-3 py-2 border border-slate-200 bg-white hover:border-emerald-500 rounded-lg text-xs font-bold text-slate-800 transition shadow-sm cursor-pointer">
+                        <i class="fa-solid fa-file-lines text-emerald-500"></i> View Material
                     </button>
                 `;
                 scrollToAndLoadTextMaterial(processedUrl, false);
             } else {
                 matContainer.innerHTML = `
-                    <a href="${processedUrl}" target="_blank" class="flex items-center justify-center gap-2.5 p-4 border border-slate-200/80 bg-white hover:border-indigo-300 rounded-2xl text-xs font-black text-slate-700 transition shadow-sm w-full cursor-pointer">
-                        <i class="fa-solid fa-file-pdf text-red-500 text-base"></i> View Study Material (PDF)
+                    <a href="${processedUrl}" target="_blank" class="flex items-center gap-2 px-3 py-2 border border-slate-200 bg-white hover:border-emerald-500 rounded-lg text-xs font-bold text-slate-800 transition shadow-sm cursor-pointer">
+                        <i class="fa-solid fa-file-pdf text-red-500"></i> View PDF Material
                     </a>
                 `;
             }
 
             if (targetRecord.videoUrl !== '#') {
                 vidContainer.innerHTML = `
-                    <a href="${targetRecord.videoUrl}" target="_blank" class="flex items-center justify-center gap-2.5 p-4 border border-slate-200/80 bg-white hover:border-red-300 rounded-2xl text-xs font-black text-slate-700 transition shadow-sm w-full cursor-pointer">
-                        <i class="fa-brands fa-youtube text-red-500 text-base"></i> Watch Video Lessons
+                    <a href="${targetRecord.videoUrl}" target="_blank" class="flex items-center gap-2 px-3 py-2 border border-slate-200 bg-white hover:border-red-400 rounded-lg text-xs font-bold text-slate-800 transition shadow-sm cursor-pointer">
+                        <i class="fa-brands fa-youtube text-red-500"></i> Watch Video
                     </a>
                 `;
             } else {
                 vidContainer.innerHTML = `
-                    <div class="flex items-center justify-center gap-2.5 p-4 bg-slate-100/50 border border-slate-200/40 rounded-2xl text-xs font-bold text-slate-400 w-full cursor-not-allowed">
-                        <i class="fa-brands fa-youtube opacity-40 text-base"></i> Video Coming Soon
+                    <div class="flex items-center gap-2 px-3 py-2 bg-slate-100/60 border border-slate-200/50 rounded-lg text-xs font-bold text-slate-400 cursor-not-allowed">
+                        <i class="fa-brands fa-youtube opacity-40"></i> Video N/A
                     </div>
                 `;
             }
 
             if (targetRecord.mcqUrl !== '#') {
                 quizContainer.innerHTML = `
-                    <a href="${targetRecord.mcqUrl}" target="_blank" class="w-full text-center bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs py-4 rounded-2xl transition shadow-md block uppercase tracking-wider cursor-pointer">
-                        <i class="fa-solid fa-square-poll-vertical mr-1"></i> Free Online Test
+                    <a href="${targetRecord.mcqUrl}" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-slate-900 hover:bg-emerald-600 text-white rounded-lg text-xs font-bold transition shadow-sm uppercase tracking-wider cursor-pointer">
+                        <i class="fa-solid fa-square-poll-vertical"></i> Online Test
                     </a>
                 `;
             } else {
                 quizContainer.innerHTML = `
-                    <div class="w-full text-center bg-slate-100 text-slate-400 font-bold text-xs py-4 rounded-2xl block uppercase tracking-wider cursor-not-allowed border border-slate-200/40">
-                        Quiz Coming Soon
+                    <div class="flex items-center gap-2 px-3 py-2 bg-slate-100 text-slate-400 rounded-lg text-xs font-bold border border-slate-200/50 cursor-not-allowed">
+                        Test N/A
                     </div>
                 `;
             }
@@ -354,7 +339,7 @@
             }
 
             if (textBody.innerHTML === "") {
-                textBody.innerHTML = `<div class="text-slate-400 text-xs py-4 font-medium"><i class="fa-solid fa-circle-notch fa-spin text-indigo-500 mr-2"></i>Loading study material file details...</div>`;
+                textBody.innerHTML = `<div class="text-slate-400 text-xs py-4 font-medium"><i class="fa-solid fa-circle-notch fa-spin text-emerald-500 mr-2"></i>Loading study material file details...</div>`;
                 try {
                     const res = await fetch(url);
                     if (!res.ok) throw new Error();
@@ -388,7 +373,7 @@
 
         function shareModulePayload() {
             const cleanUnitTitle = targetRecord.unitName.replace(/\r?\n/g, ' ');
-            const shareText = `🧠 *TN CLASSROOM - MAT STUDY MATERIAL*\n\n📌 *Category:* ${targetRecord.subject.toUpperCase()}\n🎯 *${targetRecord.unitNo}:* ${cleanUnitTitle}\n\n📝 *Interactive MCQ Link:*\n${targetRecord.mcqUrl !== '#' ? targetRecord.mcqUrl : 'Coming Soon'}\n\n🌐 View MAT Module at: ${window.location.href}`;
+            const shareText = `📚 *TN CLASSROOM - STUDY MATERIAL*\n\n📌 *Subject:* ${targetRecord.subject.toUpperCase()}\n🎯 *${targetRecord.unitNo}:* ${cleanUnitTitle} (${targetRecord.className})\n\n📝 *Interactive MCQ Link:*\n${targetRecord.mcqUrl !== '#' ? targetRecord.mcqUrl : 'Coming Soon'}\n\n🌐 View Chapter Module at: ${window.location.href}`;
             if (navigator.share) {
                 navigator.share({ title: cleanUnitTitle, text: shareText }).catch(console.error);
             } else {
