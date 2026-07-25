@@ -3,35 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NMMS SAT Study Center</title>
-   <script src="/tailwind.js"></script>
-   <link rel="stylesheet" href="/fontawesome.css">
+    <title>NMMS SAT Study Center | TN Classroom</title>
+    <script src="/tailwind.js"></script>
+    <link rel="stylesheet" href="/fontawesome.css">
 
-   <script async src="https://www.googletagmanager.com/gtag/js?id=G-MZZ985WL51"></script>
-<script>
-  window.dataLayer = window.location.hostname === 'localhost' ? [] : (window.dataLayer || []);
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <!-- MARKED.JS CDN for Parsing Text/Markdown Files -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
-  gtag('config', 'G-MZZ985WL51', {
-    page_path: window.location.pathname,
-    cookie_flags: 'max-age=7200;Secure;SameSite=None'
-  });
-</script>
+    <!-- MATHJAX CDN for Formula Rendering -->
+    <script>
+      window.MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            processEscapes: true
+        },
+        options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MZZ985WL51"></script>
+    <script>
+      window.dataLayer = window.location.hostname === 'localhost' ? [] : (window.dataLayer || []);
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-MZZ985WL51', {
+        page_path: window.location.pathname,
+        cookie_flags: 'max-age=7200;Secure;SameSite=None'
+      });
+    </script>
 
     <style>
-        /* FIXED: Blocks hidden desktop menus from hijacking user clicks on empty space */
         .dropdown-menu { z-index: 50 !important; pointer-events: none; }
         .dropdown-active { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; z-index: 50 !important; pointer-events: auto !important; }
         .tamil-fix { font-family: 'Segoe UI', 'Latha', 'Apple Tamil', sans-serif !important; }
+
+        .markdown-body h1 { font-size: 1.5rem; font-weight: 800; margin-top: 1rem; margin-bottom: 0.5rem; color: #0f172a; }
+        .markdown-body h2 { font-size: 1.25rem; font-weight: 700; margin-top: 0.875rem; margin-bottom: 0.5rem; color: #1e293b; }
+        .markdown-body h3 { font-size: 1.1rem; font-weight: 700; margin-top: 0.75rem; margin-bottom: 0.375rem; color: #334155; }
+        .markdown-body p { margin-bottom: 0.75rem; line-height: 1.6; }
+        .markdown-body ul { list-style-type: disc; padding-left: 1.25rem; margin-bottom: 0.75rem; }
+        .markdown-body ol { list-style-type: decimal; padding-left: 1.25rem; margin-bottom: 0.75rem; }
+        .markdown-body li { margin-bottom: 0.25rem; }
+        .markdown-body strong { font-weight: 800; color: #0f172a; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-900 flex flex-col min-h-screen font-sans">
 
     <div id="navbar-placeholder"></div>
 
-    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm mb-8">
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+
+        <!-- HEADER BLOCK -->
+        <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm">
             <h1 class="text-2xl font-black text-slate-900 sm:text-3xl flex items-center gap-2">
                 <span class="p-2 bg-emerald-50 text-emerald-600 rounded-xl"><i class="fa-solid fa-graduation-cap"></i></span>
                 NMMS SAT Learning Hub
@@ -41,30 +66,59 @@
             </p>
         </div>
 
-        <div id="subject-tabs-container" class="flex flex-wrap gap-2 mb-6"></div>
+        <!-- INTRODUCTORY CONTENT CARD (Loaded automatically from intro-nmms-sat.txt for AdSense & SEO) -->
+        <div id="intro-content-card" class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm space-y-4">
+            <div class="flex items-center gap-2 border-b border-slate-100 pb-3">
+                <i class="fa-solid fa-circle-info text-emerald-500"></i>
+                <h2 class="text-sm font-black text-slate-700 uppercase tracking-wider">About NMMS SAT Portal</h2>
+            </div>
+            <div id="intro-text-body" class="text-slate-800 font-sans leading-relaxed tracking-wide select-text tamil-fix text-base markdown-body">
+                <div class="text-slate-400 text-xs py-2 font-medium">
+                    <i class="fa-solid fa-circle-notch fa-spin text-emerald-500 mr-2"></i>Loading portal introduction...
+                </div>
+            </div>
+        </div>
 
+        <!-- MODULE FILTER BUTTONS (Populated dynamically from Column J) -->
+        <div class="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm space-y-3">
+            <span class="text-xs font-extrabold text-slate-400 uppercase tracking-wider block">
+                <i class="fa-solid fa-cubes text-emerald-500 mr-1"></i> Select Module / தொகுதி
+            </span>
+            <div id="module-tabs-container" class="flex flex-wrap gap-2"></div>
+        </div>
+
+        <!-- SUBJECT FILTER BUTTONS -->
+        <div class="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm space-y-3">
+            <span class="text-xs font-extrabold text-slate-400 uppercase tracking-wider block">
+                <i class="fa-solid fa-book-open text-emerald-500 mr-1"></i> Select Subject / பாடம்
+            </span>
+            <div id="subject-tabs-container" class="flex flex-wrap gap-2"></div>
+        </div>
+
+        <!-- TOPIC CARDS DECK -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="units-master-deck">
             <div class="col-span-full text-center py-12 text-slate-400 font-medium text-xs bg-white border border-slate-100 rounded-2xl shadow-sm">
-                <i class="fa-solid fa-circle-notch fa-spin text-emerald-500 mr-1.5"></i> Connecting to cloud logs database...
+                <i class="fa-solid fa-circle-notch fa-spin text-emerald-500 mr-1.5"></i> Connecting to cloud database...
             </div>
         </div>
     </main>
 
-     <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-6 text-center text-xs mt-auto space-y-4">
-    <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs font-bold text-slate-400">
-        <a href="/about-us.html" class="hover:text-emerald-400 transition">About Us</a>
-        <a href="/privacy-policy.html" class="hover:text-emerald-400 transition">Privacy Policy</a>
-        <a href="/disclaimer.html" class="hover:text-emerald-400 transition">Disclaimer</a>
-        <a href="/contact-us.html" class="hover:text-emerald-400 transition">Contact Us</a>
-    </nav>
+    <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-6 text-center text-xs mt-auto space-y-4">
+        <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs font-bold text-slate-400">
+            <a href="/about-us.html" class="hover:text-emerald-400 transition">About Us</a>
+            <a href="/privacy-policy.html" class="hover:text-emerald-400 transition">Privacy Policy</a>
+            <a href="/disclaimer.html" class="hover:text-emerald-400 transition">Disclaimer</a>
+            <a href="/contact-us.html" class="hover:text-emerald-400 transition">Contact Us</a>
+        </nav>
 
-    <p>&copy; 2026 tnclassroom.com | A Professional Learning Platform for Students & Teachers</p>
-</footer>
+        <p>&copy; 2026 tnclassroom.com | A Professional Learning Platform for Students & Teachers</p>
+    </footer>
 
     <script>
         const DATABASE_CSV_URL = "https://docs.google.com/spreadsheets/d/1j2C7jpFskw2TrYoRKDmPJBkHezAfRW0aFshbULLgUvc/gviz/tq?tqx=out:csv&sheet=Sheet1";
         let masterDatabaseRecords = [];
-        let globallySelectedSubject = "";
+        let globallySelectedModule = "All";
+        let globallySelectedSubject = "All";
 
         function parseCsvRows(text) {
             let lines = []; let row = []; let cell = ''; let inQuotes = false;
@@ -83,6 +137,57 @@
             return lines;
         }
 
+        function sanitizeTamilMathJax(content) {
+            if (!content) return "";
+            let clean = content;
+
+            clean = clean.replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, '');
+            clean = clean.replace(/<[\s\S]*?>/gi, '');
+
+            while (/\\text\s*\{([^{}]*)\}/.test(clean)) {
+                clean = clean.replace(/\\text\s*\{([^{}]*)\}/g, '$1');
+            }
+
+            clean = clean.replace(/(\$\$[\s\S]*?\$\$|\$[^\$\n]+?\$)/g, (mathBlock) => {
+                if (!/[\u0B80-\u0BFF]/.test(mathBlock)) return mathBlock;
+
+                let str = mathBlock.replace(/^\$\$?|\$\$?$/g, '');
+                str = str.replace(/\\frac\s*\{([^{}]*)\}\s*\{([^{}]*)\}/g, (m, num, den) => {
+                    let cleanNum = num.replace(/\\/g, '').trim();
+                    let cleanDen = den.replace(/\\/g, '').trim();
+                    return `<span class="inline-flex flex-col items-center justify-center align-middle mx-1 font-bold text-slate-800"><span class="border-b border-slate-700 px-1 pb-0.5">${cleanNum}</span><span class="px-1 pt-0.5">${cleanDen}</span></span>`;
+                });
+
+                str = str.replace(/\\times/g, ' × ');
+                str = str.replace(/\\div/g, ' ÷ ');
+                str = str.replace(/\\([^\sA-Za-z0-9])/g, '$1');
+                return `<span class="tamil-fix font-medium">${str}</span>`;
+            });
+
+            return clean;
+        }
+
+        // FETCH & RENDER intro-nmms-sat.txt
+        async function fetchIntroText() {
+            const introBody = document.getElementById('intro-text-body');
+            try {
+                const res = await fetch('./intro-nmms-sat.txt');
+                if (!res.ok) throw new Error("intro-nmms-sat.txt not found");
+                let rawTxt = await res.text();
+
+                let cleanTxt = sanitizeTamilMathJax(rawTxt);
+                let parsedHtml = (typeof marked !== 'undefined') ? marked.parse(cleanTxt) : `<p class="whitespace-pre-wrap">${cleanTxt}</p>`;
+                introBody.innerHTML = parsedHtml;
+
+                if (window.MathJax && window.MathJax.typesetPromise) {
+                    window.MathJax.typesetPromise([introBody]);
+                }
+            } catch (err) {
+                console.error("Intro text load failed:", err);
+                introBody.innerHTML = `<p class="text-xs text-slate-500 font-medium">Welcome to the NMMS SAT Study Center. Select a Module or Subject below to access study resources.</p>`;
+            }
+        }
+
         async function bootNmmsPortal() {
             try {
                 const res = await fetch(DATABASE_CSV_URL);
@@ -94,49 +199,126 @@
 
                 dataRows.forEach((cols, index) => {
                     if (!cols || cols.length < 4 || !cols[3]) return;
-                    let clsName = cols[0] ? cols[0].replace(/^"|"$/g, '').trim() : 'Class 8';
-                    let subj    = cols[1] ? cols[1].replace(/^"|"$/g, '').trim() : 'Science';
-                    let uNo     = cols[2] ? cols[2].replace(/^"|"$/g, '').trim() : '';
-                    let uName   = cols[3] ? cols[3].replace(/^"|"$/g, '').trim() : '';
+                    let clsName  = cols[0] ? cols[0].replace(/^"|"$/g, '').trim() : 'Class 8';
+                    let subj     = cols[1] ? cols[1].replace(/^"|"$/g, '').trim() : 'Science';
+                    let uNo      = cols[2] ? cols[2].replace(/^"|"$/g, '').trim() : '';
+                    let uName    = cols[3] ? cols[3].replace(/^"|"$/g, '').trim() : '';
+                    let modVal   = cols[9] ? cols[9].replace(/^"|"$/g, '').trim() : ''; // Column J = Index 9
 
                     masterDatabaseRecords.push({
                         id: index,
                         className: clsName,
                         subject: subj,
                         unitNo: uNo,
-                        unitName: uName
+                        unitName: uName,
+                        moduleNo: modVal
                     });
                 });
-                buildSubjectTabs();
+
+                buildModuleTabs();
             } catch (error) {
                 console.error(error);
                 document.getElementById('units-master-deck').innerHTML = `<div class="col-span-full p-4 bg-red-50 text-red-700 text-xs font-bold rounded-xl border border-red-100 text-center">Error reading entries.</div>`;
             }
         }
 
-        function buildSubjectTabs() {
-            const container = document.getElementById('subject-tabs-container');
-            const subjects = [...new Set(masterDatabaseRecords.map(x => x.subject))].filter(Boolean);
+        function buildModuleTabs() {
+            const container = document.getElementById('module-tabs-container');
+            const modules = [...new Set(masterDatabaseRecords.map(x => x.moduleNo).filter(Boolean))];
+
             container.innerHTML = "";
-            subjects.forEach((sub, i) => {
-                if (i === 0) globallySelectedSubject = sub;
+
+            // "All Modules" Option Button
+            const allBtn = document.createElement('button');
+            allBtn.className = getButtonClass(globallySelectedModule === "All");
+            allBtn.innerText = "All Modules";
+            allBtn.onclick = () => {
+                globallySelectedModule = "All";
+                buildModuleTabs();
+                buildSubjectTabs();
+            };
+            container.appendChild(allBtn);
+
+            modules.forEach(mod => {
                 const btn = document.createElement('button');
-                btn.className = `px-4 py-2 rounded-xl text-xs font-extrabold border transition shadow-sm ${sub === globallySelectedSubject ? 'bg-slate-950 text-white border-slate-950' : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'}`;
-                btn.innerText = sub;
+                btn.className = getButtonClass(globallySelectedModule === mod);
+                btn.innerText = `Module ${mod}`;
                 btn.onclick = () => {
-                    globallySelectedSubject = sub;
-                    document.querySelectorAll('#subject-tabs-container button').forEach(b => b.className = "px-4 py-2 rounded-xl text-xs font-extrabold border bg-white text-slate-700 border-slate-200 hover:bg-slate-50 transition shadow-sm");
-                    btn.className = "px-4 py-2 rounded-xl text-xs font-extrabold border bg-slate-950 text-white border-slate-950 transition shadow-sm";
-                    renderActiveSubjectDeck();
+                    globallySelectedModule = mod;
+                    buildModuleTabs();
+                    buildSubjectTabs();
                 };
                 container.appendChild(btn);
             });
+
+            buildSubjectTabs();
+        }
+
+        function buildSubjectTabs() {
+            const container = document.getElementById('subject-tabs-container');
+
+            // Filter database records by selected module first
+            let records = masterDatabaseRecords;
+            if (globallySelectedModule !== "All") {
+                records = records.filter(x => x.moduleNo === globallySelectedModule);
+            }
+
+            const subjects = [...new Set(records.map(x => x.subject).filter(Boolean))];
+            container.innerHTML = "";
+
+            // "All Subjects" Option Button
+            const allBtn = document.createElement('button');
+            allBtn.className = getButtonClass(globallySelectedSubject === "All");
+            allBtn.innerText = "All Subjects";
+            allBtn.onclick = () => {
+                globallySelectedSubject = "All";
+                buildSubjectTabs();
+            };
+            container.appendChild(allBtn);
+
+            subjects.forEach(sub => {
+                const btn = document.createElement('button');
+                btn.className = getButtonClass(globallySelectedSubject === sub);
+                btn.innerText = sub;
+                btn.onclick = () => {
+                    globallySelectedSubject = sub;
+                    buildSubjectTabs();
+                };
+                container.appendChild(btn);
+            });
+
             renderActiveSubjectDeck();
         }
 
+        function getButtonClass(isActive) {
+            return `px-4 py-2 rounded-xl text-xs font-extrabold border transition shadow-sm cursor-pointer ${
+                isActive
+                ? 'bg-slate-950 text-white border-slate-950 scale-[1.02]'
+                : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
+            }`;
+        }
+
         function renderActiveSubjectDeck() {
-            const deck = document.getElementById('units-master-deck'); deck.innerHTML = "";
-            const rows = masterDatabaseRecords.filter(x => x.subject === globallySelectedSubject);
+            const deck = document.getElementById('units-master-deck');
+            deck.innerHTML = "";
+
+            let rows = masterDatabaseRecords;
+
+            // Apply Module Filter
+            if (globallySelectedModule !== "All") {
+                rows = rows.filter(x => x.moduleNo === globallySelectedModule);
+            }
+
+            // Apply Subject Filter
+            if (globallySelectedSubject !== "All") {
+                rows = rows.filter(x => x.subject === globallySelectedSubject);
+            }
+
+            if (rows.length === 0) {
+                deck.innerHTML = `<div class="col-span-full p-6 bg-white border border-slate-200 rounded-2xl text-center text-xs font-bold text-slate-400">No resources available for this filter selection.</div>`;
+                return;
+            }
+
             rows.forEach(row => {
                 let displayUnitName = row.unitName.replace(/\r?\n/g, '<br>');
 
@@ -145,7 +327,7 @@
                 card.innerHTML = `
                     <div class="space-y-4">
                         <div class="flex justify-between items-center">
-                            <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest font-mono">${row.unitNo}</span>
+                            <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest font-mono">${row.unitNo || ('Module ' + row.moduleNo)}</span>
                             <span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-100 px-2.5 py-0.5 rounded-md uppercase tracking-wider">${row.className}</span>
                         </div>
                         <div class="cursor-pointer" onclick="window.location.href='./view/?id=${row.id}'">
@@ -211,6 +393,7 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             loadSharedSiteNavbar();
+            fetchIntroText();
             bootNmmsPortal();
         });
     </script>

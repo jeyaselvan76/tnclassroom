@@ -7,6 +7,21 @@
     <script src="/tailwind.js"></script>
     <link rel="stylesheet" href="/fontawesome.css">
 
+    <!-- MARKED.JS CDN for Parsing Text/Markdown Files -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- MATHJAX CDN for Formula Rendering -->
+    <script>
+      window.MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            processEscapes: true
+        },
+        options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
     <!-- GLOBAL SITE CONFIGURATION LAYER (GA4 ANALYTICS ENGINE) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-MZZ985WL51"></script>
     <script>
@@ -25,15 +40,25 @@
         .dropdown-menu { z-index: 50 !important; pointer-events: none; }
         .dropdown-active { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; z-index: 50 !important; pointer-events: auto !important; }
         .tamil-fix { font-family: 'Segoe UI', 'Latha', 'Apple Tamil', sans-serif !important; }
+
+        .markdown-body h1 { font-size: 1.5rem; font-weight: 800; margin-top: 1rem; margin-bottom: 0.5rem; color: #0f172a; }
+        .markdown-body h2 { font-size: 1.25rem; font-weight: 700; margin-top: 0.875rem; margin-bottom: 0.5rem; color: #1e293b; }
+        .markdown-body h3 { font-size: 1.1rem; font-weight: 700; margin-top: 0.75rem; margin-bottom: 0.375rem; color: #334155; }
+        .markdown-body p { margin-bottom: 0.75rem; line-height: 1.6; }
+        .markdown-body ul { list-style-type: disc; padding-left: 1.25rem; margin-bottom: 0.75rem; }
+        .markdown-body ol { list-style-type: decimal; padding-left: 1.25rem; margin-bottom: 0.75rem; }
+        .markdown-body li { margin-bottom: 0.25rem; }
+        .markdown-body strong { font-weight: 800; color: #0f172a; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-900 flex flex-col min-h-screen font-sans">
 
     <div id="navbar-placeholder"></div>
 
-    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+
         <!-- HEADER BLOCK -->
-        <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm mb-8">
+        <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm">
             <h1 class="text-2xl font-black text-slate-900 sm:text-3xl flex items-center gap-2">
                 <span class="p-2 bg-indigo-50 text-indigo-600 rounded-xl"><i class="fa-solid fa-brain"></i></span>
                 NMMS MAT Learning Hub
@@ -43,13 +68,39 @@
             </p>
         </div>
 
-        <!-- CATEGORY TABS -->
-        <div id="subject-tabs-container" class="flex flex-wrap gap-2 mb-6"></div>
+        <!-- INTRODUCTORY CONTENT CARD (Loaded automatically from intro-nmms-mat.txt for AdSense & SEO) -->
+        <div id="intro-content-card" class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm space-y-4">
+            <div class="flex items-center gap-2 border-b border-slate-100 pb-3">
+                <i class="fa-solid fa-circle-info text-indigo-500"></i>
+                <h2 class="text-sm font-black text-slate-700 uppercase tracking-wider">About NMMS MAT Portal</h2>
+            </div>
+            <div id="intro-text-body" class="text-slate-800 font-sans leading-relaxed tracking-wide select-text tamil-fix text-base markdown-body">
+                <div class="text-slate-400 text-xs py-2 font-medium">
+                    <i class="fa-solid fa-circle-notch fa-spin text-indigo-500 mr-2"></i>Loading MAT introduction...
+                </div>
+            </div>
+        </div>
+
+        <!-- MODULE FILTER BUTTONS (Populated dynamically from Column J) -->
+        <div class="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm space-y-3">
+            <span class="text-xs font-extrabold text-slate-400 uppercase tracking-wider block">
+                <i class="fa-solid fa-cubes text-indigo-500 mr-1"></i> Select Module / தொகுதி
+            </span>
+            <div id="module-tabs-container" class="flex flex-wrap gap-2"></div>
+        </div>
+
+        <!-- CATEGORY / SUBJECT TABS -->
+        <div class="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm space-y-3">
+            <span class="text-xs font-extrabold text-slate-400 uppercase tracking-wider block">
+                <i class="fa-solid fa-layer-group text-indigo-500 mr-1"></i> Select Category / பிரிவு
+            </span>
+            <div id="subject-tabs-container" class="flex flex-wrap gap-2"></div>
+        </div>
 
         <!-- SESSIONS CARD DECK -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="units-master-deck">
             <div class="col-span-full text-center py-12 text-slate-400 font-medium text-xs bg-white border border-slate-100 rounded-2xl shadow-sm">
-                <i class="fa-solid fa-circle-notch fa-spin text-indigo-500 mr-1.5"></i> Connecting to cloud logs database...
+                <i class="fa-solid fa-circle-notch fa-spin text-indigo-500 mr-1.5"></i> Connecting to MAT database...
             </div>
         </div>
     </main>
@@ -68,7 +119,8 @@
     <script>
         const DATABASE_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSgvpPMCeyjU2HrfMkVS5YttDhPsuY1eY3mGfm78PtrgIX-_Lb245ZSPANkxNvbpk5DVAbL7Gb-E_5g/pub?gid=273942769&single=true&output=csv";
         let masterDatabaseRecords = [];
-        let globallySelectedSubject = "";
+        let globallySelectedModule = "All";
+        let globallySelectedSubject = "All";
 
         function parseCsvRows(text) {
             let lines = []; let row = []; let cell = ''; let inQuotes = false;
@@ -87,6 +139,57 @@
             return lines;
         }
 
+        function sanitizeTamilMathJax(content) {
+            if (!content) return "";
+            let clean = content;
+
+            clean = clean.replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, '');
+            clean = clean.replace(/<[\s\S]*?>/gi, '');
+
+            while (/\\text\s*\{([^{}]*)\}/.test(clean)) {
+                clean = clean.replace(/\\text\s*\{([^{}]*)\}/g, '$1');
+            }
+
+            clean = clean.replace(/(\$\$[\s\S]*?\$\$|\$[^\$\n]+?\$)/g, (mathBlock) => {
+                if (!/[\u0B80-\u0BFF]/.test(mathBlock)) return mathBlock;
+
+                let str = mathBlock.replace(/^\$\$?|\$\$?$/g, '');
+                str = str.replace(/\\frac\s*\{([^{}]*)\}\s*\{([^{}]*)\}/g, (m, num, den) => {
+                    let cleanNum = num.replace(/\\/g, '').trim();
+                    let cleanDen = den.replace(/\\/g, '').trim();
+                    return `<span class="inline-flex flex-col items-center justify-center align-middle mx-1 font-bold text-slate-800"><span class="border-b border-slate-700 px-1 pb-0.5">${cleanNum}</span><span class="px-1 pt-0.5">${cleanDen}</span></span>`;
+                });
+
+                str = str.replace(/\\times/g, ' × ');
+                str = str.replace(/\\div/g, ' ÷ ');
+                str = str.replace(/\\([^\sA-Za-z0-9])/g, '$1');
+                return `<span class="tamil-fix font-medium">${str}</span>`;
+            });
+
+            return clean;
+        }
+
+        // FETCH & RENDER intro-nmms-mat.txt
+        async function fetchIntroText() {
+            const introBody = document.getElementById('intro-text-body');
+            try {
+                const res = await fetch('./intro-nmms-mat.txt');
+                if (!res.ok) throw new Error("intro-nmms-mat.txt not found");
+                let rawTxt = await res.text();
+
+                let cleanTxt = sanitizeTamilMathJax(rawTxt);
+                let parsedHtml = (typeof marked !== 'undefined') ? marked.parse(cleanTxt) : `<p class="whitespace-pre-wrap">${cleanTxt}</p>`;
+                introBody.innerHTML = parsedHtml;
+
+                if (window.MathJax && window.MathJax.typesetPromise) {
+                    window.MathJax.typesetPromise([introBody]);
+                }
+            } catch (err) {
+                console.error("Intro text load failed:", err);
+                introBody.innerHTML = `<p class="text-xs text-slate-500 font-medium">Welcome to the NMMS MAT Learning Hub. Select a Module or Category below to practice mental ability topics.</p>`;
+            }
+        }
+
         async function bootNmmsMatPortal() {
             try {
                 const res = await fetch(DATABASE_CSV_URL);
@@ -102,38 +205,85 @@
                     let category  = cols[1] ? cols[1].replace(/^"|"$/g, '').trim() : 'Mental Ability';
                     let sessionNo = cols[2] ? cols[2].replace(/^"|"$/g, '').trim() : '';
                     let topicName = cols[3] ? cols[3].replace(/^"|"$/g, '').trim() : '';
+                    let modVal    = cols[9] ? cols[9].replace(/^"|"$/g, '').trim() : ''; // Column J = Index 9
 
                     masterDatabaseRecords.push({
                         id: index,
                         subject: category,
                         unitNo: sessionNo,
                         unitName: topicName,
-                        className: "MAT"
+                        className: "MAT",
+                        moduleNo: modVal
                     });
                 });
 
-                buildSubjectTabs();
+                buildModuleTabs();
             } catch (error) {
                 console.error(error);
                 document.getElementById('units-master-deck').innerHTML = `<div class="col-span-full p-4 bg-red-50 text-red-700 text-xs font-bold rounded-xl border border-red-100 text-center">Error reading MAT entries.</div>`;
             }
         }
 
-        function buildSubjectTabs() {
-            const container = document.getElementById('subject-tabs-container');
-            const subjects = [...new Set(masterDatabaseRecords.map(x => x.subject))].filter(Boolean);
+        function buildModuleTabs() {
+            const container = document.getElementById('module-tabs-container');
+            const modules = [...new Set(masterDatabaseRecords.map(x => x.moduleNo).filter(Boolean))];
+
             container.innerHTML = "";
 
-            subjects.forEach((sub, i) => {
-                if (i === 0) globallySelectedSubject = sub;
+            // "All Modules" Option Button
+            const allBtn = document.createElement('button');
+            allBtn.className = getButtonClass(globallySelectedModule === "All");
+            allBtn.innerText = "All Modules";
+            allBtn.onclick = () => {
+                globallySelectedModule = "All";
+                buildModuleTabs();
+                buildSubjectTabs();
+            };
+            container.appendChild(allBtn);
+
+            modules.forEach(mod => {
                 const btn = document.createElement('button');
-                btn.className = `px-4 py-2 rounded-xl text-xs font-extrabold border transition shadow-sm ${sub === globallySelectedSubject ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'}`;
+                btn.className = getButtonClass(globallySelectedModule === mod);
+                btn.innerText = `Module ${mod}`;
+                btn.onclick = () => {
+                    globallySelectedModule = mod;
+                    buildModuleTabs();
+                    buildSubjectTabs();
+                };
+                container.appendChild(btn);
+            });
+
+            buildSubjectTabs();
+        }
+
+        function buildSubjectTabs() {
+            const container = document.getElementById('subject-tabs-container');
+
+            let records = masterDatabaseRecords;
+            if (globallySelectedModule !== "All") {
+                records = records.filter(x => x.moduleNo === globallySelectedModule);
+            }
+
+            const subjects = [...new Set(records.map(x => x.subject).filter(Boolean))];
+            container.innerHTML = "";
+
+            // "All Categories" Option Button
+            const allBtn = document.createElement('button');
+            allBtn.className = getButtonClass(globallySelectedSubject === "All");
+            allBtn.innerText = "All Categories";
+            allBtn.onclick = () => {
+                globallySelectedSubject = "All";
+                buildSubjectTabs();
+            };
+            container.appendChild(allBtn);
+
+            subjects.forEach(sub => {
+                const btn = document.createElement('button');
+                btn.className = getButtonClass(globallySelectedSubject === sub);
                 btn.innerText = sub;
                 btn.onclick = () => {
                     globallySelectedSubject = sub;
-                    document.querySelectorAll('#subject-tabs-container button').forEach(b => b.className = "px-4 py-2 rounded-xl text-xs font-extrabold border bg-white text-slate-700 border-slate-200 hover:bg-slate-50 transition shadow-sm");
-                    btn.className = "px-4 py-2 rounded-xl text-xs font-extrabold border bg-indigo-600 text-white border-indigo-600 transition shadow-sm";
-                    renderActiveSubjectDeck();
+                    buildSubjectTabs();
                 };
                 container.appendChild(btn);
             });
@@ -141,10 +291,34 @@
             renderActiveSubjectDeck();
         }
 
+        function getButtonClass(isActive) {
+            return `px-4 py-2 rounded-xl text-xs font-extrabold border transition shadow-sm cursor-pointer ${
+                isActive
+                ? 'bg-indigo-600 text-white border-indigo-600 scale-[1.02]'
+                : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
+            }`;
+        }
+
         function renderActiveSubjectDeck() {
             const deck = document.getElementById('units-master-deck');
             deck.innerHTML = "";
-            const rows = masterDatabaseRecords.filter(x => x.subject === globallySelectedSubject);
+
+            let rows = masterDatabaseRecords;
+
+            // Apply Module Filter
+            if (globallySelectedModule !== "All") {
+                rows = rows.filter(x => x.moduleNo === globallySelectedModule);
+            }
+
+            // Apply Subject Filter
+            if (globallySelectedSubject !== "All") {
+                rows = rows.filter(x => x.subject === globallySelectedSubject);
+            }
+
+            if (rows.length === 0) {
+                deck.innerHTML = `<div class="col-span-full p-6 bg-white border border-slate-200 rounded-2xl text-center text-xs font-bold text-slate-400">No resources available for this filter selection.</div>`;
+                return;
+            }
 
             rows.forEach(row => {
                 let displayUnitName = row.unitName.replace(/\r?\n/g, '<br>');
@@ -154,7 +328,7 @@
                 card.innerHTML = `
                     <div class="space-y-4">
                         <div class="flex justify-between items-center">
-                            <span class="text-[10px] font-black text-indigo-600 uppercase tracking-widest font-mono">${row.unitNo}</span>
+                            <span class="text-[10px] font-black text-indigo-600 uppercase tracking-widest font-mono">${row.unitNo || ('Module ' + row.moduleNo)}</span>
                             <span class="text-[10px] font-bold text-indigo-700 bg-indigo-50 border border-indigo-100 px-2.5 py-0.5 rounded-md uppercase tracking-wider">${row.className}</span>
                         </div>
                         <div class="cursor-pointer" onclick="window.location.href='./view/?id=${row.id}'">
@@ -220,6 +394,7 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             loadSharedSiteNavbar();
+            fetchIntroText();
             bootNmmsMatPortal();
         });
     </script>
