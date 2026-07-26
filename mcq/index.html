@@ -53,7 +53,6 @@
                 <div class="space-y-4">
                     <input type="text" id="userName" class="w-full p-4 bg-slate-50 border-0 rounded-2xl outline-none font-bold text-slate-700 placeholder-slate-400" placeholder="Student Name">
                     <input type="text" id="userEmis" maxlength="10" class="w-full p-4 bg-slate-50 border-0 rounded-2xl outline-none font-bold text-slate-700 placeholder-slate-400" placeholder="Enter EMIS ID">
-                    <input type="password" id="userPassword" class="w-full p-4 bg-slate-50 border-0 rounded-2xl outline-none font-bold text-slate-700 placeholder-slate-400" placeholder="Password">
                     <select id="userDistrict" class="w-full p-4 bg-slate-50 border-0 rounded-2xl outline-none font-bold text-slate-600 appearance-none">
                         <option value="">Select District</option>
                     </select>
@@ -131,7 +130,7 @@
                 <h3 class="font-black text-slate-800 mb-4 uppercase text-sm border-b pb-2">Correction Sheet</h3>
                 <div id="correction-list" class="space-y-6 mb-10"></div>
                 <div id="pdf-footer-brand" class="text-center border-t border-slate-200 pt-2 mt-8">
-                    <p class="text-[8px] font-bold text-slate-400 uppercase tracking-widest">System Generated — TN CLASSROOM</p>
+                    <p class="text-[8px] font-bold text-slate-400 uppercase tracking-widest">www.tnclassroom.com </p>
                 </div>
             </div>
             <div class="flex flex-col gap-3">
@@ -194,11 +193,7 @@
                     emisInput.placeholder = "Enter Staff ID";
                     emisInput.removeAttribute('maxlength');
 
-                    document.getElementById('userPassword').classList.add('hidden');
                     distSelect.classList.add('hidden');
-
-                    // Assign temporary validation values to pass structural checks
-                    document.getElementById('userPassword').value = "tntet_active_session";
                     distSelect.value = "Thanjavur";
                 }
             } else {
@@ -256,7 +251,6 @@
                 };
             }).filter(Boolean);
 
-            // FIXED: Pure array-level Fisher-Yates element layout shuffling
             let shuffled = [...parsedQuestions];
             for (let i = shuffled.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -271,10 +265,9 @@
         async function startQuiz() {
             const name = document.getElementById('userName').value.trim();
             const identifier = document.getElementById('userEmis').value.trim();
-            const pass = document.getElementById('userPassword').value.trim();
             const dist = document.getElementById('userDistrict').value;
 
-            if (!name || !identifier || !pass || !dist) {
+            if (!name || !identifier || !dist) {
                 return alert("Please fill all the mandatory registration input fields.");
             }
             if (!isTntetMode && identifier.length !== 10) {
@@ -282,7 +275,6 @@
             }
 
             try {
-                // FIXED: Direct cache busting string forces the network container to update dynamically on parallel browsers
                 const cacheBusterUrl = `${TARGET_SHEET_CSV_URL}&nocache=${new Date().getTime()}`;
                 const response = await fetch(cacheBusterUrl);
                 if (!response.ok) throw new Error("Spreadsheet fetch failed.");
@@ -292,7 +284,7 @@
 
                 if (questions.length === 0) return alert("MCQ Question data blank or parameters invalid.");
 
-                currentIdx = 0; // FIXED: Force runtime counter validation reset
+                currentIdx = 0;
                 answers = new Array(questions.length).fill(null);
                 skipped = new Array(questions.length).fill(false);
 
@@ -403,7 +395,6 @@
 
             const name = document.getElementById('userName').value;
             const identifier = document.getElementById('userEmis').value;
-            const pass = document.getElementById('userPassword').value;
             const dist = document.getElementById('userDistrict').value;
 
             document.getElementById('user-details-pdf').innerHTML = `
@@ -453,7 +444,6 @@
                 await window.addDoc(window.collection(window.db, "results"), {
                     name,
                     identifier: identifier,
-                    password: pass,
                     dist,
                     feedback: feedbackVal,
                     score,
