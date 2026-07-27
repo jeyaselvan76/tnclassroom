@@ -178,123 +178,143 @@
         <p>&copy; 2026 tnclassroom.com | A Professional Learning Platform for Students & Teachers</p>
     </footer>
 
-    <script>
-        const DATABASE_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSgvpPMCeyjU2HrfMkVS5YttDhPsuY1eY3mGfm78PtrgIX-_Lb245ZSPANkxNvbpk5DVAbL7Gb-E_5g/pub?gid=273942769&single=true&output=csv";
-        let targetRecord = null;
-        let currentTextScale = 16;
+  <script>
+    const DATABASE_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSgvpPMCeyjU2HrfMkVS5YttDhPsuY1eY3mGfm78PtrgIX-_Lb245ZSPANkxNvbpk5DVAbL7Gb-E_5g/pub?gid=273942769&single=true&output=csv";
+    let targetRecord = null;
+    let currentTextScale = 16;
 
-        function getUrlParameterId() {
-            const params = new URLSearchParams(window.location.search);
-            return params.get('id');
+    function getUrlParameterId() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get('id');
+    }
+
+    function parseCsvRows(text) {
+        let lines = []; let row = []; let cell = ''; let inQuotes = false;
+        for (let i = 0; i < text.length; i++) {
+            let c = text[i];
+            if (c === '"') { inQuotes = !inQuotes; }
+            else if (c === ',' && !inQuotes) { row.push(cell.trim()); cell = ''; }
+            else if ((c === '\n' || c === '\r') && !inQuotes) {
+                row.push(cell.trim());
+                if (row.length > 0 && row.some(x => x !== '')) lines.push(row);
+                row = []; cell = '';
+                if (c === '\r' && text[i+1] === '\n') i++;
+            } else { cell += c; }
+        }
+        if (cell || row.length > 0) { row.push(cell.trim()); lines.push(row); }
+        return lines;
+    }
+
+    // Helper to safely strip quotes surrounding string values from CSV
+    function cleanCell(val) {
+        if (!val) return '';
+        return val.replace(/^["']|["']$/g, '').trim();
+    }
+
+    async function loadTopicDetails() {
+        const targetId = parseInt(getUrlParameterId());
+        if (isNaN(targetId)) {
+            window.location.replace('../');
+            return;
         }
 
-        function parseCsvRows(text) {
-            let lines = []; let row = []; let cell = ''; let inQuotes = false;
-            for (let i = 0; i < text.length; i++) {
-                let c = text[i];
-                if (c === '"') { inQuotes = !inQuotes; }
-                else if (c === ',' && !inQuotes) { row.push(cell.trim()); cell = ''; }
-                else if ((c === '\n' || c === '\r') && !inQuotes) {
-                    row.push(cell.trim());
-                    if (row.length > 0 && row.some(x => x !== '')) lines.push(row);
-                    row = []; cell = '';
-                    if (c === '\r' && text[i+1] === '\n') i++;
-                } else { cell += c; }
-            }
-            if (cell || row.length > 0) { row.push(cell.trim()); lines.push(row); }
-            return lines;
-        }
+        try {
+            const res = await fetch(DATABASE_CSV_URL);
+            if (!res.ok) throw new Error();
+            const txt = await res.text();
+            const lines = parseCsvRows(txt);
+            const dataRows = lines.slice(1); // Skip header row
 
-        async function loadTopicDetails() {
-            const targetId = parseInt(getUrlParameterId());
-            if (isNaN(targetId)) {
-                window.location.replace('../');
-                return;
-            }
+            const cols = dataRows[targetId];
+            if (!cols) throw new Error("Row index not found");
 
-            try {
-                const res = await fetch(DATABASE_CSV_URL);
-                if (!res.ok) throw new Error();
-                const txt = await res.text();
-                const lines = parseCsvRows(txt);
-                const dataRows = lines.slice(1);
+            let category     = cleanCell(cols[1]) || 'Mental Ability';
+            let sessionNo    = cleanCell(cols[2]);
+            let topicName    = cleanCell(cols[3]);
+            let vUrl         = cleanCell(cols[4]) || '#';
+            let fUrl         = cleanCell(cols[5]) || '#'; // File URL column
+            let rawMcq       = cleanCell(cols[6]) || '#';
+            let uShortNoteTa = cleanCell(cols[7]);
+            let uShortNoteEn = cleanCell(cols[8]);
 
-                const cols = dataRows[targetId];
-                if (!cols) throw new Error();
-
-                let category  = cols[1] ? cols[1].replace(/^"|"$/g, '').trim() : 'Mental Ability';
-                let sessionNo = cols[2] ? cols[2].replace(/^"|"$/g, '').trim() : '';
-                let topicName = cols[3] ? cols[3].replace(/^"|"$/g, '').trim() : '';
-                let vUrl      = (cols[4] && cols[4].trim() !== "") ? cols[4].replace(/^"|"$/g, '').trim() : '#';
-                let fUrl      = cols[5] ? cols[5].replace(/^"|"$/g, '').replace(/^\.\//, '').trim() : '#';
-                let rawMcq    = cols[6] ? cols[6].replace(/^"|"$/g, '').trim() : '#';
-                let uShortNoteTa = cols[7] ? cols[7].replace(/^"|"$/g, '').trim() : '';
-                let uShortNoteEn = cols[8] ? cols[8].replace(/^"|"$/g, '').trim() : '';
-
-                if (rawMcq !== '#') {
-                    if (rawMcq.includes('jeyaselvan76.github.io/nmms-mcq/')) {
-                        rawMcq = rawMcq.replace('https://jeyaselvan76.github.io/nmms-mcq/', 'https://nmmsmcq.tnclassroom.com/');
-                    } else if (rawMcq.startsWith('/nmms-mcq/')) {
-                        rawMcq = rawMcq.replace('/nmms-mcq/', 'https://nmmsmcq.tnclassroom.com/');
-                    } else if (rawMcq.includes('jeyaselvan76.github.io/MCQ/')) {
-                        rawMcq = rawMcq.replace('https://jeyaselvan76.github.io/MCQ/', 'https://nmmsmcq.tnclassroom.com/');
-                    }
+            // Sanitize MCQ domain
+            if (rawMcq !== '#') {
+                if (rawMcq.includes('jeyaselvan76.github.io/nmms-mcq/')) {
+                    rawMcq = rawMcq.replace('https://jeyaselvan76.github.io/nmms-mcq/', 'https://nmmsmcq.tnclassroom.com/');
+                } else if (rawMcq.startsWith('/nmms-mcq/')) {
+                    rawMcq = rawMcq.replace('/nmms-mcq/', 'https://nmmsmcq.tnclassroom.com/');
+                } else if (rawMcq.includes('jeyaselvan76.github.io/MCQ/')) {
+                    rawMcq = rawMcq.replace('https://jeyaselvan76.github.io/MCQ/', 'https://nmmsmcq.tnclassroom.com/');
                 }
-
-                targetRecord = {
-                    className: "MAT",
-                    subject: category,
-                    unitNo: sessionNo,
-                    unitName: topicName,
-                    videoUrl: vUrl,
-                    pdfUrl: fUrl,
-                    mcqUrl: rawMcq,
-                    unitShortNoteTa: uShortNoteTa,
-                    unitShortNoteEn: uShortNoteEn
-                };
-
-                renderPagePayload();
-            } catch (e) {
-                document.getElementById('view-unit-name').innerText = "MAT resource entry not discovered.";
             }
+
+            targetRecord = {
+                className: "MAT",
+                subject: category,
+                unitNo: sessionNo,
+                unitName: topicName,
+                videoUrl: vUrl,
+                pdfUrl: fUrl,
+                mcqUrl: rawMcq,
+                unitShortNoteTa: uShortNoteTa,
+                unitShortNoteEn: uShortNoteEn
+            };
+
+            renderPagePayload();
+        } catch (e) {
+            console.error("Load topic error:", e);
+            document.getElementById('view-unit-name').innerText = "MAT resource entry not discovered.";
+        }
+    }
+
+    function renderPagePayload() {
+        document.title = `${targetRecord.unitNo} - ${targetRecord.unitName.replace(/\r?\n/g, ' ')}`;
+        document.getElementById('view-unit-no').innerText = targetRecord.unitNo;
+        document.getElementById('view-class-badge').innerText = targetRecord.className;
+        document.getElementById('view-unit-name').innerHTML = targetRecord.unitName.replace(/\r?\n/g, '<br>');
+
+        const controlsContainer = document.getElementById('action-header-controls');
+        controlsContainer.innerHTML = `
+            <button onclick="shareModulePayload()" class="text-slate-500 hover:text-indigo-600 bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-bold transition shadow-sm flex items-center gap-1.5 cursor-pointer">
+                <i class="fa-solid fa-share-nodes"></i> Share
+            </button>
+        `;
+
+        const noteBoxTa = document.getElementById('view-shortnote-box-ta');
+        const noteBoxEn = document.getElementById('view-shortnote-box-en');
+
+        if (targetRecord.unitShortNoteTa && targetRecord.unitShortNoteTa !== '#') {
+            noteBoxTa.innerHTML = targetRecord.unitShortNoteTa.replace(/\r?\n/g, '<br>');
+            noteBoxTa.classList.remove('hidden');
         }
 
-        function renderPagePayload() {
-            document.title = `${targetRecord.unitNo} - ${targetRecord.unitName.replace(/\r?\n/g, ' ')}`;
-            document.getElementById('view-unit-no').innerText = targetRecord.unitNo;
-            document.getElementById('view-class-badge').innerText = targetRecord.className;
-            document.getElementById('view-unit-name').innerHTML = targetRecord.unitName.replace(/\r?\n/g, '<br>');
+        if (targetRecord.unitShortNoteEn && targetRecord.unitShortNoteEn !== '#') {
+            noteBoxEn.innerHTML = targetRecord.unitShortNoteEn.replace(/\r?\n/g, '<br>');
+            noteBoxEn.classList.remove('hidden');
+        }
 
-            const controlsContainer = document.getElementById('action-header-controls');
-            controlsContainer.innerHTML = `
-                <button onclick="shareModulePayload()" class="text-slate-500 hover:text-indigo-600 bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-bold transition shadow-sm flex items-center gap-1.5 cursor-pointer">
-                    <i class="fa-solid fa-share-nodes"></i> Share
-                </button>
-            `;
+        const matContainer = document.getElementById('material-action-container');
+        const vidContainer = document.getElementById('video-action-container');
+        const quizContainer = document.getElementById('quiz-action-container');
 
-            const noteBoxTa = document.getElementById('view-shortnote-box-ta');
-            const noteBoxEn = document.getElementById('view-shortnote-box-en');
+        let rawPdfUrl = targetRecord.pdfUrl.trim();
 
-            if (targetRecord.unitShortNoteTa && targetRecord.unitShortNoteTa !== '#') {
-                noteBoxTa.innerHTML = targetRecord.unitShortNoteTa.replace(/\r?\n/g, '<br>');
-                noteBoxTa.classList.remove('hidden');
-            }
+        // Check if a valid URL exists
+        // Replace the old processedUrl block with this:
+if (rawPdfUrl && rawPdfUrl !== '#') {
+    let processedUrl = rawPdfUrl;
 
-            if (targetRecord.unitShortNoteEn && targetRecord.unitShortNoteEn !== '#') {
-                noteBoxEn.innerHTML = targetRecord.unitShortNoteEn.replace(/\r?\n/g, '<br>');
-                noteBoxEn.classList.remove('hidden');
-            }
+    // If it's a relative path and doesn't start with http or /
+    if (!processedUrl.startsWith('http://') && !processedUrl.startsWith('https://') && !processedUrl.startsWith('/')) {
+        if (processedUrl.startsWith('./')) {
+            processedUrl = `../${processedUrl.substring(2)}`;
+        } else if (!processedUrl.startsWith('../')) {
+            processedUrl = `../${processedUrl}`;
+        }
+    }
 
-            const matContainer = document.getElementById('material-action-container');
-            const vidContainer = document.getElementById('video-action-container');
-            const quizContainer = document.getElementById('quiz-action-container');
-
-            let processedUrl = targetRecord.pdfUrl.trim();
-            if (!processedUrl.startsWith('http') && !processedUrl.startsWith('/') && !processedUrl.startsWith('.')) {
-                processedUrl = `../../${processedUrl}`;
-            }
-
-            const isTextOrMd = processedUrl.toLowerCase().endsWith('.txt') || processedUrl.toLowerCase().endsWith('.md');
+    const isTextOrMd = processedUrl.toLowerCase().endsWith('.txt') || processedUrl.toLowerCase().endsWith('.md');
+    // ... rest of rendering code
 
             if (isTextOrMd) {
                 matContainer.innerHTML = `
@@ -310,144 +330,121 @@
                     </a>
                 `;
             }
-
-            if (targetRecord.videoUrl !== '#') {
-                vidContainer.innerHTML = `
-                    <a href="${targetRecord.videoUrl}" target="_blank" class="flex items-center justify-center gap-2.5 p-4 border border-slate-200/80 bg-white hover:border-red-300 rounded-2xl text-xs font-black text-slate-700 transition shadow-sm w-full cursor-pointer">
-                        <i class="fa-brands fa-youtube text-red-500 text-base"></i> Watch Video Lessons
-                    </a>
-                `;
-            } else {
-                vidContainer.innerHTML = `
-                    <div class="flex items-center justify-center gap-2.5 p-4 bg-slate-100/50 border border-slate-200/40 rounded-2xl text-xs font-bold text-slate-400 w-full cursor-not-allowed">
-                        <i class="fa-brands fa-youtube opacity-40 text-base"></i> Video Coming Soon
-                    </div>
-                `;
-            }
-
-            if (targetRecord.mcqUrl !== '#') {
-                quizContainer.innerHTML = `
-                    <a href="${targetRecord.mcqUrl}" target="_blank" class="w-full text-center bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs py-4 rounded-2xl transition shadow-md block uppercase tracking-wider cursor-pointer">
-                        <i class="fa-solid fa-square-poll-vertical mr-1"></i> Free Online Test
-                    </a>
-                `;
-            } else {
-                quizContainer.innerHTML = `
-                    <div class="w-full text-center bg-slate-100 text-slate-400 font-bold text-xs py-4 rounded-2xl block uppercase tracking-wider cursor-not-allowed border border-slate-200/40">
-                        Quiz Coming Soon
-                    </div>
-                `;
-            }
-
-            if (window.MathJax && window.MathJax.typesetPromise) {
-                window.MathJax.typesetPromise([noteBoxTa, noteBoxEn]);
-            }
+        } else {
+            matContainer.innerHTML = `
+                <div class="flex items-center justify-center gap-2.5 p-4 bg-slate-100/50 border border-slate-200/40 rounded-2xl text-xs font-bold text-slate-400 w-full cursor-not-allowed">
+                    <i class="fa-solid fa-file-circle-xmark opacity-40 text-base"></i> Material Coming Soon
+                </div>
+            `;
         }
 
-        async function scrollToAndLoadTextMaterial(url, smoothScroll = true) {
-            const textCard = document.getElementById('inline-text-material-card');
-            const textBody = document.getElementById('inline-material-text-body');
-
-            textCard.classList.remove('hidden');
-            if (smoothScroll) {
-                textCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-
-            if (textBody.innerHTML === "") {
-                textBody.innerHTML = `<div class="text-slate-400 text-xs py-4 font-medium"><i class="fa-solid fa-circle-notch fa-spin text-indigo-500 mr-2"></i>Loading study material file details...</div>`;
-                try {
-                    const res = await fetch(url);
-                    if (!res.ok) throw new Error();
-                    const rawText = await res.text();
-
-                    if (url.toLowerCase().endsWith('.md') && typeof marked !== 'undefined') {
-                        textBody.innerHTML = marked.parse(rawText);
-                    } else {
-                        let processedHtml = rawText.replace(/[\u0b80-\u0bff]+/g, (match) => `<span class="tamil-fix font-medium">${match}</span>`);
-                        textBody.innerHTML = processedHtml;
-                    }
-
-                    if (window.MathJax && window.MathJax.typesetPromise) {
-                        window.MathJax.typesetPromise([textBody]);
-                    }
-                } catch (e) {
-                    textBody.innerHTML = `<div class="text-red-500 font-bold text-xs p-3 bg-red-50 rounded-xl border border-red-100">Failed to load text document resource from node folder.</div>`;
-                }
-            }
+        if (targetRecord.videoUrl !== '#') {
+            vidContainer.innerHTML = `
+                <a href="${targetRecord.videoUrl}" target="_blank" class="flex items-center justify-center gap-2.5 p-4 border border-slate-200/80 bg-white hover:border-red-300 rounded-2xl text-xs font-black text-slate-700 transition shadow-sm w-full cursor-pointer">
+                    <i class="fa-brands fa-youtube text-red-500 text-base"></i> Watch Video Lessons
+                </a>
+            `;
+        } else {
+            vidContainer.innerHTML = `
+                <div class="flex items-center justify-center gap-2.5 p-4 bg-slate-100/50 border border-slate-200/40 rounded-2xl text-xs font-bold text-slate-400 w-full cursor-not-allowed">
+                    <i class="fa-brands fa-youtube opacity-40 text-base"></i> Video Coming Soon
+                </div>
+            `;
         }
 
-        function downloadAsPDF() {
-            window.print();
+        if (targetRecord.mcqUrl !== '#') {
+            quizContainer.innerHTML = `
+                <a href="${targetRecord.mcqUrl}" target="_blank" class="w-full text-center bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs py-4 rounded-2xl transition shadow-md block uppercase tracking-wider cursor-pointer">
+                    <i class="fa-solid fa-square-poll-vertical mr-1"></i> Free Online Test
+                </a>
+            `;
+        } else {
+            quizContainer.innerHTML = `
+                <div class="w-full text-center bg-slate-100 text-slate-400 font-bold text-xs py-4 rounded-2xl block uppercase tracking-wider cursor-not-allowed border border-slate-200/40">
+                    Quiz Coming Soon
+                </div>
+            `;
         }
 
-        function adjustTextScale(delta) {
-            currentTextScale = Math.max(14, Math.min(26, currentTextScale + delta));
-            const bodyNode = document.getElementById('inline-material-text-body');
-            if (bodyNode) bodyNode.style.fontSize = `${currentTextScale}px`;
+        if (window.MathJax && window.MathJax.typesetPromise) {
+            window.MathJax.typesetPromise([noteBoxTa, noteBoxEn]);
+        }
+    }
+
+    async function scrollToAndLoadTextMaterial(url, smoothScroll = true) {
+        const textCard = document.getElementById('inline-text-material-card');
+        const textBody = document.getElementById('inline-material-text-body');
+
+        textCard.classList.remove('hidden');
+        if (smoothScroll) {
+            textCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
-        function shareModulePayload() {
-            const cleanUnitTitle = targetRecord.unitName.replace(/\r?\n/g, ' ');
-            const shareText = `🧠 *TN CLASSROOM - MAT STUDY MATERIAL*\n\n📌 *Category:* ${targetRecord.subject.toUpperCase()}\n🎯 *${targetRecord.unitNo}:* ${cleanUnitTitle}\n\n📝 *Interactive MCQ Link:*\n${targetRecord.mcqUrl !== '#' ? targetRecord.mcqUrl : 'Coming Soon'}\n\n🌐 View MAT Module at: ${window.location.href}`;
-            if (navigator.share) {
-                navigator.share({ title: cleanUnitTitle, text: shareText }).catch(console.error);
-            } else {
-                navigator.clipboard.writeText(shareText).then(() => alert("Copied share payload to clipboard!")).catch(() => {});
-            }
-        }
-
-        async function loadSharedSiteNavbar() {
+        if (textBody.innerHTML === "" || textBody.innerHTML.includes("Loading")) {
+            textBody.innerHTML = `<div class="text-slate-400 text-xs py-4 font-medium"><i class="fa-solid fa-circle-notch fa-spin text-indigo-500 mr-2"></i>Loading study material file details...</div>`;
             try {
-                const res = await fetch(`../../navbar.html?v=${new Date().getTime()}`);
-                if (res.ok) {
-                    document.getElementById('navbar-placeholder').innerHTML = await res.text();
-                    initializeGlobalNavigationHooks();
+                const res = await fetch(url);
+                if (!res.ok) throw new Error("HTTP error " + res.status);
+                const rawText = await res.text();
+
+                if (url.toLowerCase().endsWith('.md') && typeof marked !== 'undefined') {
+                    textBody.innerHTML = marked.parse(rawText);
+                } else {
+                    let processedHtml = rawText.replace(/[\u0b80-\u0bff]+/g, (match) => `<span class="tamil-fix font-medium">${match}</span>`);
+                    textBody.innerHTML = processedHtml.replace(/\r?\n/g, '<br>');
                 }
-            } catch (e) { console.error(e); }
-        }
 
-        function initializeGlobalNavigationHooks() {
-            document.removeEventListener('click', closeAllDropdowns);
-            document.addEventListener('click', closeAllDropdowns);
-        }
-
-        function toggleNavigationMenu(event, targetMenuId) {
-            event.stopPropagation();
-            const targetMenu = document.getElementById(targetMenuId);
-            if (!targetMenu) return;
-            if (targetMenuId.includes('mobile-')) {
-                const isHidden = targetMenu.classList.contains('hidden');
-                document.querySelectorAll('[id*="mobile-menu-"]').forEach(m => m.classList.add('hidden'));
-                if (isHidden) targetMenu.classList.remove('hidden');
-            } else {
-                const isOpen = targetMenu.classList.contains('dropdown-active');
-                document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('dropdown-active'));
-                if (!isOpen) targetMenu.classList.add('dropdown-active');
+                if (window.MathJax && window.MathJax.typesetPromise) {
+                    window.MathJax.typesetPromise([textBody]);
+                }
+            } catch (e) {
+                textBody.innerHTML = `<div class="text-red-500 font-bold text-xs p-3 bg-red-50 rounded-xl border border-red-100">Failed to load text document resource (${url}). Check if file exists.</div>`;
             }
         }
+    }
 
-        function toggleMobileMenu(open) {
-            const drawer = document.getElementById('mobile-drawer');
-            const content = document.getElementById('drawer-content');
-            if (!drawer || !content) return;
-            if (open) {
-                drawer.classList.remove('invisible');
-                setTimeout(() => content.classList.remove('translate-x-full'), 10);
-            } else {
-                content.classList.add('translate-x-full');
-                setTimeout(() => drawer.classList.add('invisible'), 300);
+    function downloadAsPDF() { window.print(); }
+
+    function adjustTextScale(delta) {
+        currentTextScale = Math.max(14, Math.min(26, currentTextScale + delta));
+        const bodyNode = document.getElementById('inline-material-text-body');
+        if (bodyNode) bodyNode.style.fontSize = `${currentTextScale}px`;
+    }
+
+    function shareModulePayload() {
+        const cleanUnitTitle = targetRecord.unitName.replace(/\r?\n/g, ' ');
+        const shareText = `🧠 *TN CLASSROOM - MAT STUDY MATERIAL*\n\n📌 *Category:* ${targetRecord.subject.toUpperCase()}\n🎯 *${targetRecord.unitNo}:* ${cleanUnitTitle}\n\n📝 *Interactive MCQ Link:*\n${targetRecord.mcqUrl !== '#' ? targetRecord.mcqUrl : 'Coming Soon'}\n\n🌐 View MAT Module at: ${window.location.href}`;
+        if (navigator.share) {
+            navigator.share({ title: cleanUnitTitle, text: shareText }).catch(console.error);
+        } else {
+            navigator.clipboard.writeText(shareText).then(() => alert("Copied share payload to clipboard!")).catch(() => {});
+        }
+    }
+
+    async function loadSharedSiteNavbar() {
+        try {
+            const res = await fetch(`../../navbar.html?v=${new Date().getTime()}`);
+            if (res.ok) {
+                document.getElementById('navbar-placeholder').innerHTML = await res.text();
+                initializeGlobalNavigationHooks();
             }
-        }
+        } catch (e) { console.error(e); }
+    }
 
-        function closeAllDropdowns() {
-            document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('dropdown-active'));
-            document.querySelectorAll('[id*="mobile-menu-"]').forEach(m => m.classList.add('hidden'));
-        }
+    function initializeGlobalNavigationHooks() {
+        document.removeEventListener('click', closeAllDropdowns);
+        document.addEventListener('click', closeAllDropdowns);
+    }
 
-        window.addEventListener('DOMContentLoaded', () => {
-            loadSharedSiteNavbar();
-            loadTopicDetails();
-        });
-    </script>
+    function closeAllDropdowns() {
+        document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('dropdown-active'));
+        document.querySelectorAll('[id*="mobile-menu-"]').forEach(m => m.classList.add('hidden'));
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        loadSharedSiteNavbar();
+        loadTopicDetails();
+    });
+</script>
 </body>
 </html>
