@@ -181,14 +181,27 @@
             return clean;
         }
 
-        // FETCH & RENDER intro-nmms-mat.txt
+       // FETCH & RENDER MAT INTRO TEXT WITH AUTOMATIC FILE FALLBACK
         async function fetchIntroText() {
             const introBody = document.getElementById('intro-text-body');
-            try {
-                const res = await fetch('./intro-nmms-mat.txt');
-                if (!res.ok) throw new Error("intro-nmms-mat.txt not found");
-                let rawTxt = await res.text();
 
+            // Priority list of filenames to try
+            const filesToTry = ['./intro-nmms-mat.txt', './nmms-mat-intro.txt', 'intro-nmms-mat.txt', 'nmms-mat-intro.txt'];
+            let rawTxt = null;
+
+            for (let filePath of filesToTry) {
+                try {
+                    const res = await fetch(`${filePath}?v=${new Date().getTime()}`);
+                    if (res.ok) {
+                        rawTxt = await res.text();
+                        break; // Stop loop once a file is successfully found
+                    }
+                } catch (e) {
+                    // Try next file path in array
+                }
+            }
+
+            if (rawTxt) {
                 let cleanTxt = sanitizeTamilMathJax(rawTxt);
                 let parsedHtml = (typeof marked !== 'undefined') ? marked.parse(cleanTxt) : `<p class="whitespace-pre-wrap">${cleanTxt}</p>`;
                 introBody.innerHTML = parsedHtml;
@@ -196,12 +209,11 @@
                 if (window.MathJax && window.MathJax.typesetPromise) {
                     window.MathJax.typesetPromise([introBody]);
                 }
-            } catch (err) {
-                console.error("Intro text load failed:", err);
+            } else {
+                console.error("Could not locate intro file in nmms-mat folder.");
                 introBody.innerHTML = `<p class="text-xs text-slate-500 font-medium">Welcome to the NMMS MAT Learning Hub. Select a Module or Category below to practice mental ability topics.</p>`;
             }
         }
-
         async function bootNmmsMatPortal() {
             try {
                 const res = await fetch(DATABASE_CSV_URL);
