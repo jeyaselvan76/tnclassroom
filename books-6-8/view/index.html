@@ -6,7 +6,22 @@
     <title>Download Textbooks | TN Classroom</title>
     <script src="/tailwind.js"></script>
     <link rel="stylesheet" href="/fontawesome.css">
+
+    <!-- GLOBAL SITE CONFIGURATION LAYER (GA4 ANALYTICS ENGINE) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MZZ985WL51"></script>
+    <script>
+      window.dataLayer = window.location.hostname === 'localhost' ? [] : (window.dataLayer || []);
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-MZZ985WL51', {
+        page_path: window.location.pathname,
+        cookie_flags: 'max-age=7200;Secure;SameSite=None'
+      });
+    </script>
+
     <style>
+        /* FIXED: Blocks hidden desktop menus from hijacking user clicks on empty space */
         .dropdown-menu { z-index: 50 !important; pointer-events: none; }
         .dropdown-active { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; z-index: 50 !important; pointer-events: auto !important; }
         .tamil-fix { font-family: 'Segoe UI', 'Latha', sans-serif !important; }
@@ -86,16 +101,16 @@
         </div>
     </main>
 
-     <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-6 text-center text-xs mt-auto space-y-4">
-    <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs font-bold text-slate-400">
-        <a href="/about-us.html" class="hover:text-emerald-400 transition">About Us</a>
-        <a href="/privacy-policy.html" class="hover:text-emerald-400 transition">Privacy Policy</a>
-        <a href="/disclaimer.html" class="hover:text-emerald-400 transition">Disclaimer</a>
-        <a href="/contact-us.html" class="hover:text-emerald-400 transition">Contact Us</a>
-    </nav>
+    <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-6 text-center text-xs mt-auto space-y-4">
+        <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs font-bold text-slate-400">
+            <a href="/about-us.html" class="hover:text-emerald-400 transition">About Us</a>
+            <a href="/privacy-policy.html" class="hover:text-emerald-400 transition">Privacy Policy</a>
+            <a href="/disclaimer.html" class="hover:text-emerald-400 transition">Disclaimer</a>
+            <a href="/contact-us.html" class="hover:text-emerald-400 transition">Contact Us</a>
+        </nav>
 
-    <p>&copy; 2026 tnclassroom.com | A Professional Learning Platform for Students & Teachers</p>
-</footer>
+        <p>&copy; 2026 tnclassroom.com | A Professional Learning Platform for Students & Teachers</p>
+    </footer>
 
     <script>
         const BOOKS_DATABASE_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRwCJs-Xybe60WOhtIpsK1hQrP18HXtdGOUO4k49jMDZ-5Ok3fkpOPBk35HCow8WNYDKlqlYWSL-QzJ/pub?gid=0&single=true&output=csv";
@@ -103,13 +118,18 @@
         function getUrlParameters() {
             const params = new URLSearchParams(window.location.search);
             return {
-                classTarget: params.get('class') || "6",
-                termTarget: params.get('term') || "1",
-                mediumTarget: params.get('medium') || "Tamil"
+                classTarget: (params.get('class') || "6").trim(),
+                termTarget: (params.get('term') || "1").trim(),
+                mediumTarget: (params.get('medium') || "Tamil").trim()
             };
         }
 
-        // FIXED: Corrected Google Drive UC export URL path syntax
+        // Helper to safely strip quotes surrounding string values from CSV
+        function cleanCell(val) {
+            if (!val) return '';
+            return val.replace(/^["']|["']$/g, '').trim();
+        }
+
         function makeDriveDownloadLink(driveUrl) {
             if (!driveUrl || driveUrl === "#") return "#";
             const match = driveUrl.match(/\/d\/([a-zA-Z0-9-_]+)/);
@@ -136,14 +156,14 @@
             return lines;
         }
 
-        // Helper function for term flexible matching (handles "Full", "Full Book", "Term 1", "1", etc.)
+        // BOOK-SANITATION: Flexible term matcher (handles "Full", "Full Book", "Term 1", "1", etc.)
         function isTermMatch(sheetTerm, targetTerm) {
             const s = sheetTerm.toLowerCase().trim();
             const t = targetTerm.toLowerCase().trim();
             if (t === "full" || t === "full book") {
                 return s.includes("full");
             }
-            return s === t || s.includes(t) || s.replace(/\D/g, '') === t;
+            return s === t || s.includes(t) || s.replace(/\D/g, '') === t.replace(/\D/g, '');
         }
 
         async function processAndRenderView() {
@@ -157,8 +177,9 @@
             document.title = `Class ${classTarget} Books (${mediumTarget} Medium) | TN Classroom`;
 
             try {
-                const response = await fetch(BOOKS_DATABASE_URL);
-                if (!response.ok) throw new Error();
+                // BOOK-SANITATION: Cache Busting with Dynamic Timestamp
+                const response = await fetch(`${BOOKS_DATABASE_URL}&v=${new Date().getTime()}`);
+                if (!response.ok) throw new Error("Database fetch failed");
                 const dataText = await response.text();
                 const parsedRows = parseCsvRows(dataText).slice(1);
 
@@ -174,17 +195,19 @@
                 let columnGTextContent = "";
 
                 parsedRows.forEach((cols) => {
-                    if (!cols || cols.length < 5) return;
+                    // BOOK-SANITATION: Soft boundary check (Minimum 4 required columns)
+                    if (!cols || cols.length < 4) return;
 
-                    let cls         = cols[1] ? cols[1].replace(/^"|"$/g, '').trim() : '';
-                    let term        = cols[2] ? cols[2].replace(/^"|"$/g, '').trim() : '';
-                    let subject     = cols[3] ? cols[3].replace(/^"|"$/g, '').trim() : '';
-                    let medium      = cols[4] ? cols[4].replace(/^"|"$/g, '').trim() : '';
-                    let rawPdfUrl   = cols[5] ? cols[5].replace(/^"|"$/g, '').trim() : '#';
-                    let columnGText = cols[6] ? cols[6].replace(/^"|"$/g, '').trim() : '';
+                    let cls         = cleanCell(cols[1]);
+                    let term        = cleanCell(cols[2]);
+                    let subject     = cleanCell(cols[3]);
+                    let medium      = cleanCell(cols[4]);
+                    let rawPdfUrl   = cleanCell(cols[5]) || '#';
+                    let columnGText = cleanCell(cols[6]);
 
-                    const classMatches = cls === classTarget;
-                    const termMatches = isTermMatch(term, termTarget);
+                    // BOOK-SANITATION: Flexible Class, Term & Medium Matching
+                    const classMatches  = cls === classTarget || cls.replace(/class/i, '').trim() === classTarget;
+                    const termMatches   = isTermMatch(term, termTarget);
                     const mediumMatches = medium.toLowerCase() === mediumTarget.toLowerCase();
 
                     if (classMatches && termMatches && mediumMatches) {
@@ -253,21 +276,6 @@
         function initializeGlobalNavigationHooks() {
             document.removeEventListener('click', closeAllDropdowns);
             document.addEventListener('click', closeAllDropdowns);
-        }
-
-        function toggleNavigationMenu(event, targetMenuId) {
-            event.stopPropagation();
-            const targetMenu = document.getElementById(targetMenuId);
-            if (!targetMenu) return;
-            if (targetMenuId.includes('mobile-')) {
-                const isHidden = targetMenu.classList.contains('hidden');
-                document.querySelectorAll('[id*="mobile-menu-"]').forEach(m => m.classList.add('hidden'));
-                if (isHidden) targetMenu.classList.remove('hidden');
-            } else {
-                const isOpen = targetMenu.classList.contains('dropdown-active');
-                document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('dropdown-active'));
-                if (!isOpen) targetMenu.classList.add('dropdown-active');
-            }
         }
 
         function closeAllDropdowns() {
