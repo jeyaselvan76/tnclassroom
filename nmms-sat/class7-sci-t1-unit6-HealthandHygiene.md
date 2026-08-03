@@ -69,10 +69,10 @@
 
     **7\. Important Health Formulas (முக்கிய உடல்நல சூத்திரங்கள்)**  
 * **Body Mass Index (BMI):** Measures if a person's weight is healthy for their height.  
-* BMI= Mass (kg)Height (m)2  
+* $$BMI= \frac {Mass (kg)}{Height (m)^2}$$  
 * **உடல் நிறை குறியீடு (BMI):** ஒரு நபரின் எடை அவரது உயரத்திற்கு ஏற்ற ஆரோக்கியமான நிலையில் உள்ளதா என்பதை இது அளவிடுகிறது.  
 * **Temperature Conversion (வெப்பநிலை மாற்றம்):** Convert Fahrenheit (*F*) to Celsius (*C*).  
-* *C*\=(*F*−32)× 59  
+* *C*\=(*F*−32)×$\frac {5}{9}$  
 * **வெப்பநிலை மாற்றம்:** ஃபாரன்ஹீட்டை (*F*) செல்சியஸாக (*C*) மாற்ற உதவும் சூத்திரம்.
 
 
