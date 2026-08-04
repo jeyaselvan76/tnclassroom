@@ -56,19 +56,21 @@ The diagonals of a rhombus bisect each other at right angles (90 degrees). ச�
 
 1. **Using Base and Height:** A \= b x h sq. units
 
-2. **Using Diagonals ($1\_{$2}, $1\_{$2}):** A \= \\\\$$1$ \\times $1\_{$2} \\times $1\_{$2} sq. units
+2. **Using Diagonals $$ A=\frac{1}{2} \cdot d_1 \cdot d_2  ~sq. units$$
+    $d_1 ~and ~d_2$ are diagonals
 
 **💡 Specialist Tip:** Use formula 1 if you are given the side and altitude. Use formula 2 if the lengths of the diagonals are given. Since all sides are equal, the Perimeter is always **4 x side**, just like a square\!
 
 ### **Solved Example (எடுத்துக்காட்டு 2.7):**
 
-**Given:** Diagonals $1\_{$2} \= 6 cm and $1\_{$2} \= 8 cm. **Solution:**
+**Given:** Diagonals $d_1=6 cm ~and ~d_2=8 cm$
+** \\**Solution:**
 
-1. Formula: Area \= \\\\$$1$ \\times $1\_{$2} \\times $1\_{$2}
+1. Formula: $ A=\frac{1}{2} \cdot d_1 \cdot d_2 ~sq. units$
 
-2. Substitution: \\\\$$1$ \\times 6 \\times 8
+2. Substitution: (1/2) x 6 x 8 
 
-3. Calculation: 3 \\times 8 \= 24
+3. Calculation: 3 x 8 = 24
 
 4. Result: **24 sq. cm (24 ச.செ.மீ)**
 
@@ -86,7 +88,7 @@ If the non-parallel sides of a trapezoid are equal in length (AD \= BC), it is c
 
 ### **Area Formula (பரப்பளவு சூத்திரம்):**
 
-* **Area (A):** \\\\$$1$ \\times h(a+b) sq. units
+* **Area (A):$\frac {1}{2}\cdot(a+b)$ sq. units
 
   * 'a' and 'b' are the lengths of the parallel sides (இணைப்பக்கங்கள்).
 
@@ -96,11 +98,11 @@ If the non-parallel sides of a trapezoid are equal in length (AD \= BC), it is c
 
 **Given:** Parallel sides a \= 18 cm, b \= 9 cm, and Height h \= 14 cm. **Solution:**
 
-1. Formula: Area \= \\\\$$1$ \\times h(a+b)
+1. Formula: Area \= $\frac {1}{2}\cdot(a+b)$ sq. units
 
-2. Substitution: \\\\$$1$ \\times 14 \\times (18+9)
+2. Substitution: (1/2).14(18+9)
 
-3. Calculation: 7 \\times 27 \= 189
+3. Calculation: 7 x 27 \= 189
 
 4. Result: **189 sq. cm (189 சதுர சென்டிமீட்டர்)**
 
@@ -111,6 +113,6 @@ If the non-parallel sides of a trapezoid are equal in length (AD \= BC), it is c
 | Shape (வடிவம்) | Measurements Needed (தேவையான அளவுகள்) | Area Formula (பரப்பளவு சூத்திரம்) |
 | :---- | :---- | :---- |
 | **Parallelogram (இணைகரம்)** | Base (b \- அடிப்பக்கம்), Height (h \- உயரம்) | b x h |
-| **Rhombus (சாய்சதுரம்)** | Base (b \- அடிப்பக்கம்), Height (h \- உயரம்) **OR** Diagonals ($1\_{$2}, $1\_{$2} \- மூலைவிட்டங்கள்) | b x h **அல்லது** \\\\$$1$ \\times $1\_{$2} \\times $1\_{$2} |
-| **Trapezoid (சரிவகம்)** | Parallel sides (a, b \- இணைப்பக்கங்கள்), Height (h \- உயரம்) | \\\\$$1$ \\h(a+b) |
+| **Rhombus (சாய்சதுரம்)** | Base (b \- அடிப்பக்கம்), Height (h \- உயரம்) **OR** Diagonals ($d_1$, $d_2$} \- மூலைவிட்டங்கள்) | b x h **அல்லது** $ A=\frac{1}{2} \cdot d_1 \cdot d_2  ~sq. units$ |
+| **Trapezoid (சரிவகம்)** | Parallel sides (a, b \- இணைப்பக்கங்கள்), Height (h \- உயரம்) | $\frac {1}{2}\cdot(a+b)$ sq. units |
 
