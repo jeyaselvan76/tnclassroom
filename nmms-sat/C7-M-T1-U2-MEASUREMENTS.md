@@ -12,9 +12,9 @@ Area is the measure of the region enclosed within a closed flat shape, while per
 
 | Shape (வடிவம்) | Area Formula (பரப்பளவு) | Perimeter Formula (சுற்றளவு) |
 | :---- | :---- | :---- |
-| **Rectangle (செவ்வகம்)**\<br\>Length (l \- நீளம்), Breadth (b \- அகலம்) | l x b sq. units | 2(l+b) units |
-| **Square (சதுரம்)**\<br\>Side (a \- பக்கம்) | ax a sq. units | 4a units |
-| **Right-angled Triangle (செங்கோண முக்கோணம்)**\<br\>Base (b \- அடிப்பக்கம்), Height (h \- உயரம்) | ½ (b x h) sq. units | Sum of three sides |
+| **Rectangle (செவ்வகம்)**\Length (l \- நீளம்), Breadth (b \- அகலம்) | l x b sq. units | 2(l+b) units |
+| **Square (சதுரம்)**\Side (a \- பக்கம்) | ax a sq. units | 4a units |
+| **Right-angled Triangle (செங்கோண முக்கோணம்)**\Base (b \- அடிப்பக்கம்), Height (h \- உயரம்) | ½ (b x h) sq. units | Sum of three sides |
 
 ## ---
 
