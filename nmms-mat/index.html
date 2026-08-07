@@ -106,16 +106,16 @@
     </main>
 
     <!-- FLOATING WHATSAPP GROUP ACTION BUTTON -->
-<a href="https://chat.whatsapp.com/IDYuaCc8o6XAjcwpBRX9ln" target="_blank" rel="noopener noreferrer"
-   class="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold px-4 py-3 rounded-full shadow-2xl transition-all duration-300 hover:scale-105 group border-2 border-white cursor-pointer"
-   aria-label="Join NMMS WhatsApp Group">
-    <span class="relative flex h-3 w-3">
-        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-        <span class="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
-    </span>
-    <i class="fa-brands fa-whatsapp text-2xl"></i>
-    <span class="hidden sm:inline-block text-xs uppercase tracking-wider font-extrabold pr-1">Join WhatsApp Group</span>
-</a>
+    <a href="https://chat.whatsapp.com/IDYuaCc8o6XAjcwpBRX9ln" target="_blank" rel="noopener noreferrer"
+       class="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold px-4 py-3 rounded-full shadow-2xl transition-all duration-300 hover:scale-105 group border-2 border-white cursor-pointer"
+       aria-label="Join NMMS WhatsApp Group">
+        <span class="relative flex h-3 w-3">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
+        </span>
+        <i class="fa-brands fa-whatsapp text-2xl"></i>
+        <span class="hidden sm:inline-block text-xs uppercase tracking-wider font-extrabold pr-1">Join WhatsApp Group</span>
+    </a>
 
     <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-6 text-center text-xs mt-auto space-y-4">
         <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs font-bold text-slate-400">
@@ -131,8 +131,8 @@
     <script>
         const DATABASE_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSgvpPMCeyjU2HrfMkVS5YttDhPsuY1eY3mGfm78PtrgIX-_Lb245ZSPANkxNvbpk5DVAbL7Gb-E_5g/pub?gid=273942769&single=true&output=csv";
         let masterDatabaseRecords = [];
-        let globallySelectedModule = "All";
-        let globallySelectedSubject = "All";
+        let globallySelectedModule = "";
+        let globallySelectedSubject = "";
 
         function parseCsvRows(text) {
             let lines = []; let row = []; let cell = ''; let inQuotes = false;
@@ -181,11 +181,10 @@
             return clean;
         }
 
-       // FETCH & RENDER MAT INTRO TEXT WITH AUTOMATIC FILE FALLBACK
+        // FETCH & RENDER MAT INTRO TEXT WITH AUTOMATIC FILE FALLBACK
         async function fetchIntroText() {
             const introBody = document.getElementById('intro-text-body');
 
-            // Priority list of filenames to try
             const filesToTry = ['./intro-nmms-mat.txt', './nmms-mat-intro.txt', 'intro-nmms-mat.txt', 'nmms-mat-intro.txt'];
             let rawTxt = null;
 
@@ -194,11 +193,9 @@
                     const res = await fetch(`${filePath}?v=${new Date().getTime()}`);
                     if (res.ok) {
                         rawTxt = await res.text();
-                        break; // Stop loop once a file is successfully found
+                        break;
                     }
-                } catch (e) {
-                    // Try next file path in array
-                }
+                } catch (e) {}
             }
 
             if (rawTxt) {
@@ -214,6 +211,7 @@
                 introBody.innerHTML = `<p class="text-xs text-slate-500 font-medium">Welcome to the NMMS MAT Learning Hub. Select a Module or Category below to practice mental ability topics.</p>`;
             }
         }
+
         async function bootNmmsMatPortal() {
             try {
                 const res = await fetch(DATABASE_CSV_URL);
@@ -254,16 +252,10 @@
 
             container.innerHTML = "";
 
-            // "All Modules" Option Button
-            const allBtn = document.createElement('button');
-            allBtn.className = getButtonClass(globallySelectedModule === "All");
-            allBtn.innerText = "All Modules";
-            allBtn.onclick = () => {
-                globallySelectedModule = "All";
-                buildModuleTabs();
-                buildSubjectTabs();
-            };
-            container.appendChild(allBtn);
+            // Automatically default to the first available module
+            if (modules.length > 0 && !modules.includes(globallySelectedModule)) {
+                globallySelectedModule = modules[0];
+            }
 
             modules.forEach(mod => {
                 const btn = document.createElement('button');
@@ -272,7 +264,6 @@
                 btn.onclick = () => {
                     globallySelectedModule = mod;
                     buildModuleTabs();
-                    buildSubjectTabs();
                 };
                 container.appendChild(btn);
             });
@@ -284,22 +275,17 @@
             const container = document.getElementById('subject-tabs-container');
 
             let records = masterDatabaseRecords;
-            if (globallySelectedModule !== "All") {
+            if (globallySelectedModule) {
                 records = records.filter(x => x.moduleNo === globallySelectedModule);
             }
 
             const subjects = [...new Set(records.map(x => x.subject).filter(Boolean))];
             container.innerHTML = "";
 
-            // "All Categories" Option Button
-            const allBtn = document.createElement('button');
-            allBtn.className = getButtonClass(globallySelectedSubject === "All");
-            allBtn.innerText = "All Categories";
-            allBtn.onclick = () => {
-                globallySelectedSubject = "All";
-                buildSubjectTabs();
-            };
-            container.appendChild(allBtn);
+            // Automatically default to the first available subject/category for the selected module
+            if (subjects.length > 0 && !subjects.includes(globallySelectedSubject)) {
+                globallySelectedSubject = subjects[0];
+            }
 
             subjects.forEach(sub => {
                 const btn = document.createElement('button');
@@ -330,12 +316,12 @@
             let rows = masterDatabaseRecords;
 
             // Apply Module Filter
-            if (globallySelectedModule !== "All") {
+            if (globallySelectedModule) {
                 rows = rows.filter(x => x.moduleNo === globallySelectedModule);
             }
 
             // Apply Subject Filter
-            if (globallySelectedSubject !== "All") {
+            if (globallySelectedSubject) {
                 rows = rows.filter(x => x.subject === globallySelectedSubject);
             }
 
