@@ -25,7 +25,7 @@ Algebraic expressions are classified into four main types based on the number of
 
 * *Example:*  In the term  **$64x^2**$ , the numerical coefficient is  **64** .**Degree (படி):**  The degree of an algebraic expression is the highest power (exponent) of the variable(s) in that expression.  
 * **எடுத்துக்காட்டு:**  
-* $64x^2$ என்ற உறுப்பில், எண்கெழு **$64$** ஆகும்.  
+* 64$x^2$ என்ற உறுப்பில், எண்கெழு **$64$** ஆகும்.  
 * **படி (Degree):**  
 * ஒரு இயற்கணிதக் கோவையின் படி என்பது, அக்கோவையிலுள்ள மாறிகளின் (variables) **மிகவுயர்ந்த அடுக்கு (highest exponent/power)** ஆகும்.
 
@@ -98,7 +98,7 @@ These formulas are essential exam. Memorizing these patterns is key to solving p
 2. **Simplify:**   $30(\\frac{4x}{6}) \- 30(7) \= 30(\\frac{3x}{5})$  ( **சுருக்குக:**   $5(4x) \- 210 \= 6(3x)$ )  
 3. **Calculate:**   $20x \- 210 \= 18x$  ( **கணக்கிடுக.** )  
 4. **Isolate x:**   $20x \- 18x \= 210 \\rightarrow 2x \= 210$  ( **x-ஐத் தனிமைப்படுத்துக.** )  
-5. **Final Result:**   $x \= 105$  ( **இறுதி விடை.** )**Identifying Relationships:**  Using Source 35, where  $x$  values are  $\\{2, 4, 6, 8, 10\\}$  and  $y$  values are  $\\{1, 2, 3, 4, 5\\}$ , the relationship is  **$y \= \\frac{1}{2}x**$ .
+5. **Final Result:**   $x \= 105$  ( **இறுதி விடை.** )**Identifying Relationships:**  Using Source 35, where  $x$  values are  $\\{2, 4, 6, 8, 10\\}$  and  $y$  values are {1, 2, 3, 4, 5} , the relationship is  **y \=$ \\frac{1}{2}$ x**
 
 ---
 
@@ -106,9 +106,9 @@ These formulas are essential exam. Memorizing these patterns is key to solving p
 
 * **Example 1 (Source 4):**  Factorize  $64x^2 \+ 144xy \+ 81y^2$ .  
 * This follows  $a^2 \+ 2ab \+ b^2$  where  $a=8x$  and  $b=9y$ .  
-* Result:  **$(8x \+ 9y)(8x \+ 9y)**$  
+* Result:  **(8x \+ 9y)(8x \+ 9y)**  
 * **Example 2 (Source 34):**  Identify a factor of  $x^2 \- 4x \+ 3$ .  
-* Since  $(x-1)(x-3) \= x^2 \- 4x \+ 3$ , the term  **$(x-3)**$  is a factor.
+* Since  $(x-1)(x-3) \= x^2 \- 4x \+ 3$ , the term  **(x-3)**  is a factor.
 
 ---
 
@@ -119,7 +119,7 @@ The Cartesian plane is divided into four quadrants (கால்பகுதி�
 * **Quadrant I (முதலாம் கால்பகுதி):**   $(+, \+)$  
 * **Quadrant II (இரண்டாம் கால்பகுதி):**   $(-, \+)$  
 * **Quadrant III (மூன்றாம் கால்பகுதி):**   $(-, \-)$  
-* **Quadrant IV (நான்காம் கால்பகுதி):**   $(+, \-)$**Example:**  The point  **$(-3, 4\)**$  has a negative  $x$  and positive  $y$ , so it lies in  **Quadrant II (இரண்டாம் கால்பகுதி)** .
+* **Quadrant IV (நான்காம் கால்பகுதி):**   $(+, \-)$**Example:**  The point  **(-3, 4\)** has a negative  $x$  and positive  $y$ , so it lies in  **Quadrant II (இரண்டாம் கால்பகுதி)** .
 
 ---
 
