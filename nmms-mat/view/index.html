@@ -4,11 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
     <!-- 1. Basic Primary Meta Tags -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NMMS SAT & MAT Study Center 2026 | TN Classroom</title>
     <meta name="title" content="NMMS SAT & MAT Study Center 2026 | TN Classroom">
     <meta name="description" content="Free NMMS scholarship exam study materials, Class 7 & 8 SAT notes, MAT reasoning shortcuts and previous year question papers in Tamil and English medium.">
     <meta name="keywords" content="NMMS exam 2026, NMMS SAT study material,NMMS MCQ,NMMS,SAT,MAT,NMMS model test, NMMS MAT practice, TN Classroom NMMS, Class 8 scholarship exam, Samacheer Kalvi NMMS">
@@ -29,16 +25,13 @@
     <meta property="twitter:description" content="Access Class 7 & 8 SAT study notes, MAT reasoning shortcuts, and free online practice tests for the NMMS Scholarship Exam.">
     <meta property="twitter:image" content="https://tnclassroom.com/assets/images/nmms-og-banner.png">
 
-    <!-- 4. Canonical Tag (Prevents Duplicate Content Issues) -->
+    <!-- 4. Canonical Tag -->
     <link rel="canonical" href="https://tnclassroom.com/nmms-mat/">
-
-
 
     <title>MAT Study Resource - TN Classroom</title>
     <script src="/tailwind.js"></script>
     <link rel="stylesheet" href="/fontawesome.css">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8948542276785631"
-     crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8948542276785631" crossorigin="anonymous"></script>
 
     <!-- MARKED.JS CDN for Parsing Markdown Files -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -70,19 +63,44 @@
         .tamil-fix { font-family: 'Segoe UI', 'Latha', 'Apple Tamil', 'Noto Sans Tamil', sans-serif !important; }
 
         /* Styling for Rendered Markdown Content */
-        .markdown-body h1 { font-size: 1.5rem; font-weight: 800; margin-top: 1rem; margin-bottom: 0.5rem; color: #0f172a; }
-        .markdown-body h2 { font-size: 1.25rem; font-weight: 700; margin-top: 0.875rem; margin-bottom: 0.5rem; color: #1e293b; }
-        .markdown-body h3 { font-size: 1.1rem; font-weight: 700; margin-top: 0.75rem; margin-bottom: 0.375rem; color: #334155; }
+        .markdown-body h1 { font-size: 1.5rem; font-weight: 800; margin-top: 1rem; margin-bottom: 0.5rem; color: inherit; }
+        .markdown-body h2 { font-size: 1.25rem; font-weight: 700; margin-top: 0.875rem; margin-bottom: 0.5rem; color: inherit; }
+        .markdown-body h3 { font-size: 1.1rem; font-weight: 700; margin-top: 0.75rem; margin-bottom: 0.375rem; color: inherit; }
         .markdown-body p { margin-bottom: 0.75rem; line-height: 1.6; }
         .markdown-body ul { list-style-type: disc; padding-left: 1.25rem; margin-bottom: 0.75rem; }
         .markdown-body ol { list-style-type: decimal; padding-left: 1.25rem; margin-bottom: 0.75rem; }
         .markdown-body li { margin-bottom: 0.25rem; }
-        .markdown-body strong { font-weight: 800; color: #0f172a; }
-        .markdown-body blockquote { border-left: 4px solid #6366f1; padding-left: 1rem; color: #475569; margin: 0.75rem 0; font-style: italic; }
+        .markdown-body strong { font-weight: 800; color: inherit; }
+        .markdown-body blockquote { border-left: 4px solid #6366f1; padding-left: 1rem; margin: 0.75rem 0; font-style: italic; opacity: 0.9; }
+        .markdown-body table { width: 100%; border-collapse: collapse; margin-top: 1rem; margin-bottom: 1rem; }
+        .markdown-body th, .markdown-body td { border: 1px solid #cbd5e1; padding: 0.5rem 0.75rem; text-align: left; }
+        .markdown-body th { background-color: rgba(0,0,0,0.05); font-weight: 700; }
 
-        /* =========================================================
-           STRICT PRINT / SAVE-AS-PDF ENGINE STYLES
-           ========================================================= */
+        /* EYE COMFORT READING MODES FOR MAT */
+        .mode-sepia {
+            background-color: #fbf0d9 !important;
+            color: #433422 !important;
+            border-color: #ebd7b2 !important;
+        }
+        .mode-sepia .markdown-body,
+        .mode-sepia .markdown-body * {
+            color: #433422 !important;
+        }
+
+        .mode-dark {
+            background-color: #0f172a !important;
+            color: #f1f5f9 !important;
+            border-color: #1e293b !important;
+        }
+        .mode-dark .markdown-body,
+        .mode-dark .markdown-body * {
+            color: #f1f5f9 !important;
+        }
+        .mode-dark table th, .mode-dark table td {
+            border-color: #334155 !important;
+        }
+
+        /* STRICT PRINT / SAVE-AS-PDF ENGINE STYLES */
         @media print {
             @page {
                 size: A4;
@@ -108,6 +126,13 @@
                 box-shadow: none !important;
                 padding: 0 !important;
                 margin: 0 !important;
+                background-color: #ffffff !important;
+                color: #000000 !important;
+            }
+
+            #inline-text-material-card * {
+                color: #000000 !important;
+                background-color: transparent !important;
             }
 
             .no-print { display: none !important; }
@@ -120,7 +145,7 @@
                 transform: translate(-50%, -50%) rotate(-35deg);
                 font-size: 42pt;
                 font-weight: 900;
-                color: rgba(0, 0, 0, 0.08);
+                color: rgba(0, 0, 0, 0.08) !important;
                 white-space: nowrap;
                 z-index: 9999;
                 pointer-events: none;
@@ -177,23 +202,38 @@
         </div>
 
         <!-- DETAILED INLINE TEXT MATERIAL READER CARD -->
-        <div id="inline-text-material-card" class="hidden bg-white border border-slate-200/60 rounded-3xl p-6 md:p-8 shadow-sm space-y-4">
-            <div class="flex justify-between items-center border-b border-slate-100 pb-3 no-print">
+        <div id="inline-text-material-card" class="hidden bg-white border border-slate-200/60 rounded-3xl p-6 md:p-8 shadow-sm space-y-4 transition-colors duration-200">
+            <div class="flex flex-wrap justify-between items-center border-b border-slate-100 pb-3 gap-3 no-print">
                 <h3 class="text-xs font-black uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
                     <i class="fa-solid fa-book-open-reader text-indigo-500"></i> Full Lesson Material Content
                 </h3>
 
                 <!-- Action Controls Toolbar -->
-                <div class="flex items-center gap-3">
-                    <button onclick="downloadAsPDF()" class="text-slate-700 hover:text-indigo-600 border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-bold transition shadow-sm flex items-center gap-1.5 bg-white cursor-pointer">
-                        <i class="fa-solid fa-file-pdf text-red-500"></i> Save as PDF
-                    </button>
+                <div class="flex flex-wrap items-center gap-2">
 
-                    <!-- Font scale toolbar controls -->
-                    <div class="flex items-center border border-slate-200 bg-white rounded-xl p-0.5 text-xs font-bold text-slate-600">
+                    <!-- EYE COMFORT MODE TOGGLE -->
+                    <div class="flex items-center border border-slate-200 bg-white rounded-xl p-0.5 text-xs font-bold text-slate-600 shadow-sm">
+                        <button onclick="setEyeComfortMode('light')" id="eye-btn-light" title="Normal Mode" class="px-2.5 py-1 rounded-lg hover:bg-slate-100 text-amber-500 transition">
+                            <i class="fa-solid fa-sun"></i>
+                        </button>
+                        <button onclick="setEyeComfortMode('sepia')" id="eye-btn-sepia" title="Eye Comfort (Warm)" class="px-2.5 py-1 rounded-lg hover:bg-slate-100 text-amber-800 transition">
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
+                        <button onclick="setEyeComfortMode('dark')" id="eye-btn-dark" title="Night Mode" class="px-2.5 py-1 rounded-lg hover:bg-slate-100 text-indigo-600 transition">
+                            <i class="fa-solid fa-moon"></i>
+                        </button>
+                    </div>
+
+                    <!-- FONT SCALING TOOLBAR -->
+                    <div class="flex items-center border border-slate-200 bg-white rounded-xl p-0.5 text-xs font-bold text-slate-600 shadow-sm">
                         <button onclick="adjustTextScale(-1)" class="w-7 h-7 hover:bg-slate-100 rounded-lg flex items-center justify-center font-mono">A-</button>
                         <button onclick="adjustTextScale(1)" class="w-7 h-7 hover:bg-slate-100 rounded-lg flex items-center justify-center font-mono border-l border-slate-100">A+</button>
                     </div>
+
+                    <!-- PDF DOWNLOAD -->
+                    <button onclick="downloadAsPDF()" class="text-slate-700 hover:text-indigo-600 border border-slate-200 bg-white rounded-xl px-3 py-1.5 text-xs font-bold transition shadow-sm flex items-center gap-1.5 cursor-pointer">
+                        <i class="fa-solid fa-file-pdf text-red-500"></i> Save as PDF
+                    </button>
                 </div>
             </div>
             <div id="inline-material-text-body" class="text-slate-800 font-sans leading-relaxed tracking-wide select-text tamil-fix text-base markdown-body"></div>
@@ -211,7 +251,7 @@
         <p>&copy; 2026 tnclassroom.com | A Professional Learning Platform for Students & Teachers</p>
     </footer>
 
-  <script>
+<script>
     const DATABASE_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSgvpPMCeyjU2HrfMkVS5YttDhPsuY1eY3mGfm78PtrgIX-_Lb245ZSPANkxNvbpk5DVAbL7Gb-E_5g/pub?gid=273942769&single=true&output=csv";
     let targetRecord = null;
     let currentTextScale = 16;
@@ -219,6 +259,35 @@
     function getUrlParameterId() {
         const params = new URLSearchParams(window.location.search);
         return params.get('id');
+    }
+
+    // --- EYE COMFORT MODE CONTROLLER FOR MAT ---
+    function setEyeComfortMode(mode) {
+        const card = document.getElementById('inline-text-material-card');
+        if (!card) return;
+
+        card.classList.remove('mode-sepia', 'mode-dark');
+
+        document.getElementById('eye-btn-light')?.classList.remove('bg-slate-200');
+        document.getElementById('eye-btn-sepia')?.classList.remove('bg-amber-100');
+        document.getElementById('eye-btn-dark')?.classList.remove('bg-slate-200');
+
+        if (mode === 'sepia') {
+            card.classList.add('mode-sepia');
+            document.getElementById('eye-btn-sepia')?.classList.add('bg-amber-100');
+        } else if (mode === 'dark') {
+            card.classList.add('mode-dark');
+            document.getElementById('eye-btn-dark')?.classList.add('bg-slate-200');
+        } else {
+            document.getElementById('eye-btn-light')?.classList.add('bg-slate-200');
+        }
+
+        localStorage.setItem('tnEyeComfortMode', mode);
+    }
+
+    function restoreEyeComfortPreference() {
+        const savedMode = localStorage.getItem('tnEyeComfortMode') || 'light';
+        setEyeComfortMode(savedMode);
     }
 
     function parseCsvRows(text) {
@@ -238,7 +307,6 @@
         return lines;
     }
 
-    // Helper to safely strip quotes surrounding string values from CSV
     function cleanCell(val) {
         if (!val) return '';
         return val.replace(/^["']|["']$/g, '').trim();
@@ -256,7 +324,7 @@
             if (!res.ok) throw new Error();
             const txt = await res.text();
             const lines = parseCsvRows(txt);
-            const dataRows = lines.slice(1); // Skip header row
+            const dataRows = lines.slice(1);
 
             const cols = dataRows[targetId];
             if (!cols) throw new Error("Row index not found");
@@ -265,12 +333,11 @@
             let sessionNo    = cleanCell(cols[2]);
             let topicName    = cleanCell(cols[3]);
             let vUrl         = cleanCell(cols[4]) || '#';
-            let fUrl         = cleanCell(cols[5]) || '#'; // File URL column
+            let fUrl         = cleanCell(cols[5]) || '#';
             let rawMcq       = cleanCell(cols[6]) || '#';
             let uShortNoteTa = cleanCell(cols[7]);
             let uShortNoteEn = cleanCell(cols[8]);
 
-            // Sanitize MCQ domain
             if (rawMcq !== '#') {
                 if (rawMcq.includes('jeyaselvan76.github.io/nmms-mcq/')) {
                     rawMcq = rawMcq.replace('https://jeyaselvan76.github.io/nmms-mcq/', 'https://nmmsmcq.tnclassroom.com/');
@@ -332,22 +399,18 @@
 
         let rawPdfUrl = targetRecord.pdfUrl.trim();
 
-        // Check if a valid URL exists
-        // Replace the old processedUrl block with this:
-if (rawPdfUrl && rawPdfUrl !== '#') {
-    let processedUrl = rawPdfUrl;
+        if (rawPdfUrl && rawPdfUrl !== '#') {
+            let processedUrl = rawPdfUrl;
 
-    // If it's a relative path and doesn't start with http or /
-    if (!processedUrl.startsWith('http://') && !processedUrl.startsWith('https://') && !processedUrl.startsWith('/')) {
-        if (processedUrl.startsWith('./')) {
-            processedUrl = `../${processedUrl.substring(2)}`;
-        } else if (!processedUrl.startsWith('../')) {
-            processedUrl = `../${processedUrl}`;
-        }
-    }
+            if (!processedUrl.startsWith('http://') && !processedUrl.startsWith('https://') && !processedUrl.startsWith('/')) {
+                if (processedUrl.startsWith('./')) {
+                    processedUrl = `../${processedUrl.substring(2)}`;
+                } else if (!processedUrl.startsWith('../')) {
+                    processedUrl = `../${processedUrl}`;
+                }
+            }
 
-    const isTextOrMd = processedUrl.toLowerCase().endsWith('.txt') || processedUrl.toLowerCase().endsWith('.md');
-    // ... rest of rendering code
+            const isTextOrMd = processedUrl.toLowerCase().endsWith('.txt') || processedUrl.toLowerCase().endsWith('.md');
 
             if (isTextOrMd) {
                 matContainer.innerHTML = `
@@ -475,6 +538,7 @@ if (rawPdfUrl && rawPdfUrl !== '#') {
     }
 
     window.addEventListener('DOMContentLoaded', () => {
+        restoreEyeComfortPreference();
         loadSharedSiteNavbar();
         loadTopicDetails();
     });

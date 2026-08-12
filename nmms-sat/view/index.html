@@ -4,11 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
     <!-- 1. Basic Primary Meta Tags -->
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NMMS SAT & MAT Study Center 2026 | TN Classroom</title>
     <meta name="title" content="NMMS SAT & MAT Study Center 2026 | TN Classroom">
     <meta name="description" content="Free NMMS scholarship exam study materials, Class 7 & 8 SAT notes, MAT reasoning shortcuts and previous year question papers in Tamil and English medium.">
     <meta name="keywords" content="NMMS exam 2026, NMMS SAT study material,NMMS MCQ,NMMS,SAT,MAT,NMMS model test, NMMS MAT practice, TN Classroom NMMS, Class 8 scholarship exam, Samacheer Kalvi NMMS">
@@ -29,17 +25,14 @@
     <meta property="twitter:description" content="Access Class 7 & 8 SAT study notes, MAT reasoning shortcuts, and free online practice tests for the NMMS Scholarship Exam.">
     <meta property="twitter:image" content="https://tnclassroom.com/assets/images/nmms-og-banner.png">
 
-    <!-- 4. Canonical Tag (Prevents Duplicate Content Issues) -->
+    <!-- 4. Canonical Tag -->
     <link rel="canonical" href="https://tnclassroom.com/nmms-sat/">
-
-
 
     <title>Study Material - TN Classroom</title>
     <script src="/tailwind.js"></script>
     <link rel="stylesheet" href="/fontawesome.css">
 
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8948542276785631"
-     crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8948542276785631" crossorigin="anonymous"></script>
 
     <!-- MARKED.JS CDN for Parsing Markdown Files -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -58,25 +51,60 @@
         .tamil-fix { font-family: 'Segoe UI', 'Latha', 'Apple Tamil', 'Noto Sans Tamil', sans-serif !important; }
 
         /* Styling for Rendered Markdown Content */
-        .markdown-body h1 { font-size: 1.5rem; font-weight: 800; margin-top: 1rem; margin-bottom: 0.5rem; color: #0f172a; }
-        .markdown-body h2 { font-size: 1.25rem; font-weight: 700; margin-top: 0.875rem; margin-bottom: 0.5rem; color: #1e293b; }
-        .markdown-body h3 { font-size: 1.1rem; font-weight: 700; margin-top: 0.75rem; margin-bottom: 0.375rem; color: #334155; }
+        .markdown-body h1 { font-size: 1.5rem; font-weight: 800; margin-top: 1rem; margin-bottom: 0.5rem; color: inherit; }
+        .markdown-body h2 { font-size: 1.25rem; font-weight: 700; margin-top: 0.875rem; margin-bottom: 0.5rem; color: inherit; }
+        .markdown-body h3 { font-size: 1.1rem; font-weight: 700; margin-top: 0.75rem; margin-bottom: 0.375rem; color: inherit; }
         .markdown-body p { margin-bottom: 0.75rem; line-height: 1.6; }
         .markdown-body ul { list-style-type: disc; padding-left: 1.25rem; margin-bottom: 0.75rem; }
         .markdown-body ol { list-style-type: decimal; padding-left: 1.25rem; margin-bottom: 0.75rem; }
         .markdown-body li { margin-bottom: 0.25rem; }
-        .markdown-body strong { font-weight: 800; color: #0f172a; }
-        .markdown-body blockquote { border-left: 4px solid #10b981; padding-left: 1rem; color: #475569; margin: 0.75rem 0; font-style: italic; }
+        .markdown-body strong { font-weight: 800; color: inherit; }
+        .markdown-body blockquote { border-left: 4px solid #10b981; padding-left: 1rem; margin: 0.75rem 0; font-style: italic; opacity: 0.9; }
         .markdown-body table { width: 100%; border-collapse: collapse; margin-top: 1rem; margin-bottom: 1rem; }
         .markdown-body th, .markdown-body td { border: 1px solid #cbd5e1; padding: 0.5rem 0.75rem; text-align: left; }
-        .markdown-body th { background-color: #f8fafc; font-weight: 700; }
+        .markdown-body th { background-color: rgba(0,0,0,0.05); font-weight: 700; }
 
-        /* STRICT PRINT / SAVE-AS-PDF ENGINE STYLES */
+        /* EYE COMFORT READING MODES */
+        .mode-sepia {
+            background-color: #fbf0d9 !important;
+            color: #433422 !important;
+            border-color: #ebd7b2 !important;
+        }
+        .mode-sepia #view-unit-name,
+        .mode-sepia .markdown-body,
+        .mode-sepia .markdown-body * {
+            color: #433422 !important;
+        }
+        .mode-sepia #view-shortnote-box-ta,
+        .mode-sepia #view-shortnote-box-en {
+            background-color: #f4e4c1 !important;
+            border-color: #e4cf9e !important;
+            color: #3b2d1d !important;
+        }
+
+        .mode-dark {
+            background-color: #0f172a !important;
+            color: #f1f5f9 !important;
+            border-color: #1e293b !important;
+        }
+        .mode-dark #view-unit-name,
+        .mode-dark .markdown-body,
+        .mode-dark .markdown-body * {
+            color: #f1f5f9 !important;
+        }
+        .mode-dark #view-shortnote-box-ta,
+        .mode-dark #view-shortnote-box-en {
+            background-color: #1e293b !important;
+            border-color: #334155 !important;
+            color: #cbd5e1 !important;
+        }
+        .mode-dark table th, .mode-dark table td {
+            border-color: #334155 !important;
+        }
+
+        /* STRICT PRINT STYLES */
         @media print {
-            @page {
-                size: A4;
-                margin: 12mm;
-            }
+            @page { size: A4; margin: 12mm; }
 
             body {
                 background-color: #ffffff !important;
@@ -97,6 +125,13 @@
                 box-shadow: none !important;
                 padding: 0 !important;
                 margin: 0 !important;
+                background-color: #ffffff !important;
+                color: #000000 !important;
+            }
+
+            #main-content-card * {
+                color: #000000 !important;
+                background-color: transparent !important;
             }
 
             .no-print { display: none !important; }
@@ -109,7 +144,7 @@
                 transform: translate(-50%, -50%) rotate(-35deg);
                 font-size: 42pt;
                 font-weight: 900;
-                color: rgba(0, 0, 0, 0.08);
+                color: rgba(0, 0, 0, 0.08) !important;
                 white-space: nowrap;
                 z-index: 9999;
                 pointer-events: none;
@@ -122,7 +157,6 @@
 
     <div id="navbar-placeholder" class="no-print"></div>
 
-    <!-- EXPANDED CONTAINER: Changed max-w-4xl to max-w-6xl for better screen coverage -->
     <main class="flex-grow max-w-6xl w-full mx-auto px-4 py-6 space-y-4">
 
         <!-- Back Navigation Header -->
@@ -134,10 +168,10 @@
         </div>
 
         <!-- UNIFIED MASTER CONTENT CARD -->
-        <div id="main-content-card" class="bg-white border border-slate-200/80 rounded-2xl p-6 md:p-8 shadow-sm space-y-6">
+        <div id="main-content-card" class="bg-white border border-slate-200/80 rounded-2xl p-6 md:p-8 shadow-sm space-y-6 transition-colors duration-200">
 
             <!-- Header Metadata -->
-            <div class="flex flex-wrap justify-between items-center gap-2 border-b border-slate-100 pb-3">
+            <div class="flex flex-wrap justify-between items-center gap-2 border-b border-slate-100/50 pb-3">
                 <span id="view-unit-no" class="text-xs font-black text-slate-400 uppercase tracking-widest font-mono">Loading...</span>
                 <span id="view-class-badge" class="text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-100 px-3 py-0.5 rounded-md uppercase tracking-wider">Loading...</span>
             </div>
@@ -154,8 +188,8 @@
             </div>
 
             <!-- COMPACT FULL-WIDTH ACTION TOOLBAR -->
-            <div class="no-print pt-2 border-t border-slate-100">
-                <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-50 border border-slate-200/70 p-3 rounded-xl">
+            <div class="no-print pt-2 border-t border-slate-100/50">
+                <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-50/80 border border-slate-200/70 p-3 rounded-xl">
 
                     <!-- Left Actions: Links & Tests -->
                     <div class="flex flex-wrap items-center gap-2 flex-grow">
@@ -164,15 +198,32 @@
                         <div id="quiz-action-container"></div>
                     </div>
 
-                    <!-- Right Actions: Reading Tools & Print -->
-                    <div id="reading-toolbar-controls" class="flex items-center gap-2">
-                        <button onclick="downloadAsPDF()" class="text-slate-700 hover:text-emerald-600 border border-slate-200 bg-white rounded-lg px-3 py-2 text-xs font-bold transition shadow-sm flex items-center gap-1.5 cursor-pointer">
-                            <i class="fa-solid fa-file-pdf text-red-500"></i> Save as PDF
-                        </button>
-                        <div class="flex items-center border border-slate-200 bg-white rounded-lg p-0.5 text-xs font-bold text-slate-600">
+                    <!-- Right Actions: Reading Tools, Eye Comfort & Print -->
+                    <div id="reading-toolbar-controls" class="flex flex-wrap items-center gap-2">
+
+                        <!-- EYE COMFORT MODE TOGGLE -->
+                        <div class="flex items-center border border-slate-200 bg-white rounded-lg p-0.5 text-xs font-bold text-slate-600 shadow-sm">
+                            <button onclick="setEyeComfortMode('light')" id="eye-btn-light" title="Normal Mode" class="px-2.5 py-1 rounded-md hover:bg-slate-100 text-amber-500 transition">
+                                <i class="fa-solid fa-sun"></i>
+                            </button>
+                            <button onclick="setEyeComfortMode('sepia')" id="eye-btn-sepia" title="Eye Comfort (Warm)" class="px-2.5 py-1 rounded-md hover:bg-slate-100 text-amber-800 transition">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                            <button onclick="setEyeComfortMode('dark')" id="eye-btn-dark" title="Night Mode" class="px-2.5 py-1 rounded-md hover:bg-slate-100 text-indigo-600 transition">
+                                <i class="fa-solid fa-moon"></i>
+                            </button>
+                        </div>
+
+                        <!-- TEXT SCALING -->
+                        <div class="flex items-center border border-slate-200 bg-white rounded-lg p-0.5 text-xs font-bold text-slate-600 shadow-sm">
                             <button onclick="adjustTextScale(-1)" class="w-7 h-7 hover:bg-slate-100 rounded-md flex items-center justify-center font-mono">A-</button>
                             <button onclick="adjustTextScale(1)" class="w-7 h-7 hover:bg-slate-100 rounded-md flex items-center justify-center font-mono border-l border-slate-100">A+</button>
                         </div>
+
+                        <!-- PDF DOWNLOAD -->
+                        <button onclick="downloadAsPDF()" class="text-slate-700 hover:text-emerald-600 border border-slate-200 bg-white rounded-lg px-3 py-2 text-xs font-bold transition shadow-sm flex items-center gap-1.5 cursor-pointer">
+                            <i class="fa-solid fa-file-pdf text-red-500"></i> Save as PDF
+                        </button>
                     </div>
 
                 </div>
@@ -204,6 +255,33 @@
         function getUrlParameterId() {
             const params = new URLSearchParams(window.location.search);
             return params.get('id');
+        }
+
+        // --- EYE COMFORT MODE CONTROLLER ---
+        function setEyeComfortMode(mode) {
+            const card = document.getElementById('main-content-card');
+            card.classList.remove('mode-sepia', 'mode-dark');
+
+            document.getElementById('eye-btn-light').classList.remove('bg-slate-200');
+            document.getElementById('eye-btn-sepia').classList.remove('bg-amber-100');
+            document.getElementById('eye-btn-dark').classList.remove('bg-slate-200');
+
+            if (mode === 'sepia') {
+                card.classList.add('mode-sepia');
+                document.getElementById('eye-btn-sepia').classList.add('bg-amber-100');
+            } else if (mode === 'dark') {
+                card.classList.add('mode-dark');
+                document.getElementById('eye-btn-dark').classList.add('bg-slate-200');
+            } else {
+                document.getElementById('eye-btn-light').classList.add('bg-slate-200');
+            }
+
+            localStorage.setItem('tnEyeComfortMode', mode);
+        }
+
+        function restoreEyeComfortPreference() {
+            const savedMode = localStorage.getItem('tnEyeComfortMode') || 'light';
+            setEyeComfortMode(savedMode);
         }
 
         function parseCsvRows(text) {
@@ -430,40 +508,13 @@
             document.addEventListener('click', closeAllDropdowns);
         }
 
-        function toggleNavigationMenu(event, targetMenuId) {
-            event.stopPropagation();
-            const targetMenu = document.getElementById(targetMenuId);
-            if (!targetMenu) return;
-            if (targetMenuId.includes('mobile-')) {
-                const isHidden = targetMenu.classList.contains('hidden');
-                document.querySelectorAll('[id*="mobile-menu-"]').forEach(m => m.classList.add('hidden'));
-                if (isHidden) targetMenu.classList.remove('hidden');
-            } else {
-                const isOpen = targetMenu.classList.contains('dropdown-active');
-                document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('dropdown-active'));
-                if (!isOpen) targetMenu.classList.add('dropdown-active');
-            }
-        }
-
-        function toggleMobileMenu(open) {
-            const drawer = document.getElementById('mobile-drawer');
-            const content = document.getElementById('drawer-content');
-            if (!drawer || !content) return;
-            if (open) {
-                drawer.classList.remove('invisible');
-                setTimeout(() => content.classList.remove('translate-x-full'), 10);
-            } else {
-                content.classList.add('translate-x-full');
-                setTimeout(() => drawer.classList.add('invisible'), 300);
-            }
-        }
-
         function closeAllDropdowns() {
             document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('dropdown-active'));
             document.querySelectorAll('[id*="mobile-menu-"]').forEach(m => m.classList.add('hidden'));
         }
 
         window.addEventListener('DOMContentLoaded', () => {
+            restoreEyeComfortPreference();
             loadSharedSiteNavbar();
             loadTopicDetails();
         });
