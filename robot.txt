@@ -1,0 +1,18 @@
+# User-agent rules for all web crawlers
+User-agent: *
+Allow: /
+
+# Disallow access to utility pages and private engines
+Disallow: /tnpsc/
+Disallow: /nmmsmcq/
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*.json$
+
+# Prevent crawling of search/filter URL parameters
+Disallow: /*?*id=
+Disallow: /*?*sheet=
+Disallow: /*?*set=
+
+# Sitemap Location
+Sitemap: https://tnclassroom.com/sitemap.xml
