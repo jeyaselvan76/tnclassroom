@@ -38,10 +38,10 @@
         @media (min-width: 640px) {
             .clean-hub-grid {
                 display: grid;
-                grid-template-cols: repeat(2, minmax(0, 1fr));
+                grid-template-columns: repeat(2, minmax(0, 1fr));
                 gap: 1.5rem;
                 width: 100%;
-                max-w: 720px;
+                max-width: 720px;
                 margin: 1.5rem auto;
             }
             .hub-card {
@@ -200,14 +200,15 @@
             </div>
 
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <!-- WhatsApp Card -->
-                <a href="https://chat.whatsapp.com/EXeIlEkacgIGolsUZ9S9sQ" target="_blank" class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm hover:shadow-md hover:border-emerald-500 transition flex flex-col items-center text-center gap-2 group">
-                    <span class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-base group-hover:bg-emerald-600 group-hover:text-white transition duration-200">
-                        <i class="fa-brands fa-whatsapp"></i>
+                <!-- Telegram Card (Replaced WhatsApp) -->
+                <a href="https://t.me/c/4415660371/2
+Tnclassroom telegram" target="_blank" class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm hover:shadow-md hover:border-sky-500 transition flex flex-col items-center text-center gap-2 group">
+                    <span class="w-10 h-10 rounded-xl bg-sky-50 text-sky-500 flex items-center justify-center text-base group-hover:bg-sky-500 group-hover:text-white transition duration-200">
+                        <i class="fa-brands fa-telegram"></i>
                     </span>
                     <div>
-                        <h4 class="font-black text-slate-800 text-xs tracking-tight">WhatsApp Group</h4>
-                        <p class="text-[10px] text-slate-400 mt-0.5">Join to Attend Classes</p>
+                        <h4 class="font-black text-slate-800 text-xs tracking-tight">Telegram Channel</h4>
+                        <p class="text-[10px] text-slate-400 mt-0.5">Instant Updates & Notes</p>
                     </div>
                 </a>
 
@@ -247,7 +248,7 @@
         </section>
 
         <!-- ==========================================
-           NEW: REGULATORY ADSENSE COMPLIANCE FOOTER NAVIGATION LINKS
+           REGULATORY ADSENSE COMPLIANCE FOOTER NAVIGATION LINKS
            ========================================== -->
         <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 pt-4 border-t border-slate-200/60 text-xs font-bold text-slate-400" aria-label="Legal Directory">
             <button onclick="openComplianceModal('about')" class="hover:text-indigo-600 transition cursor-pointer">About Us</button>
@@ -298,7 +299,7 @@
     </div>
 
     <!-- ==========================================
-       NEW: DYNAMIC ADSENSE COMPLIANCE DIALOG VIEW OVERLAY MODAL
+       DYNAMIC ADSENSE COMPLIANCE DIALOG VIEW OVERLAY MODAL
        ========================================== -->
     <div id="compliance-modal" class="fixed inset-0 bg-slate-950/40 backdrop-blur-sm z-50 flex items-center justify-center p-4 invisible opacity-0 transition-all duration-300" onclick="closeComplianceModal()">
         <div class="w-full max-w-xl bg-white rounded-[2rem] p-6 md:p-8 shadow-2xl relative border border-slate-100 transform scale-95 transition-transform duration-300 flex flex-col max-h-[85vh]" onclick="event.stopPropagation()">
