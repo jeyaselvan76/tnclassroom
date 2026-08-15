@@ -112,10 +112,16 @@
                         <i class="fa-solid fa-chevron-down accordion-icon transition-transform duration-300"></i>
                     </button>
                     <div id="mob-nmms-panel" class="mobile-accordion-content">
+                        <!-- HOW TO USE Link directly below title on mobile -->
+                        <div class="px-3 pt-3 bg-slate-50/50">
+                            <a href="./nmms-sat/guide/" target="_blank" class="w-full flex items-center justify-center gap-1.5 p-2 bg-indigo-50 border border-indigo-200 rounded-xl text-center text-xs font-bold text-indigo-700 active:bg-indigo-600 active:text-white transition shadow-2xs">
+                                <i class="fa-solid fa-map-location-dot text-xs"></i> HOW TO USE
+                            </a>
+                        </div>
                         <div class="p-3 grid grid-cols-2 gap-2 bg-slate-50/50">
                             <a href="./nmms-sat/" class="p-3 bg-white border rounded-xl text-center text-xs font-bold text-slate-700 active:bg-emerald-50 active:text-emerald-600 transition">SAT PORTAL</a>
                             <a href="./nmms-mat/" class="p-3 bg-white border rounded-xl text-center text-xs font-bold text-slate-700 active:bg-emerald-50 active:text-emerald-600 transition">MAT PORTAL</a>
-                             <a href="./nmms-model-test/" class="p-3 bg-white border rounded-xl text-center text-xs font-bold text-slate-700 active:bg-emerald-50 active:text-emerald-600 transition">MODEL TEST</a>
+                            <a href="./nmms-model-test/" class="col-span-2 p-3 bg-white border rounded-xl text-center text-xs font-bold text-slate-700 active:bg-emerald-50 active:text-emerald-600 transition">MODEL TEST</a>
                         </div>
                     </div>
                 </div>
@@ -146,16 +152,24 @@
                 <!-- NMMS Card Module -->
                 <div class="hub-card border-l-4 border-emerald-500 flex flex-col justify-between">
                     <div>
-                        <div class="flex items-center gap-2 pb-2 mb-3 border-b border-slate-100">
-                            <span class="p-2 bg-emerald-50 text-emerald-600 rounded-xl text-sm"><i class="fa-solid fa-graduation-cap"></i></span>
-                            <h4 class="font-black text-slate-900 text-sm uppercase tracking-wider">NMMS Hub</h4>
+                        <!-- Header with Title and HOW TO USE link -->
+                        <div class="flex items-center justify-between pb-2 mb-3 border-b border-slate-100">
+                            <div class="flex items-center gap-2">
+                                <span class="p-2 bg-emerald-50 text-emerald-600 rounded-xl text-sm"><i class="fa-solid fa-graduation-cap"></i></span>
+                                <h4 class="font-black text-slate-900 text-sm uppercase tracking-wider">NMMS Hub</h4>
+                            </div>
+                            <!-- HOW TO USE Link directly at the top header area -->
+                            <a href="./nmms-sat/guide/" target="_blank" class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-indigo-50 border border-indigo-200 text-indigo-700 hover:bg-indigo-600 hover:text-white rounded-lg text-[10px] font-bold transition shadow-2xs">
+                                <i class="fa-solid fa-map-location-dot text-xs"></i> HOW TO USE
+                            </a>
                         </div>
                         <p class="text-[11px] text-slate-400 mb-4 leading-normal">Access National Means-cum-Merit Scholarship preparatory portals for SAT and MAT streams.</p>
                     </div>
+                    <!-- Clean 3-button layout for the portal options -->
                     <div class="grid grid-cols-2 gap-2">
                         <a href="./nmms-sat/" class="flex items-center justify-center gap-2 p-2.5 border border-slate-200 hover:border-emerald-200 hover:text-emerald-600 hover:bg-emerald-50/30 rounded-xl text-xs font-bold text-slate-700 transition"><i class="fa-solid fa-chart-pie text-xs opacity-70"></i> SAT Portal</a>
                         <a href="./nmms-mat/" class="flex items-center justify-center gap-2 p-2.5 border border-slate-200 hover:border-emerald-200 hover:text-emerald-600 hover:bg-emerald-50/30 rounded-xl text-xs font-bold text-slate-700 transition"><i class="fa-solid fa-brain text-xs opacity-70"></i> MAT Portal</a>
-                        <a href="./nmms-model-test/" class="flex items-center justify-center gap-2 p-2.5 border border-slate-200 hover:border-emerald-200 hover:text-emerald-600 hover:bg-emerald-50/30 rounded-xl text-xs font-bold text-slate-700 transition"><i class="fa-solid fa-brain text-xs opacity-70"></i> MODEL TEST</a>
+                        <a href="./nmms-model-test/" class="col-span-2 flex items-center justify-center gap-2 p-2.5 border border-slate-200 hover:border-emerald-200 hover:text-emerald-600 hover:bg-emerald-50/30 rounded-xl text-xs font-bold text-slate-700 transition"><i class="fa-solid fa-file-circle-check text-xs opacity-70"></i> MODEL TEST</a>
                     </div>
                 </div>
 
@@ -200,9 +214,8 @@
             </div>
 
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <!-- Telegram Card (Replaced WhatsApp) -->
-                <a href="https://t.me/c/4415660371/2
-Tnclassroom telegram" target="_blank" class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm hover:shadow-md hover:border-sky-500 transition flex flex-col items-center text-center gap-2 group">
+                <!-- Telegram Card -->
+                <a href="https://t.me/c/4415660371/2" target="_blank" class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm hover:shadow-md hover:border-sky-500 transition flex flex-col items-center text-center gap-2 group">
                     <span class="w-10 h-10 rounded-xl bg-sky-50 text-sky-500 flex items-center justify-center text-base group-hover:bg-sky-500 group-hover:text-white transition duration-200">
                         <i class="fa-brands fa-telegram"></i>
                     </span>
@@ -299,8 +312,8 @@ Tnclassroom telegram" target="_blank" class="bg-white border border-slate-100 ro
     </div>
 
     <!-- ==========================================
-       DYNAMIC ADSENSE COMPLIANCE DIALOG VIEW OVERLAY MODAL
-       ========================================== -->
+        DYNAMIC ADSENSE COMPLIANCE DIALOG VIEW OVERLAY MODAL
+        ========================================== -->
     <div id="compliance-modal" class="fixed inset-0 bg-slate-950/40 backdrop-blur-sm z-50 flex items-center justify-center p-4 invisible opacity-0 transition-all duration-300" onclick="closeComplianceModal()">
         <div class="w-full max-w-xl bg-white rounded-[2rem] p-6 md:p-8 shadow-2xl relative border border-slate-100 transform scale-95 transition-transform duration-300 flex flex-col max-h-[85vh]" onclick="event.stopPropagation()">
             <div class="flex justify-between items-center border-b border-slate-100 pb-4 mb-4 flex-shrink-0">

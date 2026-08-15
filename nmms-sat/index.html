@@ -4,10 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
     <!-- 1. Basic Primary Meta Tags -->
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NMMS SAT & MAT Study Center 2026 | TN Classroom</title>
     <meta name="title" content="NMMS SAT & MAT Study Center 2026 | TN Classroom">
     <meta name="description" content="Free NMMS scholarship exam study materials, Class 7 & 8 SAT notes, MAT reasoning shortcuts and previous year question papers in Tamil and English medium.">
@@ -32,11 +29,6 @@
     <!-- 4. Canonical Tag (Prevents Duplicate Content Issues) -->
     <link rel="canonical" href="https://tnclassroom.com/nmms-sat/">
 
-
-
-
-
-    <title>NMMS SAT Study Center | TN Classroom</title>
     <script src="/tailwind.js"></script>
     <link rel="stylesheet" href="/fontawesome.css">
 
@@ -91,15 +83,25 @@
 
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
 
-        <!-- HEADER BLOCK -->
-        <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm">
-            <h1 class="text-2xl font-black text-slate-900 sm:text-3xl flex items-center gap-2">
-                <span class="p-2 bg-emerald-50 text-emerald-600 rounded-xl"><i class="fa-solid fa-graduation-cap"></i></span>
-                NMMS SAT Learning Hub
-            </h1>
-            <p class="text-slate-500 text-sm mt-2 leading-relaxed">
-                Prepare for the Scholastic Aptitude Test (SAT) with easy-to-follow study materials. Learn Class 7 and Class 8 Mathematics, Science, and Social Science through notes, practice questions, quizzes, model tests, and previous years' papers. Strengthen your concepts and get ready for the National Means-cum-Merit Scholarship (NMMS) examination.
-            </p>
+        <!-- HEADER BLOCK WITH SHARE BUTTON -->
+        <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+                <h1 class="text-2xl font-black text-slate-900 sm:text-3xl flex items-center gap-2">
+                    <span class="p-2 bg-emerald-50 text-emerald-600 rounded-xl"><i class="fa-solid fa-graduation-cap"></i></span>
+                    NMMS SAT Learning Hub
+                </h1>
+                <p class="text-slate-500 text-sm mt-2 leading-relaxed max-w-3xl">
+                    Prepare for the Scholastic Aptitude Test (SAT) with easy-to-follow study materials. Learn Class 7 and Class 8 Mathematics, Science, and Social Science through notes, practice questions, quizzes, model tests, and previous years' papers.
+                </p>
+            </div>
+
+            <!-- Header Action Button (Native Share) -->
+            <div class="shrink-0 flex items-center">
+                <button onclick="shareNmmsPortal()" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition border border-slate-200 shadow-sm cursor-pointer" title="Share Portal with Students & Teachers">
+                    <i class="fa-solid fa-share-nodes text-sm text-indigo-600"></i>
+                    <span>Share</span>
+                </button>
+            </div>
         </div>
 
         <!-- INTRODUCTORY CONTENT CARD -->
@@ -167,6 +169,29 @@
         let masterDatabaseRecords = [];
         let globallySelectedModule = "";
         let globallySelectedSubject = "";
+
+        // NATIVE WEB SHARE / CLIPBOARD FALLBACK FUNCTION
+        function shareNmmsPortal() {
+            const liveUrl = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+                ? 'https://tnclassroom.com/nmms-sat/'
+                : window.location.href;
+
+            const shareData = {
+                title: 'NMMS SAT Learning Hub | TN Classroom',
+                text: 'Prepare for Class 7 & 8 NMMS SAT Exam with free study notes, practice questions, quizzes, and success roadmap on TN Classroom!',
+                url: liveUrl
+            };
+
+            if (navigator.share) {
+                navigator.share(shareData).catch((err) => console.log('Share dismissed:', err));
+            } else {
+                navigator.clipboard.writeText(liveUrl).then(() => {
+                    alert("NMMS SAT Portal live link copied to clipboard:\n" + liveUrl);
+                }).catch(() => {
+                    prompt("Copy this NMMS Portal link:", liveUrl);
+                });
+            }
+        }
 
         function parseCsvRows(text) {
             let lines = []; let row = []; let cell = ''; let inQuotes = false;
@@ -275,7 +300,6 @@
 
             container.innerHTML = "";
 
-            // Automatically default to the first available module
             if (modules.length > 0 && !modules.includes(globallySelectedModule)) {
                 globallySelectedModule = modules[0];
             }
@@ -305,7 +329,6 @@
             const subjects = [...new Set(records.map(x => x.subject).filter(Boolean))];
             container.innerHTML = "";
 
-            // Automatically default to the first available subject for the selected module
             if (subjects.length > 0 && !subjects.includes(globallySelectedSubject)) {
                 globallySelectedSubject = subjects[0];
             }
