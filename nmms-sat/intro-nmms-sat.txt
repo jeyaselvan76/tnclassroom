@@ -1,34 +1,34 @@
-Welcome to the NMMS SAT Learning Hub — Complete Scholastic Aptitude Test Preparation
-The National Means-cum-Merit Scholarship (NMMS) Examination is a prestigious state-level competitive exam designed to identify and support meritorious Class 8 students across Tamil Nadu. Success in the NMMS exam requires strong performance in both the Mental Ability Test (MAT) and the Scholastic Aptitude Test (SAT).
+# NMMS SAT Learning Hub: Complete Scholastic Aptitude Test Preparation Guide
 
-To help students excel, TN Classroom provides a dedicated, free, and structured online learning portal tailored specifically to the NMMS SAT curriculum.
+The National Means-cum-Merit Scholarship (NMMS) Examination is a prestigious state-level competitive examination designed to identify and support meritorious Class 8 students across Tamil Nadu. Securing this scholarship provides financial assistance throughout secondary education, helping students pursue academic excellence without financial constraints.
 
-NMMS தேர்விற்கான ஏழாம் வகுப்பு மற்றும் எட்டாம் வகுப்பு பாடப்பகுதிகள் சிறு Module-களாக பிரிக்கப்பட்டுள்ளன.ஒவ்வொரு Module-லிலும் பாடப்பகுதிகள் சிறு அலகுகளாக அந்தந்த் பாடப் பிரிவில் பிரிக்கப்பட்டு, Study Material மற்றும்
-தேர்வுகள் வழங்கப்பட்டுள்ளன.
+Achieving success in the NMMS examination requires a balanced performance across both papers: the Mental Ability Test (MAT) and the Scholastic Aptitude Test (SAT). To assist aspirants in their preparation, **TN Classroom** provides a structured, free, and accessible online learning portal tailored specifically to the Tamil Nadu State Board (Samacheer Kalvi) syllabus.
 
-மாணவர்கள், Module 1 முதல் தேர்வு செய்து , அதில் உள்ள பாடங்களை படித்து கொடுக்கப்பட்டுள்ள தேர்விற்கான இணைப்பை பயன்படுத்தி பயிற்சி செய்யலாம்.
+---
 
-Comprehensive Subject Coverage (Class 7 & Class 8 Syllabus)
-The NMMS SAT section evaluates a student's core academic understanding of school subjects covered in Class 7 and Class 8. Our portal breaks down the entire official syllabus into manageable, high-yield learning units across three key subjects:
+## Comprehensive Syllabus Coverage (Class 7 & Class 8)
 
-Mathematics (கணிதம்): Master foundational arithmetic, algebra, geometry, number systems, and measurement concepts through clear problem-solving steps and formulas.
+The NMMS SAT paper assesses a student's conceptual foundation across standard school subjects taught in Class 7 and Class 8. Our learning resources organize the complete official syllabus into high-yield study units:
 
-Science (அறிவியல்): Explore Physics, Chemistry, and Biology concepts, complete with diagrams, formulas, definitions, and key scientific facts.
+* **Mathematics (கணிதம்):** Master core arithmetic, algebra, geometry, number systems, and practical measurements with step-by-step problem-solving methods and formula guides.
+* **Science (அறிவியல்):** Strengthen fundamental concepts across Physics, Chemistry, and Biology through clear definitions, scientific laws, key terminology, and illustrative diagrams.
+* **Social Science (சமூக அறிவியல்):** Gain a thorough understanding of Indian History (ancient, medieval, and modern periods), World and Indian Geography, Civics, and foundational Economics.
 
-Social Science (சமூக அறிவியல்): Gain in-depth knowledge of History (ancient, medieval, and modern Indian history), Geography, Civics, and Economics.
+---
 
-Step-by-Step Module-Wise Learning System
-To prevent exam stress and ensure systematic revision, tnclassroom.com organizes the complete SAT syllabus into 20 structured modules. Students can follow a clear, progressive learning route:
+## Structured 20-Module Learning System
 
-Interactive Module & Subject Filters: Easily sort study materials by specific modules (Module 1 through Module 20) or filter directly by subject (Mathematics, Science, or Social Science).
+To eliminate exam anxiety and foster consistent study habits, the complete SAT syllabus is structured into 20 progressive learning modules. This system enables students to cover topics methodically:
 
-Bilingual Notes (Tamil & English Medium): Study resources are available in simple, accessible language with Tamil character support (tamil-fix), making complex concepts easy to understand for state board and Samacheer Kalvi students.
+* **Subject and Module Filters:** Quickly sort study materials across all 20 modules or navigate directly by subject area.
+* **Bilingual Support (Tamil & English Medium):** Study materials are prepared in simple, clear language with full Tamil character encoding support to serve both Tamil Medium and English Medium state board students.
+* **Downloadable Study Materials & PDFs:** Access readable online lessons and printable PDF revision notes for seamless offline study.
+* **Interactive MCQ Practice Tests:** Assess subject retention after each unit with instant-feedback multiple-choice quizzes modeled after current NMMS examination patterns.
 
-Downloadable PDFs & Markdown Lessons: Access topic notes, text files, and reference materials that can be read inline or printed as offline PDF revision guides.
+---
 
-Free Online MCQ Practice Tests: Test your retention after every unit with interactive, instant-feedback quizzes designed according to the latest NMMS exam pattern.
+## Why Prepare with TN Classroom?
 
-Why Choose TN Classroom for NMMS Exam Prep?
-Designed by experienced educators in Tamil Nadu, TN Classroom aims to bridge the learning gap for students preparing for competitive school examinations. By offering 100% free access to model test questions, previous years' paper analyses, subject-wise worksheets, and study notes, this portal ensures that every student has an equal opportunity to secure the NMMS scholarship.
+Created by experienced educators in Tamil Nadu, TN Classroom bridges resource gaps for students preparing for state-level competitive exams. By providing open, high-quality access to unit-wise study notes, previous year question analyses, model practice papers, and interactive assessments, the platform ensures that every aspiring student has the tools needed to qualify for the NMMS scholarship.
 
-Start exploring the modules today, join our official study groups for updates, and take a confident step toward achieving your academic goals!
+Explore the modules, follow the structured revision schedule, and begin your preparation today.
