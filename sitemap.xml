@@ -1,32 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Home -->
   <url>
     <loc>https://tnclassroom.com/</loc>
+    <lastmod>2026-08-17</lastmod>
     <priority>1.00</priority>
   </url>
-  
+
+  <!-- NMMS Sections -->
   <url>
     <loc>https://tnclassroom.com/nmms-mat/</loc>
+    <lastmod>2026-08-17</lastmod>
     <priority>0.80</priority>
   </url>
-  
+
   <url>
     <loc>https://tnclassroom.com/nmms-sat/</loc>
+    <lastmod>2026-08-17</lastmod>
     <priority>0.80</priority>
   </url>
-  
+
+  <url>
+    <loc>https://tnclassroom.com/nmms-sat/guide/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <priority>0.80</priority>
+  </url>
+
+  <url>
+    <loc>https://tnclassroom.com/nmms-model-test/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- TNTET Subject Portals -->
+  <url>
+    <loc>https://tnclassroom.com/tntet-psychology/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <priority>0.80</priority>
+  </url>
+
+  <url>
+    <loc>https://tnclassroom.com/tntet-english/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <priority>0.80</priority>
+  </url>
+
+  <url>
+    <loc>https://tnclassroom.com/tntet-tamil/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <priority>0.80</priority>
+  </url>
+
+  <url>
+    <loc>https://tnclassroom.com/tntet-maths/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <priority>0.80</priority>
+  </url>
+
+  <url>
+    <loc>https://tnclassroom.com/tntet-science/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <priority>0.80</priority>
+  </url>
+
+  <url>
+    <loc>https://tnclassroom.com/tntet-social/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- School Education & Learning Support -->
   <url>
     <loc>https://tnclassroom.com/books-9-10/</loc>
+    <lastmod>2026-08-17</lastmod>
     <priority>0.80</priority>
   </url>
-  
+
   <url>
     <loc>https://tnclassroom.com/learning-support/</loc>
+    <lastmod>2026-08-17</lastmod>
     <priority>0.80</priority>
   </url>
- 
+
+  <!-- Legal & Trust Pages (Crucial for AdSense) -->
   <url>
     <loc>https://tnclassroom.com/about-us.html</loc>
+    <lastmod>2026-08-17</lastmod>
     <priority>0.50</priority>
   </url>
+
+  <url>
+    <loc>https://tnclassroom.com/privacy-policy.html</loc>
+    <lastmod>2026-08-17</lastmod>
+    <priority>0.50</priority>
+  </url>
+
+  <url>
+    <loc>https://tnclassroom.com/disclaimer.html</loc>
+    <lastmod>2026-08-17</lastmod>
+    <priority>0.50</priority>
+  </url>
+
+  <url>
+    <loc>https://tnclassroom.com/contact-us.html</loc>
+    <lastmod>2026-08-17</lastmod>
+    <priority>0.50</priority>
+  </url>
+
 </urlset>
