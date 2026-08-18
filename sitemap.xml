@@ -70,6 +70,12 @@
     <priority>0.80</priority>
   </url>
 
+  <url>
+    <loc>https://tnclassroom.com/guide/TntetGuide.html/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <priority>0.80</priority>
+  </url>
+
   <!-- School Education & Learning Support -->
   <url>
     <loc>https://tnclassroom.com/books-9-10/</loc>
