@@ -8,6 +8,10 @@ Disallow: /nmmsmcq/
 Disallow: /admin/
 Disallow: /private/
 Disallow: /*.json$
+Disallow: /books-1-5/
+Disallow: /books-6-8/
+Disallow: /books-9-10/
+Disallow: /books-11-12/
 
 # Prevent crawling of search/filter URL parameters
 Disallow: /*?*id=
