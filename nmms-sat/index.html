@@ -35,17 +35,8 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8948542276785631"
      crossorigin="anonymous"></script>
 
-    <!-- MATHJAX CDN for Formula Rendering -->
-    <script>
-      window.MathJax = {
-        tex: {
-            inlineMath: [['$', '$'], ['\\(', '\\)']],
-            processEscapes: true
-        },
-        options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
-      };
-    </script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-MZZ985WL51"></script>
     <script>
@@ -196,9 +187,9 @@
             <div id="subject-tabs-container" class="flex flex-wrap gap-2"></div>
         </div>
 
-        <!-- TOPIC CARDS DECK (UPGRADED WITH VISUAL_MUTHU) -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="units-master-deck">
-            <div class="col-span-full text-center py-12 text-slate-400 font-medium text-xs bg-white border border-slate-100 rounded-2xl shadow-sm">
+        <!-- TOPIC CARDS DECK (STABILIZED WITH min-h-[600px] FOR CLS/ADSENSE COMPLIANCE) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 min-h-[600px] content-start" id="units-master-deck">
+            <div class="col-span-full text-center py-16 text-slate-400 font-medium text-xs bg-white border border-slate-100 rounded-2xl shadow-sm h-fit">
                 <i class="fa-solid fa-circle-notch fa-spin text-emerald-500 mr-1.5"></i> Connecting to cloud database...
             </div>
         </div>
@@ -235,26 +226,56 @@
 
         // NATIVE WEB SHARE / CLIPBOARD FALLBACK FUNCTION
         function shareNmmsPortal() {
-            const liveUrl = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
-                ? 'https://tnclassroom.com/nmms-sat/'
-                : window.location.href;
+    const liveUrl = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+        ? 'https://tnclassroom.com/nmms-sat/'
+        : window.location.href;
 
-            const shareData = {
-                title: 'NMMS SAT Learning Hub | TN Classroom',
-                text: 'Prepare for Class 7 & 8 NMMS SAT Exam with free study notes, practice questions, quizzes, and success roadmap on TN Classroom!',
-                url: liveUrl
-            };
+    const shareData = {
+        title: 'NMMS SAT Learning Hub | TN Classroom',
+        text: 'Prepare for Class 7 & 8 NMMS SAT Exam with free study notes, practice questions, quizzes, and success roadmap on TN Classroom!',
+        url: liveUrl
+    };
 
-            if (navigator.share) {
-                navigator.share(shareData).catch((err) => console.log('Share dismissed:', err));
-            } else {
-                navigator.clipboard.writeText(liveUrl).then(() => {
-                    alert("NMMS SAT Portal live link copied to clipboard:\n" + liveUrl);
-                }).catch(() => {
-                    prompt("Copy this NMMS Portal link:", liveUrl);
-                });
-            }
-        }
+    // 1. Native Mobile Share Sheet
+    if (navigator.share) {
+        navigator.share(shareData).catch(() => {});
+    }
+    // 2. Desktop Fallback -> Clipboard Copy + Smooth Toast
+    else if (navigator.clipboard) {
+        navigator.clipboard.writeText(liveUrl).then(() => {
+            showToast("Portal link copied to clipboard!");
+        }).catch(() => {
+            legacyCopyFallback(liveUrl);
+        });
+    } else {
+        legacyCopyFallback(liveUrl);
+    }
+}
+
+function showToast(message) {
+    const toast = document.getElementById('toast-notification');
+    const msg = document.getElementById('toast-msg');
+    if (!toast || !msg) return;
+
+    msg.innerText = message;
+    toast.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+    toast.classList.add('opacity-100', 'translate-y-0');
+
+    setTimeout(() => {
+        toast.classList.remove('opacity-100', 'translate-y-0');
+        toast.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+    }, 2800);
+}
+
+function legacyCopyFallback(text) {
+    const tempInput = document.createElement("input");
+    tempInput.value = text;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+    showToast("Portal link copied to clipboard!");
+}
 
         function parseCsvRows(text) {
             let lines = []; let row = []; let cell = ''; let inQuotes = false;
@@ -301,11 +322,85 @@
                 });
 
                 buildModuleTabs();
-            } catch (error) {
-                console.error(error);
-                document.getElementById('units-master-deck').innerHTML = `<div class="col-span-full p-4 bg-red-50 text-red-700 text-xs font-bold rounded-xl border border-red-100 text-center">Error reading entries.</div>`;
-            }
+            // AFTER (ADSENSE & CRAWLER RESILIENT FALLBACK)
+} catch (error) {
+    console.error("Cloud database fetch failed:", error);
+    renderFallbackDeck();
+}
         }
+
+        function renderFallbackDeck() {
+    const deck = document.getElementById('units-master-deck');
+    deck.innerHTML = `
+        <div class="col-span-full bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-lg border border-amber-100">
+                        <i class="fa-solid fa-server"></i>
+                    </span>
+                    <div>
+                        <h3 class="text-base font-black text-slate-900">Direct Module Navigation</h3>
+                        <p class="text-xs text-slate-500">Live database sync is temporarily paused. Access key subject materials directly below:</p>
+                    </div>
+                </div>
+                <button onclick="bootNmmsPortal()" class="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 shadow-sm shrink-0">
+                    <i class="fa-solid fa-rotate"></i> Retry Live Sync
+                </button>
+            </div>
+
+            <!-- Pre-rendered Static Fallback Links -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <!-- Maths Fallback Card -->
+                <div class="border border-slate-200 border-l-4 border-l-indigo-600 rounded-2xl p-4 bg-slate-50/50 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[10px] font-black uppercase text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-100 font-mono">MATHEMATICS</span>
+                        <span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">CLASS 7 & 8</span>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-sm text-slate-900">Number System & Algebra</h4>
+                        <p class="text-xs font-semibold text-slate-500 tamil-fix">எண்ணியல் மற்றும் இயற்கணிதம்</p>
+                    </div>
+                    <a href="./view/?id=0" class="inline-flex items-center gap-2 text-xs font-bold text-indigo-600 hover:underline pt-2 border-t border-slate-200/60 w-full justify-between">
+                        <span>Open Revision Notes</span>
+                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    </a>
+                </div>
+
+                <!-- Science Fallback Card -->
+                <div class="border border-slate-200 border-l-4 border-l-emerald-600 rounded-2xl p-4 bg-slate-50/50 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[10px] font-black uppercase text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100 font-mono">SCIENCE</span>
+                        <span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">CLASS 7 & 8</span>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-sm text-slate-900">Physics & Life Sciences</h4>
+                        <p class="text-xs font-semibold text-slate-500 tamil-fix">வெப்பம், ஒளி மற்றும் உயிரியல்</p>
+                    </div>
+                    <a href="./view/?id=1" class="inline-flex items-center gap-2 text-xs font-bold text-emerald-600 hover:underline pt-2 border-t border-slate-200/60 w-full justify-between">
+                        <span>Open Revision Notes</span>
+                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    </a>
+                </div>
+
+                <!-- Social Science Fallback Card -->
+                <div class="border border-slate-200 border-l-4 border-l-amber-600 rounded-2xl p-4 bg-slate-50/50 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[10px] font-black uppercase text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200 font-mono">SOCIAL SCIENCE</span>
+                        <span class="text-[10px] font-bold text-purple-700 bg-purple-50 px-2 py-0.5 rounded-full border border-purple-200">CLASS 7 & 8</span>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-sm text-slate-900">History & Geography</h4>
+                        <p class="text-xs font-semibold text-slate-500 tamil-fix">வரலாறு மற்றும் புவியியல்</p>
+                    </div>
+                    <a href="./view/?id=2" class="inline-flex items-center gap-2 text-xs font-bold text-amber-700 hover:underline pt-2 border-t border-slate-200/60 w-full justify-between">
+                        <span>Open Revision Notes</span>
+                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    `;
+}
 
         function buildModuleTabs() {
             const container = document.getElementById('module-tabs-container');
@@ -442,7 +537,7 @@
             }
 
             if (rows.length === 0) {
-                deck.innerHTML = `<div class="col-span-full p-6 bg-white border border-slate-200 rounded-2xl text-center text-xs font-bold text-slate-400">No resources available for this filter selection.</div>`;
+                deck.innerHTML = `<div class="col-span-full p-6 bg-white border border-slate-200 rounded-2xl text-center text-xs font-bold text-slate-400 h-fit">No resources available for this filter selection.</div>`;
                 return;
             }
 
@@ -452,7 +547,7 @@
                 let unitBadgeText = row.unitNo || ('Module ' + row.moduleNo);
 
                 const card = document.createElement('div');
-                card.className = `group bg-white border border-slate-200/80 border-l-4 ${config.borderLeft} rounded-2xl p-5 shadow-sm hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between cursor-pointer relative overflow-hidden select-none`;
+                card.className = `group bg-white border border-slate-200/80 border-l-4 ${config.borderLeft} rounded-2xl p-5 shadow-sm hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between cursor-pointer relative overflow-hidden select-none h-fit`;
 
                 card.innerHTML = `
                     <div class="space-y-3">
@@ -558,5 +653,10 @@
             bootNmmsPortal();
         });
     </script>
+    <!-- TOAST NOTIFICATION POPUP -->
+<div id="toast-notification" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-2xl border border-slate-700 flex items-center gap-2.5 text-xs font-bold transition-all duration-300 pointer-events-none opacity-0 translate-y-4">
+    <i class="fa-solid fa-circle-check text-emerald-400 text-sm"></i>
+    <span id="toast-msg">Link copied to clipboard!</span>
+</div>
 </body>
 </html>
