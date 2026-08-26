@@ -3,59 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NMMS SAT & MAT Guide | TN Classroom</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
+    <!-- Primary Meta Tags -->
+    <title>How to Master NMMS SAT &amp; MAT | 10-Step Success Roadmap | TN Classroom</title>
+    <meta name="title" content="How to Master NMMS SAT &amp; MAT | 10-Step Success Roadmap | TN Classroom">
+    <meta name="description" content="TN Classroom NMMS தேர்வு தளத்தைப் பயன்படுத்தி SAT மற்றும் MAT தேர்வுகளில் முழு மதிப்பெண்கள் பெறுவதற்கான 10-படி வழிகாட்டி வரைபடம்.">
+    <meta name="keywords" content="NMMS roadmap, NMMS SAT preparation, NMMS MAT guide, TN Classroom NMMS, Class 8 scholarship roadmap">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://tnclassroom.com/nmms-sat/guide/">
+
+    <!-- Open Graph / Social Tags -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://tnclassroom.com/nmms-sat/guide/">
+    <meta property="og:title" content="How to Master NMMS SAT &amp; MAT | 10-Step Success Roadmap">
+    <meta property="og:description" content="A structured 10-step roadmap for Class 8 students preparing for the National Means-cum-Merit Scholarship Examination.">
+
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <script src="/tailwind.js"></script>
+    <link rel="stylesheet" href="/fontawesome.css">
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8948542276785631"
+      crossorigin="anonymous"></script>
+
+    <!-- Google Analytics (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MZZ985WL51"></script>
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'Segoe UI', 'sans-serif'],
-                    },
-                    colors: {
-                        brand: {
-                            50: '#eef2ff',
-                            100: '#e0e7ff',
-                            500: '#6366f1',
-                            600: '#4f46e5',
-                            700: '#4338ca',
-                            900: '#312e81',
-                        }
-                    },
-                    boxShadow: {
-                        'glow': '0 0 25px -5px rgba(99, 102, 241, 0.4)',
-                        'glow-success': '0 0 25px -5px rgba(16, 185, 129, 0.4)',
-                    }
-                }
-            }
-        }
+      window.dataLayer = window.location.hostname === 'localhost' ? [] : (window.dataLayer || []);
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-MZZ985WL51', {
+        page_path: window.location.pathname,
+        cookie_flags: 'max-age=7200;Secure;SameSite=None'
+      });
     </script>
+
     <style>
-        body {
-            font-family: 'Plus Jakarta Sans', 'Segoe UI', 'Latha', 'Noto Sans Tamil', sans-serif;
-            background-color: #0f172a;
-            color: #f8fafc;
-        }
-
-        .tamil-fix {
-            font-family: 'Segoe UI', 'Latha', 'Apple Tamil', 'Noto Sans Tamil', sans-serif !important;
-        }
-
-        /* Portrait Container Formatting */
-        .portrait-canvas {
-            width: 100%;
-            max-width: 760px;
-            min-height: 1000px;
-            margin: 0 auto;
-        }
+        .dropdown-menu { z-index: 50 !important; pointer-events: none; }
+        .dropdown-active { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; z-index: 50 !important; pointer-events: auto !important; }
+        .tamil-fix { font-family: 'Segoe UI', 'Latha', 'Apple Tamil', 'Noto Sans Tamil', sans-serif !important; }
 
         /* Custom step connector line */
         .timeline-line {
@@ -75,7 +64,7 @@
             }
         }
 
-        /* Print styles for perfect portrait page export */
+        /* Print styles for clean portrait export */
         @media print {
             body {
                 background: white !important;
@@ -106,318 +95,383 @@
         }
     </style>
 </head>
-<body class="p-3 sm:p-6 md:p-10 min-h-screen flex flex-col items-center justify-center relative">
+<body class="bg-[#05070e] text-slate-100 flex flex-col min-h-screen font-sans tamil-fix antialiased relative">
+
+    <div id="navbar-placeholder"></div>
 
     <!-- FLOATING PRINT ACTION (NO PRINT) -->
-    <div class="no-print fixed top-4 right-4 sm:top-6 sm:right-6 z-50">
-        <button onclick="window.print()" class="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-black transition shadow-glow cursor-pointer border-2 border-indigo-400">
-            <i class="fa-solid fa-print text-base"></i> Download
+    <div class="no-print fixed top-20 right-4 sm:right-6 z-40">
+        <button onclick="window.print()" class="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-black transition shadow-lg cursor-pointer border border-indigo-400">
+            <i class="fa-solid fa-print"></i> Print Roadmap
         </button>
     </div>
 
-    <!-- Main Infographic Container (Portrait Ratio Focused) -->
-    <main class="portrait-canvas bg-slate-900 border border-slate-800 rounded-3xl shadow-2xl overflow-hidden relative p-5 sm:p-8 flex flex-col">
+    <main class="flex-grow flex items-center justify-center p-3 sm:p-6 md:p-10">
 
-        <!-- Background Glow Accent Orbs -->
-        <div class="absolute -top-24 -right-24 w-72 h-72 bg-indigo-600/20 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute top-1/2 -left-24 w-72 h-72 bg-pink-600/15 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -bottom-24 -right-24 w-72 h-72 bg-emerald-600/20 rounded-full blur-3xl pointer-events-none"></div>
+        <!-- Main Infographic Container (Portrait Ratio Focused) -->
+        <div class="w-full max-w-3xl bg-slate-900 border border-slate-800 rounded-3xl shadow-2xl overflow-hidden relative p-5 sm:p-8 flex flex-col my-4">
 
-        <!-- Infographic Header Banner -->
-        <div class="relative z-10 text-center border-b border-slate-800/80 pb-6 mb-8">
-            <div class="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500/10 to-indigo-500/10 border border-amber-500/30 text-amber-300 px-4 py-1.5 rounded-full text-xs font-bold tracking-wide uppercase mb-3">
-                <i class="fa-solid fa-award text-amber-400"></i> Exam Success Roadmap
+            <!-- Background Glow Accent Orbs -->
+            <div class="absolute -top-24 -right-24 w-72 h-72 bg-indigo-600/20 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute top-1/2 -left-24 w-72 h-72 bg-pink-600/15 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-24 -right-24 w-72 h-72 bg-emerald-600/20 rounded-full blur-3xl pointer-events-none"></div>
+
+            <!-- Infographic Header Banner -->
+            <div class="relative z-10 text-center border-b border-slate-800/80 pb-6 mb-8">
+                <div class="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500/10 to-indigo-500/10 border border-amber-500/30 text-amber-300 px-4 py-1.5 rounded-full text-xs font-bold tracking-wide uppercase mb-3">
+                    <i class="fa-solid fa-award text-amber-400"></i> Exam Success Roadmap
+                </div>
+                <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-white mb-2">
+                    How to Master <span class="bg-gradient-to-r from-indigo-400 via-pink-400 to-emerald-400 bg-clip-text text-transparent">NMMS SAT &amp; MAT</span>
+                </h1>
+                <p class="text-slate-400 text-xs sm:text-sm max-w-lg mx-auto tamil-fix leading-relaxed">
+                    <strong class="text-indigo-300 font-mono">tnclassroom.com</strong> தளத்தைப் பயன்படுத்தி NMMS உதவித்தொகைத் தேர்வில் முழு மதிப்பெண்கள் பெறுவதற்கான 10-படி வழிகாட்டி!
+                </p>
             </div>
-            <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-white mb-2">
-                How to Master <span class="bg-gradient-to-r from-indigo-400 via-pink-400 to-emerald-400 bg-clip-text text-transparent">NMMS SAT & MAT</span>
-            </h1>
-            <p class="text-slate-400 text-xs sm:text-sm max-w-lg mx-auto tamil-fix leading-relaxed">
-                <strong class="text-indigo-300">tnclassroom.com</strong> தளத்தைப் பயன்படுத்தி NMMS தேர்வில் முழு மதிப்பெண்கள் பெறுவதற்கான 10-படி வழிகாட்டி!
-            </p>
+
+            <!-- Timeline Container -->
+            <div class="relative z-10 flex-1 space-y-6 sm:space-y-7 pl-2 sm:pl-4">
+
+                <!-- Vertical Connecting Line -->
+                <div class="timeline-line"></div>
+
+                <!-- STEP 1 -->
+                <div class="relative flex items-start group">
+                    <div class="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-indigo-600 text-white flex items-center justify-center font-extrabold text-lg sm:text-xl shadow-lg shadow-indigo-500/30 border-2 border-slate-900 z-10 transition-transform group-hover:scale-110">
+                        1
+                    </div>
+                    <div class="ml-4 sm:ml-6 flex-1 bg-slate-800/70 hover:bg-slate-800 border border-slate-700/70 rounded-2xl p-4 sm:p-5 transition shadow-md backdrop-blur-sm timeline-card">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider">Step 01 &bull; Entry</span>
+                        </div>
+                        <h2 class="text-base sm:text-lg font-bold text-white mt-1">
+                            Enter Website URL
+                        </h2>
+                        <div class="mt-2 inline-flex items-center gap-2 bg-slate-900/90 border border-slate-700 px-3 py-1.5 rounded-lg text-indigo-300 text-xs sm:text-sm font-mono font-bold">
+                            <i class="fa-solid fa-globe text-indigo-400"></i>
+                            <span>tnclassroom.com</span>
+                            <a href="https://tnclassroom.com" target="_blank" class="ml-2 text-slate-400 hover:text-white transition"><i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></a>
+                        </div>
+                        <p class="text-slate-300 text-xs sm:text-sm mt-2.5 tamil-fix leading-relaxed">
+                            உங்கள் போன் அல்லது கணினியின் உலாவியில் (Chrome / Firefox) <strong class="text-indigo-300">tnclassroom.com</strong> இணையதள முகவரியைத் திறந்து உள்நுழையவும்.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- STEP 2 -->
+                <div class="relative flex items-start group">
+                    <div class="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-indigo-600 text-white flex items-center justify-center font-extrabold text-lg sm:text-xl shadow-lg shadow-indigo-500/30 border-2 border-slate-900 z-10 transition-transform group-hover:scale-110">
+                        2
+                    </div>
+                    <div class="ml-4 sm:ml-6 flex-1 bg-slate-800/70 hover:bg-slate-800 border border-slate-700/70 rounded-2xl p-4 sm:p-5 transition shadow-md backdrop-blur-sm timeline-card">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider">Step 02 &bull; Target Page</span>
+                        </div>
+                        <h2 class="text-base sm:text-lg font-bold text-white mt-1">
+                            Hit NMMS SAT or MAT Page
+                        </h2>
+                        <p class="text-slate-300 text-xs sm:text-sm mt-1 tamil-fix leading-relaxed">
+                            முகப்புப் பக்கத்தில் உள்ள NMMS HUB பிரிவில் நீங்கள் பயிற்சி பெற விரும்பும் <strong class="text-emerald-300">NMMS SAT</strong> அல்லது <strong class="text-indigo-300">NMMS MAT</strong> தேர்வுப் பக்கத்தைத் தேர்ந்தெடுக்கவும்.
+                        </p>
+                        <div class="mt-3 flex flex-wrap items-center gap-2">
+                            <a href="/nmms-sat/" class="px-3 py-1.5 rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs font-bold hover:bg-emerald-500/30 transition">
+                                <i class="fa-solid fa-graduation-cap mr-1"></i> NMMS SAT (Scholastic)
+                            </a>
+                            <a href="/nmms-mat/" class="px-3 py-1.5 rounded-lg bg-indigo-500/20 border border-indigo-500/40 text-indigo-300 text-xs font-bold hover:bg-indigo-500/30 transition">
+                                <i class="fa-solid fa-brain mr-1"></i> NMMS MAT (Mental Ability)
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 3 -->
+                <div class="relative flex items-start group">
+                    <div class="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-violet-600 text-white flex items-center justify-center font-extrabold text-lg sm:text-xl shadow-lg shadow-violet-500/30 border-2 border-slate-900 z-10 transition-transform group-hover:scale-110">
+                        3
+                    </div>
+                    <div class="ml-4 sm:ml-6 flex-1 bg-slate-800/70 hover:bg-slate-800 border border-slate-700/70 rounded-2xl p-4 sm:p-5 transition shadow-md backdrop-blur-sm timeline-card">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-violet-400 uppercase tracking-wider">Step 03 &bull; View Modules</span>
+                        </div>
+                        <h2 class="text-base sm:text-lg font-bold text-white mt-1">
+                            Discover Several Modules
+                        </h2>
+                        <p class="text-slate-300 text-xs sm:text-sm mt-1 tamil-fix leading-relaxed">
+                            பாடத்திட்டத்தின்படி திட்டமிட்டுப் படிப்பதற்காக 20 வரிசைப்படுத்தப்பட்ட பயிற்சித் தொகுதிகளைத் (20 Modules) திரையில் காண்பீர்கள்.
+                        </p>
+                        <div class="mt-3 grid grid-cols-3 gap-2">
+                            <div class="bg-slate-900/80 p-2 rounded-lg border border-slate-700 text-center">
+                                <i class="fa-solid fa-cubes text-violet-400 mb-1 text-xs"></i>
+                                <div class="text-[11px] font-bold text-slate-200">Module 01</div>
+                            </div>
+                            <div class="bg-slate-900/80 p-2 rounded-lg border border-slate-700 text-center">
+                                <i class="fa-solid fa-cubes text-violet-400 mb-1 text-xs"></i>
+                                <div class="text-[11px] font-bold text-slate-200">Module 02</div>
+                            </div>
+                            <div class="bg-slate-900/80 p-2 rounded-lg border border-slate-700 text-center opacity-60">
+                                <i class="fa-solid fa-ellipsis text-slate-400 mb-1 text-xs"></i>
+                                <div class="text-[11px] font-bold text-slate-400">Module 20...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 4 -->
+                <div class="relative flex items-start group">
+                    <div class="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-violet-600 text-white flex items-center justify-center font-extrabold text-lg sm:text-xl shadow-lg shadow-violet-500/30 border-2 border-slate-900 z-10 transition-transform group-hover:scale-110">
+                        4
+                    </div>
+                    <div class="ml-4 sm:ml-6 flex-1 bg-slate-800/70 hover:bg-slate-800 border border-slate-700/70 rounded-2xl p-4 sm:p-5 transition shadow-md backdrop-blur-sm timeline-card">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-violet-400 uppercase tracking-wider">Step 04 &bull; Selection</span>
+                        </div>
+                        <h2 class="text-base sm:text-lg font-bold text-white mt-1">
+                            Hit Desired Module Number
+                        </h2>
+                        <p class="text-slate-300 text-xs sm:text-sm mt-1 tamil-fix leading-relaxed">
+                            உங்கள் தயாரிப்பு அட்டவணை மற்றும் பள்ளிப் பாடத்திட்டத்திற்கு ஏற்ற குறிப்பிட்ட தொகுதி எண்ணை (Module No) கிளிக் செய்யவும்.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- STEP 5 -->
+                <div class="relative flex items-start group">
+                    <div class="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-pink-600 text-white flex items-center justify-center font-extrabold text-lg sm:text-xl shadow-lg shadow-pink-500/30 border-2 border-slate-900 z-10 transition-transform group-hover:scale-110">
+                        5
+                    </div>
+                    <div class="ml-4 sm:ml-6 flex-1 bg-slate-800/70 hover:bg-slate-800 border border-slate-700/70 rounded-2xl p-4 sm:p-5 transition shadow-md backdrop-blur-sm timeline-card">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-pink-400 uppercase tracking-wider">Step 05 &bull; Subject / Category Options</span>
+                        </div>
+                        <h2 class="text-base sm:text-lg font-bold text-white mt-1">
+                            Available Subjects (SAT) or Categories (MAT)
+                        </h2>
+                        <p class="text-slate-300 text-xs sm:text-sm mt-1 tamil-fix leading-relaxed">
+                            தேர்ந்தெடுத்த தொகுதிக்குள் SAT தேர்வுக்குரிய பாடங்கள் (அறிவியல், கணிதம், சமூக அறிவியல்) அல்லது MAT தேர்வுக்குரிய பகுத்தறிவுத் தலைப்புகள் தோன்றும்.
+                        </p>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3">
+                            <div class="bg-emerald-950/40 border border-emerald-500/40 rounded-xl p-2 text-center">
+                                <i class="fa-solid fa-flask text-emerald-400 text-sm mb-1"></i>
+                                <div class="font-bold text-emerald-200 text-xs">Science</div>
+                            </div>
+                            <div class="bg-cyan-950/40 border border-cyan-500/40 rounded-xl p-2 text-center">
+                                <i class="fa-solid fa-calculator text-cyan-400 text-sm mb-1"></i>
+                                <div class="font-bold text-cyan-200 text-xs">Maths</div>
+                            </div>
+                            <div class="bg-amber-950/40 border border-amber-500/40 rounded-xl p-2 text-center">
+                                <i class="fa-solid fa-landmark text-amber-400 text-sm mb-1"></i>
+                                <div class="font-bold text-amber-200 text-xs">Social</div>
+                            </div>
+                            <div class="bg-purple-950/40 border border-purple-500/40 rounded-xl p-2 text-center">
+                                <i class="fa-solid fa-brain text-purple-400 text-sm mb-1"></i>
+                                <div class="font-bold text-purple-200 text-xs">Reasoning</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 6 -->
+                <div class="relative flex items-start group">
+                    <div class="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-pink-600 text-white flex items-center justify-center font-extrabold text-lg sm:text-xl shadow-lg shadow-pink-500/30 border-2 border-slate-900 z-10 transition-transform group-hover:scale-110">
+                        6
+                    </div>
+                    <div class="ml-4 sm:ml-6 flex-1 bg-slate-800/70 hover:bg-slate-800 border border-slate-700/70 rounded-2xl p-4 sm:p-5 transition shadow-md backdrop-blur-sm timeline-card">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-pink-400 uppercase tracking-wider">Step 06 &bull; Choose Focus</span>
+                        </div>
+                        <h2 class="text-base sm:text-lg font-bold text-white mt-1">
+                            Hit Needed Subject or Category
+                        </h2>
+                        <p class="text-slate-300 text-xs sm:text-sm mt-1 tamil-fix leading-relaxed">
+                            நீங்கள் அன்றைய தினம் பயிற்சி செய்ய விரும்பும் பாடம் (Subject) அல்லது குறிப்பிட்ட தலைப்பை (Category) கிளிக் செய்யவும்.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- STEP 7 -->
+                <div class="relative flex items-start group">
+                    <div class="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-amber-600 text-white flex items-center justify-center font-extrabold text-lg sm:text-xl shadow-lg shadow-amber-500/30 border-2 border-slate-900 z-10 transition-transform group-hover:scale-110">
+                        7
+                    </div>
+                    <div class="ml-4 sm:ml-6 flex-1 bg-slate-800/70 hover:bg-slate-800 border border-slate-700/70 rounded-2xl p-4 sm:p-5 transition shadow-md backdrop-blur-sm timeline-card">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">Step 07 &bull; Unit Cards Grid</span>
+                        </div>
+                        <h2 class="text-base sm:text-lg font-bold text-white mt-1">
+                            Explore Unit Cards Grid
+                        </h2>
+                        <p class="text-slate-300 text-xs sm:text-sm mt-1 tamil-fix leading-relaxed">
+                            தேர்ந்தெடுத்த பாடத்திற்குரிய அனைத்துப் பாட அலகுகளும் (Unit Cards) தலைப்புகளுடன் வரிசையாகத் தோன்றும்.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- STEP 8 -->
+                <div class="relative flex items-start group">
+                    <div class="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-amber-600 text-white flex items-center justify-center font-extrabold text-lg sm:text-xl shadow-lg shadow-amber-500/30 border-2 border-slate-900 z-10 transition-transform group-hover:scale-110">
+                        8
+                    </div>
+                    <div class="ml-4 sm:ml-6 flex-1 bg-slate-800/70 hover:bg-slate-800 border border-slate-700/70 rounded-2xl p-4 sm:p-5 transition shadow-md backdrop-blur-sm timeline-card">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">Step 08 &bull; Focus Unit</span>
+                        </div>
+                        <h2 class="text-base sm:text-lg font-bold text-white mt-1">
+                            Select Desired Unit Card
+                        </h2>
+                        <p class="text-slate-300 text-xs sm:text-sm mt-1 tamil-fix leading-relaxed">
+                            நீங்கள் படிக்க மற்றும் மாதிரித் தேர்வு எழுத விரும்பும் குறிப்பிட்ட பாட அலகின் (Unit Card) மீது தட்டவும்.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- STEP 9 -->
+                <div class="relative flex items-start group">
+                    <div class="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-teal-600 text-white flex items-center justify-center font-extrabold text-lg sm:text-xl shadow-lg shadow-teal-500/30 border-2 border-slate-900 z-10 transition-transform group-hover:scale-110">
+                        9
+                    </div>
+                    <div class="ml-4 sm:ml-6 flex-1 bg-slate-800/70 hover:bg-slate-800 border border-slate-700/70 rounded-2xl p-4 sm:p-5 transition shadow-md backdrop-blur-sm timeline-card">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-teal-400 uppercase tracking-wider">Step 09 &bull; Tri-Resource Hub</span>
+                        </div>
+                        <h2 class="text-base sm:text-lg font-bold text-white mt-1">
+                            Access 3-in-1 Study Toolkit
+                        </h2>
+                        <p class="text-slate-300 text-xs sm:text-sm mt-1 mb-3 tamil-fix leading-relaxed">
+                            ஒவ்வொரு பாட அலகிலும் மாணவர்கள் முழுமையாகப் படிக்க 3 வகையான கற்றல் வளங்கள் வழங்கப்பட்டுள்ளன:
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                            <div class="bg-indigo-950/50 border border-indigo-500/40 rounded-xl p-2.5 flex sm:flex-col items-center sm:text-center gap-2">
+                                <div class="w-8 h-8 rounded-lg bg-indigo-500/20 text-indigo-300 flex items-center justify-center font-bold">
+                                    <i class="fa-solid fa-book-open text-xs"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs font-bold text-white">Study Material</div>
+                                    <div class="text-[10px] text-slate-400 tamil-fix">பாடக் குறிப்புகள் &amp; PDF</div>
+                                </div>
+                            </div>
+                            <div class="bg-rose-950/50 border border-rose-500/40 rounded-xl p-2.5 flex sm:flex-col items-center sm:text-center gap-2">
+                                <div class="w-8 h-8 rounded-lg bg-rose-500/20 text-rose-300 flex items-center justify-center font-bold">
+                                    <i class="fa-solid fa-play text-xs"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs font-bold text-white">Video Material</div>
+                                    <div class="text-[10px] text-slate-400 tamil-fix">காணொளி வகுப்புகள்</div>
+                                </div>
+                            </div>
+                            <div class="bg-emerald-950/50 border border-emerald-500/40 rounded-xl p-2.5 flex sm:flex-col items-center sm:text-center gap-2">
+                                <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-300 flex items-center justify-center font-bold">
+                                    <i class="fa-solid fa-list-check text-xs"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs font-bold text-white">MCQ Practice</div>
+                                    <div class="text-[10px] text-slate-400 tamil-fix">ஆன்லைன் மாதிரித் தேர்வுகள்</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 10 -->
+                <div class="relative flex items-start group">
+                    <div class="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white flex items-center justify-center font-extrabold text-lg sm:text-xl shadow-lg shadow-emerald-500/40 border-2 border-slate-900 z-10 transition-transform group-hover:scale-110">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                    <div class="ml-4 sm:ml-6 flex-1 bg-gradient-to-r from-emerald-950/40 via-slate-800 to-slate-800 border border-emerald-500/50 rounded-2xl p-4 sm:p-5 transition shadow-lg shadow-emerald-950/50 backdrop-blur-sm timeline-card">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Step 10 &bull; Goal Achieved</span>
+                        </div>
+                        <h2 class="text-base sm:text-lg font-bold text-white mt-1 flex items-center gap-2">
+                            Succeed in NMMS Exams!
+                            <i class="fa-solid fa-star text-amber-400 text-sm animate-bounce"></i>
+                        </h2>
+                        <p class="text-emerald-200/90 text-xs sm:text-sm mt-1 tamil-fix leading-relaxed">
+                            தினசரி பாடக் குறிப்புகளைப் படித்து, வீடியோக்களைப் பார்த்து, மாதிரித் தேர்வுகளைத் தொடர்ந்து பயிற்சி செய்து NMMS உதவித்தொகைத் தேர்வில் முழு வெற்றி பெறுங்கள்!
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Infographic Footer Banner -->
+            <footer class="mt-8 pt-4 border-t border-slate-800/60 flex flex-col sm:flex-row items-center justify-between text-slate-400 text-xs gap-2">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-graduation-cap text-indigo-400"></i>
+                    <span>NMMS SAT &amp; MAT Examination Preparation Roadmap</span>
+                </div>
+                <div class="text-[11px] text-slate-500 font-mono">
+                    Resource: <strong class="text-slate-300">tnclassroom.com</strong>
+                </div>
+            </footer>
+
         </div>
-
-        <!-- Timeline Container -->
-        <div class="relative z-10 flex-1 space-y-6 sm:space-y-7 pl-2 sm:pl-4">
-
-            <!-- Vertical Connecting Line -->
-            <div class="timeline-line"></div>
-
-            <!-- STEP 1 -->
-            <div class="relative flex items-start group timeline-step" data-step="1">
-                <div class="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-indigo-600 text-white flex items-center justify-center font-extrabold text-lg sm:text-xl shadow-lg shadow-indigo-500/30 border-2 border-slate-900 z-10 transition-transform group-hover:scale-110">
-                    1
-                </div>
-                <div class="ml-4 sm:ml-6 flex-1 bg-slate-800/70 hover:bg-slate-800 border border-slate-700/70 rounded-2xl p-4 sm:p-5 transition shadow-md backdrop-blur-sm timeline-card">
-                    <div class="flex items-center justify-between">
-                        <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider">Step 01 &bull; Entry</span>
-                    </div>
-                    <h3 class="text-lg font-bold text-white mt-1 flex items-center gap-2">
-                        Enter Website URL
-                    </h3>
-                    <div class="mt-2 inline-flex items-center gap-2 bg-slate-900/90 border border-slate-700 px-3 py-1.5 rounded-lg text-indigo-300 text-xs sm:text-sm font-mono font-bold">
-                        <i class="fa-solid fa-globe text-indigo-400"></i>
-                        <span>tnclassroom.com</span>
-                        <a href="https://tnclassroom.com" target="_blank" class="ml-2 text-slate-400 hover:text-white transition"><i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></a>
-                    </div>
-                    <p class="text-slate-300 text-xs sm:text-sm mt-2.5 tamil-fix leading-relaxed">
-                        உங்கள் போன் அல்லது கணினியின் பிரவுசரில் (Chrome / Firefox) <strong class="text-indigo-300">tnclassroom.com</strong> இணையதள முகவரியைத் திறந்து உள்நுழையவும்.
-                    </p>
-                </div>
-            </div>
-
-            <!-- STEP 2 -->
-            <div class="relative flex items-start group timeline-step" data-step="2">
-                <div class="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-indigo-600 text-white flex items-center justify-center font-extrabold text-lg sm:text-xl shadow-lg shadow-indigo-500/30 border-2 border-slate-900 z-10 transition-transform group-hover:scale-110">
-                    2
-                </div>
-                <div class="ml-4 sm:ml-6 flex-1 bg-slate-800/70 hover:bg-slate-800 border border-slate-700/70 rounded-2xl p-4 sm:p-5 transition shadow-md backdrop-blur-sm timeline-card">
-                    <div class="flex items-center justify-between">
-                        <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider">Step 02 &bull; Target Page</span>
-                    </div>
-                    <h3 class="text-lg font-bold text-white mt-1">
-                        Hit NMMS SAT OR MAT Page
-                    </h3>
-                    <p class="text-slate-300 text-xs sm:text-sm mt-1 tamil-fix leading-relaxed">
-                        முகப்புப் பக்கத்தில் உள்ள NMMS HUB பிரிவில் நீங்கள் பயிற்சி பெற விரும்பும் <strong class="text-emerald-300">NMMS SAT</strong> அல்லது <strong class="text-indigo-300">NMMS MAT</strong> தேர்வுப் பக்கத்தைத் தேர்ந்தெடுக்கவும்.
-                    </p>
-                    <div class="mt-3 flex flex-wrap items-center gap-2">
-                        <span class="px-2.5 py-1 rounded-md bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-xs font-medium">
-                            <i class="fa-solid fa-graduation-cap mr-1"></i> NMMS SAT (Scholastic)
-                        </span>
-                        <span class="px-2.5 py-1 rounded-md bg-indigo-500/20 border border-indigo-500/30 text-indigo-300 text-xs font-medium">
-                            <i class="fa-solid fa-brain mr-1"></i> NMMS MAT (Mental Ability)
-                        </span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- STEP 3 -->
-            <div class="relative flex items-start group timeline-step" data-step="3">
-                <div class="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-violet-600 text-white flex items-center justify-center font-extrabold text-lg sm:text-xl shadow-lg shadow-violet-500/30 border-2 border-slate-900 z-10 transition-transform group-hover:scale-110">
-                    3
-                </div>
-                <div class="ml-4 sm:ml-6 flex-1 bg-slate-800/70 hover:bg-slate-800 border border-slate-700/70 rounded-2xl p-4 sm:p-5 transition shadow-md backdrop-blur-sm timeline-card">
-                    <div class="flex items-center justify-between">
-                        <span class="text-xs font-bold text-violet-400 uppercase tracking-wider">Step 03 &bull; View Modules</span>
-                    </div>
-                    <h3 class="text-lg font-bold text-white mt-1">
-                        Discover Several Modules
-                    </h3>
-                    <p class="text-slate-300 text-xs sm:text-sm mt-1 tamil-fix leading-relaxed">
-                        பாடத்திட்டத்தின்படி திட்டமிட்டுப் படிப்பதற்காக வரிசைப்படுத்தப்பட்ட பல பயிற்சித் தொகுதிகளைத் (Modules) திரையில் காண்பீர்கள்.
-                    </p>
-                    <!-- Visual Module Badges -->
-                    <div class="mt-3 grid grid-cols-3 gap-2">
-                        <div class="bg-slate-900/80 p-2 rounded-lg border border-slate-700 text-center">
-                            <i class="fa-solid fa-cubes text-violet-400 mb-1 text-xs"></i>
-                            <div class="text-[11px] font-bold text-slate-200">Module 01</div>
-                        </div>
-                        <div class="bg-slate-900/80 p-2 rounded-lg border border-slate-700 text-center">
-                            <i class="fa-solid fa-cubes text-violet-400 mb-1 text-xs"></i>
-                            <div class="text-[11px] font-bold text-slate-200">Module 02</div>
-                        </div>
-                        <div class="bg-slate-900/80 p-2 rounded-lg border border-slate-700 text-center opacity-60">
-                            <i class="fa-solid fa-ellipsis text-slate-400 mb-1 text-xs"></i>
-                            <div class="text-[11px] font-bold text-slate-400">More...</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- STEP 4 -->
-            <div class="relative flex items-start group timeline-step" data-step="4">
-                <div class="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-violet-600 text-white flex items-center justify-center font-extrabold text-lg sm:text-xl shadow-lg shadow-violet-500/30 border-2 border-slate-900 z-10 transition-transform group-hover:scale-110">
-                    4
-                </div>
-                <div class="ml-4 sm:ml-6 flex-1 bg-slate-800/70 hover:bg-slate-800 border border-slate-700/70 rounded-2xl p-4 sm:p-5 transition shadow-md backdrop-blur-sm timeline-card">
-                    <div class="flex items-center justify-between">
-                        <span class="text-xs font-bold text-violet-400 uppercase tracking-wider">Step 04 &bull; Selection</span>
-                    </div>
-                    <h3 class="text-lg font-bold text-white mt-1">
-                        Hit Desired Module Number
-                    </h3>
-                    <p class="text-slate-300 text-xs sm:text-sm mt-1 tamil-fix leading-relaxed">
-                        உங்கள் தயாரிப்பு அட்டவணை மற்றும் பள்ளிப் பாடத்திட்டத்திற்கு ஏற்ற குறிப்பிட்ட தொகுதி எண்ணை (Module No) கிளிக் செய்யவும்.
-                    </p>
-                </div>
-            </div>
-
-            <!-- STEP 5 -->
-            <div class="relative flex items-start group timeline-step" data-step="5">
-                <div class="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-pink-600 text-white flex items-center justify-center font-extrabold text-lg sm:text-xl shadow-lg shadow-pink-500/30 border-2 border-slate-900 z-10 transition-transform group-hover:scale-110">
-                    5
-                </div>
-                <div class="ml-4 sm:ml-6 flex-1 bg-slate-800/70 hover:bg-slate-800 border border-slate-700/70 rounded-2xl p-4 sm:p-5 transition shadow-md backdrop-blur-sm timeline-card">
-                    <div class="flex items-center justify-between">
-                        <span class="text-xs font-bold text-pink-400 uppercase tracking-wider">Step 05 &bull; Subject / Category Options</span>
-                    </div>
-                    <h3 class="text-lg font-bold text-white mt-1">
-                        Get Available Subjects FOR SAT OR CATEGORY FOR MAT
-                    </h3>
-                    <p class="text-slate-300 text-xs sm:text-sm mt-1 tamil-fix leading-relaxed">
-                        தேர்ந்தெடுத்த தொகுதிக்குள் SAT தேர்வுக்குரிய பாடங்கள் (அறிவியல், கணிதம், சமூக அறிவியல்) அல்லது MAT தேர்வுக்குரிய பகுத்தறிவுத் தலைப்புகள் திரையில் தோன்றும்.
-                    </p>
-
-                    <!-- Subject / Category Visual Cards -->
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3">
-                        <div class="bg-emerald-950/40 border border-emerald-500/40 rounded-xl p-2 text-center">
-                            <i class="fa-solid fa-flask text-emerald-400 text-sm mb-1"></i>
-                            <div class="font-bold text-emerald-200 text-xs">Science</div>
-                        </div>
-                        <div class="bg-cyan-950/40 border border-cyan-500/40 rounded-xl p-2 text-center">
-                            <i class="fa-solid fa-calculator text-cyan-400 text-sm mb-1"></i>
-                            <div class="font-bold text-cyan-200 text-xs">Maths</div>
-                        </div>
-                        <div class="bg-amber-950/40 border border-amber-500/40 rounded-xl p-2 text-center">
-                            <i class="fa-solid fa-landmark text-amber-400 text-sm mb-1"></i>
-                            <div class="font-bold text-amber-200 text-xs">Social</div>
-                        </div>
-                        <div class="bg-purple-950/40 border border-purple-500/40 rounded-xl p-2 text-center">
-                            <i class="fa-solid fa-brain text-purple-400 text-sm mb-1"></i>
-                            <div class="font-bold text-purple-200 text-xs">Reasoning</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- STEP 6 -->
-            <div class="relative flex items-start group timeline-step" data-step="6">
-                <div class="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-pink-600 text-white flex items-center justify-center font-extrabold text-lg sm:text-xl shadow-lg shadow-pink-500/30 border-2 border-slate-900 z-10 transition-transform group-hover:scale-110">
-                    6
-                </div>
-                <div class="ml-4 sm:ml-6 flex-1 bg-slate-800/70 hover:bg-slate-800 border border-slate-700/70 rounded-2xl p-4 sm:p-5 transition shadow-md backdrop-blur-sm timeline-card">
-                    <div class="flex items-center justify-between">
-                        <span class="text-xs font-bold text-pink-400 uppercase tracking-wider">Step 06 &bull; Choose Focus</span>
-                    </div>
-                    <h3 class="text-lg font-bold text-white mt-1">
-                        Hit Needed Subject OR CATEGORY
-                    </h3>
-                    <p class="text-slate-300 text-xs sm:text-sm mt-1 tamil-fix leading-relaxed">
-                        நீங்கள் அன்றைய தினம் பயிற்சி செய்ய விரும்பும் பாடம் (Subject) அல்லது குறிப்பிட்ட தலைப்பை (Category) கிளிக் செய்யவும்.
-                    </p>
-                </div>
-            </div>
-
-            <!-- STEP 7 -->
-            <div class="relative flex items-start group timeline-step" data-step="7">
-                <div class="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-amber-600 text-white flex items-center justify-center font-extrabold text-lg sm:text-xl shadow-lg shadow-amber-500/30 border-2 border-slate-900 z-10 transition-transform group-hover:scale-110">
-                    7
-                </div>
-                <div class="ml-4 sm:ml-6 flex-1 bg-slate-800/70 hover:bg-slate-800 border border-slate-700/70 rounded-2xl p-4 sm:p-5 transition shadow-md backdrop-blur-sm timeline-card">
-                    <div class="flex items-center justify-between">
-                        <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">Step 07 &bull; Unit Cards</span>
-                    </div>
-                    <h3 class="text-lg font-bold text-white mt-1">
-                        Explore Unit Cards Grid
-                    </h3>
-                    <p class="text-slate-300 text-xs sm:text-sm mt-1 tamil-fix leading-relaxed">
-                        தேர்ந்தெடுத்த பாடத்திற்குரிய அனைத்துப் பாட அலகுகளும் (Unit Cards) தலைப்புகளுடன் வரிசையாகத் தோன்றும்.
-                    </p>
-                </div>
-            </div>
-
-            <!-- STEP 8 -->
-            <div class="relative flex items-start group timeline-step" data-step="8">
-                <div class="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-amber-600 text-white flex items-center justify-center font-extrabold text-lg sm:text-xl shadow-lg shadow-amber-500/30 border-2 border-slate-900 z-10 transition-transform group-hover:scale-110">
-                    8
-                </div>
-                <div class="ml-4 sm:ml-6 flex-1 bg-slate-800/70 hover:bg-slate-800 border border-slate-700/70 rounded-2xl p-4 sm:p-5 transition shadow-md backdrop-blur-sm timeline-card">
-                    <div class="flex items-center justify-between">
-                        <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">Step 08 &bull; Focus Unit</span>
-                    </div>
-                    <h3 class="text-lg font-bold text-white mt-1">
-                        Select Desired Unit Card
-                    </h3>
-                    <p class="text-slate-300 text-xs sm:text-sm mt-1 tamil-fix leading-relaxed">
-                        நீங்கள் படிக்க மற்றும் மாதிரித் தேர்வு எழுத விரும்பும் குறிப்பிட்ட பாட அலகின் (Unit Card) மீது தட்டவும்.
-                    </p>
-                </div>
-            </div>
-
-            <!-- STEP 9 -->
-            <div class="relative flex items-start group timeline-step" data-step="9">
-                <div class="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-teal-600 text-white flex items-center justify-center font-extrabold text-lg sm:text-xl shadow-lg shadow-teal-500/30 border-2 border-slate-900 z-10 transition-transform group-hover:scale-110">
-                    9
-                </div>
-                <div class="ml-4 sm:ml-6 flex-1 bg-slate-800/70 hover:bg-slate-800 border border-slate-700/70 rounded-2xl p-4 sm:p-5 transition shadow-md backdrop-blur-sm timeline-card">
-                    <div class="flex items-center justify-between">
-                        <span class="text-xs font-bold text-teal-400 uppercase tracking-wider">Step 09 &bull; Tri-Resource Hub</span>
-                    </div>
-                    <h3 class="text-lg font-bold text-white mt-1">
-                        Access 3-in-1 Study Toolkit
-                    </h3>
-                    <p class="text-slate-300 text-xs sm:text-sm mt-1 mb-3 tamil-fix leading-relaxed">
-                        ஒவ்வொரு பாட அலகிலும் மாணவர்கள் முழுமையாகப் படிக்க 3 வகையான கற்றல் வளங்கள் வழங்கப்பட்டுள்ளன:
-                    </p>
-
-                    <!-- Resources Grid -->
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                        <div class="bg-indigo-950/50 border border-indigo-500/40 rounded-xl p-2.5 flex sm:flex-col items-center sm:text-center gap-2">
-                            <div class="w-8 h-8 rounded-lg bg-indigo-500/20 text-indigo-300 flex items-center justify-center font-bold">
-                                <i class="fa-solid fa-book-open text-xs"></i>
-                            </div>
-                            <div>
-                                <div class="text-xs font-bold text-white">Study Material</div>
-                                <div class="text-[10px] text-slate-400 tamil-fix">பாடக் குறிப்புகள் & சூத்திரங்கள்</div>
-                            </div>
-                        </div>
-
-                        <div class="bg-rose-950/50 border border-rose-500/40 rounded-xl p-2.5 flex sm:flex-col items-center sm:text-center gap-2">
-                            <div class="w-8 h-8 rounded-lg bg-rose-500/20 text-rose-300 flex items-center justify-center font-bold">
-                                <i class="fa-solid fa-play text-xs"></i>
-                            </div>
-                            <div>
-                                <div class="text-xs font-bold text-white">Video Material</div>
-                                <div class="text-[10px] text-slate-400 tamil-fix">காணொளி வகுப்புகள்</div>
-                            </div>
-                        </div>
-
-                        <div class="bg-emerald-950/50 border border-emerald-500/40 rounded-xl p-2.5 flex sm:flex-col items-center sm:text-center gap-2">
-                            <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-300 flex items-center justify-center font-bold">
-                                <i class="fa-solid fa-list-check text-xs"></i>
-                            </div>
-                            <div>
-                                <div class="text-xs font-bold text-white">MCQ Practice</div>
-                                <div class="text-[10px] text-slate-400 tamil-fix">ஆன்லைன் மாதிரித் தேர்வுகள்</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- STEP 10 -->
-            <div class="relative flex items-start group timeline-step" data-step="10">
-                <div class="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white flex items-center justify-center font-extrabold text-lg sm:text-xl shadow-lg shadow-emerald-500/40 border-2 border-slate-900 z-10 transition-transform group-hover:scale-110">
-                    <i class="fa-solid fa-trophy"></i>
-                </div>
-                <div class="ml-4 sm:ml-6 flex-1 bg-gradient-to-r from-emerald-950/40 via-slate-800 to-slate-800 border border-emerald-500/50 rounded-2xl p-4 sm:p-5 transition shadow-lg shadow-emerald-950/50 backdrop-blur-sm timeline-card">
-                    <div class="flex items-center justify-between">
-                        <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Step 10 &bull; Goal Achieved</span>
-                    </div>
-                    <h3 class="text-lg font-bold text-white mt-1 flex items-center gap-2">
-                        Succeed in NMMS Exams!
-                        <i class="fa-solid fa-star text-amber-400 text-sm animate-bounce"></i>
-                    </h3>
-                    <p class="text-emerald-200/90 text-xs sm:text-sm mt-1 tamil-fix leading-relaxed">
-                        தினசரி பாடக் குறிப்புகளைப் படித்து, வீடியோக்களைப் பார்த்து, மாதிரித் தேர்வுகளைத் தொடர்ந்து பயிற்சி செய்து NMMS உதவித்தொகைத் தேர்வில் முழு வெற்றி பெறுங்கள்!
-                    </p>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- Infographic Footer Banner -->
-        <footer class="mt-8 pt-4 border-t border-slate-800/60 flex flex-col sm:flex-row items-center justify-between text-slate-400 text-xs gap-2">
-            <div class="flex items-center gap-2">
-                <i class="fa-solid fa-graduation-cap text-indigo-400"></i>
-                <span>NMMS SAT & MAT Examination Preparation Roadmap</span>
-            </div>
-            <div class="text-[11px] text-slate-500 font-mono">
-                Resource: <strong class="text-slate-300">tnclassroom.com</strong>
-            </div>
-        </footer>
-
     </main>
 
+    <!-- Regulatory Compliance Footer -->
+    <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-6 text-center text-xs mt-auto space-y-4">
+        <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs font-bold text-slate-400" aria-label="Legal Directory">
+            <a href="/about-us.html" class="hover:text-emerald-400 transition">About Us</a>
+            <a href="/privacy-policy.html" class="hover:text-emerald-400 transition">Privacy Policy</a>
+            <a href="/disclaimer.html" class="hover:text-emerald-400 transition">Disclaimer</a>
+            <a href="/contact-us.html" class="hover:text-emerald-400 transition">Contact Us</a>
+        </nav>
+        <p>&copy; 2026 tnclassroom.com | A Professional Learning Platform for Students &amp; Teachers</p>
+    </footer>
+
+    <script>
+        async function loadSharedSiteNavbar() {
+            try {
+                // Two directory levels up from /nmms-sat/guide/
+                const res = await fetch(`../../navbar.html?v=${new Date().getTime()}`);
+                if (res.ok) {
+                    document.getElementById('navbar-placeholder').innerHTML = await res.text();
+                    initializeGlobalNavigationHooks();
+                }
+            } catch (e) { console.error("Navigation setup blocked:", e); }
+        }
+
+        function initializeGlobalNavigationHooks() {
+            document.removeEventListener('click', closeAllDropdowns);
+            document.addEventListener('click', closeAllDropdowns);
+        }
+
+        function toggleNavigationMenu(event, targetMenuId) {
+            event.stopPropagation();
+            const targetMenu = document.getElementById(targetMenuId);
+            if (!targetMenu) return;
+
+            const isMobileElement = targetMenuId.includes('mobile-');
+
+            if (isMobileElement) {
+                const isCurrentlyHidden = targetMenu.classList.contains('hidden');
+                document.querySelectorAll('[id*="mobile-menu-"]').forEach(menu => menu.classList.add('hidden'));
+                if (isCurrentlyHidden) targetMenu.classList.remove('hidden');
+            } else {
+                const isCurrentlyOpen = targetMenu.classList.contains('dropdown-active');
+                document.querySelectorAll('.dropdown-menu').forEach(menu => menu.classList.remove('dropdown-active'));
+                if (!isCurrentlyOpen) targetMenu.classList.add('dropdown-active');
+            }
+        }
+
+        function toggleMobileMenu(open) {
+            const drawer = document.getElementById('mobile-drawer');
+            const content = document.getElementById('drawer-content');
+            if (!drawer || !content) return;
+
+            if (open) {
+                drawer.classList.remove('invisible');
+                setTimeout(() => content.classList.remove('translate-x-full'), 10);
+            } else {
+                content.classList.add('translate-x-full');
+                setTimeout(() => drawer.classList.add('invisible'), 300);
+            }
+        }
+
+        function closeAllDropdowns() {
+            document.querySelectorAll('.dropdown-menu').forEach(menu => menu.classList.remove('dropdown-active'));
+            document.querySelectorAll('[id*="mobile-menu-"]').forEach(menu => menu.classList.add('hidden'));
+        }
+
+        window.addEventListener('DOMContentLoaded', loadSharedSiteNavbar);
+    </script>
 </body>
 </html>

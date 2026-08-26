@@ -4,12 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Download Textbooks | TN Classroom</title>
+    <meta name="robots" content="index, follow">
+
+    <!-- GLOBAL SITE CONFIGURATION LAYER (GA4 ANALYTICS ENGINE) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MZZ985WL51"></script>
+    <script>
+      window.dataLayer = window.location.hostname === 'localhost' ? [] : (window.dataLayer || []);
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-MZZ985WL51', {
+        page_path: window.location.pathname,
+        cookie_flags: 'max-age=7200;Secure;SameSite=None'
+      });
+    </script>
+
     <script src="/tailwind.js"></script>
     <link rel="stylesheet" href="/fontawesome.css">
 
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8948542276785631"
-     crossorigin="anonymous"></script>
     <style>
+        /* FIXED: Blocks hidden desktop menus from hijacking user clicks on empty space */
         .dropdown-menu { z-index: 50 !important; pointer-events: none; }
         .dropdown-active { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; z-index: 50 !important; pointer-events: auto !important; }
         .tamil-fix { font-family: 'Segoe UI', 'Latha', sans-serif !important; }
@@ -18,16 +32,6 @@
 <body class="bg-gray-50 text-gray-900 flex flex-col min-h-screen font-sans">
 
     <div id="navbar-placeholder"></div>
-
-    <!-- Leaderboard Banner Advertisement Area -->
-    <div class="w-full bg-white border-b border-slate-200 py-2 flex justify-center items-center text-[10px] text-gray-400 font-sans">
-        <div class="text-center">
-            <span class="block uppercase tracking-wider font-semibold mb-1">Advertisement</span>
-            <div class="bg-gray-100 border border-dashed border-gray-300 w-[320px] h-[50px] md:w-[728px] md:h-[60px] flex items-center justify-center rounded font-mono text-xs">
-                Top Leaderboard Banner Ad Box
-            </div>
-        </div>
-    </div>
 
     <main class="flex-grow max-w-5xl w-full mx-auto px-4 py-8 space-y-6">
 
@@ -96,8 +100,7 @@
             <a href="/disclaimer.html" class="hover:text-emerald-400 transition">Disclaimer</a>
             <a href="/contact-us.html" class="hover:text-emerald-400 transition">Contact Us</a>
         </nav>
-
-        <p>&copy; 2026 tnclassroom.com | A Professional Learning Platform for Students & Teachers</p>
+        <p>&copy; 2026 tnclassroom.com | A Professional Learning Platform for Students &amp; Teachers</p>
     </footer>
 
     <script>
@@ -263,6 +266,19 @@
                 const isOpen = targetMenu.classList.contains('dropdown-active');
                 document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('dropdown-active'));
                 if (!isOpen) targetMenu.classList.add('dropdown-active');
+            }
+        }
+
+        function toggleMobileMenu(open) {
+            const drawer = document.getElementById('mobile-drawer');
+            const content = document.getElementById('drawer-content');
+            if (!drawer || !content) return;
+            if (open) {
+                drawer.classList.remove('invisible');
+                setTimeout(() => content.classList.remove('translate-x-full'), 10);
+            } else {
+                content.classList.add('translate-x-full');
+                setTimeout(() => drawer.classList.add('invisible'), 300);
             }
         }
 

@@ -3,37 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Performance Dashboard | WWW.TNCLASSROOM.COM</title>
-   <script src="/tailwind.js"></script>
-<script src="/xlsx.js"></script>
-<link rel="stylesheet" href="/fontawesome.css">
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-MZZ985WL51"></script>
-<script>
-  window.dataLayer = window.location.hostname === 'localhost' ? [] : (window.dataLayer || []);
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <!-- Primary Meta Tags -->
+    <title>Student Performance &amp; Evaluation Portal | TN Classroom</title>
+    <meta name="title" content="Student Performance &amp; Evaluation Portal | TN Classroom">
+    <meta name="description" content="Track and download test scores, TNTET &amp; NMMS online practice results, and state examination rankings on TN Classroom.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://tnclassroom.com/results.html">
 
-  gtag('config', 'G-MZZ985WL51', {
-    page_path: window.location.pathname,
-    cookie_flags: 'max-age=7200;Secure;SameSite=None'
-  });
-</script>
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tnclassroom.com/results.html">
+    <meta property="og:title" content="Student Performance &amp; Evaluation Portal | TN Classroom">
+    <meta property="og:description" content="Instant score ledger and performance tracker for TNTET and NMMS online practice exams.">
+
+    <script src="/tailwind.js"></script>
+    <script src="/xlsx.js"></script>
+    <link rel="stylesheet" href="/fontawesome.css">
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8948542276785631"
+      crossorigin="anonymous"></script>
+
+    <!-- Google Analytics (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MZZ985WL51"></script>
+    <script>
+      window.dataLayer = window.location.hostname === 'localhost' ? [] : (window.dataLayer || []);
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-MZZ985WL51', {
+        page_path: window.location.pathname,
+        cookie_flags: 'max-age=7200;Secure;SameSite=None'
+      });
+    </script>
+
     <style>
         body { -webkit-tap-highlight-color: transparent; font-family: sans-serif; background-color: #f8fafc; }
         .custom-scrollbar::-webkit-scrollbar { width: 6px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #1e3a8a; border-radius: 10px; }
         .glass-header { background: rgba(30, 58, 138, 0.95); backdrop-filter: blur(10px); }
-        .dropdown-active { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; }
-        .tamil-fix { font-family: 'Segoe UI', 'Latha', sans-serif !important; }
+        .dropdown-menu { z-index: 50 !important; pointer-events: none; }
+        .dropdown-active { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; z-index: 50 !important; pointer-events: auto !important; }
+        .tamil-fix { font-family: 'Segoe UI', 'Latha', 'Apple Tamil', sans-serif !important; }
     </style>
 </head>
-<body class="antialiased flex flex-col min-h-screen">
+<body class="antialiased flex flex-col min-h-screen text-slate-800 relative">
 
     <div id="navbar-placeholder"></div>
 
-    <div class="glass-header text-white p-6 shadow-lg sticky top-0 z-40">
+    <!-- NON-STICKY BLUE HEADER BANNER -->
+    <div class="glass-header text-white p-6 shadow-md relative z-10">
         <div class="max-w-4xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
             <div>
                 <h1 class="text-xl font-black tracking-tighter uppercase flex items-center gap-2">
@@ -41,54 +62,88 @@
                 </h1>
                 <p class="text-[10px] text-cyan-300 font-bold tracking-widest uppercase">WWW.TNCLASSROOM.COM</p>
             </div>
-            <button onclick="downloadMyResults()" id="downloadBtn" class="hidden bg-green-500 hover:bg-green-600 text-white px-5 py-2.5 rounded-xl font-black text-xs transition shadow-md flex items-center gap-2 tracking-wider uppercase">
+            <button onclick="downloadMyResults()" id="downloadBtn" class="hidden bg-emerald-500 hover:bg-emerald-600 text-white px-5 py-2.5 rounded-xl font-black text-xs transition shadow-md flex items-center gap-2 tracking-wider uppercase cursor-pointer">
                 <i class="fa-solid fa-file-excel"></i> Download Excel
             </button>
         </div>
     </div>
 
-    <main class="flex-grow max-w-4xl mx-auto p-4 md:p-8 space-y-12 w-full">
+    <main class="flex-grow max-w-4xl mx-auto p-4 md:p-8 space-y-10 w-full">
 
+        <!-- SEARCH / EVALUATION LOOKUP CARD -->
         <section class="space-y-6">
-            <div class="bg-white rounded-[2.5rem] p-6 md:p-8 shadow-xl border border-slate-100">
+            <div class="bg-white rounded-[2.5rem] p-6 md:p-8 shadow-sm border border-slate-100">
                 <h2 class="text-center text-[#1e3a8a] text-[10px] font-black uppercase tracking-[0.2em] mb-4">
                     <i class="fa-solid fa-shield-halved mr-1"></i> Secure MCQ Evaluation Tracker (TNTET / NMMS)
                 </h2>
                 <form onsubmit="event.preventDefault(); fetchUserResults();" class="flex flex-col md:flex-row gap-4">
                     <input type="tel" id="searchMobile" maxlength="10"
-                        class="flex-grow p-5 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-blue-500 transition-all font-mono font-bold text-lg text-center tracking-widest"
+                        class="flex-grow p-4 md:p-5 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-blue-500 transition-all font-mono font-bold text-lg text-center tracking-widest"
                         placeholder="ENTER 10 DIGIT MOBILE">
                     <button type="submit"
-                        class="bg-[#1e3a8a] hover:bg-blue-800 text-white px-10 py-5 rounded-2xl font-black shadow-lg active:scale-95 transition-all text-sm uppercase tracking-widest flex items-center justify-center gap-2">
+                        class="bg-[#1e3a8a] hover:bg-blue-800 text-white px-8 md:px-10 py-4 md:py-5 rounded-2xl font-black shadow-lg active:scale-95 transition-all text-xs md:text-sm uppercase tracking-widest flex items-center justify-center gap-2 cursor-pointer">
                         <i class="fa-solid fa-magnifying-glass"></i> View My Scores
                     </button>
                 </form>
                 <p id="statusMsg" class="text-center text-xs mt-4 font-bold text-slate-400 italic"></p>
             </div>
 
-            <div id="resultsWrapper" class="hidden transition-all duration-500">
-                <div class="bg-white rounded-[2.5rem] shadow-2xl overflow-hidden border border-slate-100">
+            <!-- RESULTS LEDGER TABLE -->
+            <div id="resultsWrapper" class="hidden transition-all duration-300 min-h-[150px]">
+                <div class="bg-white rounded-[2.5rem] shadow-xl overflow-hidden border border-slate-100">
                     <div class="overflow-x-auto custom-scrollbar">
                         <table class="w-full text-left border-collapse">
                             <thead class="bg-slate-50 border-b border-slate-100">
                                 <tr>
-                                    <th class="p-5 text-[10px] font-black uppercase text-slate-500 tracking-widest">Date & Time</th>
-                                    <th class="p-5 text-[10px] font-black uppercase text-slate-500 tracking-widest">Assessment System / Quiz ID</th>
-                                    <th class="p-5 text-[10px] font-black uppercase text-slate-500 tracking-widest text-center">Final Score</th>
+                                    <th class="p-4 sm:p-5 text-[10px] font-black uppercase text-slate-500 tracking-widest">Date &amp; Time</th>
+                                    <th class="p-4 sm:p-5 text-[10px] font-black uppercase text-slate-500 tracking-widest">Assessment System / Quiz ID</th>
+                                    <th class="p-4 sm:p-5 text-[10px] font-black uppercase text-slate-500 tracking-widest text-center">Final Score</th>
                                 </tr>
                             </thead>
-                            <tbody id="userResultsBody" class="divide-y divide-slate-50"></tbody>
+                            <tbody id="userResultsBody" class="divide-y divide-slate-100"></tbody>
                         </table>
                     </div>
                 </div>
-                <p class="text-center text-[9px] text-slate-400 font-bold uppercase mt-6 tracking-widest">Generated by TN Classroom Management System</p>
+                <p class="text-center text-[9px] text-slate-400 font-bold uppercase mt-4 tracking-widest">Generated by TN Classroom Examination Tracking Engine</p>
             </div>
         </section>
 
+        <!-- SEO ARTICLE & EVALUATION GUIDE -->
+        <article class="bg-white border border-slate-100 rounded-3xl p-6 md:p-8 shadow-sm space-y-5 text-sm text-slate-600 leading-relaxed">
+            <header class="border-b border-slate-100 pb-3">
+                <div class="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-blue-700 bg-blue-50 px-3 py-1 rounded-lg mb-1">
+                    <i class="fa-solid fa-circle-info"></i> About Examination Tracking
+                </div>
+                <h3 class="text-lg font-black text-slate-900 tracking-tight">Understanding Your Practice Test Performance</h3>
+            </header>
+            <p>
+                Continuous evaluation is vital for candidates appearing in competitive state exams such as the <strong>Tamil Nadu Teacher Eligibility Test (TNTET)</strong> and the <strong>National Means-cum-Merit Scholarship (NMMS)</strong> examination. Our real-time scoring engine logs unit-wise multiple-choice question (MCQ) attempts directly to a centralized cloud database, allowing students and educators to review learning trajectories over time.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
+                <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100 space-y-1.5">
+                    <h4 class="font-bold text-xs uppercase tracking-wider text-slate-800 flex items-center gap-1.5">
+                        <i class="fa-solid fa-calculator text-blue-600"></i> Score Analysis
+                    </h4>
+                    <p class="text-xs text-slate-500">
+                        Scores with 50% or higher accuracy are highlighted in green, indicating solid conceptual retention. Scores under 50% indicate areas requiring textbook revision.
+                    </p>
+                </div>
+                <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100 space-y-1.5">
+                    <h4 class="font-bold text-xs uppercase tracking-wider text-slate-800 flex items-center gap-1.5">
+                        <i class="fa-solid fa-file-excel text-emerald-600"></i> Excel Archival
+                    </h4>
+                    <p class="text-xs text-slate-500">
+                        Aspirants can generate offline spreadsheets of all historical attempts with dates and percentages for structured self-audits.
+                    </p>
+                </div>
+            </div>
+        </article>
+
+        <!-- GOVERNMENT RESULTS LINKS -->
         <section class="space-y-6">
             <div class="border-b border-slate-200 pb-3">
                 <h2 class="text-lg font-black text-slate-800 flex items-center gap-2">
-                    <i class="fa-solid fa-building-columns text-[#1e3a8a]"></i> Government Examination Portals
+                    <i class="fa-solid fa-building-columns text-[#1e3a8a]"></i> Official Government Examination Portals
                 </h2>
                 <p class="text-slate-400 text-xs mt-0.5">Direct institutional gateway links to check formal state evaluations, school rankings, and merit logs.</p>
             </div>
@@ -98,9 +153,9 @@
                     <div>
                         <span class="text-[9px] font-black text-blue-600 bg-blue-50 border border-blue-100 px-2.5 py-0.5 rounded uppercase tracking-wider">Class 10</span>
                         <h3 class="font-black text-slate-900 text-base mt-2 tracking-tight group-hover:text-[#1e3a8a] transition">SSLC Board Results</h3>
-                        <p class="text-slate-400 text-xs mt-1 leading-relaxed">Access instant state marks cards, marks metrics documentation, and individual registration number checks.</p>
+                        <p class="text-slate-400 text-xs mt-1 leading-relaxed">Access instant state marks cards, metrics documentation, and individual registration number checks.</p>
                     </div>
-                    <a href="https://tnresults.nic.in" target="_blank" class="mt-5 text-center bg-slate-950 hover:bg-[#1e3a8a] text-white font-black text-xs py-3 rounded-xl transition uppercase tracking-wider block shadow-sm">
+                    <a href="https://tnresults.nic.in" target="_blank" rel="noopener noreferrer" class="mt-5 text-center bg-slate-950 hover:bg-[#1e3a8a] text-white font-black text-xs py-3 rounded-xl transition uppercase tracking-wider block shadow-sm">
                         <i class="fa-solid fa-arrow-up-right-from-square mr-1.5"></i> Visit TN Results
                     </a>
                 </div>
@@ -111,18 +166,18 @@
                         <h3 class="font-black text-slate-900 text-base mt-2 tracking-tight group-hover:text-[#1e3a8a] transition">HSC Board Results</h3>
                         <p class="text-slate-400 text-xs mt-1 leading-relaxed">Direct pipeline access points for Higher Secondary general, science, and vocational performance distributions.</p>
                     </div>
-                    <a href="https://tnresults.nic.in" target="_blank" class="mt-5 text-center bg-slate-950 hover:bg-[#1e3a8a] text-white font-black text-xs py-3 rounded-xl transition uppercase tracking-wider block shadow-sm">
+                    <a href="https://tnresults.nic.in" target="_blank" rel="noopener noreferrer" class="mt-5 text-center bg-slate-950 hover:bg-[#1e3a8a] text-white font-black text-xs py-3 rounded-xl transition uppercase tracking-wider block shadow-sm">
                         <i class="fa-solid fa-arrow-up-right-from-square mr-1.5"></i> Visit HSC Tracker
                     </a>
                 </div>
 
-                <div class="bg-white border border-slate-200/60 rounded-2xl p-5 shadow-sm flex flex-col justify-between hover:border-blue-500 transition group">
+                <div class="bg-white border border-slate-200/60 rounded-2xl p-5 shadow-sm flex flex-col justify-between hover:border-emerald-500 transition group">
                     <div>
                         <span class="text-[9px] font-black text-emerald-600 bg-emerald-50 border border-emerald-100 px-2.5 py-0.5 rounded uppercase tracking-wider">Scholarship</span>
                         <h3 class="font-black text-slate-900 text-base mt-2 tracking-tight group-hover:text-emerald-600 transition">NMMS Government List</h3>
                         <p class="text-slate-400 text-xs mt-1 leading-relaxed">Official Director of Government Examinations merit roll arrays, cutoff rankings, and selected list tracks.</p>
                     </div>
-                    <a href="https://www.dge.tn.gov.in" target="_blank" class="mt-5 text-center bg-slate-950 hover:bg-emerald-600 text-white font-black text-xs py-3 rounded-xl transition uppercase tracking-wider block shadow-sm">
+                    <a href="https://www.dge.tn.gov.in" target="_blank" rel="noopener noreferrer" class="mt-5 text-center bg-slate-950 hover:bg-emerald-600 text-white font-black text-xs py-3 rounded-xl transition uppercase tracking-wider block shadow-sm">
                         <i class="fa-solid fa-building-columns mr-1.5"></i> Open DGE Portal
                     </a>
                 </div>
@@ -130,8 +185,21 @@
         </section>
     </main>
 
-    <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-6 text-center text-xs mt-auto">
-        <p>&copy;  2026 tnclassroom.com | A Professional Learning Platform for Students & Teachers</p>
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toast-notification" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-2xl border border-slate-700 flex items-center gap-2.5 text-xs font-bold transition-all duration-300 pointer-events-none opacity-0 translate-y-4">
+        <i class="fa-solid fa-circle-exclamation text-amber-400 text-sm"></i>
+        <span id="toast-msg">Notification</span>
+    </div>
+
+    <!-- REGULATORY ADSENSE COMPLIANCE FOOTER -->
+    <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-6 text-center text-xs mt-auto space-y-4">
+        <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs font-bold text-slate-400" aria-label="Legal Directory">
+            <a href="/about-us.html" class="hover:text-emerald-400 transition">About Us</a>
+            <a href="/privacy-policy.html" class="hover:text-emerald-400 transition">Privacy Policy</a>
+            <a href="/disclaimer.html" class="hover:text-emerald-400 transition">Disclaimer</a>
+            <a href="/contact-us.html" class="hover:text-emerald-400 transition">Contact Us</a>
+        </nav>
+        <p>&copy; 2026 tnclassroom.com | A Professional Learning Platform for Students &amp; Teachers</p>
     </footer>
 
     <script type="module">
@@ -153,6 +221,21 @@
 
         let userData = [];
 
+        function showToast(message) {
+            const toast = document.getElementById('toast-notification');
+            const msg = document.getElementById('toast-msg');
+            if (!toast || !msg) return;
+
+            msg.innerText = message;
+            toast.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+            toast.classList.add('opacity-100', 'translate-y-0');
+
+            setTimeout(() => {
+                toast.classList.remove('opacity-100', 'translate-y-0');
+                toast.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+            }, 3000);
+        }
+
         window.fetchUserResults = async () => {
             const mobile = document.getElementById('searchMobile').value.trim();
             const status = document.getElementById('statusMsg');
@@ -160,15 +243,17 @@
             const body = document.getElementById('userResultsBody');
             const dlBtn = document.getElementById('downloadBtn');
 
-            if (mobile.length !== 10) return alert("Please enter a valid 10-digit mobile number.");
+            if (mobile.length !== 10) {
+                showToast("Please enter a valid 10-digit mobile number.");
+                return;
+            }
 
-            status.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin text-[#1e3a8a] mr-1.5"></i>Searching database ledger records...`;
+            status.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin text-[#1e3a8a] mr-1.5"></i>Searching database records...`;
             body.innerHTML = "";
             wrapper.classList.add('hidden');
             dlBtn.classList.add('hidden');
 
             try {
-                // RESTORED: Checking only the mobile field tracking system
                 const q = query(
                     collection(db, "results"),
                     where("mobile", "==", mobile),
@@ -179,13 +264,13 @@
                 userData = querySnapshot.docs.map(doc => doc.data());
 
                 if (userData.length === 0) {
-                    status.innerText = "No examination records captured for this phone number.";
+                    status.innerText = "No examination records found for this phone number.";
                     return;
                 }
 
                 userData.forEach(item => {
                     const dt = item.timestamp?.toDate ? item.timestamp.toDate().toLocaleString() : "—";
-                    const scoreColor = (item.score / item.total) >= 0.5 ? 'text-green-600' : 'text-red-500';
+                    const scoreColor = (item.score / item.total) >= 0.5 ? 'text-emerald-600' : 'text-red-500';
 
                     let displayQuizId = item.quizId || 'General Assessment';
                     let categoryBadge = "";
@@ -196,19 +281,19 @@
                     }
 
                     const row = `
-                        <tr class="hover:bg-blue-50 transition-colors">
-                            <td class="p-5">
+                        <tr class="hover:bg-blue-50/50 transition-colors">
+                            <td class="p-4 sm:p-5">
                                 <p class="text-xs font-bold text-slate-700 font-mono">${dt}</p>
                             </td>
-                            <td class="p-5">
+                            <td class="p-4 sm:p-5">
                                 <div class="flex items-center">
                                     ${categoryBadge}
                                     <p class="text-xs font-black text-[#1e3a8a] tracking-wide uppercase">${displayQuizId}</p>
                                 </div>
                             </td>
-                            <td class="p-5 text-center">
+                            <td class="p-4 sm:p-5 text-center">
                                 <div class="inline-block px-3 py-1 rounded-full bg-slate-100">
-                                    <span class="text-lg font-black ${scoreColor}">${item.score}</span>
+                                    <span class="text-base sm:text-lg font-black ${scoreColor}">${item.score}</span>
                                     <span class="text-[10px] font-bold text-slate-400">/${item.total}</span>
                                 </div>
                             </td>
@@ -223,7 +308,7 @@
 
             } catch (error) {
                 console.error(error);
-                status.innerText = "Query Error: Verify field index criteria in the Firestore console.";
+                status.innerText = "Query Error: Verify Firestore database index parameters.";
             }
         };
 
@@ -244,7 +329,6 @@
             XLSX.writeFile(workbook, `My_Results_${document.getElementById('searchMobile').value}.xlsx`);
         };
 
-        // FIXED: Automatically reads both incoming 'mobile' and 'search' URL params
         function checkIncomingUrlParameters() {
             const urlParams = new URLSearchParams(window.location.search);
             const mobilePayload = urlParams.get('mobile') || urlParams.get('search');
@@ -256,12 +340,17 @@
 
         async function loadSharedSiteNavbar() {
             try {
-                const res = await fetch(`../navbar.html?v=${new Date().getTime()}`);
+                // If results is in root (/results.html) use './navbar.html', if subfolder (/results/index.html) use '../navbar.html'
+                const navPath = window.location.pathname.includes('/results/')
+                    ? '../navbar.html'
+                    : './navbar.html';
+
+                const res = await fetch(`${navPath}?v=${new Date().getTime()}`);
                 if (res.ok) {
                     document.getElementById('navbar-placeholder').innerHTML = await res.text();
                     initializeGlobalNavigationHooks();
                 }
-            } catch (e) { console.error(e); }
+            } catch (e) { console.error("Navbar loading blocked:", e); }
         }
 
         function initializeGlobalNavigationHooks() {

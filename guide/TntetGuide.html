@@ -3,20 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>How to Master TNTET Hub | Roadmap Infographic</title>
-    <meta name="description" content="TN Classroom TNTET தேர்வு தளத்தைப் பயன்படுத்தி முழு மதிப்பெண்கள் பெறுவதற்கான 10-படி வழிகாட்டி வரைபடம்.">
 
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Primary Meta Tags -->
+    <title>How to Master TNTET Hub | 10-Step Success Roadmap | TN Classroom</title>
+    <meta name="title" content="How to Master TNTET Hub | 10-Step Success Roadmap | TN Classroom">
+    <meta name="description" content="TN Classroom TNTET தேர்வு தளத்தைப் பயன்படுத்தி முழு மதிப்பெண்கள் பெறுவதற்கான 10-படி வழிகாட்டி வரைபடம். Step-by-step preparation roadmap for Tamil Nadu teachers.">
+    <meta name="keywords" content="TNTET roadmap, TNTET preparation guide, TN Classroom TNTET, TNTET 10 step guide, TRB exam strategy">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://tnclassroom.com/guide/">
+
+    <!-- Open Graph / Social Tags -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://tnclassroom.com/guide/">
+    <meta property="og:title" content="How to Master TNTET Hub | 10-Step Success Roadmap">
+    <meta property="og:description" content="Step-by-step practical guide to mastering child development, pedagogy, and subjects for the TNTET Examination.">
 
     <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png">
     <link rel="shortcut icon" href="/favicon.ico">
 
+    <script src="/tailwind.js"></script>
+    <link rel="stylesheet" href="/fontawesome.css">
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8948542276785631"
+      crossorigin="anonymous"></script>
+
+    <!-- Google Analytics (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MZZ985WL51"></script>
+    <script>
+      window.dataLayer = window.location.hostname === 'localhost' ? [] : (window.dataLayer || []);
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-MZZ985WL51', {
+        page_path: window.location.pathname,
+        cookie_flags: 'max-age=7200;Secure;SameSite=None'
+      });
+    </script>
+
     <style>
+        .dropdown-menu { z-index: 50 !important; pointer-events: none; }
+        .dropdown-active { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; z-index: 50 !important; pointer-events: auto !important; }
         .tamil-fix { font-family: 'Segoe UI', 'Latha', 'Apple Tamil', 'Noto Sans Tamil', sans-serif !important; }
 
-        /* Continuous glowing vertical gradient line */
+        /* Continuous vertical gradient line */
         .timeline-track {
             position: absolute;
             top: 28px;
@@ -52,219 +82,290 @@
         }
     </style>
 </head>
-<body class="bg-[#05070e] text-slate-100 min-h-screen flex items-center justify-center p-3 sm:p-6 font-sans tamil-fix antialiased">
+<body class="bg-[#05070e] text-slate-100 flex flex-col min-h-screen font-sans tamil-fix antialiased relative">
 
-    <!-- MAIN INFOGRAPHIC CONTAINER FRAME -->
-    <div class="max-w-xl w-full bg-[#0a0f1d] border border-slate-800 rounded-3xl p-5 sm:p-8 shadow-2xl space-y-8 my-4">
+    <div id="navbar-placeholder"></div>
 
-        <!-- HEADER SECTION -->
-        <div class="text-center space-y-3">
-            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-[10px] font-black uppercase tracking-widest">
-                <i class="fa-solid fa-graduation-cap text-xs"></i> EXAM SUCCESS ROADMAP
+    <main class="flex-grow flex items-center justify-center p-3 sm:p-6">
+
+        <!-- MAIN INFOGRAPHIC CONTAINER FRAME -->
+        <div class="max-w-xl w-full bg-[#0a0f1d] border border-slate-800 rounded-3xl p-5 sm:p-8 shadow-2xl space-y-8 my-4">
+
+            <!-- HEADER SECTION -->
+            <div class="text-center space-y-3">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-[10px] font-black uppercase tracking-widest">
+                    <i class="fa-solid fa-graduation-cap text-xs"></i> EXAM SUCCESS ROADMAP
+                </div>
+
+                <h1 class="text-2xl sm:text-3xl font-black tracking-tight text-white">
+                    How to Master <span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">TNTET Hub</span>
+                </h1>
+
+                <p class="text-slate-400 text-xs sm:text-sm max-w-md mx-auto leading-relaxed">
+                    <strong class="text-indigo-400 font-mono">tnclassroom.com</strong> தளத்தைப் பயன்படுத்தி TNTET தேர்வில் முழு மதிப்பெண்கள் பெறுவதற்கான 10-படி வழிகாட்டி!
+                </p>
             </div>
 
-            <h1 class="text-2xl sm:text-3xl font-black tracking-tight text-white">
-                How to Master <span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">TNTET Hub</span>
-            </h1>
+            <!-- VERTICAL TIMELINE CONTAINER -->
+            <div class="relative pl-12 sm:pl-16 space-y-5">
 
-            <p class="text-slate-400 text-xs sm:text-sm max-w-md mx-auto leading-relaxed">
-                <strong class="text-indigo-400 font-mono">tnclassroom.com</strong> தளத்தைப் பயன்படுத்தி TNTET தேர்வில் முழு மதிப்பெண்கள் பெறுவதற்கான 10-படி வழிகாட்டி!
-            </p>
+                <!-- Background Gradient Connecting Line -->
+                <div class="timeline-track"></div>
+
+                <!-- STEP 01 -->
+                <div class="relative z-10">
+                    <div class="absolute -left-12 sm:-left-16 top-3 w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-black text-xs sm:text-sm shadow-lg shadow-indigo-600/40 ring-4 ring-[#0a0f1d]">
+                        1
+                    </div>
+                    <div class="glass-card rounded-2xl p-4 space-y-2 transition duration-300">
+                        <span class="text-[10px] font-black tracking-widest uppercase text-indigo-400 font-mono block">STEP 01 • ENTRY</span>
+                        <h2 class="text-sm font-black text-white">வலைதள முகவரியைத் திறக்கவும் (Enter Website URL)</h2>
+                        <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-lg bg-indigo-950/70 border border-indigo-500/30 text-indigo-300 text-xs font-mono font-bold">
+                            <i class="fa-solid fa-globe text-indigo-400"></i> tnclassroom.com <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
+                        </div>
+                        <p class="text-[11px] text-slate-400 leading-relaxed">
+                            உங்கள் போன் அல்லது கணினியின் உலாவியில் (Chrome / Firefox) <strong>tnclassroom.com</strong> முகவரியைத் திறந்து உள்நுழையவும்.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- STEP 02 -->
+                <div class="relative z-10">
+                    <div class="absolute -left-12 sm:-left-16 top-3 w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-violet-600 text-white flex items-center justify-center font-black text-xs sm:text-sm shadow-lg shadow-violet-600/40 ring-4 ring-[#0a0f1d]">
+                        2
+                    </div>
+                    <div class="glass-card rounded-2xl p-4 space-y-2 transition duration-300">
+                        <span class="text-[10px] font-black tracking-widest uppercase text-violet-400 font-mono block">STEP 02 • TARGET PORTAL</span>
+                        <h2 class="text-sm font-black text-white">TNTET Hub பிரிவைத் தேர்வுசெய்க</h2>
+                        <p class="text-[11px] text-slate-400 leading-relaxed">
+                            முகப்புப் பக்கத்தில் உள்ள முதன்மை மெனுவில் <strong>TNTET HUB</strong> பகுதியைத் தேர்ந்தெடுக்கவும்.
+                        </p>
+                        <div class="flex flex-wrap gap-2 pt-0.5">
+                            <span class="px-2.5 py-1 rounded-lg bg-violet-500/10 border border-violet-500/30 text-violet-300 text-[10px] font-bold">
+                                <i class="fa-solid fa-layer-group mr-1"></i> TNTET HUB Portal
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 03 -->
+                <div class="relative z-10">
+                    <div class="absolute -left-12 sm:-left-16 top-3 w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-purple-600 text-white flex items-center justify-center font-black text-xs sm:text-sm shadow-lg shadow-purple-600/40 ring-4 ring-[#0a0f1d]">
+                        3
+                    </div>
+                    <div class="glass-card rounded-2xl p-4 space-y-2 transition duration-300">
+                        <span class="text-[10px] font-black tracking-widest uppercase text-purple-400 font-mono block">STEP 03 • SELECT SUBJECT</span>
+                        <h2 class="text-sm font-black text-white">பாடப்பிரிவைத் தேர்ந்தெடுக்கவும் (Choose Subject)</h2>
+                        <p class="text-[11px] text-slate-400 leading-relaxed">
+                            நீங்கள் பயிற்சி பெற விரும்பும் குறிப்பிட்ட பாடப்பிரிவை மெனுவிலிருந்து தேர்வு செய்யவும்:
+                        </p>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-1.5 pt-1 text-[10px] font-bold">
+                            <a href="/tntet-psychology/" class="p-1.5 rounded-lg bg-purple-950/50 border border-purple-500/30 text-purple-300 text-center hover:bg-purple-900/50 transition">🧠 Psychology</a>
+                            <a href="/tntet-tamil/" class="p-1.5 rounded-lg bg-indigo-950/50 border border-indigo-500/30 text-indigo-300 text-center hover:bg-indigo-900/50 transition">📖 Tamil</a>
+                            <a href="/tntet-english/" class="p-1.5 rounded-lg bg-blue-950/50 border border-blue-500/30 text-blue-300 text-center hover:bg-blue-900/50 transition">🔤 English</a>
+                            <a href="/tntet-maths/" class="p-1.5 rounded-lg bg-rose-950/50 border border-rose-500/30 text-rose-300 text-center hover:bg-rose-900/50 transition">📐 Maths</a>
+                            <a href="/tntet-science/" class="p-1.5 rounded-lg bg-emerald-950/50 border border-emerald-500/30 text-emerald-300 text-center hover:bg-emerald-900/50 transition">🔬 Science</a>
+                            <a href="/tntet-social/" class="p-1.5 rounded-lg bg-amber-950/50 border border-amber-500/30 text-amber-300 text-center hover:bg-amber-900/50 transition">🌍 Social</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 04 -->
+                <div class="relative z-10">
+                    <div class="absolute -left-12 sm:-left-16 top-3 w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-pink-600 text-white flex items-center justify-center font-black text-xs sm:text-sm shadow-lg shadow-pink-600/40 ring-4 ring-[#0a0f1d]">
+                        4
+                    </div>
+                    <div class="glass-card rounded-2xl p-4 space-y-2 transition duration-300">
+                        <span class="text-[10px] font-black tracking-widest uppercase text-pink-400 font-mono block">STEP 04 • FILTER CATEGORY</span>
+                        <h2 class="text-sm font-black text-white">உட்பிரிவை வடிகட்டுக (Filter Category)</h2>
+                        <p class="text-[11px] text-slate-400 leading-relaxed">
+                            அனைத்துத் தலைப்புகளையும் பார்க்க <strong>Show All</strong> அல்லது குறிப்பிட்ட பிரிவை (இலக்கணம், கற்பித்தல்) வடிகட்ட பட்டன்களை அழுத்தவும்.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5 pt-1">
+                            <span class="px-2 py-0.5 rounded-lg bg-slate-800 border border-slate-600 text-white text-[10px] font-bold">Show All / அனைத்தும்</span>
+                            <span class="px-2 py-0.5 rounded-lg bg-pink-950/40 border border-pink-500/30 text-pink-300 text-[10px] font-bold">இலக்கணம்</span>
+                            <span class="px-2 py-0.5 rounded-lg bg-pink-950/40 border border-pink-500/30 text-pink-300 text-[10px] font-bold">Pedagogy</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 05 -->
+                <div class="relative z-10">
+                    <div class="absolute -left-12 sm:-left-16 top-3 w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-rose-600 text-white flex items-center justify-center font-black text-xs sm:text-sm shadow-lg shadow-rose-600/40 ring-4 ring-[#0a0f1d]">
+                        5
+                    </div>
+                    <div class="glass-card rounded-2xl p-4 space-y-2 transition duration-300">
+                        <span class="text-[10px] font-black tracking-widest uppercase text-rose-400 font-mono block">STEP 05 • EXPLORE CARDS</span>
+                        <h2 class="text-sm font-black text-white">பாட அலகுகளின் அட்டைகளைக் காண்க</h2>
+                        <p class="text-[11px] text-slate-400 leading-relaxed">
+                            தேர்ந்தெடுத்த பாடத்திற்குரிய அனைத்து அமர்வுகளும் (Session Cards) வரிசையாகத் தோன்றும்.
+                        </p>
+                        <div class="p-2 rounded-xl bg-[#080d1a] border border-slate-800 space-y-0.5">
+                            <div class="flex justify-between text-[9px] font-mono font-black text-rose-400">
+                                <span>SESSION 01</span>
+                                <span class="text-slate-500 uppercase">SUBJECT TRACK</span>
+                            </div>
+                            <p class="text-[11px] font-bold text-slate-200">அலகின் தலைப்பு மற்றும் பாடம்...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 06 -->
+                <div class="relative z-10">
+                    <div class="absolute -left-12 sm:-left-16 top-3 w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-amber-600 text-white flex items-center justify-center font-black text-xs sm:text-sm shadow-lg shadow-amber-600/40 ring-4 ring-[#0a0f1d]">
+                        6
+                    </div>
+                    <div class="glass-card rounded-2xl p-4 space-y-2 transition duration-300">
+                        <span class="text-[10px] font-black tracking-widest uppercase text-amber-400 font-mono block">STEP 06 • SELECT CARD</span>
+                        <h2 class="text-sm font-black text-white">குறிப்பிட்ட அமர்வு அட்டையைத் தேர்ந்தெடுக்கவும்</h2>
+                        <p class="text-[11px] text-slate-400 leading-relaxed">
+                            நீங்கள் படிக்க மற்றும் மாதிரித் தேர்வு எழுத விரும்பும் குறிப்பிட்ட பாட அலகின் அட்டைக்குச் செல்லவும்.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- STEP 07 -->
+                <div class="relative z-10">
+                    <div class="absolute -left-12 sm:-left-16 top-3 w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-cyan-600 text-white flex items-center justify-center font-black text-xs sm:text-sm shadow-lg shadow-cyan-600/40 ring-4 ring-[#0a0f1d]">
+                        7
+                    </div>
+                    <div class="glass-card rounded-2xl p-4 space-y-2 transition duration-300">
+                        <span class="text-[10px] font-black tracking-widest uppercase text-cyan-400 font-mono block">STEP 07 • 3-IN-1 TOOLKIT</span>
+                        <h2 class="text-sm font-black text-white">3 வழிகளில் கற்றுப் பயிற்சி பெறுக</h2>
+                        <p class="text-[11px] text-slate-400 leading-relaxed">
+                            ஒவ்வொரு பாட அட்டையிலும் மாணவர்களுக்காக 3 விதமான கற்றல் கருவிகள் வழங்கப்பட்டுள்ளன:
+                        </p>
+                        <div class="grid grid-cols-3 gap-1.5 pt-1 text-[10px] font-bold text-center">
+                            <div class="p-1.5 rounded-lg bg-red-950/40 border border-red-500/30 text-red-300 space-y-0.5">
+                                <i class="fa-solid fa-file-pdf text-xs block text-red-400"></i>
+                                <span>Study Notes</span>
+                            </div>
+                            <div class="p-1.5 rounded-lg bg-indigo-950/40 border border-indigo-500/30 text-indigo-300 space-y-0.5">
+                                <i class="fa-brands fa-youtube text-xs block text-indigo-400"></i>
+                                <span>Video Class</span>
+                            </div>
+                            <div class="p-1.5 rounded-lg bg-emerald-950/40 border border-emerald-500/30 text-emerald-300 space-y-0.5">
+                                <i class="fa-solid fa-bolt text-xs block text-emerald-400"></i>
+                                <span>MCQ Quiz</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 08 -->
+                <div class="relative z-10">
+                    <div class="absolute -left-12 sm:-left-16 top-3 w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-teal-600 text-white flex items-center justify-center font-black text-xs sm:text-sm shadow-lg shadow-teal-600/40 ring-4 ring-[#0a0f1d]">
+                        8
+                    </div>
+                    <div class="glass-card rounded-2xl p-4 space-y-2 transition duration-300">
+                        <span class="text-[10px] font-black tracking-widest uppercase text-teal-400 font-mono block">STEP 08 • SHARE WITH FRIENDS</span>
+                        <h2 class="text-sm font-black text-white">நண்பர்களுடன் பகிர்ந்து படிக்கவும் (Share Topic)</h2>
+                        <p class="text-[11px] text-slate-400 leading-relaxed">
+                            அட்டையிலுள்ள <i class="fa-solid fa-share-nodes text-teal-400"></i> ஷேர் பொத்தானை அழுத்தி, வாட்ஸ்அப் வழியாக நண்பர்களுடன் நேரடியாகப் பகிர்ந்து படிக்கலாம்.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- STEP 09 -->
+                <div class="relative z-10">
+                    <div class="absolute -left-12 sm:-left-16 top-3 w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-black text-xs sm:text-sm shadow-lg shadow-emerald-600/40 ring-4 ring-[#0a0f1d]">
+                        9
+                    </div>
+                    <div class="glass-card rounded-2xl p-4 space-y-2 transition duration-300">
+                        <span class="text-[10px] font-black tracking-widest uppercase text-emerald-400 font-mono block">STEP 09 • EVALUATE</span>
+                        <h2 class="text-sm font-black text-white">மாதிரித் தேர்வு எழுதி மதிப்பெண்களை அறிக</h2>
+                        <p class="text-[11px] text-slate-400 leading-relaxed">
+                            ஒவ்வொரு அலகின் முடிவிலும் ஆன்லைன் தேர்வெழுதி, உடனடி மதிப்பெண் மற்றும் விடைகளுக்கான விளக்கக் குறிப்புகளைப் பெறலாம்.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- STEP 10 (FINAL GOAL) -->
+                <div class="relative z-10">
+                    <div class="absolute -left-12 sm:-left-16 top-3 w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 flex items-center justify-center font-black text-sm shadow-lg shadow-emerald-500/50 ring-4 ring-[#0a0f1d]">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                    <div class="bg-gradient-to-br from-emerald-950/80 to-[#111827] border-2 border-emerald-500/50 rounded-2xl p-4 space-y-2 shadow-xl shadow-emerald-950/40">
+                        <span class="text-[10px] font-black tracking-widest uppercase text-emerald-400 font-mono block">STEP 10 • GOAL ACHIEVED</span>
+                        <h2 class="text-sm sm:text-base font-black text-white flex items-center gap-1.5">
+                            Succeed in TNTET Exam! ⭐
+                        </h2>
+                        <p class="text-[11px] text-slate-300 leading-relaxed">
+                            தினசரி பாடக் குறிப்புகளைப் படித்து, வீடியோக்களைப் பார்த்து, மாதிரித் தேர்வுகளைத் தொடர்ந்து பயிற்சி செய்து அரசு ஆசிரியர் தகுதித் தேர்வில் முழு வெற்றி பெறுங்கள்!
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
+    </main>
 
-        <!-- VERTICAL TIMELINE CONTAINER -->
-        <div class="relative pl-12 sm:pl-16 space-y-5">
+    <!-- Regulatory Compliance Footer -->
+    <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-6 text-center text-xs mt-auto space-y-4">
+        <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs font-bold text-slate-400" aria-label="Legal Directory">
+            <a href="/about-us.html" class="hover:text-emerald-400 transition">About Us</a>
+            <a href="/privacy-policy.html" class="hover:text-emerald-400 transition">Privacy Policy</a>
+            <a href="/disclaimer.html" class="hover:text-emerald-400 transition">Disclaimer</a>
+            <a href="/contact-us.html" class="hover:text-emerald-400 transition">Contact Us</a>
+        </nav>
+        <p>&copy; 2026 tnclassroom.com | A Professional Learning Platform for Students &amp; Teachers</p>
+    </footer>
 
-            <!-- Background Gradient Connecting Line -->
-            <div class="timeline-track"></div>
+    <script>
+        async function loadSharedSiteNavbar() {
+            try {
+                const res = await fetch(`../navbar.html?v=${new Date().getTime()}`);
+                if (res.ok) {
+                    document.getElementById('navbar-placeholder').innerHTML = await res.text();
+                    initializeGlobalNavigationHooks();
+                }
+            } catch (e) { console.error("Navigation setup blocked:", e); }
+        }
 
-            <!-- STEP 01 -->
-            <div class="relative z-10">
-                <div class="absolute -left-12 sm:-left-16 top-3 w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-black text-xs sm:text-sm shadow-lg shadow-indigo-600/40 ring-4 ring-[#0a0f1d]">
-                    1
-                </div>
-                <div class="glass-card rounded-2xl p-4 space-y-2 transition duration-300">
-                    <span class="text-[10px] font-black tracking-widest uppercase text-indigo-400 font-mono block">STEP 01 • ENTRY</span>
-                    <h2 class="text-sm font-black text-white">வலைதள முகவரியைத் திறக்கவும் (Enter Website URL)</h2>
-                    <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-lg bg-indigo-950/70 border border-indigo-500/30 text-indigo-300 text-xs font-mono font-bold">
-                        <i class="fa-solid fa-globe text-indigo-400"></i> tnclassroom.com <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
-                    </div>
-                    <p class="text-[11px] text-slate-400 leading-relaxed">
-                        உங்கள் போன் அல்லது கணினியின் உலாவியில் (Chrome / Firefox) <strong>tnclassroom.com</strong> முகவரியைத் திறந்து உள்நுழையவும்.
-                    </p>
-                </div>
-            </div>
+        function initializeGlobalNavigationHooks() {
+            document.removeEventListener('click', closeAllDropdowns);
+            document.addEventListener('click', closeAllDropdowns);
+        }
 
-            <!-- STEP 02 -->
-            <div class="relative z-10">
-                <div class="absolute -left-12 sm:-left-16 top-3 w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-violet-600 text-white flex items-center justify-center font-black text-xs sm:text-sm shadow-lg shadow-violet-600/40 ring-4 ring-[#0a0f1d]">
-                    2
-                </div>
-                <div class="glass-card rounded-2xl p-4 space-y-2 transition duration-300">
-                    <span class="text-[10px] font-black tracking-widest uppercase text-violet-400 font-mono block">STEP 02 • TARGET PORTAL</span>
-                    <h2 class="text-sm font-black text-white">TNTET Hub பிரிவைத் தேர்வுசெய்க</h2>
-                    <p class="text-[11px] text-slate-400 leading-relaxed">
-                        முகப்புப் பக்கத்தில் உள்ள முதன்மை மெனுவில் <strong>TNTET HUB</strong> பகுதியைத் தேர்ந்தெடுக்கவும்.
-                    </p>
-                    <div class="flex flex-wrap gap-2 pt-0.5">
-                        <span class="px-2.5 py-1 rounded-lg bg-violet-500/10 border border-violet-500/30 text-violet-300 text-[10px] font-bold">
-                            <i class="fa-solid fa-layer-group mr-1"></i> TNTET HUB Portal
-                        </span>
-                    </div>
-                </div>
-            </div>
+        function toggleNavigationMenu(event, targetMenuId) {
+            event.stopPropagation();
+            const targetMenu = document.getElementById(targetMenuId);
+            if (!targetMenu) return;
 
-            <!-- STEP 03 -->
-            <div class="relative z-10">
-                <div class="absolute -left-12 sm:-left-16 top-3 w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-purple-600 text-white flex items-center justify-center font-black text-xs sm:text-sm shadow-lg shadow-purple-600/40 ring-4 ring-[#0a0f1d]">
-                    3
-                </div>
-                <div class="glass-card rounded-2xl p-4 space-y-2 transition duration-300">
-                    <span class="text-[10px] font-black tracking-widest uppercase text-purple-400 font-mono block">STEP 03 • SELECT SUBJECT</span>
-                    <h2 class="text-sm font-black text-white">பாடப்பிரிவைத் தேர்ந்தெடுக்கவும் (Choose Subject)</h2>
-                    <p class="text-[11px] text-slate-400 leading-relaxed">
-                        நீங்கள் பயிற்சி பெற விரும்பும் குறிப்பிட்ட பாடப்பிரிவை மெனுவிலிருந்து தேர்வு செய்யவும்:
-                    </p>
-                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-1.5 pt-1 text-[10px] font-bold">
-                        <span class="p-1.5 rounded-lg bg-purple-950/50 border border-purple-500/30 text-purple-300 text-center">🧠 Psychology</span>
-                        <span class="p-1.5 rounded-lg bg-indigo-950/50 border border-indigo-500/30 text-indigo-300 text-center">📖 Tamil</span>
-                        <span class="p-1.5 rounded-lg bg-blue-950/50 border border-blue-500/30 text-blue-300 text-center">🔤 English</span>
-                        <span class="p-1.5 rounded-lg bg-rose-950/50 border border-rose-500/30 text-rose-300 text-center">📐 Maths</span>
-                        <span class="p-1.5 rounded-lg bg-emerald-950/50 border border-emerald-500/30 text-emerald-300 text-center">🔬 Science</span>
-                        <span class="p-1.5 rounded-lg bg-amber-950/50 border border-amber-500/30 text-amber-300 text-center">🌍 Social</span>
-                    </div>
-                </div>
-            </div>
+            const isMobileElement = targetMenuId.includes('mobile-');
 
-            <!-- STEP 04 -->
-            <div class="relative z-10">
-                <div class="absolute -left-12 sm:-left-16 top-3 w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-pink-600 text-white flex items-center justify-center font-black text-xs sm:text-sm shadow-lg shadow-pink-600/40 ring-4 ring-[#0a0f1d]">
-                    4
-                </div>
-                <div class="glass-card rounded-2xl p-4 space-y-2 transition duration-300">
-                    <span class="text-[10px] font-black tracking-widest uppercase text-pink-400 font-mono block">STEP 04 • FILTER CATEGORY</span>
-                    <h2 class="text-sm font-black text-white">உட்பிரிவை வடிகட்டுக (Filter Category)</h2>
-                    <p class="text-[11px] text-slate-400 leading-relaxed">
-                        அனைத்துத் தலைப்புகளையும் பார்க்க <strong>Show All</strong> அல்லது குறிப்பிட்ட பிரிவை (இலக்கணம், கற்பித்தல்) வடிகட்ட பட்டன்களை அழுத்தவும்.
-                    </p>
-                    <div class="flex flex-wrap gap-1.5 pt-1">
-                        <span class="px-2 py-0.5 rounded-lg bg-slate-800 border border-slate-600 text-white text-[10px] font-bold">Show All / அனைத்தும்</span>
-                        <span class="px-2 py-0.5 rounded-lg bg-pink-950/40 border border-pink-500/30 text-pink-300 text-[10px] font-bold">இலக்கணம்</span>
-                        <span class="px-2 py-0.5 rounded-lg bg-pink-950/40 border border-pink-500/30 text-pink-300 text-[10px] font-bold">Pedagogy</span>
-                    </div>
-                </div>
-            </div>
+            if (isMobileElement) {
+                const isCurrentlyHidden = targetMenu.classList.contains('hidden');
+                document.querySelectorAll('[id*="mobile-menu-"]').forEach(menu => menu.classList.add('hidden'));
+                if (isCurrentlyHidden) targetMenu.classList.remove('hidden');
+            } else {
+                const isCurrentlyOpen = targetMenu.classList.contains('dropdown-active');
+                document.querySelectorAll('.dropdown-menu').forEach(menu => menu.classList.remove('dropdown-active'));
+                if (!isCurrentlyOpen) targetMenu.classList.add('dropdown-active');
+            }
+        }
 
-            <!-- STEP 05 -->
-            <div class="relative z-10">
-                <div class="absolute -left-12 sm:-left-16 top-3 w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-rose-600 text-white flex items-center justify-center font-black text-xs sm:text-sm shadow-lg shadow-rose-600/40 ring-4 ring-[#0a0f1d]">
-                    5
-                </div>
-                <div class="glass-card rounded-2xl p-4 space-y-2 transition duration-300">
-                    <span class="text-[10px] font-black tracking-widest uppercase text-rose-400 font-mono block">STEP 05 • EXPLORE CARDS</span>
-                    <h2 class="text-sm font-black text-white">பாட அலகுகளின் அட்டைகளைக் காண்க</h2>
-                    <p class="text-[11px] text-slate-400 leading-relaxed">
-                        தேர்ந்தெடுத்த பாடத்திற்குரிய அனைத்து அமர்வுகளும் (Session Cards) வரிசையாகத் தோன்றும்.
-                    </p>
-                    <div class="p-2 rounded-xl bg-[#080d1a] border border-slate-800 space-y-0.5">
-                        <div class="flex justify-between text-[9px] font-mono font-black text-rose-400">
-                            <span>SESSION 01</span>
-                            <span class="text-slate-500 uppercase">SUBJECT TRACK</span>
-                        </div>
-                        <p class="text-[11px] font-bold text-slate-200">அலகின் தலைப்பு மற்றும் பாடம்...</p>
-                    </div>
-                </div>
-            </div>
+        function toggleMobileMenu(open) {
+            const drawer = document.getElementById('mobile-drawer');
+            const content = document.getElementById('drawer-content');
+            if (!drawer || !content) return;
 
-            <!-- STEP 06 -->
-            <div class="relative z-10">
-                <div class="absolute -left-12 sm:-left-16 top-3 w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-amber-600 text-white flex items-center justify-center font-black text-xs sm:text-sm shadow-lg shadow-amber-600/40 ring-4 ring-[#0a0f1d]">
-                    6
-                </div>
-                <div class="glass-card rounded-2xl p-4 space-y-2 transition duration-300">
-                    <span class="text-[10px] font-black tracking-widest uppercase text-amber-400 font-mono block">STEP 06 • SELECT CARD</span>
-                    <h2 class="text-sm font-black text-white">குறிப்பிட்ட அமர்வு அட்டையைத் தேர்ந்தெடுக்கவும்</h2>
-                    <p class="text-[11px] text-slate-400 leading-relaxed">
-                        நீங்கள் படிக்க மற்றும் மாதிரித் தேர்வு எழுத விரும்பும் குறிப்பிட்ட பாட அலகின் அட்டைக்குச் செல்லவும்.
-                    </p>
-                </div>
-            </div>
+            if (open) {
+                drawer.classList.remove('invisible');
+                setTimeout(() => content.classList.remove('translate-x-full'), 10);
+            } else {
+                content.classList.add('translate-x-full');
+                setTimeout(() => drawer.classList.add('invisible'), 300);
+            }
+        }
 
-            <!-- STEP 07 -->
-            <div class="relative z-10">
-                <div class="absolute -left-12 sm:-left-16 top-3 w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-cyan-600 text-white flex items-center justify-center font-black text-xs sm:text-sm shadow-lg shadow-cyan-600/40 ring-4 ring-[#0a0f1d]">
-                    7
-                </div>
-                <div class="glass-card rounded-2xl p-4 space-y-2 transition duration-300">
-                    <span class="text-[10px] font-black tracking-widest uppercase text-cyan-400 font-mono block">STEP 07 • 3-IN-1 TOOLKIT</span>
-                    <h2 class="text-sm font-black text-white">3 வழிகளில் கற்றுப் பயிற்சி பெறுக</h2>
-                    <p class="text-[11px] text-slate-400 leading-relaxed">
-                        ஒவ்வொரு பாட அட்டையிலும் மாணவர்களுக்காக 3 விதமான கற்றல் கருவிகள் வழங்கப்பட்டுள்ளன:
-                    </p>
-                    <div class="grid grid-cols-3 gap-1.5 pt-1 text-[10px] font-bold text-center">
-                        <div class="p-1.5 rounded-lg bg-red-950/40 border border-red-500/30 text-red-300 space-y-0.5">
-                            <i class="fa-solid fa-file-pdf text-xs block text-red-400"></i>
-                            <span>Study Notes</span>
-                        </div>
-                        <div class="p-1.5 rounded-lg bg-indigo-950/40 border border-indigo-500/30 text-indigo-300 space-y-0.5">
-                            <i class="fa-brands fa-youtube text-xs block text-indigo-400"></i>
-                            <span>Video Class</span>
-                        </div>
-                        <div class="p-1.5 rounded-lg bg-emerald-950/40 border border-emerald-500/30 text-emerald-300 space-y-0.5">
-                            <i class="fa-solid fa-bolt text-xs block text-emerald-400"></i>
-                            <span>MCQ Quiz</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        function closeAllDropdowns() {
+            document.querySelectorAll('.dropdown-menu').forEach(menu => menu.classList.remove('dropdown-active'));
+            document.querySelectorAll('[id*="mobile-menu-"]').forEach(menu => menu.classList.add('hidden'));
+        }
 
-            <!-- STEP 08 -->
-            <div class="relative z-10">
-                <div class="absolute -left-12 sm:-left-16 top-3 w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-teal-600 text-white flex items-center justify-center font-black text-xs sm:text-sm shadow-lg shadow-teal-600/40 ring-4 ring-[#0a0f1d]">
-                    8
-                </div>
-                <div class="glass-card rounded-2xl p-4 space-y-2 transition duration-300">
-                    <span class="text-[10px] font-black tracking-widest uppercase text-teal-400 font-mono block">STEP 08 • SHARE WITH FRIENDS</span>
-                    <h2 class="text-sm font-black text-white">நண்பர்களுடன் பகிர்ந்து படிக்கவும் (Share Topic)</h2>
-                    <p class="text-[11px] text-slate-400 leading-relaxed">
-                        அட்டையிலுள்ள <i class="fa-solid fa-share-nodes text-teal-400"></i> ஷேர் பொத்தானை அழுத்தி, வாட்ஸ்அப் வழியாக நண்பர்களுடன் நேரடியாகப் பகிர்ந்து படிக்கலாம்.
-                    </p>
-                </div>
-            </div>
-
-            <!-- STEP 09 -->
-            <div class="relative z-10">
-                <div class="absolute -left-12 sm:-left-16 top-3 w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-black text-xs sm:text-sm shadow-lg shadow-emerald-600/40 ring-4 ring-[#0a0f1d]">
-                    9
-                </div>
-                <div class="glass-card rounded-2xl p-4 space-y-2 transition duration-300">
-                    <span class="text-[10px] font-black tracking-widest uppercase text-emerald-400 font-mono block">STEP 09 • EVALUATE</span>
-                    <h2 class="text-sm font-black text-white">மாதிரித் தேர்வு எழுதி மதிப்பெண்களை அறிக</h2>
-                    <p class="text-[11px] text-slate-400 leading-relaxed">
-                        ஒவ்வொரு அலகின் முடிவிலும் ஆன்லைன் தேர்வெழுதி, உடனடி மதிப்பெண் மற்றும் விடைகளுக்கான விளக்கக் குறிப்புகளைப் பெறலாம்.
-                    </p>
-                </div>
-            </div>
-
-            <!-- STEP 10 (FINAL GOAL) -->
-            <div class="relative z-10">
-                <div class="absolute -left-12 sm:-left-16 top-3 w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 flex items-center justify-center font-black text-sm shadow-lg shadow-emerald-500/50 ring-4 ring-[#0a0f1d]">
-                    <i class="fa-solid fa-trophy"></i>
-                </div>
-                <div class="bg-gradient-to-br from-emerald-950/80 to-[#111827] border-2 border-emerald-500/50 rounded-2xl p-4 space-y-2 shadow-xl shadow-emerald-950/40">
-                    <span class="text-[10px] font-black tracking-widest uppercase text-emerald-400 font-mono block">STEP 10 • GOAL ACHIEVED</span>
-                    <h2 class="text-sm sm:text-base font-black text-white flex items-center gap-1.5">
-                        Succeed in TNTET Exam! ⭐
-                    </h2>
-                    <p class="text-[11px] text-slate-300 leading-relaxed">
-                        தினசரி பாடக் குறிப்புகளைப் படித்து, வீடியோக்களைப் பார்த்து, மாதிரித் தேர்வுகளைத் தொடர்ந்து பயிற்சி செய்து அரசு ஆசிரியர் தகுதித் தேர்வில் முழு வெற்றி பெறுங்கள்!
-                    </p>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
+        window.addEventListener('DOMContentLoaded', loadSharedSiteNavbar);
+    </script>
 </body>
 </html>
