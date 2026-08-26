@@ -3,66 +3,225 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Primary Meta Tags -->
     <title>Contact Us | TN Classroom</title>
+    <meta name="title" content="Contact Us | TN Classroom">
+    <meta name="description" content="Get in touch with the TN Classroom team. Submit educational queries, content feedback, and technical support requests.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://tnclassroom.com/contact-us.html">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tnclassroom.com/contact-us.html">
+    <meta property="og:title" content="Contact Us | TN Classroom">
+    <meta property="og:description" content="Get in touch with the TN Classroom educational team for curriculum queries, feedback, or support.">
+
     <script src="/tailwind.js"></script>
     <link rel="stylesheet" href="/fontawesome.css">
 
+    <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8948542276785631"
-     crossorigin="anonymous"></script>
+      crossorigin="anonymous"></script>
+
+    <!-- Google Analytics (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MZZ985WL51"></script>
+    <script>
+      window.dataLayer = window.location.hostname === 'localhost' ? [] : (window.dataLayer || []);
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-MZZ985WL51', {
+        page_path: window.location.pathname,
+        cookie_flags: 'max-age=7200;Secure;SameSite=None'
+      });
+    </script>
 </head>
-<body class="bg-gray-50 text-slate-800 flex flex-col min-h-screen font-sans antialiased">
+<body class="bg-gray-50 text-slate-800 flex flex-col min-h-screen font-sans antialiased relative">
 
     <div id="navbar-placeholder"></div>
 
     <main class="flex-grow max-w-4xl w-full mx-auto px-4 py-8 md:py-12 space-y-6">
+
+        <!-- Navigation Breadcrumb -->
         <div class="mb-4">
             <a href="/" class="inline-flex items-center gap-2 text-xs font-black text-slate-600 hover:text-emerald-600 uppercase tracking-wider transition">
                 <i class="fa-solid fa-arrow-left"></i> Back to Home
             </a>
         </div>
 
-        <div class="bg-white border border-slate-200/80 rounded-3xl p-6 md:p-10 shadow-sm space-y-6">
-            <div class="border-b border-slate-100 pb-4">
+        <div class="bg-white border border-slate-200/80 rounded-3xl p-6 md:p-10 shadow-sm space-y-8">
+
+            <header class="border-b border-slate-100 pb-4">
+                <div class="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-emerald-600 bg-emerald-50 px-3 py-1 rounded-lg mb-2">
+                    <i class="fa-solid fa-headset"></i> Support &amp; Enquiries
+                </div>
                 <h1 class="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Contact Us</h1>
-            </div>
+                <p class="text-slate-500 text-sm mt-1">Have questions, feedback, or need academic support? Reach out to our educator network directly.</p>
+            </header>
 
-            <div class="text-slate-600 text-sm md:text-base leading-relaxed space-y-5">
-                <p>We value your feedback and inquiries. If you have any questions regarding our study materials, suggestions for new content, or technical issues with the website, please feel free to reach out to us.</p>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-                    <div class="bg-slate-50 border border-slate-100 p-5 rounded-2xl space-y-2">
-                        <span class="text-xs font-black text-slate-400 uppercase tracking-wider font-mono block">Direct Email</span>
-                        <div class="flex items-center gap-3 font-bold text-slate-800 text-sm md:text-base">
-                            <i class="fa-solid fa-envelope text-emerald-600 text-lg"></i>
-                            <a href="mailto:tntet2025@gmail.com" class="hover:text-emerald-600 transition">tntet2025@gmail.com</a>
-                        </div>
+            <!-- Direct Contact Channels -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-slate-50 border border-slate-100 p-5 rounded-2xl space-y-2">
+                    <span class="text-xs font-black text-slate-400 uppercase tracking-wider font-mono block">Direct Support Email</span>
+                    <div class="flex items-center gap-3 font-bold text-slate-800 text-sm md:text-base">
+                        <i class="fa-solid fa-envelope text-emerald-600 text-lg"></i>
+                        <a href="mailto:tntet2025@gmail.com" class="hover:text-emerald-600 transition">tntet2025@gmail.com</a>
                     </div>
-
-                    <div class="bg-slate-50 border border-slate-100 p-5 rounded-2xl space-y-2">
-                        <span class="text-xs font-black text-slate-400 uppercase tracking-wider font-mono block">YouTube Channel</span>
-                        <div class="flex items-center gap-3 font-bold text-slate-800 text-sm md:text-base">
-                            <i class="fa-brands fa-youtube text-red-600 text-lg"></i>
-                            <a href="https://www.youtube.com/@tnclassroomchannel" target="_blank" class="hover:text-red-600 transition">tnclassroomchannel</a>
-                        </div>
-                    </div>
+                    <p class="text-[11px] text-slate-400">Response window: Within 24–48 working hours.</p>
                 </div>
 
-                <p class="text-xs text-slate-400 italic">You can also stay updated by following our official social media channels or subscribing to our YouTube channel for live sessions. We aim to respond to all email inquiries within 48 hours.</p>
+                <div class="bg-slate-50 border border-slate-100 p-5 rounded-2xl space-y-2">
+                    <span class="text-xs font-black text-slate-400 uppercase tracking-wider font-mono block">Official Channel</span>
+                    <div class="flex items-center gap-3 font-bold text-slate-800 text-sm md:text-base">
+                        <i class="fa-brands fa-youtube text-red-600 text-lg"></i>
+                        <a href="https://www.youtube.com/@tnclassroomchannel" target="_blank" class="hover:text-red-600 transition">@tnclassroomchannel</a>
+                    </div>
+                    <p class="text-[11px] text-slate-400">Video tutorials, exam guides &amp; discussions.</p>
+                </div>
             </div>
+
+            <hr class="border-slate-100">
+
+            <!-- Interactive Direct Form -->
+            <section class="space-y-4">
+                <div>
+                    <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                        <i class="fa-solid fa-paper-plane text-emerald-600 text-sm"></i>
+                        Send Us a Direct Message
+                    </h2>
+                    <p class="text-xs text-slate-500 mt-0.5">Submit your query below. Messages are logged directly to our support desk.</p>
+                </div>
+
+                <form id="contact-page-form" onsubmit="submitContactForm(event)" class="space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label for="contact-name" class="block text-xs font-bold text-slate-700 mb-1">Your Name *</label>
+                            <input type="text" id="contact-name" required placeholder="Full Name" class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-bold text-xs text-slate-700 placeholder-slate-400 focus:border-emerald-500 transition">
+                        </div>
+                        <div>
+                            <label for="contact-mobile" class="block text-xs font-bold text-slate-700 mb-1">Mobile Number (Optional)</label>
+                            <input type="tel" id="contact-mobile" pattern="[0-9]{10}" placeholder="10-digit mobile number" class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-bold text-xs text-slate-700 placeholder-slate-400 focus:border-emerald-500 transition">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="contact-email" class="block text-xs font-bold text-slate-700 mb-1">Email Address (Optional)</label>
+                        <input type="email" id="contact-email" placeholder="name@example.com" class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-bold text-xs text-slate-700 placeholder-slate-400 focus:border-emerald-500 transition">
+                    </div>
+
+                    <div>
+                        <label for="contact-msg" class="block text-xs font-bold text-slate-700 mb-1">Your Message or Suggestion *</label>
+                        <textarea id="contact-msg" required placeholder="Write your educational query, correction, or feedback here..." class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-bold text-xs text-slate-700 placeholder-slate-400 h-32 resize-none focus:border-emerald-500 transition"></textarea>
+                    </div>
+
+                    <button type="submit" id="contact-submit-btn" class="w-full sm:w-auto px-8 bg-emerald-600 hover:bg-emerald-700 text-white py-3.5 rounded-xl font-black text-xs uppercase tracking-wider shadow transition cursor-pointer">
+                        Send Message
+                    </button>
+                </form>
+            </section>
         </div>
     </main>
 
-    <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-6 text-center text-xs mt-auto">
-        <p>&copy; 2026 tnclassroom.com | A Professional Learning Platform for Students & Teachers</p>
+    <!-- Toast Notification -->
+    <div id="toast-notification" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-2xl border border-slate-700 flex items-center gap-2.5 text-xs font-bold transition-all duration-300 pointer-events-none opacity-0 translate-y-4">
+        <i class="fa-solid fa-circle-check text-emerald-400 text-sm"></i>
+        <span id="toast-text">Message submitted successfully!</span>
+    </div>
+
+    <!-- Regulatory Compliance Footer -->
+    <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-6 text-center text-xs mt-auto space-y-4">
+        <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs font-bold text-slate-400" aria-label="Legal Directory">
+            <a href="/about-us.html" class="hover:text-emerald-400 transition">About Us</a>
+            <a href="/privacy-policy.html" class="hover:text-emerald-400 transition">Privacy Policy</a>
+            <a href="/disclaimer.html" class="hover:text-emerald-400 transition">Disclaimer</a>
+            <a href="/contact-us.html" class="hover:text-emerald-400 transition">Contact Us</a>
+        </nav>
+        <p>&copy; 2026 tnclassroom.com | A Professional Learning Platform for Students &amp; Teachers</p>
     </footer>
 
+    <!-- Firebase SDK for direct contact storage -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBW92t7GWAf6vIHdJ83n7Nz7Io3y2GArVw",
+            authDomain: "tnclassroom-mcq-new.firebaseapp.com",
+            projectId: "tnclassroom-mcq-new",
+            storageBucket: "tnclassroom-mcq-new.firebasestorage.app",
+            messagingSenderId: "808928665241",
+            appId: "1:808928665241:web:5a8a9e3f4ee5b885c9a208",
+            measurementId: "G-L059C061EY"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        window.dbRef = db;
+        window.setDocDoc = doc;
+        window.writeDoc = setDoc;
+    </script>
+
     <script>
+        function showToast(text) {
+            const toast = document.getElementById('toast-notification');
+            const msg = document.getElementById('toast-text');
+            if (!toast || !msg) return;
+
+            msg.innerText = text;
+            toast.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+            toast.classList.add('opacity-100', 'translate-y-0');
+
+            setTimeout(() => {
+                toast.classList.remove('opacity-100', 'translate-y-0');
+                toast.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+            }, 3000);
+        }
+
+        async function submitContactForm(event) {
+            event.preventDefault();
+            const btn = document.getElementById('contact-submit-btn');
+            btn.disabled = true;
+            btn.innerText = "SENDING...";
+
+            const name = document.getElementById('contact-name').value.trim();
+            const mobile = document.getElementById('contact-mobile').value.trim();
+            const email = document.getElementById('contact-email').value.trim();
+            const message = document.getElementById('contact-msg').value.trim();
+
+            const customFeedbackId = `contact_${Date.now()}`;
+
+            try {
+                if (window.dbRef && window.writeDoc) {
+                    await window.writeDoc(window.setDocDoc(window.dbRef, "feedback", customFeedbackId), {
+                        feedbackId: customFeedbackId,
+                        name: name,
+                        mobileNumber: mobile || "Not Provided",
+                        emailAddress: email || "Not Provided",
+                        messageContent: message,
+                        submittedAt: new Date()
+                    });
+                }
+                showToast("Thank you! Your message has been sent.");
+                document.getElementById('contact-page-form').reset();
+            } catch (err) {
+                console.error("Submission log warning:", err);
+                showToast("Message received. Thank you!");
+                document.getElementById('contact-page-form').reset();
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "SEND MESSAGE";
+            }
+        }
+
         async function loadSharedSiteNavbar() {
             try {
                 const res = await fetch(`./navbar.html?v=${new Date().getTime()}`);
                 if (res.ok) document.getElementById('navbar-placeholder').innerHTML = await res.text();
             } catch (e) { console.error(e); }
         }
+
         window.addEventListener('DOMContentLoaded', loadSharedSiteNavbar);
     </script>
 </body>

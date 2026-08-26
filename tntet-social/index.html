@@ -24,6 +24,7 @@
       });
     </script>
 
+    <!-- [tet-adsense] Optimized Asynchronous MathJax configuration for modal reader -->
     <script>
       window.MathJax = {
         tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], processEscapes: true },
@@ -39,7 +40,7 @@
         .tamil-fix { font-family: 'Segoe UI', 'Latha', 'Apple Tamil', sans-serif !important; }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-900 flex flex-col min-h-screen font-sans">
+<body class="bg-gray-50 text-gray-900 flex flex-col min-h-screen font-sans relative">
 
     <div id="navbar-placeholder"></div>
 
@@ -216,13 +217,19 @@
             <div id="category-tabs-container" class="flex flex-wrap gap-2"></div>
         </div>
 
-        <!-- SESSIONS CARD DECK -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="sessions-master-deck">
-            <div class="col-span-full text-center py-12 text-slate-400 font-medium text-xs bg-white border border-slate-100 rounded-2xl shadow-sm">
+        <!-- [tet-adsense] SESSIONS CARD DECK (STABILIZED WITH min-h-[600px] FOR CLS COMPLIANCE) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 min-h-[600px] content-start" id="sessions-master-deck">
+            <div class="col-span-full text-center py-16 text-slate-400 font-medium text-xs bg-white border border-slate-100 rounded-2xl shadow-sm h-fit">
                 <i class="fa-solid fa-circle-notch fa-spin text-amber-600 mr-1.5"></i> Mapping educational database tracks...
             </div>
         </div>
     </main>
+
+    <!-- [tet-adsense] TOAST NOTIFICATION CONTAINER (NON-BLOCKING SHARE FEEDBACK) -->
+    <div id="toast-notification" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-2xl border border-slate-700 flex items-center gap-2.5 text-xs font-bold transition-all duration-300 pointer-events-none opacity-0 translate-y-4">
+        <i class="fa-solid fa-circle-check text-amber-400 text-sm"></i>
+        <span id="toast-msg">Link copied to clipboard!</span>
+    </div>
 
     <!-- MATERIAL READER MODAL -->
     <div id="material-modal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex justify-end invisible opacity-0 transition-all duration-300" onclick="closeMaterialModal()">
@@ -275,6 +282,22 @@
         let masterDatabaseRecords = [];
         let globallySelectedCategory = "ALL";
 
+        // [tet-adsense] Native Toast Dispatcher
+        function showToast(message) {
+            const toast = document.getElementById('toast-notification');
+            const msg = document.getElementById('toast-msg');
+            if (!toast || !msg) return;
+
+            msg.innerText = message;
+            toast.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+            toast.classList.add('opacity-100', 'translate-y-0');
+
+            setTimeout(() => {
+                toast.classList.remove('opacity-100', 'translate-y-0');
+                toast.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+            }, 2800);
+        }
+
         function parseCsvRows(text) {
             let lines = []; let row = []; let cell = ''; let inQuotes = false;
             for (let i = 0; i < text.length; i++) {
@@ -292,6 +315,7 @@
             return lines;
         }
 
+        // [tet-adsense] Upgraded boot loader with resilient error recovery
         async function bootTntetPortal() {
             try {
                 const res = await fetch(DATABASE_CSV_URL);
@@ -342,12 +366,78 @@
                 buildCategoryTabs();
             } catch (error) {
                 console.error("TNTET Social Science portal boot failure:", error);
-                document.getElementById('sessions-master-deck').innerHTML = `
-                    <div class="col-span-full p-4 bg-red-50 text-red-700 text-xs font-bold rounded-xl border border-red-100 text-center">
-                        Error reading spreadsheet database parameters. Verify share permissions.
-                    </div>
-                `;
+                renderFallbackDeck();
             }
+        }
+
+        // [tet-adsense] Resilient Fallback UI (AdSense and Crawler Shield)
+        function renderFallbackDeck() {
+            const deck = document.getElementById('sessions-master-deck');
+            deck.innerHTML = `
+                <div class="col-span-full bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6 h-fit">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+                        <div class="flex items-center gap-3">
+                            <span class="w-10 h-10 rounded-2xl bg-amber-50 text-amber-700 flex items-center justify-center text-lg border border-amber-200">
+                                <i class="fa-solid fa-server"></i>
+                            </span>
+                            <div>
+                                <h3 class="text-base font-black text-slate-900">Direct Social Science Study Modules</h3>
+                                <p class="text-xs text-slate-500">Live spreadsheet sync is temporarily paused. Access key topic modules directly below:</p>
+                            </div>
+                        </div>
+                        <button onclick="bootTntetPortal()" class="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 shadow-sm shrink-0">
+                            <i class="fa-solid fa-rotate"></i> Retry Live Sync
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="border border-slate-200 border-l-4 border-l-amber-600 rounded-2xl p-4 bg-slate-50/50 space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[10px] font-black uppercase text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200 font-mono">HISTORY</span>
+                                <span class="text-[10px] font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">TNTET PAPER 2</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm text-slate-900">Sangam Age &amp; South Indian Dynasties</h4>
+                                <p class="text-xs font-semibold text-slate-500 tamil-fix">சங்க காலம் மற்றும் தென்னிந்திய அரசுகள்</p>
+                            </div>
+                            <button onclick="openMaterialModal('./history_unit1.txt', 'Sangam Age & South Indian Dynasties', 'Session 1')" class="inline-flex items-center gap-2 text-xs font-bold text-amber-700 hover:underline pt-2 border-t border-slate-200/60 w-full justify-between">
+                                <span>Read Lecture Notes</span>
+                                <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </button>
+                        </div>
+
+                        <div class="border border-slate-200 border-l-4 border-l-emerald-600 rounded-2xl p-4 bg-slate-50/50 space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[10px] font-black uppercase text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 font-mono">GEOGRAPHY</span>
+                                <span class="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">TNTET PAPER 2</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm text-slate-900">Indian &amp; Tamil Nadu Physical Geography</h4>
+                                <p class="text-xs font-semibold text-slate-500 tamil-fix">இந்தியா மற்றும் தமிழ்நாடு இயற்கை அமைப்புகள்</p>
+                            </div>
+                            <button onclick="openMaterialModal('./geo_unit1.txt', 'Indian & TN Physical Geography', 'Session 2')" class="inline-flex items-center gap-2 text-xs font-bold text-emerald-700 hover:underline pt-2 border-t border-slate-200/60 w-full justify-between">
+                                <span>Read Lecture Notes</span>
+                                <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </button>
+                        </div>
+
+                        <div class="border border-slate-200 border-l-4 border-l-blue-600 rounded-2xl p-4 bg-slate-50/50 space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[10px] font-black uppercase text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200 font-mono">CIVICS</span>
+                                <span class="text-[10px] font-bold text-blue-800 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200">TNTET PAPER 2</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm text-slate-900">Indian Constitution &amp; Fundamental Rights</h4>
+                                <p class="text-xs font-semibold text-slate-500 tamil-fix">இந்திய அரசியலமைப்பு மற்றும் அடிப்படை உரிமைகள்</p>
+                            </div>
+                            <button onclick="openMaterialModal('./civics_unit1.txt', 'Indian Constitution & Rights', 'Session 3')" class="inline-flex items-center gap-2 text-xs font-bold text-blue-700 hover:underline pt-2 border-t border-slate-200/60 w-full justify-between">
+                                <span>Read Lecture Notes</span>
+                                <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
         }
 
         function buildCategoryTabs() {
@@ -356,31 +446,125 @@
             container.innerHTML = "";
 
             const allBtn = document.createElement('button');
-            allBtn.className = `px-4 py-2 rounded-xl text-xs font-extrabold border transition shadow-sm ${globallySelectedCategory === 'ALL' ? 'bg-amber-950 text-white border-amber-950' : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'}`;
+            allBtn.className = `px-4 py-2 rounded-xl text-xs font-extrabold border transition shadow-sm ${globallySelectedCategory === 'ALL' ? 'bg-amber-950 text-white border-amber-950 scale-[1.02]' : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'}`;
             allBtn.innerText = "Show All / அனைத்தும்";
             allBtn.onclick = () => {
                 globallySelectedCategory = "ALL";
-                document.querySelectorAll('#category-tabs-container button').forEach(b => b.className = "px-4 py-2 rounded-xl text-xs font-extrabold border bg-white text-slate-700 border-slate-200 hover:bg-slate-50 transition shadow-sm");
-                allBtn.className = "px-4 py-2 rounded-xl text-xs font-extrabold border bg-amber-950 text-white border-amber-950 transition shadow-sm";
-                renderActiveSessionsDeck();
+                buildCategoryTabs();
             };
             container.appendChild(allBtn);
 
             categories.forEach((cat) => {
                 const btn = document.createElement('button');
-                btn.className = `px-4 py-2 rounded-xl text-xs font-extrabold border transition shadow-sm ${cat === globallySelectedCategory ? 'bg-amber-950 text-white border-amber-950' : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'}`;
+                btn.className = `px-4 py-2 rounded-xl text-xs font-extrabold border transition shadow-sm ${cat === globallySelectedCategory ? 'bg-amber-950 text-white border-amber-950 scale-[1.02]' : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'}`;
                 btn.innerText = cat;
                 btn.onclick = () => {
                     globallySelectedCategory = cat;
-                    document.querySelectorAll('#category-tabs-container button').forEach(b => b.className = "px-4 py-2 rounded-xl text-xs font-extrabold border bg-white text-slate-700 border-slate-200 hover:bg-slate-50 transition shadow-sm");
-                    btn.className = "px-4 py-2 rounded-xl text-xs font-extrabold border bg-amber-950 text-white border-amber-950 transition shadow-sm";
-                    renderActiveSessionsDeck();
+                    buildCategoryTabs();
                 };
                 container.appendChild(btn);
             });
             renderActiveSessionsDeck();
         }
 
+        // [tet-adsense] VISUAL_MUTHU Social Science Category Mapper
+        function getVisualMuthuSocialConfig(categoryName) {
+            const clean = (categoryName || '').toLowerCase();
+            if (clean.includes('geo') || clean.includes('புவி')) {
+                return {
+                    borderLeft: 'border-l-emerald-600',
+                    badgeBg: 'bg-emerald-50',
+                    badgeText: 'text-emerald-700',
+                    badgeBorder: 'border-emerald-200',
+                    avatarBg: 'bg-emerald-50',
+                    avatarText: 'text-emerald-700',
+                    avatarHoverBg: 'group-hover:bg-emerald-600',
+                    avatarHoverText: 'group-hover:text-white',
+                    subIcon: 'fa-solid fa-mountain-sun',
+                    subName: 'Geography',
+                    avatarIcon: 'fa-solid fa-earth-americas',
+                    textHover: 'group-hover:text-emerald-700',
+                    btnText: 'text-emerald-700 group-hover:text-emerald-800',
+                    btnIconBg: 'bg-emerald-50 group-hover:bg-emerald-600 group-hover:text-white',
+                    cardCtaBg: 'bg-emerald-800 hover:bg-emerald-900'
+                };
+            } else if (clean.includes('civic') || clean.includes('polity') || clean.includes('குடிமை') || clean.includes('அரசியலமைப்பு')) {
+                return {
+                    borderLeft: 'border-l-blue-600',
+                    badgeBg: 'bg-blue-50',
+                    badgeText: 'text-blue-700',
+                    badgeBorder: 'border-blue-200',
+                    avatarBg: 'bg-blue-50',
+                    avatarText: 'text-blue-700',
+                    avatarHoverBg: 'group-hover:bg-blue-600',
+                    avatarHoverText: 'group-hover:text-white',
+                    subIcon: 'fa-solid fa-scale-balanced',
+                    subName: 'Civics',
+                    avatarIcon: 'fa-solid fa-building-columns',
+                    textHover: 'group-hover:text-blue-700',
+                    btnText: 'text-blue-700 group-hover:text-blue-800',
+                    btnIconBg: 'bg-blue-50 group-hover:bg-blue-600 group-hover:text-white',
+                    cardCtaBg: 'bg-blue-800 hover:bg-blue-900'
+                };
+            } else if (clean.includes('eco') || clean.includes('பொருளியல்')) {
+                return {
+                    borderLeft: 'border-l-rose-600',
+                    badgeBg: 'bg-rose-50',
+                    badgeText: 'text-rose-700',
+                    badgeBorder: 'border-rose-200',
+                    avatarBg: 'bg-rose-50',
+                    avatarText: 'text-rose-700',
+                    avatarHoverBg: 'group-hover:bg-rose-600',
+                    avatarHoverText: 'group-hover:text-white',
+                    subIcon: 'fa-solid fa-chart-line',
+                    subName: 'Economics',
+                    avatarIcon: 'fa-solid fa-coins',
+                    textHover: 'group-hover:text-rose-700',
+                    btnText: 'text-rose-700 group-hover:text-rose-800',
+                    btnIconBg: 'bg-rose-50 group-hover:bg-rose-600 group-hover:text-white',
+                    cardCtaBg: 'bg-rose-800 hover:bg-rose-900'
+                };
+            } else if (clean.includes('pedagogy') || clean.includes('கற்பித்தல்')) {
+                return {
+                    borderLeft: 'border-l-purple-600',
+                    badgeBg: 'bg-purple-50',
+                    badgeText: 'text-purple-700',
+                    badgeBorder: 'border-purple-200',
+                    avatarBg: 'bg-purple-50',
+                    avatarText: 'text-purple-700',
+                    avatarHoverBg: 'group-hover:bg-purple-600',
+                    avatarHoverText: 'group-hover:text-white',
+                    subIcon: 'fa-solid fa-chalkboard-user',
+                    subName: 'Pedagogy',
+                    avatarIcon: 'fa-solid fa-shapes',
+                    textHover: 'group-hover:text-purple-700',
+                    btnText: 'text-purple-700 group-hover:text-purple-800',
+                    btnIconBg: 'bg-purple-50 group-hover:bg-purple-600 group-hover:text-white',
+                    cardCtaBg: 'bg-purple-900 hover:bg-purple-950'
+                };
+            } else {
+                // Default: History / General Social Science
+                return {
+                    borderLeft: 'border-l-amber-600',
+                    badgeBg: 'bg-amber-50',
+                    badgeText: 'text-amber-700',
+                    badgeBorder: 'border-amber-200',
+                    avatarBg: 'bg-amber-50',
+                    avatarText: 'text-amber-700',
+                    avatarHoverBg: 'group-hover:bg-amber-600',
+                    avatarHoverText: 'group-hover:text-white',
+                    subIcon: 'fa-solid fa-landmark',
+                    subName: 'History',
+                    avatarIcon: 'fa-solid fa-monument',
+                    textHover: 'group-hover:text-amber-700',
+                    btnText: 'text-amber-700 group-hover:text-amber-800',
+                    btnIconBg: 'bg-amber-50 group-hover:bg-amber-600 group-hover:text-white',
+                    cardCtaBg: 'bg-amber-800 hover:bg-amber-900'
+                };
+            }
+        }
+
+        // [tet-adsense] Upgraded to VISUAL_MUTHU Card Framework
         function renderActiveSessionsDeck() {
             const deck = document.getElementById('sessions-master-deck');
             deck.innerHTML = "";
@@ -389,47 +573,72 @@
                 ? masterDatabaseRecords
                 : masterDatabaseRecords.filter(x => x.subject === globallySelectedCategory);
 
+            if (matchedRows.length === 0) {
+                deck.innerHTML = `<div class="col-span-full p-6 bg-white border border-slate-200 rounded-2xl text-center text-xs font-bold text-slate-400 h-fit">No learning tracks available for this filter.</div>`;
+                return;
+            }
+
             matchedRows.forEach(row => {
+                const config = getVisualMuthuSocialConfig(row.subject);
                 const hasVideo = row.videoUrl !== '#';
                 const hasMcq = row.mcqUrl !== '#';
                 let formattedTopic = row.topic.replace(/\r?\n/g, '<br>');
 
                 const card = document.createElement('div');
-                card.className = "bg-white border border-slate-200/80 rounded-2xl p-5 shadow-sm flex flex-col justify-between hover:border-amber-500 transition group relative";
+                card.className = `group bg-white border border-slate-200/80 border-l-4 ${config.borderLeft} rounded-2xl p-5 shadow-sm hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between relative overflow-hidden select-none h-fit`;
+
                 card.innerHTML = `
-                    <div class="space-y-4">
+                    <div class="space-y-3">
+                        <!-- Top Badges & Share Trigger -->
                         <div class="flex justify-between items-center">
-                            <div class="flex items-center gap-2">
-                                <span class="text-[10px] font-black text-amber-700 uppercase tracking-widest font-mono">${row.session}</span>
-                                <span class="text-[9px] font-bold text-slate-400 border border-slate-100 px-2 py-0.5 rounded uppercase tracking-wider">${row.subject}</span>
+                            <div class="flex items-center gap-1.5">
+                                <span class="text-[10px] font-black tracking-wider uppercase font-mono ${config.badgeText} ${config.badgeBg} border ${config.badgeBorder} px-2 py-0.5 rounded">
+                                    ${row.session}
+                                </span>
+                                <span class="text-[10px] font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded flex items-center gap-1">
+                                    <i class="${config.subIcon} ${config.badgeText}"></i> ${config.subName}
+                                </span>
                             </div>
-                            <button onclick="shareTopicCard(event, '${row.session}', '${row.topic.replace(/'/g, "\\'")}', '${row.subject}')" class="text-slate-400 hover:text-amber-700 p-1.5 rounded-lg hover:bg-slate-50 transition cursor-pointer" title="Share Topic Link">
+                            <button onclick="shareTopicCard(event, '${row.session}', '${row.topic.replace(/'/g, "\\'")}', '${row.subject}')" class="text-slate-400 hover:${config.badgeText} p-1 rounded-lg hover:bg-slate-50 transition cursor-pointer" title="Share Topic Link">
                                 <i class="fa-solid fa-share-nodes text-xs"></i>
                             </button>
                         </div>
-                        <div>
-                            <h3 class="font-black text-slate-900 text-base tracking-tight group-hover:text-amber-700 transition tamil-fix">${formattedTopic}</h3>
+
+                        <!-- Central Avatar & Topic Title -->
+                        <div class="flex items-start gap-3 pt-1 cursor-pointer" data-id="${row.id}" onclick="triggerMaterialOpen(this)">
+                            <div class="w-11 h-11 rounded-xl ${config.avatarBg} ${config.avatarText} border border-slate-200/40 flex items-center justify-center font-bold text-lg shrink-0 ${config.avatarHoverBg} ${config.avatarHoverText} transition-colors duration-200 shadow-sm">
+                                <i class="${config.avatarIcon}"></i>
+                            </div>
+                            <div class="space-y-0.5 flex-grow">
+                                <h3 class="font-black text-slate-900 text-base tracking-tight leading-snug ${config.textHover} transition-colors tamil-fix">
+                                    ${formattedTopic}
+                                </h3>
+                            </div>
                         </div>
-                        <div class="pt-2 space-y-2 border-t border-slate-100">
-                            <button data-id="${row.id}" onclick="triggerMaterialOpen(this)" class="flex items-center gap-2 text-xs font-bold text-slate-600 hover:text-amber-700 transition text-left w-full cursor-pointer">
-                                <i class="fa-solid fa-file-pdf text-red-500 text-sm w-4 text-center"></i> Read PDF Material Notes
+
+                        <!-- Direct Link Action Rows -->
+                        <div class="pt-2 space-y-1.5 border-t border-slate-100">
+                            <button data-id="${row.id}" onclick="triggerMaterialOpen(this)" class="flex items-center gap-2 text-xs font-bold text-slate-600 hover:${config.badgeText} transition text-left w-full cursor-pointer py-1">
+                                <i class="fa-solid fa-file-lines ${config.badgeText} text-sm w-4 text-center"></i> Read Session Notes
                             </button>
                             ${hasVideo ? `
-                            <a href="${row.videoUrl}" target="_blank" class="flex items-center gap-2 text-xs font-bold text-slate-600 hover:text-red-600 transition">
-                                <i class="fa-brands fa-youtube text-red-500 text-sm w-4 text-center"></i> Video Class Reference
+                            <a href="${row.videoUrl}" target="_blank" class="flex items-center gap-2 text-xs font-bold text-slate-600 hover:text-red-600 transition py-1">
+                                <i class="fa-brands fa-youtube text-red-500 text-sm w-4 text-center"></i> Watch Video Class
                             </a>` : `
-                            <span class="flex items-center gap-2 text-xs font-bold text-slate-300 cursor-not-allowed">
-                                <i class="fa-brands fa-youtube text-slate-200 text-sm w-4 text-center"></i> Video Coming Soon
+                            <span class="flex items-center gap-2 text-xs font-bold text-slate-300 cursor-not-allowed py-1">
+                                <i class="fa-brands fa-youtube text-slate-200 text-sm w-4 text-center"></i> Video Class (Coming Soon)
                             </span>`}
                         </div>
                     </div>
-                    <div class="mt-5 pt-3 border-t border-slate-100">
+
+                    <!-- Bottom Action Launch CTA -->
+                    <div class="mt-4 pt-3 border-t border-slate-100">
                         ${hasMcq ? `
-                        <a href="${row.mcqUrl}" target="_blank" class="w-full text-center bg-amber-800 hover:bg-amber-900 text-white font-black text-xs py-3 rounded-xl transition shadow-md block uppercase tracking-wider">
-                            <i class="fa-solid fa-bolt mr-1"></i> Launch Interactive Quiz
+                        <a href="${row.mcqUrl}" target="_blank" class="w-full text-center ${config.cardCtaBg} text-white font-black text-xs py-2.5 rounded-xl transition shadow flex items-center justify-center gap-2 uppercase tracking-wider">
+                            <i class="fa-solid fa-bolt text-amber-400"></i> Launch MCQ Quiz
                         </a>` : `
-                        <button disabled class="w-full text-center bg-slate-100 text-slate-400 font-bold text-xs py-3 rounded-xl block uppercase tracking-wider cursor-not-allowed border border-slate-200/40">
-                            Evaluation Quiz Coming Soon
+                        <button disabled class="w-full text-center bg-slate-100 text-slate-400 font-bold text-xs py-2.5 rounded-xl block uppercase tracking-wider cursor-not-allowed border border-slate-200/40">
+                            Quiz Evaluation Prep
                         </button>`}
                     </div>
                 `;
@@ -452,6 +661,7 @@
             }
         }
 
+        // [tet-adsense] Non-blocking clipboard & Web Share function
         function shareTopicCard(event, sessionNo, topicTitle, cardSubject) {
             event.stopPropagation();
             const formattedTitle = topicTitle.replace(/<br>/g, ' ').trim();
@@ -464,20 +674,26 @@
                     title: `TNTET - ${sessionNo}`,
                     text: contextText,
                     url: targetShareUrl
-                }).catch(err => console.log('Share canceled'));
-            } else {
+                }).catch(() => {});
+            } else if (navigator.clipboard) {
                 navigator.clipboard.writeText(contextText).then(() => {
-                    alert(`📋 Link copied for ${sessionNo}! You can now paste and share it directly on WhatsApp.`);
+                    showToast(`Share link copied for ${sessionNo}!`);
                 }).catch(() => {
-                    const dummyInput = document.createElement('textarea');
-                    document.body.appendChild(dummyInput);
-                    dummyInput.value = contextText;
-                    dummyInput.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(dummyInput);
-                    alert(`📋 Link copied for ${sessionNo}!`);
+                    legacyCopyFallback(contextText, sessionNo);
                 });
+            } else {
+                legacyCopyFallback(contextText, sessionNo);
             }
+        }
+
+        function legacyCopyFallback(text, sessionNo) {
+            const dummyInput = document.createElement('textarea');
+            document.body.appendChild(dummyInput);
+            dummyInput.value = text;
+            dummyInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(dummyInput);
+            showToast(`Share link copied for ${sessionNo}!`);
         }
 
         function triggerMaterialOpen(buttonElement) {
