@@ -3,12 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NMMS Model Test Portal - TN Classroom</title>
-    <meta name="description" content="NMMS MAT & SAT Full Length Model Tests, practice papers, answer keys, and online evaluation quizzes for Class 8 students.">
+
+    <!-- Primary Meta Tags -->
+    <title>NMMS Model Test Portal | TN Classroom</title>
+    <meta name="title" content="NMMS Model Test Portal | TN Classroom">
+    <meta name="description" content="NMMS MAT & SAT Full Length Model Tests, practice papers, answer keys, and online evaluation quizzes for Class 8 students in Tamil Nadu.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://tnclassroom.com/nmms-model-test/">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tnclassroom.com/nmms-model-test/">
+    <meta property="og:title" content="NMMS Model Test Portal | TN Classroom">
+    <meta property="og:description" content="NMMS MAT & SAT Full Length Model Tests and practice papers for Class 8 students.">
 
     <script src="/tailwind.js"></script>
     <link rel="stylesheet" href="/fontawesome.css">
 
+    <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8948542276785631"
       crossorigin="anonymous"></script>
 
@@ -26,6 +38,19 @@
       };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- GLOBAL SITE CONFIGURATION LAYER (GA4 ANALYTICS ENGINE) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MZZ985WL51"></script>
+    <script>
+      window.dataLayer = window.location.hostname === 'localhost' ? [] : (window.dataLayer || []);
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-MZZ985WL51', {
+        page_path: window.location.pathname,
+        cookie_flags: 'max-age=7200;Secure;SameSite=None'
+      });
+    </script>
 
     <style>
         .dropdown-menu { z-index: 50 !important; pointer-events: none; }
@@ -49,7 +74,7 @@
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-900 flex flex-col min-h-screen font-sans">
+<body class="bg-gray-50 text-gray-900 flex flex-col min-h-screen font-sans relative">
 
     <!-- Global Dynamic Navbar -->
     <div id="navbar-placeholder" class="no-print"></div>
@@ -235,14 +260,15 @@
 
     </main>
 
+    <!-- Regulatory Compliance Footer -->
     <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-6 text-center text-xs mt-auto space-y-4 no-print">
-        <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs font-bold text-slate-400">
+        <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs font-bold text-slate-400" aria-label="Legal Directory">
             <a href="/about-us.html" class="hover:text-emerald-400 transition">About Us</a>
             <a href="/privacy-policy.html" class="hover:text-emerald-400 transition">Privacy Policy</a>
             <a href="/disclaimer.html" class="hover:text-emerald-400 transition">Disclaimer</a>
             <a href="/contact-us.html" class="hover:text-emerald-400 transition">Contact Us</a>
         </nav>
-        <p>&copy; 2026 tnclassroom.com | A Professional Learning Platform for Students & Teachers</p>
+        <p>&copy; 2026 tnclassroom.com | A Professional Learning Platform for Students &amp; Teachers</p>
     </footer>
 
     <script>
@@ -300,7 +326,6 @@
         if (!rawTxt) return `<p class="text-xs text-slate-400 font-medium">No content available.</p>`;
         let trimmed = rawTxt.trim();
 
-        // Strip outer HTML tags if raw HTML gets passed in by accident
         if (/^<!DOCTYPE/i.test(trimmed) || /^<html/i.test(trimmed)) {
             const parser = new DOMParser();
             const doc = parser.parseFromString(trimmed, 'text/html');
@@ -311,13 +336,11 @@
 
         let sanitized = sanitizeTamilMathJax(trimmed);
 
-        // Render Markdown if file ends with .md or contains Markdown headers
         const isMarkdown = (fileUrl && fileUrl.toLowerCase().endsWith('.md')) || /^#+\s+/m.test(sanitized);
         if (isMarkdown && typeof marked !== 'undefined') {
             return marked.parse(sanitized);
         }
 
-        // Render plain text (.txt) preserving Tamil text line breaks & paragraphs
         let paragraphs = sanitized.split(/\r?\n\r?\n/);
         return paragraphs
             .map(p => `<p class="mb-3 leading-relaxed whitespace-pre-wrap tamil-fix text-slate-800 font-medium">${p.replace(/\r?\n/g, '<br>')}</p>`)
@@ -331,7 +354,6 @@
             const txt = await res.text();
             const lines = parseCsvRows(txt);
 
-            // Skip header row (starts from 2nd row)
             const dataRows = lines.slice(1);
             rawDatabaseRecords = dataRows.map((cols, idx) => {
                 let subjVal     = cols[0] ? cols[0].replace(/^"|"$/g, '').trim() : 'MAT';
@@ -449,8 +471,9 @@
             }
         } else {
             contentBody.innerHTML = `
-                <div class="text-red-500 font-bold text-xs p-4 bg-red-50 rounded-xl border border-red-100 space-y-2">
-                    <p><i class="fa-solid fa-circle-exclamation mr-1"></i> Failed to find file <strong>"${fileName}"</strong>.</p>
+                <div class="p-5 bg-red-50 text-red-700 text-xs font-bold rounded-2xl border border-red-100 text-center">
+                    <i class="fa-solid fa-circle-exclamation mr-1.5"></i> Missing or unmapped test documentation file.<br>
+                    <span class="font-mono text-[10px] text-slate-400 block mt-1">Expected file name: ${fileName}</span>
                 </div>`;
         }
     }
@@ -488,6 +511,6 @@
         loadSharedSiteNavbar();
         fetchModelTestDatabase();
     });
-</script>
+    </script>
 </body>
 </html>
