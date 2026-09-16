@@ -19,22 +19,15 @@
       });
     </script>
 
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8948542276785631"
-     crossorigin="anonymous"></script>
-
     <style>
         body { -webkit-tap-highlight-color: transparent; font-family: sans-serif; background-color: #f8fafc; }
         .tamil-fix { font-family: 'Segoe UI', 'Latha', sans-serif !important; }
 
-        /* ==========================================
-           FIXED: Prevents invisible dropdown menus from hijacking clicks
-           ========================================== */
+        /* FIXED: Prevents invisible dropdown menus from hijacking clicks */
         .dropdown-menu { z-index: 50 !important; pointer-events: none; }
         .dropdown-active { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; z-index: 50 !important; pointer-events: auto !important; }
 
-        /* ==========================================
-           CLEAN MINIMALIST WIDGET LAYOUT (DESKTOP)
-           ========================================== */
+        /* CLEAN MINIMALIST WIDGET LAYOUT (DESKTOP) */
         @media (min-width: 640px) {
             .clean-hub-grid {
                 display: grid;
@@ -57,9 +50,7 @@
             }
         }
 
-        /* ==========================================
-           MOBILE ACCORDION DROPDOWN STYLES
-           ========================================== */
+        /* MOBILE ACCORDION DROPDOWN STYLES */
         @media (max-width: 639px) {
             .mobile-accordion-header[data-open="true"] .accordion-icon {
                 transform: rotate(180deg);
@@ -90,7 +81,7 @@
                     <span class="text-slate-900">TN</span><span class="text-red-600">CLASSROOM</span>
                 </span>
             </h1>
-            <p class="text-slate-500 text-xs leading-relaxed">This portal is a comprehensive, free digital learning platform dedicated to supporting teachers, school students, TNTET aspirants, and candidates preparing for competitive examinations such as TNPSC, Banking, SSC, and other government recruitment exams. Through curated study materials, practice tests, and interactive learning resources, we strive to make quality education accessible to all. </p>
+            <p class="text-slate-500 text-xs leading-relaxed">This portal is a comprehensive, free digital learning platform dedicated to supporting teachers, school students, TNTET aspirants, and candidates preparing for competitive examinations such as TNPSC, Banking, SSC, and other government recruitment exams. Through curated study materials, practice tests, and interactive learning resources, we strive to make quality education accessible to all.</p>
         </div>
 
         <!-- PORTAL INTERSECTION INTERFACE -->
@@ -101,9 +92,7 @@
                 <p class="text-slate-400 text-[11px] sm:hidden">Tap categories below to view portal curriculum paths</p>
             </div>
 
-            <!-- ==========================================
-                MOBILE VIEWS LIST STACK (SM BLOCK HIDE)
-                ========================================== -->
+            <!-- MOBILE ACCORDIONS (SM BLOCK HIDE) -->
             <div class="w-full max-w-sm flex flex-col gap-3 sm:hidden">
                 <!-- NMMS Accordion -->
                 <div class="border border-slate-100 rounded-2xl overflow-hidden bg-slate-50/40">
@@ -112,7 +101,6 @@
                         <i class="fa-solid fa-chevron-down accordion-icon transition-transform duration-300"></i>
                     </button>
                     <div id="mob-nmms-panel" class="mobile-accordion-content">
-                        <!-- HOW TO USE Link directly below title on mobile -->
                         <div class="px-3 pt-3 bg-slate-50/50">
                             <a href="./nmms-sat/guide/" target="_blank" class="w-full flex items-center justify-center gap-1.5 p-2 bg-indigo-50 border border-indigo-200 rounded-xl text-center text-xs font-bold text-indigo-700 active:bg-indigo-600 active:text-white transition shadow-2xs">
                                 <i class="fa-solid fa-map-location-dot text-xs"></i> HOW TO USE
@@ -133,7 +121,6 @@
                         <i class="fa-solid fa-chevron-down accordion-icon transition-transform duration-300"></i>
                     </button>
                     <div id="mob-tntet-panel" class="mobile-accordion-content">
-                        <!-- TNTET HOW TO USE Guide Link on mobile -->
                         <div class="px-3 pt-3 bg-slate-50/50">
                             <a href="./guide/TntetGuide.html" target="_blank" class="w-full flex items-center justify-center gap-1.5 p-2 bg-indigo-50 border border-indigo-200 rounded-xl text-center text-xs font-bold text-indigo-700 active:bg-indigo-600 active:text-white transition shadow-2xs">
                                 <i class="fa-solid fa-map-location-dot text-xs"></i> HOW TO USE
@@ -151,27 +138,22 @@
                 </div>
             </div>
 
-            <!-- ==========================================
-                DESKTOP CLEAN AND MODERN CARD HUB
-                ========================================== -->
+            <!-- DESKTOP CLEAN AND MODERN CARD HUB -->
             <nav class="clean-hub-grid hidden sm:grid" aria-label="Educational Platform Directory">
                 <!-- NMMS Card Module -->
                 <div class="hub-card border-l-4 border-emerald-500 flex flex-col justify-between">
                     <div>
-                        <!-- Header with Title and HOW TO USE link -->
                         <div class="flex items-center justify-between pb-2 mb-3 border-b border-slate-100">
                             <div class="flex items-center gap-2">
                                 <span class="p-2 bg-emerald-50 text-emerald-600 rounded-xl text-sm"><i class="fa-solid fa-graduation-cap"></i></span>
                                 <h4 class="font-black text-slate-900 text-sm uppercase tracking-wider">NMMS Hub</h4>
                             </div>
-                            <!-- HOW TO USE Link directly at the top header area -->
                             <a href="./nmms-sat/guide/" target="_blank" class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-indigo-50 border border-indigo-200 text-indigo-700 hover:bg-indigo-600 hover:text-white rounded-lg text-[10px] font-bold transition shadow-2xs">
                                 <i class="fa-solid fa-map-location-dot text-xs"></i> HOW TO USE
                             </a>
                         </div>
                         <p class="text-[11px] text-slate-400 mb-4 leading-normal">Access National Means-cum-Merit Scholarship preparatory portals for SAT and MAT streams.</p>
                     </div>
-                    <!-- Clean 3-button layout for the portal options -->
                     <div class="grid grid-cols-2 gap-2">
                         <a href="./nmms-sat/" class="flex items-center justify-center gap-2 p-2.5 border border-slate-200 hover:border-emerald-200 hover:text-emerald-600 hover:bg-emerald-50/30 rounded-xl text-xs font-bold text-slate-700 transition"><i class="fa-solid fa-chart-pie text-xs opacity-70"></i> SAT Portal</a>
                         <a href="./nmms-mat/" class="flex items-center justify-center gap-2 p-2.5 border border-slate-200 hover:border-emerald-200 hover:text-emerald-600 hover:bg-emerald-50/30 rounded-xl text-xs font-bold text-slate-700 transition"><i class="fa-solid fa-brain text-xs opacity-70"></i> MAT Portal</a>
@@ -182,18 +164,16 @@
                 <!-- TNTET Card Module -->
                 <div class="hub-card border-l-4 border-indigo-500 flex flex-col justify-between">
                     <div>
-                        <!-- Header with Title and HOW TO USE guide link -->
                         <div class="flex items-center justify-between pb-2 mb-3 border-b border-slate-100">
                             <div class="flex items-center gap-2">
                                 <span class="p-2 bg-indigo-50 text-indigo-600 rounded-xl text-sm"><i class="fa-solid fa-book-open"></i></span>
                                 <h4 class="font-black text-slate-900 text-sm uppercase tracking-wider">TNTET Hub</h4>
                             </div>
-                            <!-- HOW TO USE Link for TNTET -->
                             <a href="./guide/TntetGuide.html" target="_blank" class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-indigo-50 border border-indigo-200 text-indigo-700 hover:bg-indigo-600 hover:text-white rounded-lg text-[10px] font-bold transition shadow-2xs">
                                 <i class="fa-solid fa-map-location-dot text-xs"></i> HOW TO USE
                             </a>
                         </div>
-                        <p class="text-[11px] text-slate-400 mb-4 leading-normal">Video,Text and online Test material built specifically for Tamil Nadu Teacher Eligibility Test aspirants.</p>
+                        <p class="text-[11px] text-slate-400 mb-4 leading-normal">Video, Text and online Test material built specifically for Tamil Nadu Teacher Eligibility Test aspirants.</p>
                     </div>
                     <div class="grid grid-cols-3 gap-1.5">
                         <a href="./tntet-psychology/" class="p-2 text-center border border-slate-100 hover:border-indigo-200 hover:text-indigo-600 hover:bg-indigo-50/30 rounded-xl text-[10px] font-bold text-slate-600 transition">Psychology</a>
@@ -211,66 +191,13 @@
         <div class="bg-gradient-to-br from-slate-900 to-blue-950 text-white p-6 rounded-3xl shadow-md border border-slate-800 space-y-4 max-w-md mx-auto w-full">
             <div>
                 <h3 class="font-black text-sm tracking-tight">Test Scores Tracker</h3>
-                <p class="text-slate-400 text-[11px] mt-0.5 leading-relaxed">Teachers-Type your Mobile number.Students-Type your EMIS Number </p>
+                <p class="text-slate-400 text-[11px] mt-0.5 leading-relaxed">Teachers-Type your Mobile number. Students-Type your EMIS Number</p>
             </div>
             <div class="flex flex-col sm:flex-row gap-3">
                 <input type="tel" id="homeMobileCheck" maxlength="10" placeholder="MOBILE/EMIS NUMBER" class="flex-grow bg-white/10 border border-white/10 rounded-xl p-3 text-center font-mono font-bold text-sm tracking-widest text-white placeholder-white/20 outline-none focus:border-cyan-400">
                 <button onclick="routeToScores(event)" class="bg-cyan-400 hover:bg-white text-blue-950 font-black text-xs px-6 py-3 rounded-xl transition uppercase tracking-wider shadow whitespace-nowrap">View My Scores</button>
             </div>
         </div>
-
-        <!-- ==========================================
-            STATIC EDITORIAL OVERVIEW BLOCK (ADSENSE COMPLIANCE & E-E-A-T)
-            ========================================== -->
-        <article class="bg-white border border-slate-100 rounded-3xl p-6 sm:p-8 shadow-sm space-y-8 select-text text-slate-700 leading-relaxed text-sm">
-            <header class="border-b border-slate-100 pb-4">
-                <div class="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-indigo-600 bg-indigo-50 px-3 py-1 rounded-lg mb-2">
-                    <i class="fa-solid fa-graduation-cap"></i> Academic Overview &amp; Learning Support
-                </div>
-                <h2 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-                    Comprehensive Digital Learning Initiatives for Students &amp; Educators
-                </h2>
-            </header>
-
-            <div class="space-y-6">
-                <!-- Section 1: NMMS -->
-                <section class="space-y-2">
-                    <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                        Empowering Rural &amp; Government School Scholars through Structured NMMS Training
-                    </h3>
-                    <p>
-                        The National Means-cum-Merit Scholarship (NMMS) initiative serves as a transformative financial and academic gateway for Class 8 students studying across government and government-aided schools in Tamil Nadu. Navigating competitive exams at an early secondary stage often presents psychological hurdles for young learners who are transitioning from basic classroom memorization to conceptual, high-speed problem solving. To bridge this critical divide, our platform implements a scaffolded pedagogical framework designed specifically around the cognitive demands of young aspirants. By decoupling foundational aptitude testing into manageable weekly milestones, students develop spatial perception, pattern decoding, arithmetic intuition, and scientific inquiry at their own pace. Rather than presenting isolated worksheets, our learning ecosystem emphasizes diagnostic assessment, allowing students to identify conceptual misconceptions in standard middle-school mathematics and science before taking full-length timed mock tests. This methodical approach builds genuine examination temperament, nurtures critical reasoning, and ensures that talented candidates from economically disadvantaged backgrounds receive equitable digital training to achieve high qualifying merit scores.
-                    </p>
-                </section>
-
-                <hr class="border-slate-100">
-
-                <!-- Section 2: TNTET -->
-                <section class="space-y-2">
-                    <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-indigo-500"></span>
-                        Professional Educator Development &amp; Competency Framework for TNTET Aspirants
-                    </h3>
-                    <p>
-                        Qualifying for the Tamil Nadu Teacher Eligibility Test (TNTET Paper 1 &amp; Paper 2) demands far more than surface-level familiarity with school curriculum topics; it requires a deep mastery of developmental child psychology, pedagogical ethics, and progressive instructional methodologies. Modern Teacher Recruitment Board (TRB) examination frameworks increasingly focus on real-world classroom situational questions, inclusive learning environments, diagnostic assessment matrices, and bilingual linguistic delivery (Tamil and English). Our dedicated educator hub addresses these rigorous professional benchmarks by synthesizing complex educational theories—ranging from constructivist cognitive stages to modern classroom management paradigms—into accessible, practical teacher-training resources. We contextualize core subject competencies with child-centric teaching principles, enabling aspiring teachers to thoroughly analyze question stems, eliminate distractors in multiple-choice assessments, and cultivate the reflective mindset essential for modern teaching professionals across Tamil Nadu's state schooling system.
-                    </p>
-                </section>
-
-                <hr class="border-slate-100">
-
-                <!-- Section 3: Learning Support -->
-                <section class="space-y-2">
-                    <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-amber-500"></span>
-                        Continuous Academic Support &amp; Digital Remedial Infrastructure (Learning Support)
-                    </h3>
-                    <p>
-                        Beyond standalone examination preparation, our broader Learning Support ecosystem is engineered to serve as a 24/7 digital academic companion for students, educators, and parents. Standard school schedules frequently leave little room for personalized remedial teaching, causing minor learning gaps in foundational concepts to widen into major academic obstacles over time. Our learning support framework solves this by providing modular, self-guided learning pathways that break down challenging multi-step concepts into digestible micro-lessons, visual summaries, and immediate self-evaluation tools. Students can revisit foundational topics, verify step-by-step solutions, and reinforce their understanding outside school hours without commercial paywalls or intrusive barriers. By maintaining strict alignment with Tamil Nadu State Board (Samacheer Kalvi) standards while integrating transparent performance-tracking metrics, this portal acts as a dependable, non-commercial public educational resource that strengthens foundational literacy, numeracy, and overall scholastic achievement across the state.
-                    </p>
-                </section>
-            </div>
-        </article>
 
         <!-- SOCIAL MEDIA CHANNELS MATRIX MODULE -->
         <section class="space-y-4">
@@ -287,7 +214,7 @@
                     </span>
                     <div>
                         <h4 class="font-black text-slate-800 text-xs tracking-tight">Telegram Channel</h4>
-                        <p class="text-[10px] text-slate-400 mt-0.5">Instant Updates & Notes</p>
+                        <p class="text-[10px] text-slate-400 mt-0.5">Instant Updates &amp; Notes</p>
                     </div>
                 </a>
 
@@ -326,9 +253,7 @@
             </div>
         </section>
 
-        <!-- ==========================================
-            REGULATORY ADSENSE COMPLIANCE FOOTER NAVIGATION LINKS
-            ========================================== -->
+        <!-- REGULATORY FOOTER NAVIGATION LINKS -->
         <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 pt-4 border-t border-slate-200/60 text-xs font-bold text-slate-400" aria-label="Legal Directory">
             <a href="/about-us.html" class="hover:text-indigo-600 transition">About Us</a>
             <a href="/privacy-policy.html" class="hover:text-indigo-600 transition">Privacy Policy</a>
@@ -377,9 +302,7 @@
         </div>
     </div>
 
-    <!-- ==========================================
-        DYNAMIC ADSENSE COMPLIANCE DIALOG VIEW OVERLAY MODAL
-        ========================================== -->
+    <!-- DYNAMIC COMPLIANCE DIALOG VIEW OVERLAY MODAL -->
     <div id="compliance-modal" class="fixed inset-0 bg-slate-950/40 backdrop-blur-sm z-50 flex items-center justify-center p-4 invisible opacity-0 transition-all duration-300" onclick="closeComplianceModal()">
         <div class="w-full max-w-xl bg-white rounded-[2rem] p-6 md:p-8 shadow-2xl relative border border-slate-100 transform scale-95 transition-transform duration-300 flex flex-col max-h-[85vh]" onclick="event.stopPropagation()">
             <div class="flex justify-between items-center border-b border-slate-100 pb-4 mb-4 flex-shrink-0">
@@ -392,13 +315,12 @@
                 </button>
             </div>
             <div id="compliance-body" class="overflow-y-auto text-slate-600 text-xs md:text-sm leading-relaxed space-y-4 pr-1 scrollbar-thin select-text">
-                <!-- Injected dynamically via script functions below -->
             </div>
         </div>
     </div>
 
     <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-6 text-center text-xs mt-auto">
-        <p>&copy; 2026 tnclassroom.com | A Professional Learning Platform for Students & Teachers</p>
+        <p>&copy; 2026 tnclassroom.com | A Professional Learning Platform for Students &amp; Teachers</p>
     </footer>
 
     <!-- FIREBASE CORE MODULE INITIALIZER -->
@@ -422,7 +344,6 @@
 
     <!-- ENGINE SCRIPTS MATRIX -->
     <script>
-        // Data storage map matrix for regulatory site text guidelines
         const COMPLIANCE_REGULATORY_MAP = {
             privacy: {
                 title: "Privacy Policy",
@@ -436,14 +357,6 @@
                     <div>
                         <h4 class="font-black text-slate-900 mb-1 uppercase tracking-tight text-xs">Cookies and Web Beacons</h4>
                         <p>Like any other website, tnclassroom uses 'cookies'. These cookies are used to store information including visitors' preferences, and the pages on the website that the visitor accessed or visited.</p>
-                    </div>
-                    <div>
-                        <h4 class="font-black text-slate-900 mb-1 uppercase tracking-tight text-xs">Google DoubleClick DART Cookie</h4>
-                        <p>Google is one of a third-party vendor on our site. It also uses cookies, known as DART cookies, to serve ads to our site visitors based upon their visit to www.tnclassroom.com and other sites on the internet.</p>
-                    </div>
-                    <div>
-                        <h4 class="font-black text-slate-900 mb-1 uppercase tracking-tight text-xs">Our Advertising Partners</h4>
-                        <p>Some of the advertisers on our site may use cookies and web beacons. Our advertising partners include <span class="font-bold text-slate-800">Google AdSense</span>. These third-party ad servers use technology that sends ads and links directly to your browser.</p>
                     </div>
                 `
             },
@@ -461,7 +374,6 @@
                             <li>Psychology and Pedagogy continuous development teaching sessions</li>
                         </ul>
                     </div>
-                    <p>As active educators, we deeply understand the challenges of locating well-organized study tracks. tnclassroom is engineered from the ground up to completely bridge that operational gap, offering clearly structured lessons, video tutorials, and free interactive practice tests to help every learner succeed.</p>
                 `
             },
             contact: {
@@ -488,7 +400,6 @@
                 html: `
                     <p>All the information on this website - <span class="font-semibold text-slate-800">www.tnclassroom.com</span> - is published in good faith and for general information purposes only. The tnclassroom platform does not make any warranties about the completeness, reliability, and accuracy of this data layer.</p>
                     <p class="font-semibold text-slate-800">Any action you take upon the information you discover on this website is strictly at your own operational risk. The tnclassroom team will not be held liable for any losses and/or damages in connection with website usage traces.</p>
-                    <p>From our console matrix, you can visit other external websites by following hyperlinks. While we strive to maintain only high-quality link pointers to useful, ethical sites, we exercise absolutely no direct layout controls over the shifting content and nature of these external properties.</p>
                 `
             }
         };
