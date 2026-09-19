@@ -9,26 +9,24 @@
     <script src="/tailwind.js"></script>
     <link rel="stylesheet" href="/fontawesome.css">
 
-
-
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-MZZ985WL51"></script>
     <script>
-      window.dataLayer = window.location.hostname === 'localhost' ? [] : (window.dataLayer || []);
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+    window.dataLayer = window.location.hostname === 'localhost' ? [] : (window.dataLayer || []);
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-      gtag('config', 'G-MZZ985WL51', {
+    gtag('config', 'G-MZZ985WL51', {
         page_path: window.location.pathname,
         cookie_flags: 'max-age=7200;Secure;SameSite=None'
-      });
+    });
     </script>
 
     <!-- [tet-adsense] Optimized Asynchronous MathJax configuration for modal reader -->
     <script>
-      window.MathJax = {
+    window.MathJax = {
         tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], processEscapes: true },
         options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
-      };
+    };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
@@ -45,7 +43,7 @@
 
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
 
-       <!-- HEADER BLOCK WITH AUTH PROFILE STATUS -->
+        <!-- [tet-payment] HEADER BLOCK WITH GOOGLE AUTH PROFILE & PLAN STATUS -->
         <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
                 <h1 class="text-2xl font-black text-slate-900 sm:text-3xl flex items-center gap-2">
@@ -57,7 +55,7 @@
                 </p>
             </div>
 
-            <!-- Dynamic Google Login & Subscriber Status Widget -->
+            <!-- Dynamic Google Login & Subscription Badge -->
             <div id="auth-container" class="shrink-0 flex items-center">
                 <!-- State 1: Signed Out -->
                 <button id="btn-login" onclick="handleGoogleSignIn()" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-purple-700 hover:bg-purple-800 text-white rounded-xl text-xs font-bold transition shadow-sm cursor-pointer">
@@ -65,7 +63,7 @@
                     <span>Sign In</span>
                 </button>
 
-                <!-- State 2: Signed In (Hidden initially until verified) -->
+                <!-- State 2: Signed In User Badge -->
                 <div id="user-profile-badge" class="hidden items-center gap-2.5 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-xl">
                     <div class="flex flex-col text-left">
                         <span id="user-display-name" class="text-xs font-bold text-slate-800 leading-tight">Candidate</span>
@@ -78,7 +76,7 @@
             </div>
         </div>
 
-     <!-- CONDENSED TNTET PSYCHOLOGY OVERVIEW BLOCK -->
+        <!-- CONDENSED TNTET PSYCHOLOGY OVERVIEW BLOCK -->
         <article class="bg-white border border-slate-100 rounded-2xl p-5 sm:p-6 shadow-sm space-y-3 select-text text-slate-600 leading-relaxed text-xs sm:text-sm">
             <div class="flex items-center gap-2 font-black uppercase tracking-wider text-purple-600 text-xs">
                 <i class="fa-solid fa-graduation-cap"></i>
@@ -110,7 +108,7 @@
             <div id="category-tabs-container" class="flex flex-wrap gap-2"></div>
         </div>
 
-        <!-- [tet-adsense] SESSIONS CARD DECK (STABILIZED WITH min-h-[600px] FOR CLS COMPLIANCE) -->
+        <!-- SESSIONS CARD DECK -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 min-h-[600px] content-start" id="sessions-master-deck">
             <div class="col-span-full text-center py-16 text-slate-400 font-medium text-xs bg-white border border-slate-100 rounded-2xl shadow-sm h-fit">
                 <i class="fa-solid fa-circle-notch fa-spin text-purple-500 mr-1.5"></i> Mapping educational database tracks...
@@ -118,7 +116,43 @@
         </div>
     </main>
 
-    <!-- [tet-adsense] TOAST NOTIFICATION CONTAINER (NON-BLOCKING SHARE FEEDBACK) -->
+    <!-- [tet-payment] PAYWALL SUBSCRIPTION MODAL -->
+    <div id="paywall-modal" class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl border border-slate-100">
+            <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center mx-auto text-xl border border-amber-100">
+                <i class="fa-solid fa-crown"></i>
+            </div>
+            <div>
+                <h3 class="font-black text-slate-900 text-lg">TNTET Premium Access</h3>
+                <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+                    Session 1 is free for all candidates. Subscribe to unlock interactive practice tests, bilingual notes, and answer keys for all remaining sessions.
+                </p>
+            </div>
+
+            <div class="bg-slate-50 p-3.5 rounded-2xl border border-slate-100 text-left space-y-1.5 text-xs text-slate-600">
+                <div class="flex items-center gap-2 font-bold text-slate-800">
+                    <i class="fa-solid fa-circle-check text-emerald-500"></i> All Sessions Unlocked (2 to 20+)
+                </div>
+                <div class="flex items-center gap-2 font-bold text-slate-800">
+                    <i class="fa-solid fa-circle-check text-emerald-500"></i> Full Test Answer Keys & Explanations
+                </div>
+                <div class="flex items-center gap-2 font-bold text-slate-800">
+                    <i class="fa-solid fa-circle-check text-emerald-500"></i> Synchronized on Web & Android App
+                </div>
+            </div>
+
+            <div class="space-y-2 pt-2">
+                <button onclick="alert('Contact administrator or proceed with online checkout to activate PRO.')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold py-3.5 rounded-xl text-xs uppercase tracking-wider shadow-md transition">
+                    Subscribe Now
+                </button>
+                <button onclick="document.getElementById('paywall-modal').classList.add('hidden')" class="text-xs text-slate-400 font-bold hover:underline">
+                    Continue with Free Session
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
     <div id="toast-notification" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-2xl border border-slate-700 flex items-center gap-2.5 text-xs font-bold transition-all duration-300 pointer-events-none opacity-0 translate-y-4">
         <i class="fa-solid fa-circle-check text-purple-400 text-sm"></i>
         <span id="toast-msg">Link copied to clipboard!</span>
@@ -169,13 +203,160 @@
         <p>&copy; 2026 tnclassroom.com | A Professional Learning Platform for Students & Teachers</p>
     </footer>
 
+    <!-- [tet-payment] RESILIENT FIREBASE AUTH (WEBVIEW COMPATIBLE) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import {
+            getAuth,
+            GoogleAuthProvider,
+            signInWithPopup,
+            signInWithRedirect,
+            getRedirectResult,
+            setPersistence,
+            browserLocalPersistence,
+            signOut,
+            onAuthStateChanged
+        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBW92t7GWAf6vIHdJ83n7Nz7Io3y2GArVw",
+            authDomain: "tnclassroom-mcq-new.firebaseapp.com",
+            projectId: "tnclassroom-mcq-new",
+            storageBucket: "tnclassroom-mcq-new.firebasestorage.app",
+            messagingSenderId: "808928665241",
+            appId: "1:808928665241:web:5a8a9e3f4ee5b885c9a208",
+            measurementId: "G-L059C061EY"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+        provider.setCustomParameters({ prompt: 'select_account' });
+
+        // Ensure persistence is stored locally for app life
+        setPersistence(auth, browserLocalPersistence).catch(() => {});
+
+        window.currentUserPaidStatus = false;
+        window.currentAuthUser = null;
+
+        // Detect if loaded inside an Android WebView container
+        const isAndroidWebView = /Android.*(wv|\.0\.0\.0)/.test(navigator.userAgent) ||
+                                 (window.innerWidth <= 768 && /Android/.test(navigator.userAgent));
+
+        // Process return from redirect authentication (for WebViews)
+        getRedirectResult(auth)
+            .then((result) => {
+                if (result && result.user) {
+                    console.log("Redirect login successful:", result.user.email);
+                }
+            })
+            .catch((err) => {
+                console.error("Redirect resolution error:", err);
+            });
+
+        // [tet-payment] Unified Sign-In Handler
+        window.handleGoogleSignIn = async () => {
+            try {
+                if (isAndroidWebView) {
+                    // Avoid 400 Bad Request by using in-page redirection inside WebView
+                    await signInWithRedirect(auth, provider);
+                } else {
+                    // Standard desktop/mobile browser popup
+                    await signInWithPopup(auth, provider);
+                }
+            } catch (err) {
+                console.warn("Standard sign-in failed, trying redirect fallback:", err);
+                try {
+                    await signInWithRedirect(auth, provider);
+                } catch (fallbackErr) {
+                    alert("Sign-in issue: " + fallbackErr.message);
+                }
+            }
+        };
+
+        // [tet-payment] Sign-Out Action
+        window.handleSignOut = async () => {
+            await signOut(auth);
+        };
+
+        // [tet-payment] Auth State Observer & Auto Firestore User Creation
+        onAuthStateChanged(auth, async (user) => {
+            const loginBtn = document.getElementById("btn-login");
+            const profileBadge = document.getElementById("user-profile-badge");
+            const nameLabel = document.getElementById("user-display-name");
+            const planBadge = document.getElementById("user-plan-badge");
+
+            if (user) {
+                window.currentAuthUser = user;
+                if (loginBtn) loginBtn.classList.add("hidden");
+                if (profileBadge) {
+                    profileBadge.classList.remove("hidden");
+                    profileBadge.classList.add("flex");
+                }
+                if (nameLabel) {
+                    nameLabel.innerText = (user.displayName || user.email || "Candidate").split(" ")[0];
+                }
+
+                try {
+                    const userRef = doc(db, "users", user.uid);
+                    let userDoc = await getDoc(userRef);
+
+                    // Auto-generate free user profile if missing
+                    if (!userDoc.exists()) {
+                        await setDoc(userRef, {
+                            uid: user.uid,
+                            displayName: user.displayName || "",
+                            email: user.email || "",
+                            isPaid: false,
+                            plan: "free",
+                            createdAt: new Date()
+                        });
+                        userDoc = await getDoc(userRef);
+                    }
+
+                    const data = userDoc.data();
+                    const expiry = data.subscriptionExpiresAt ? data.subscriptionExpiresAt.toDate() : null;
+                    const notExpired = !expiry || expiry > new Date();
+
+                    window.currentUserPaidStatus = (data.isPaid === true && notExpired);
+
+                    if (window.currentUserPaidStatus && planBadge) {
+                        planBadge.innerText = "PRO";
+                        planBadge.className = "text-[9px] font-black uppercase text-emerald-800 bg-emerald-100 px-1.5 py-0.5 rounded w-fit mt-0.5";
+                    } else if (planBadge) {
+                        planBadge.innerText = "FREE";
+                        planBadge.className = "text-[9px] font-black uppercase text-amber-700 bg-amber-100 px-1.5 py-0.5 rounded w-fit mt-0.5";
+                    }
+                } catch (err) {
+                    console.error("Firestore user sync error:", err);
+                    window.currentUserPaidStatus = false;
+                }
+            } else {
+                window.currentAuthUser = null;
+                window.currentUserPaidStatus = false;
+                if (loginBtn) loginBtn.classList.remove("hidden");
+                if (profileBadge) {
+                    profileBadge.classList.add("hidden");
+                    profileBadge.classList.remove("flex");
+                }
+            }
+
+            // Re-render deck cards dynamically based on paid status
+            if (typeof renderActiveSessionsDeck === "function") {
+                renderActiveSessionsDeck();
+            }
+        });
+    </script>
+
+    <!-- CORE PORTAL SCRIPTS -->
     <script>
         const DATABASE_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRxrNjhYpkr5ZNT3WvwWMS8kZLlzocCLiEFBJm68HanMXEfajPTWW9Aus26pAWTXQil2MWvtNUbYHS4/pub?gid=116569776&single=true&output=csv";
 
         let masterDatabaseRecords = [];
         let globallySelectedCategory = "ALL";
 
-        // [tet-adsense] Native Toast Dispatcher
         function showToast(message) {
             const toast = document.getElementById('toast-notification');
             const msg = document.getElementById('toast-msg');
@@ -208,7 +389,6 @@
             return lines;
         }
 
-        // [tet-adsense] Upgraded boot loader with resilient error recovery
         async function bootTntetPortal() {
             try {
                 const res = await fetch(DATABASE_CSV_URL);
@@ -263,7 +443,6 @@
             }
         }
 
-        // [tet-adsense] Resilient Fallback UI (AdSense and Crawler Shield)
         function renderFallbackDeck() {
             const deck = document.getElementById('sessions-master-deck');
             deck.innerHTML = `
@@ -359,24 +538,8 @@
             });
             renderActiveSessionsDeck();
         }
-        window.promptSubscription = (sessionName) => {
-            if (!window.currentAuthUser) {
-                alert(`Please sign in with Google to access ${sessionName}.`);
-                if (typeof window.handleGoogleSignIn === 'function') {
-                    window.handleGoogleSignIn();
-                }
-            } else {
-                // User is signed in but has not purchased a plan
-                const modal = document.getElementById('paywall-modal');
-                if (modal) {
-                    modal.classList.remove('hidden');
-                } else {
-                    alert(`${sessionName} is part of the TNTET Pro Plan. Please subscribe to unlock all sessions.`);
-                }
-            }
-        };
 
-        // Upgraded Session Deck with Session 1 Free + Session 2+ Paywall Check
+        // [tet-payment] PAYWALL GATED RENDERER: Session 1 Free, Session 2+ Gated
         function renderActiveSessionsDeck() {
             const deck = document.getElementById('sessions-master-deck');
             deck.innerHTML = "";
@@ -391,10 +554,9 @@
             }
 
             matchedRows.forEach(row => {
-                // Extract session number (e.g., "Session 1" -> 1, "Session 2" -> 2)
                 const sessionNum = parseInt(row.session.replace(/\D/g, '')) || 0;
 
-                // Session 1 is ALWAYS free; Session 2+ requires window.currentUserPaidStatus === true
+                // [tet-payment] Session 1 is free; Session 2+ unlocked only if user has an active PRO subscription
                 const isFreeSession = (sessionNum === 1);
                 const isUnlocked = isFreeSession || (window.currentUserPaidStatus === true);
 
@@ -461,7 +623,7 @@
                         </div>
                     </div>
 
-                    <!-- Bottom Action Launch CTA -->
+                    <!-- [tet-payment] Action Button (Launch MCQ or Paywall Prompt) -->
                     <div class="mt-4 pt-3 border-t border-slate-100">
                         ${isUnlocked ? (
                             hasMcq ? `
@@ -479,9 +641,40 @@
                 `;
                 deck.appendChild(card);
             });
+
+            const urlQueryStrings = new URLSearchParams(window.location.search);
+            const targetSession = urlQueryStrings.get('session');
+            if (targetSession) {
+                setTimeout(() => {
+                    const cards = document.querySelectorAll('#sessions-master-deck > div');
+                    for (let card of cards) {
+                        if (card.innerHTML.includes(targetSession)) {
+                            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            card.classList.add('border-purple-500', 'ring-2', 'ring-purple-200');
+                            break;
+                        }
+                    }
+                }, 300);
+            }
         }
 
-        // [tet-adsense] Non-blocking clipboard & Web Share function
+        // [tet-payment] Paywall modal & login prompt dispatcher
+        window.promptSubscription = (sessionName) => {
+            if (!window.currentAuthUser) {
+                alert(`Please sign in with Google to access ${sessionName}.`);
+                if (typeof window.handleGoogleSignIn === 'function') {
+                    window.handleGoogleSignIn();
+                }
+            } else {
+                const modal = document.getElementById('paywall-modal');
+                if (modal) {
+                    modal.classList.remove('hidden');
+                } else {
+                    alert(`${sessionName} is part of the TNTET Pro Plan. Please subscribe to unlock all sessions.`);
+                }
+            }
+        };
+
         function shareTopicCard(event, sessionNo, topicTitle, cardSubject) {
             event.stopPropagation();
             const formattedTitle = topicTitle.replace(/<br>/g, ' ').trim();
@@ -692,153 +885,5 @@
             bootTntetPortal();
         });
     </script>
-
-    <!-- FIREBASE AUTH & SUBSCRIPTION STATE MANAGER -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-        import {
-            getAuth,
-            GoogleAuthProvider,
-            signInWithPopup,
-            signOut,
-            onAuthStateChanged
-        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyBW92t7GWAf6vIHdJ83n7Nz7Io3y2GArVw",
-            authDomain: "tnclassroom-mcq-new.firebaseapp.com",
-            projectId: "tnclassroom-mcq-new",
-            storageBucket: "tnclassroom-mcq-new.firebasestorage.app",
-            messagingSenderId: "808928665241",
-            appId: "1:808928665241:web:5a8a9e3f4ee5b885c9a208",
-            measurementId: "G-L059C061EY"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const auth = getAuth(app);
-        const provider = new GoogleAuthProvider();
-
-        window.currentUserPaidStatus = false;
-        window.currentAuthUser = null;
-
-        // Sign In Action
-        window.handleGoogleSignIn = async () => {
-            try {
-                const result = await signInWithPopup(auth, provider);
-                const user = result.user;
-
-                // Create initial record if candidate has never signed in before
-                const userRef = doc(db, "users", user.uid);
-                const userSnap = await getDoc(userRef);
-                if (!userSnap.exists()) {
-                    await setDoc(userRef, {
-                        uid: user.uid,
-                        displayName: user.displayName || "Candidate",
-                        email: user.email,
-                        isPaid: false,
-                        plan: "free",
-                        createdAt: new Date()
-                    });
-                }
-            } catch (err) {
-                console.error("Sign-in issue:", err);
-                alert("Sign-in popup was cancelled or blocked. Please allow popups.");
-            }
-        };
-
-        // Sign Out Action
-        window.handleSignOut = async () => {
-            await signOut(auth);
-        };
-
-        // Watch Auth Changes & Check Subscription
-        onAuthStateChanged(auth, async (user) => {
-            const loginBtn = document.getElementById("btn-login");
-            const profileBadge = document.getElementById("user-profile-badge");
-            const nameLabel = document.getElementById("user-display-name");
-            const planBadge = document.getElementById("user-plan-badge");
-
-            if (user) {
-                window.currentAuthUser = user;
-                if (loginBtn) loginBtn.classList.add("hidden");
-                if (profileBadge) {
-                    profileBadge.classList.remove("hidden");
-                    profileBadge.classList.add("flex");
-                }
-                if (nameLabel) nameLabel.innerText = (user.displayName || "Candidate").split(" ")[0];
-
-                try {
-                    const userDoc = await getDoc(doc(db, "users", user.uid));
-                    if (userDoc.exists()) {
-                        const data = userDoc.data();
-                        const expiry = data.subscriptionExpiresAt ? data.subscriptionExpiresAt.toDate() : null;
-                        const notExpired = !expiry || expiry > new Date();
-
-                        window.currentUserPaidStatus = (data.isPaid === true && notExpired);
-
-                        if (window.currentUserPaidStatus && planBadge) {
-                            planBadge.innerText = "PRO";
-                            planBadge.className = "text-[9px] font-black uppercase text-emerald-800 bg-emerald-100 px-1.5 py-0.5 rounded w-fit mt-0.5";
-                        } else if (planBadge) {
-                            planBadge.innerText = "FREE";
-                            planBadge.className = "text-[9px] font-black uppercase text-amber-700 bg-amber-100 px-1.5 py-0.5 rounded w-fit mt-0.5";
-                        }
-                    }
-                } catch (e) {
-                    window.currentUserPaidStatus = false;
-                }
-            } else {
-                window.currentAuthUser = null;
-                window.currentUserPaidStatus = false;
-                if (loginBtn) loginBtn.classList.remove("hidden");
-                if (profileBadge) {
-                    profileBadge.classList.add("hidden");
-                    profileBadge.classList.remove("flex");
-                }
-            }
-
-            // Re-render session cards if already loaded
-            if (typeof renderActiveSessionsDeck === "function") {
-                renderActiveSessionsDeck();
-            }
-        });
-    </script>
-    <!-- PAYWALL MODAL -->
-    <div id="paywall-modal" class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white rounded-3xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl border border-slate-100">
-            <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center mx-auto text-xl border border-amber-100">
-                <i class="fa-solid fa-crown"></i>
-            </div>
-            <div>
-                <h3 class="font-black text-slate-900 text-lg">TNTET Premium Access</h3>
-                <p class="text-xs text-slate-500 mt-1 leading-relaxed">
-                    Session 1 is free for everyone. Unlock complete mock tests, psychological notes, and answer keys for all remaining sessions.
-                </p>
-            </div>
-
-            <div class="bg-slate-50 p-3.5 rounded-2xl border border-slate-100 text-left space-y-1.5 text-xs text-slate-600">
-                <div class="flex items-center gap-2 font-bold text-slate-800">
-                    <i class="fa-solid fa-circle-check text-emerald-500"></i> All Sessions Unlocked
-                </div>
-                <div class="flex items-center gap-2 font-bold text-slate-800">
-                    <i class="fa-solid fa-circle-check text-emerald-500"></i> Full Test Evaluations
-                </div>
-                <div class="flex items-center gap-2 font-bold text-slate-800">
-                    <i class="fa-solid fa-circle-check text-emerald-500"></i> Works on Web & Android App
-                </div>
-            </div>
-
-            <div class="space-y-2 pt-2">
-                <button onclick="alert('Connect your payment gateway or contact admin to activate.')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold py-3.5 rounded-xl text-xs uppercase tracking-wider shadow-md transition">
-                    Subscribe Now
-                </button>
-                <button onclick="document.getElementById('paywall-modal').classList.add('hidden')" class="text-xs text-slate-400 font-bold hover:underline">
-                    Continue with Free Session
-                </button>
-            </div>
-        </div>
-    </div>
 </body>
 </html>
