@@ -1,0 +1,97 @@
+**UNIT 12: ATOMIC STRUCTURE**  
+**அலகு 12: அணு அமைப்பு**  
+*Comprehensive Review for NMMS Examination*   
+---
+
+**1\. Dalton's Atomic Theory & Historical Development / டால்டனின் அணுக் கொள்கை & வரலாற்று வளர்ச்சி**  
+All matter is composed of extremely small, indivisible particles called atoms. The term 'atom' comes from the Greek word 'Atomas' ('A' \= cannot, 'tomas' \= cut or divide), proposed by Greek philosopher Democritus. In ancient Tamil literature, poet Avvaiyar described the infinite nature of atoms in Tirukkural as 'அணுவைத் துளைத்து ஏழ்கடலைப் புகட்டி' (piercing an atom and pouring seven seas into it). In 1808, John Dalton published the first scientific atomic theory.  
+அனைத்துப் பருப்பொருள்களும் 'அணு' எனப்படும் மிகச்சிறிய, பிரிக்க முடியாத துகள்களால் ஆனவை. 'அணு' என்ற சொல் 'Atomas' (A \= முடியாத, tomas \= உடைக்கக்கூடிய) என்ற கிரேக்கச் சொல்லிலிருந்து உருவானது என கிரேக்கத் தத்துவஞானி டெமாக்ரட்டீஸ் கூறினார். அவ்வையார் திருக்குறளின் பெருமையைக் கூறும் போது 'அணுவைத் துளைத்து ஏழ்கடலைப் புகட்டி குறுகத் தரித்த குறள்' எனக் குறிப்பிட்டுள்ளார். ஜான் டால்டன் 1808-ம் ஆண்டு தனது அறிவியல் பூர்வமான அணுக் கொள்கையை வெளியிட்டார்.
+
+| 📌 Postulates of Dalton's Atomic Theory / டால்டனின் அணுக் கொள்கையின் கருத்துகோள்கள்Postulates of Dalton's Atomic Theory (1808):1\. Matter consists of tiny indivisible particles called atoms.2\. Atoms of the same element are identical in all respects (size, shape, mass, properties).3\. Atoms of different elements differ in size, mass, and chemical properties.4\. Atoms can neither be created nor destroyed (indestructible).5\. Atoms of different elements combine in simple whole-number ratios to form compounds.6\. An atom is the smallest unit of matter that takes part in a chemical reaction.டால்டனின் அணுக் கொள்கையின் முக்கியக் கருத்துகோள்கள் (1808):1\. பொருட்கள் அனைத்தும் அணு எனப்படும் மிகச்சிறிய பிரிக்க முடியாத துகள்களால் ஆனவை.2\. ஒரே தனிமத்தின் அணுக்கள் அளவு, வடிவம், நிறை மற்றும் பண்புகளில் ஒத்திருக்கின்றன.3\. வெவ்வேறு தனிமங்களின் அணுக்கள் அளவு, நிறை மற்றும் பண்புகளில் வேறுபடுகின்றன.4\. அணுவை ஆக்கவோ அழிக்கவோ முடியாது (அழிக்க முடியாத துகள்).5\. வெவ்வேறு தனிமங்களின் அணுக்கள் குறிப்பிட்ட எளிய முழு எண் விகிதத்தில் ஒன்றிணைந்து சேர்மங்களை உருவாக்குகின்றன.6\. அணு என்பது வேதிவினையில் ஈடுபடக்கூடிய மிகச்சிறிய துகளாகும். |
+| :---- |
+
+**Merits and Limitations of Dalton's Theory / டால்டன் அணுக் கொள்கையின் சிறப்புகள் மற்றும் வரம்புகள்**
+
+| Aspect / அம்சம் | English Explanation | தமிழ் விளக்கம் |
+| :---- | :---- | :---- |
+| Merits(சிறப்புகள்) | Explains most properties of gases and liquids; successfully explains the Law of Conservation of Mass and Law of Constant Proportions; distinguishes between elements and compounds. | திரவங்கள் மற்றும் வாயுக்களின் பெரும்பாலான பண்புகளை விளக்குகிறது; பொருண்மை அழியா விதி மற்றும் மாறா விகித விதியை வெற்றிகரமாக விளக்குகிறது; தனிமங்கள் மற்றும் சேர்மங்களின் மூலக்கூறுகளுக்கு இடையே உள்ள வேறுபாட்டை எடுத்துரைக்கிறது.  |
+| Indivisibility Fallacy(அணுப் பிளவு தவறு) | Dalton claimed atoms are indivisible, which was proven incorrect after discovery of subatomic particles (electrons, protons, neutrons). | அணுவைப் பிளக்க முடியாது என்ற டால்டனின் கூற்று தவறு என எலக்ட்ரான், புரோட்டான், நியூட்ரான் போன்ற அடித் துகள்கள் கண்டறியப்பட்ட பின் நிரூபிக்கப்பட்டது. |
+| Isotopes Exception(ஐசோடோப்புகள் விளக்குதல்) | Atoms of the same element can have different atomic masses (e.g. Carbon-12 and Carbon-14 isotopes). | ஒரே தனிமத்தின் அணுக்கள் வெவ்வேறு அணு நிறைகளைப் பெற்றிருக்கலாம் (எ.கா. கார்பன்-12 மற்றும் கார்பன்-14 ஐசோடோப்புகள்). |
+| Isobars Exception(ஐசோபார்கள் விளக்குதல்) | Atoms of different elements can have the same atomic mass (e.g. Argon-40 and Calcium-40 isobars). | வெவ்வேறு தனிமங்களின் அணுக்கள் ஒரே அணு நிறையைக் கொண்டிருக்கலாம் (எ.கா. ஆர்கான்-40 மற்றும் கால்சியம்-40 ஐசோபார்கள்). |
+
+**2\. Discovery of Subatomic Particles & Discharge Tubes / அடிப்படைக் கூறுகள் மற்றும் மின்னிறக்கக் குழாய் ஆய்வுகள்**  
+In 1878, Sir William Crookes discovered that when high voltage electricity is passed through a gas at very low pressure inside a sealed glass tube (Crookes tube / Discharge tube), invisible glowing rays travel from cathode to anode. These rays were named Cathode Rays.  
+1878 ஆம் ஆண்டில் சர் வில்லியம் குரூக்ஸ் என்பவர் மின்னிறக்கக் குழாயினுள் (குரூக்ஸ் குழாய்) குறைந்த அழுத்தத்தில் உள்ள வாயுவின் வழியே உயர் மின்னழுத்தத்தைச் செலுத்தும் போது எதிர்மின்வாயிலிருந்து (கேத்தோடிலிருந்து) நேர்மின்வாயை (ஆனோடை) நோக்கிச் செல்லும் ஒளிரும் கதிர்களைக் கண்டறிந்தார். இவை கேத்தோட்டு கதிர்கள் என அழைக்கப்பட்டன.  
+**Properties of Subatomic Particles / அடிப்படைத் துகள்களின் பண்புகள்**
+
+| Particle / துகள் | Discoverer / கண்டறிந்தவர் | Charge / மின்சுமை | Mass / நிறை | Key Property / முக்கிய பண்பு |
+| :---- | :---- | :---- | :---- | :---- |
+| Electron (e⁻)எலக்ட்ரான் | J.J. Thomson (1897)J.J. தாம்சன் | \-1 unit(-1.6 × 10⁻¹⁹ C)எதிர்மின்சுமை | 9.1 × 10⁻²⁸ g(1/1837 of H mass) | Deflected towards positive plate in electric field; independent of gas nature in tube. |
+| Proton (p⁺)புரோட்டான் | E. Goldstein (1886)எ. கோல்ட்ஸ்டீன் | \+1 unit(+1.6 × 10⁻¹⁹ C)நேர்மின்சுமை | 1.6 × 10⁻²⁴ g(Equal to H atom mass) | Also called Canal/Anode rays; properties depend on gas inside discharge tube (H⁺ ion). |
+| Neutron (n⁰)நியூட்றான் | James Chadwick (1932)ஜேம்ஸ் சாட்விக் | 0 (Neutral)மின்சுமையற்றது | 1.6 × 10⁻²⁴ g(Equal to Proton mass) | Located inside nucleus; maintains nuclear stability with protons (\$A \= Z \+ n\$). |
+
+**3\. Thomson's Watermelon Atomic Model / தாம்சனின் தர்பூசணி அணு மாதிரி**  
+J.J. Thomson proposed the Watermelon model (Plum Pudding Model) in 1904\. He compared an atom to a sphere of positive charge in which negatively charged electrons are embedded like seeds in a watermelon pulp. Since total positive charge equals total negative charge of electrons, the atom as a whole is electrically neutral.  
+J.J. தாம்சன் 1904 இல் தர்பூசணி அணு மாதிரியை முன்மொழிந்தார். அவர் அணுவை நேர்மின்சுமை கொண்ட ஒரு கோளமாக உருவகித்தார், அதில் எதிர்மின்சுமை கொண்ட எலக்ட்ரான்கள் தர்பூசணிப் பழத்தின் சதைப்பகுதியில் விதைகள் பதிந்திருப்பது போல் பதிந்துள்ளன. மொத்த நேர்மின்சுமையும் எலக்ட்ரான்களின் மொத்த எதிர்மின்சுமைக்குச் சமமாக இருப்பதால், அணு ஒட்டுமொத்தமாக மின் நடுநிலைத் தன்மையைப் பெறுகிறது.
+
+| ⚠️ Limitations of Thomson's Model / தாம்சன் மாதிரியின் குறைபாடுகள்Limitations of Thomson's Atomic Model:1\. It failed to explain how the positive sphere holds negative electrons without mutual collapse due to electrostatic attraction.2\. It could not account for the nucleus and failed to explain Rutherford's alpha particle scattering experiment results.3\. It considered only protons and electrons, completely ignoring the existence of neutrons.தாம்சன் அணு மாதிரியின் வரம்புகள்:1\. நேர்மின்சுமை கொண்ட கோளம் எவ்வாறு எதிர்மின்சுமை கொண்ட எலக்ட்ரான்களை நிலைமின் ஈர்ப்பு விசையால் கவா்ந்து இழுக்காமல் சமநிலையில் வைத்துள்ளதை விளக்க முடியவில்லை.2\. இது உட்கருவின் இருப்பை விளக்கவில்லை மற்றும் ரூதர்போர்டின் ஆல்ஃபா துகள் சிதறல் சோதனையின் முடிவுகளை விளக்கத் தவறிவிட்டது.3\. இது புரோட்டான்கள் மற்றும் எலக்ட்ரான்களை மட்டுமே கருத்தில் கொண்டது, நியூட்ரான்களின் இருப்பைக் முற்றிலுமாகக் புறக்கணித்தது. |
+| :---- |
+
+**4\. Valency & Variable Valency Rules / இணைதிறன் & மாறுபடும் இணைதிறன் விதிகள்**  
+Valency is defined as the combining capacity of an atom of an element. According to Niels Bohr and Rutherford, electrons revolve in distinct circular orbits (shells) around the central positive nucleus. The outermost orbit is called the Valence Shell, and electrons in this shell are Valence Electrons. Valency represents the number of electrons lost, gained, or shared during a chemical reaction to achieve a stable octet (8) or duet (2) electronic configuration.  
+ஒரு தனிமத்தின் அணுவின் பிணைப்பும் திறனே அதன் இணைதிறன் என வரையறுக்கப்படுகிறது. நீல்ஸ் போர் மற்றும் ரூதர்போர்டு கொள்கைப்படி, எலக்ட்ரான்கள் உட்கருவைச் சுற்றி குறிப்பிட்ட வட்டப்பாதைகளில் (கூடுகளில்) சுற்றிவருகின்றன. கடைசி எலக்ட்ரான் கூடு இணைதிறன் கூடு எனப்படும், அதில் உள்ள எலக்ட்ரான்கள் இணைதிறன் எலக்ட்ரான்கள் எனப்படும். நிலைத்த எலக்ட்ரான் அமைப்பைப் பெற ஒரு அணுவால் ஏற்கப்பட்ட, இழக்கப்பட்ட அல்லது பகிரப்பட்ட எலக்ட்ரான்களின் எண்ணிக்கையே அதன் இணைதிறன் ஆகும்.  
+**Elements with Variable Valency / மாறுபடும் இணைதிறன் கொண்ட தனிமங்கள்**
+
+| Element / தனிமம் | Lower Valency (-ous) | Higher Valency (-ic) | Example Compounds / சேர்மங்கள் |
+| :---- | :---- | :---- | :---- |
+| Copper (Cu)தாமிரம் | Cu⁺ (Valency 1\)Cuprous / குப்ரஸ் | Cu²⁺ (Valency 2\)Cupric / குப்ரிக் | Cu₂O (Cuprous oxide)CuO (Cupric oxide) |
+| Iron (Fe)இரும்பு | Fe²⁺ (Valency 2\)Ferrous / பெர்ரஸ் | Fe³⁺ (Valency 3\)Ferric / பெர்ரிக் | FeCl₂ (Ferrous chloride)FeCl₃ (Ferric chloride) |
+| Mercury (Hg)பாதரசம் | Hg⁺ (Valency 1\)Mercurous / மெர்க்குரஸ் | Hg²⁺ (Valency 2\)Mercuric / மெர்க்குரிக் | Hg₂Cl₂ (Mercurous chloride)HgCl₂ (Mercuric chloride) |
+| Tin (Sn)ஈயம் / டின் | Sn²⁺ (Valency 2\)Stannous / ஸ்டேன்னஸ் | Sn⁴⁺ (Valency 4\)Stannic / ஸ்டேன்னிக் | SnCl₂ (Stannous chloride)SnCl₄ (Stannic chloride) |
+
+**5\. Ions and Radicals Master Reference Tables / அயனிகள் மற்றும் உருபுகள் அட்டவணை**  
+An atom or group of atoms carrying a positive charge (due to loss of electrons) is called a Cation (or basic radical). An atom or group of atoms carrying a negative charge (due to gain of electrons) is called an Anion (or acidic radical).  
+எலக்ட்ரான்களை இழந்து நேர்மின்சுமையைப் பெற்ற அணு அல்லது அணுக்களின் தொகுதி நேரயனி (கார உருபு) எனப்படும். எலக்ட்ரான்களை ஏற்று எதிர்மின்சுமையைப் பெற்ற அணு அல்லது அணுக்களின் தொகுதி எதிரயனி (அமில உருபு) எனப்படும்.  
+**Cations (Positive Ions) and Anions (Negative Ions) Classification / நேரயனிகள் மற்றும் எதிரயனிகளின் வகைப்பாடு**
+
+| Valency Type / வகை | Cations (நேரயனிகள்) | Anions (எதிரயனிகள்) |
+| :---- | :---- | :---- |
+| Monovalent (1)ஒற்றை இணைதிறன் | Sodium (Na⁺), Potassium (K⁺), Hydrogen (H⁺), Ammonium (NH₄⁺), Cuprous (Cu⁺), Silver (Ag⁺) | Chloride (Cl⁻), Fluoride (F⁻), Bromide (Br⁻), Hydroxide (OH⁻), Nitrate (NO₃⁻), Bicarbonate (HCO₃⁻) |
+| Divalent (2)இரட்டை இணைதிறன் | Magnesium (Mg²⁺), Calcium (Ca²⁺), Barium (Ba²⁺), Zinc (Zn²⁺), Ferrous (Fe²⁺), Cupric (Cu²⁺), Beryllium (Be²⁺) | Oxide (O²⁻), Sulphide (S²⁻), Sulphate (SO₄²⁻), Carbonate (CO₃²⁻), Dichromate (Cr₂O₇²⁻) |
+| Trivalent (3)மும்மை இணைதிறன் | Aluminium (Al³⁺), Ferric (Fe³⁺), Chromium (Cr³⁺) | Nitride (N³⁻), Phosphate (PO₄³⁻) |
+| Tetravalent (4)நான்கு இணைதிறன் | Stannic (Sn⁴⁺), Lead / Plumbic (Pb⁴⁺) | Carbide (C⁴⁻) |
+
+**6\. Writing Chemical Formulae & Naming Conventions / வேதியியல் வாய்ப்பாடு எழுதுதல் & பெயரிடும் முறைகள்**  
+A chemical formula is a short symbolic representation of a molecule of a compound. It shows the constituent elements and the exact number of atoms of each element present.  
+வேதியியல் வாய்ப்பாடு என்பது ஒரு சேர்மத்தின் மூலக்கூறை சுருக்கமாகக் குறிக்கும் குறியீட்டு முறையாகும். இது அச்சேர்மத்தில் உள்ள கூறுகள் மற்றும் ஒவ்வொரு தனிமத்தின் அணுக்களின் துல்லியமான எண்ணிக்கையைக் காட்டுகிறது.
+
+| 📌 Rules for Writing Molecular Formula (Criss-Cross Method) / வேதியியல் வாய்ப்பாடு எழுதும் குறுக்கு-பெருக்கல் விதிSteps for Criss-Cross Method (Writing Chemical Formula):• Step 1: Write symbols of Cation (positive) on left and Anion (negative) on right.• Step 2: Write valencies/charges of ions above their respective symbols.• Step 3: Criss-cross valency numbers (ignoring charge signs) to the bottom-right of opposite symbols.• Step 4: Simplify ratio if divisible by common factor (omit '1'). Wrap polyatomic ions in brackets if subscript \> 1\.Example 1: Calcium Chloride → Ca²⁺ Cl¹⁻ → Ca₁ Cl₂ → CaCl₂Example 2: Aluminium Sulphate → Al³⁺ SO₄²⁻ → Al₂ (SO₄)₃குறுக்கு-பெருக்கல் முறையில் வேதியியல் வாய்ப்பாடு எழுதும் படிகள்:• படி 1: நேரயனியின் குறியீட்டை இடதுபுறத்திலும், எதிரயனியின் குறியீட்டை வலதுபுறத்திலும் எழுதுக.• படி 2: அயனிகளின் இணைதிறன்/மின்சுமை எண்களைக் குறியீடுகளின் மேல் எழுதுக.• படி 3: இணைதிறன் எண்களைக் குறுக்காக மாற்றி எதிர்க் குறியீட்டின் வலது கீழ் மூலையில் எழுதுக.• படி 4: பொதுக் காரணியால் வகுத்துச் சுருக்குக ('1' ஐ தவிர்க்கவும்). பலஅணு உருபுகள் \> 1 எனில் அடைப்புக்குறியில் எழுதுக.உதாரணம் 1: கால்சியம் குளோரைடு → Ca²⁺ Cl¹⁻ → Ca₁ Cl₂ → CaCl₂உதாரணம் 2: அலுமினியம் சல்பேட் → Al³⁺ SO₄²⁻ → Al₂ (SO₄)₃ |
+| :---- |
+
+**Chemical Naming Conventions Rules / வேதிச் சேர்மங்களுக்குப் பெயரிடும் விதிகள்**
+
+| Rule Category / விதி வகை | English Rule & Example | தமிழ் விதி & உதாரணம் |
+| :---- | :---- | :---- |
+| Metal \+ Non-Metalஉலோகம் \+ அலோகம் | Metal name written first, followed by non-metal name with suffix '-ide'.E.g. NaCl \= Sodium chloride; AgBr \= Silver bromide; CaO \= Calcium oxide. | உலோகத்தின் பெயர் முதலிலும், அலோகத்தின் பெயர் '-ஐடு' (ide) என்ற பின்னொட்டுடனும் எழுதப்படும்.எ.கா. NaCl \= சோடியம் குளோரைடு; AgBr \= சில்வர் புரோமைடு. |
+| Metal \+ Non-Metal \+ Oxygenஉலோகம் \+ அலோகம் \+ ஆக்சிஜன் | Suffix '-ate' used for higher oxygen content, '-ite' for lower oxygen content.E.g. Na₂SO₄ \= Sodium sulphate (-ate); NaNO₂ \= Sodium nitrite (-ite). | அதிக ஆக்சிஜன் இருந்தால் '-ஏட்' (ate) பின்னொட்டும், குறைந்த ஆக்சிஜன் இருந்தால் '-ஐட்' (ite) பின்னொட்டும் சேர்க்கப்படும்.எ.கா. Na₂SO₄ \= சோடியம் சல்பேட்; NaNO₂ \= சோடியம் நைட்ரைட். |
+| Two Non-Metalsஇரண்டு அலோகங்கள் | Greek prefixes (mono-, di-, tri-, tetra-, penta-) indicate number of atoms.E.g. CO \= Carbon monoxide; SO₂ \= Sulphur dioxide; PCl₅ \= Phosphorus pentachloride; N₂O₅ \= Dinitrogen pentoxide. | கிரேக்க முன்னொட்டுகள் (மோனோ-, டை-, ட்ரை-, டெட்ரா-, பென்டா-) அணுக்களின் எண்ணிக்கையைக் குறிக்கச் சேர்க்கப்படும்.எ.கா. SO₂ \= சல்பர் டைஆக்சைடு; PCl₅ \= பாஸ்பரஸ் பென்டாகுளோரைடு. |
+
+**7\. Balancing Chemical Equations & Information Provided / வேதியியல் சமன்பாடு சமன் செய்தல் & தகவல்கள்**  
+A chemical equation is a shorthand symbolic representation of a chemical reaction using symbols and chemical formulae. Reactants are written on the left side, and Products are written on the right side of an arrow (→).  
+வேதியியல் சமன்பாடு என்பது குறியீடுகள் மற்றும் வாய்ப்பாடுகளைப் பயன்படுத்தி ஒரு வேதிவினையைக் குறிக்கும் எளிய முறையாகும். வினைகுறை/வினைபடு பொருள்கள் அம்புக்குறியின் (→) இடதுபுறத்திலும், வினைவிளை பொருள்கள் வலதுபுறத்திலும் எழுதப்படுகின்றன.
+
+| 📌 Rules & Example for Equation Balancing / சமன்பாடு சமன் செய்தல் விதிகள் & உதாரணம்Steps & Rules for Balancing Chemical Equations:1\. Write word equation and skeleton (unbalanced) equation.2\. Count the number of atoms of each element on both sides.3\. Balance elements occurring in smallest number of compounds first (metals first, then non-metals, then Hydrogen and Oxygen).4\. Multiply chemical formulae by stoichiometric coefficients (never change subscripts\!).5\. Use ↑ for gas evolution and ↓ for insoluble precipitate formation.Example: N₂ \+ 3H₂ → 2NH₃ (Haber Process for Ammonia synthesis)Check: Left side: N \= 2, H \= 6; Right side: N \= 2, H \= 6 (Balanced\!).வேதியியல் சமன்பாட்டை சமன் செய்வதற்கான விதிகள்:1\. வார்த்தை சமன்பாடு மற்றும் முற்றுப்பெறாத (சமன் செய்யப்படாத) வாய்ப்பாட்டு சமன்பாட்டை எழுதுக.2\. இருபுறமும் உள்ள ஒவ்வொரு தனிமத்தின் அணுக்களின் எண்ணிக்கையைக் கணக்கிடுக.3\. குறைந்த எண்ணிக்கையிலான சேர்மங்களில் வரும் தனிமங்களை முதலில் சமன் செய்க (முதலில் உலோகம், பின் அலோகம், இறுதியில் ஹைட்ரஜன் & ஆக்சிஜன்).4\. வாய்ப்பாட்டிற்கு முன்னால் எண்களை (குணகங்களை) பெருக்கி சமன் செய்க (கீழ் எண்களை மாற்றக்கூடாது\!).5\. வாயு வெளியேறினால் மேல்நோக்கிய அம்புக்குறியையும் (↑), வீழ்படிவு உருவானால் கீழ்நோக்கிய அம்புக்குறியையும் (↓) பயன்படுத்துக.உதாரணம்: N₂ \+ 3H₂ → 2NH₃ (அம்மோனியா தயாரிக்கும் ஹேபர் முறை)சரிபார்ப்பு: இடதுபுறம்: N \= 2, H \= 6; வலதுபுறம்: N \= 2, H \= 6 (சமன் செய்யப்பட்டது\!). |
+| :---- |
+
+**8\. Laws of Chemical Combination / வேதிச் சேர்க்கை விதிகள்**
+
+| Law Name / விதி | English Principle & Verification | தமிழ் கொள்கை & நிரூபணம் |
+| :---- | :---- | :---- |
+| Law of Conservation of Mass(பொருண்மை அழியா விதி)\- Antoine Lavoisier (1774) | Principle: During any physical or chemical change, total mass of products equals total mass of reactants. Mass can neither be created nor destroyed.Verification: Mixing Barium Chloride (5%) and Sodium Sulphate (5%) in a closed conical flask forms white precipitate of Barium Sulphate. Total mass before and after reaction remains identical. | கொள்கை: ஒரு இயற்பியல் அல்லது வேதியியல் மாற்றத்தின் போது உருவாகும் வினைவிளை பொருள்களின் மொத்த நிறை வினைபடு பொருள்களின் மொத்த நிறைக்குச் சமம். நிறையை ஆக்கவோ அழிக்கவோ முடியாது.நிரூபணம்: பேரியம் குளோரைடு மற்றும் சோடியம் சல்பேட் கரைசல்களை மூடப்பட்ட கூம்புப் குடுவையில் கலக்கும் போது பேரியம் சல்பேட் வீழ்படிவு உருவாகிறது. வினையின் முன்னும் பின்னும் மொத்த நிறை மாறாமல் உள்ளது. |
+| Law of Constant Proportions(மாறா விகித விதி)\- Joseph Proust (1779) | Principle: A pure chemical compound always contains the same elements combined together in a fixed, definite proportion by mass, irrespective of its source or method of preparation.Verification: Water (H₂O) from rain, well, river, or lab synthesis always contains Hydrogen and Oxygen in 1:8 mass ratio (2g H : 16g O \= 1:8). Ammonia (NH₃) always has N:H \= 14:3 mass ratio. | கொள்கை: ஒரு தூய வேதிச் சேர்மம் அது பெறப்படும் மூலம் அல்லது தயாரிப்பு முறையைப் பொருட்படுத்தாமல், எப்போதும் குறிப்பிட்ட மாறா நிறை விகிதத்தில் இணைக்கப்பட்ட அதே தனிமங்களைக் கொண்டிருக்கும்.நிரூபணம்: மழை, கிணறு, ஆறு அல்லது ஆய்வகத்தில் பெறப்பட்ட நீர் (H₂O) எப்போதும் ஹைட்ரஜன் மற்றும் ஆக்சிஜனை 1:8 நிறை விகிதத்தில் கொண்டுள்ளது (2g H : 16g O \= 1:8). அம்மோனியாவில் (NH₃) எப்போதும் N:H \= 14:3 நிறை விகிதம் உள்ளது. |
+
+**9\. NMMS Exam Strategy & High-Yield Calculations / NMMS தேர்வு உத்திகள் & வினா தீர்க்கும் வழிகாட்டி**
+
+| 💡 NMMS High-Yield Formulae & Problem Solving Rules / NMMS தேர்வில் அதிக மதிப்பெண் பெற சூத்திரங்கள் & குறிப்புகள்1\. Atomic Number (Z) & Mass Number (A) Calculations:   • Atomic Number (Z) \= Number of Protons \= Number of Electrons (in neutral atom).   • Mass Number (A) \= Protons (Z) \+ Neutrons (n).   • Number of Neutrons (n) \= Mass Number (A) \- Atomic Number (Z).   • Problem: Potassium has Z \= 19, A \= 39\. Find protons, electrons, and neutrons.   • Solution: Protons \= 19, Electrons \= 19, Neutrons \= 39 \- 19 \= 20\.2\. Valency & Formula Shortcuts:   • Metals (Group 1, 2, 3\) lost electrons → Valency \= Valence Electrons.   • Non-metals (Group 5, 6, 7\) gain electrons → Valency \= 8 \- Valence Electrons.   • Beryllium (Be) is Divalent (Valency \= 2); Carbon (C) is Tetravalent (Valency \= 4).3\. Matching Question & Elimination Strategy:   • Pair 1 confident item first (e.g. Crookes → Cathode rays; Chadwick → Neutron; Lavoisier → Mass conservation).   • Eliminate wrong options in the right-side option grid systematically.1\. அணு எண் (Z) மற்றும் நிறை எண் (A) கணக்கீடுகள்:   • அணு எண் (Z) \= புரோட்டான்களின் எண்ணிக்கை \= எலக்ட்ரான்களின் எண்ணிக்கை (மின் நடுநிலை அணுவில்).   • நிறை எண் (A) \= புரோட்டான்கள் (Z) \+ நியூட்ரான்கள் (n).   • நியூட்ரான்களின் எண்ணிக்கை (n) \= நிறை எண் (A) \- அணு எண் (Z).   • கணக்கீடு: பொட்டாசியத்தின் Z \= 19, A \= 39 எனில் புரோட்டான், எலக்ட்ரான், நியூட்ரான் காண்க.   • தீர்வு: புரோட்டான்கள் \= 19, எலக்ட்ரான்கள் \= 19, நியூட்ரான்கள் \= 39 \- 19 \= 20\.2\. இணைதிறன் & வாய்ப்பாட்டு எளிதான வழிகள்:   • உலோகங்கள் (தொகுதி 1, 2, 3\) எலக்ட்ரான்களை இழக்கும் → இணைதிறன் \= இணைதிறன் எலக்ட்ரான்கள்.   • அலோகங்கள் (தொகுதி 5, 6, 7\) எலக்ட்ரான்களை ஏற்கும் → இணைதிறன் \= 8 \- இணைதிறன் எலக்ட்ரான்கள்.   • பெரிலியம் (Be) இரட்டை இணைதிறன் (2); கார்பன் (C) நான்கு இணைதிறன் (4).3\. பொருத்துக வினாக்கள் நீக்கல் முறை உத்தி:   • உங்களுக்கு நன்கு தெரிந்த ஒரு இணையினை முதலில் பொருத்துக (எ.கா. குரூக்ஸ் → கேத்தோட்டு கதிர்கள்; சாட்விக் → நியூட்ரான்; லவாசியர் → பொருண்மை அழியா விதி).   • வலதுபுற விடைத் தேர்வுகளில் பொருந்தாத விடைகளை நீக்கிச் சரியான விடையைத் தேர்வு செய்க. |
+| :---- |
+
