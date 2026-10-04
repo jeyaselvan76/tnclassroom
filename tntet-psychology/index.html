@@ -116,36 +116,91 @@
         </div>
     </main>
 
-    <!-- [tet-payment] PAYWALL SUBSCRIPTION MODAL -->
+    <!-- [tet-payment] GPAY / UPI SUBSCRIPTION MODAL (₹545) -->
     <div id="paywall-modal" class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white rounded-3xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl border border-slate-100">
-            <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center mx-auto text-xl border border-amber-100">
-                <i class="fa-solid fa-crown"></i>
+        <div class="bg-white rounded-3xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl border border-slate-100 max-h-[90vh] overflow-y-auto">
+
+            <!-- Modal Header -->
+            <div class="flex justify-between items-center">
+                <span class="text-[10px] font-black uppercase text-purple-700 bg-purple-50 px-2.5 py-1 rounded-full border border-purple-100 flex items-center gap-1">
+                    <i class="fa-solid fa-crown text-amber-500"></i> TNTET Pro Subscription
+                </span>
+                <button onclick="closePaywallModal()" class="w-7 h-7 rounded-full bg-slate-50 hover:bg-slate-100 flex items-center justify-center text-slate-400 hover:text-slate-700 transition cursor-pointer">
+                    <i class="fa-solid fa-xmark text-xs"></i>
+                </button>
             </div>
+
             <div>
-                <h3 class="font-black text-slate-900 text-lg">TNTET Premium Access</h3>
+                <h3 class="font-black text-slate-900 text-lg">Unlock All Sessions</h3>
                 <p class="text-xs text-slate-500 mt-1 leading-relaxed">
-                    Session 1 is free for all candidates. Subscribe to unlock interactive practice tests, bilingual notes, and answer keys for all remaining sessions.
+                    Get full access to Sessions 2 to 20+, complete theoretical lecture notes, and interactive test keys.
                 </p>
             </div>
 
-            <div class="bg-slate-50 p-3.5 rounded-2xl border border-slate-100 text-left space-y-1.5 text-xs text-slate-600">
-                <div class="flex items-center gap-2 font-bold text-slate-800">
-                    <i class="fa-solid fa-circle-check text-emerald-500"></i> All Sessions Unlocked (2 to 20+)
+            <!-- Pricing Banner -->
+            <div class="bg-purple-50/70 border border-purple-100 rounded-2xl p-3.5 text-center">
+                <span class="text-xs font-bold text-slate-400 line-through">₹999</span>
+                <div class="text-2xl font-black text-purple-900 leading-tight">₹545 <span class="text-xs font-bold text-slate-500">/ Full Course</span></div>
+                <p class="text-[10px] font-bold text-emerald-700 mt-1">Complete Syllabus Access until TNTET Exam</p>
+            </div>
+
+            <!-- UPI QR & Details -->
+            <div class="space-y-3 bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                <span class="text-[10px] font-black text-slate-400 uppercase tracking-wider block">Scan with GPay or Any UPI App</span>
+
+                <div class="bg-white p-2 rounded-xl border border-slate-200 inline-block shadow-sm">
+                    <img id="gpay-qr-code"
+     src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=upi%3A%2F%2Fpay%3Fpa%3D9865456123%40axl%26pn%3DTN%20Classroom%26am%3D545%26cu%3DINR"
+     alt="GPay QR Code ₹545"
+     class="w-36 h-36 mx-auto">
                 </div>
-                <div class="flex items-center gap-2 font-bold text-slate-800">
-                    <i class="fa-solid fa-circle-check text-emerald-500"></i> Full Test Answer Keys & Explanations
-                </div>
-                <div class="flex items-center gap-2 font-bold text-slate-800">
-                    <i class="fa-solid fa-circle-check text-emerald-500"></i> Synchronized on Web & Android App
+
+                <!-- Copy UPI ID -->
+                <div class="flex items-center justify-between bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs">
+                    <div class="text-left font-mono font-bold text-slate-700 truncate mr-2" id="upi-id-label">
+                        9865456123@axl
+                    </div>
+                    <button onclick="copyUpiId()" class="text-purple-600 hover:text-purple-800 text-xs font-black shrink-0 cursor-pointer flex items-center gap-1">
+                        <i class="fa-regular fa-copy"></i> COPY
+                    </button>
                 </div>
             </div>
 
-            <div class="space-y-2 pt-2">
-                <button onclick="alert('Contact administrator or proceed with online checkout to activate PRO.')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold py-3.5 rounded-xl text-xs uppercase tracking-wider shadow-md transition">
-                    Subscribe Now
+            <!-- Candidate Mobile & Email Verification Form -->
+            <div class="bg-slate-50 p-3.5 rounded-2xl border border-slate-200 text-left space-y-2">
+                <div class="text-[11px] font-bold text-slate-500 flex items-center justify-between">
+                    <span>Candidate Email:</span>
+                    <span id="modal-user-email" class="font-mono text-purple-700 truncate max-w-[170px]">Not signed in</span>
+                </div>
+                <div>
+                    <label for="subscriber-mobile" class="block text-[11px] font-bold text-slate-700 mb-1">
+                        WhatsApp / Mobile Number *
+                    </label>
+                    <input type="tel"
+                           id="subscriber-mobile"
+                           maxlength="10"
+                           placeholder="10-digit mobile number"
+                           class="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-xs font-bold text-slate-800 outline-none focus:border-purple-600 transition">
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="space-y-2 pt-1">
+                <!-- Mobile / Android Direct Intent Trigger -->
+                <a id="btn-upi-intent"
+   href="upi://pay?pa=9865456123@axl&pn=TN%20Classroom&am=545&cu=INR&tn=TNTET%20Pro%20Subscription"
+   class="w-full bg-slate-900 hover:bg-slate-800 text-white font-extrabold py-3 rounded-xl text-xs uppercase tracking-wider shadow flex items-center justify-center gap-2 transition md:hidden">
+    <i class="fa-brands fa-google-pay text-lg text-amber-400"></i>
+    <span>Pay ₹545 via GPay / UPI App</span>
+</a>
+
+                <!-- WhatsApp Verification Trigger -->
+                <button onclick="sendWhatsAppConfirmation()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold py-3 rounded-xl text-xs uppercase tracking-wider shadow flex items-center justify-center gap-2 transition cursor-pointer">
+                    <i class="fa-brands fa-whatsapp text-sm"></i>
+                    <span>I Have Paid — Send Screenshot</span>
                 </button>
-                <button onclick="document.getElementById('paywall-modal').classList.add('hidden')" class="text-xs text-slate-400 font-bold hover:underline">
+
+                <button onclick="closePaywallModal()" class="text-xs text-slate-400 font-bold hover:underline cursor-pointer block w-full pt-1">
                     Continue with Free Session
                 </button>
             </div>
@@ -195,8 +250,9 @@
     <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-6 text-center text-xs mt-auto space-y-4">
         <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs font-bold text-slate-400">
             <a href="/about-us.html" class="hover:text-purple-400 transition">About Us</a>
+            <a href="/terms.html" class="hover:text-purple-400 transition">Terms &amp; Conditions</a>
             <a href="/privacy-policy.html" class="hover:text-purple-400 transition">Privacy Policy</a>
-            <a href="/disclaimer.html" class="hover:text-purple-400 transition">Disclaimer</a>
+            <a href="/refund-policy.html" class="hover:text-purple-400 transition">Refund Policy</a>
             <a href="/contact-us.html" class="hover:text-purple-400 transition">Contact Us</a>
         </nav>
 
@@ -235,17 +291,16 @@
         const provider = new GoogleAuthProvider();
         provider.setCustomParameters({ prompt: 'select_account' });
 
-        // Ensure persistence is stored locally for app life
         setPersistence(auth, browserLocalPersistence).catch(() => {});
 
+        // Expose db instance globally for payment confirmation functions
+        window.firebaseDb = db;
         window.currentUserPaidStatus = false;
         window.currentAuthUser = null;
 
-        // Detect if loaded inside an Android WebView container
         const isAndroidWebView = /Android.*(wv|\.0\.0\.0)/.test(navigator.userAgent) ||
                                  (window.innerWidth <= 768 && /Android/.test(navigator.userAgent));
 
-        // Process return from redirect authentication (for WebViews)
         getRedirectResult(auth)
             .then((result) => {
                 if (result && result.user) {
@@ -256,18 +311,15 @@
                 console.error("Redirect resolution error:", err);
             });
 
-        // [tet-payment] Unified Sign-In Handler
         window.handleGoogleSignIn = async () => {
             try {
                 if (isAndroidWebView) {
-                    // Avoid 400 Bad Request by using in-page redirection inside WebView
                     await signInWithRedirect(auth, provider);
                 } else {
-                    // Standard desktop/mobile browser popup
                     await signInWithPopup(auth, provider);
                 }
             } catch (err) {
-                console.warn("Standard sign-in failed, trying redirect fallback:", err);
+                console.warn("Standard sign-in fallback to redirect:", err);
                 try {
                     await signInWithRedirect(auth, provider);
                 } catch (fallbackErr) {
@@ -276,12 +328,10 @@
             }
         };
 
-        // [tet-payment] Sign-Out Action
         window.handleSignOut = async () => {
             await signOut(auth);
         };
 
-        // [tet-payment] Auth State Observer & Auto Firestore User Creation
         onAuthStateChanged(auth, async (user) => {
             const loginBtn = document.getElementById("btn-login");
             const profileBadge = document.getElementById("user-profile-badge");
@@ -299,11 +349,14 @@
                     nameLabel.innerText = (user.displayName || user.email || "Candidate").split(" ")[0];
                 }
 
+                // Sync email to paywall modal box if present
+                const modalEmail = document.getElementById("modal-user-email");
+                if (modalEmail) modalEmail.innerText = user.email || "Candidate";
+
                 try {
                     const userRef = doc(db, "users", user.uid);
                     let userDoc = await getDoc(userRef);
 
-                    // Auto-generate free user profile if missing
                     if (!userDoc.exists()) {
                         await setDoc(userRef, {
                             uid: user.uid,
@@ -341,18 +394,24 @@
                     profileBadge.classList.add("hidden");
                     profileBadge.classList.remove("flex");
                 }
+                const modalEmail = document.getElementById("modal-user-email");
+                if (modalEmail) modalEmail.innerText = "Not signed in";
             }
 
-            // Re-render deck cards dynamically based on paid status
             if (typeof renderActiveSessionsDeck === "function") {
                 renderActiveSessionsDeck();
             }
         });
     </script>
 
-    <!-- CORE PORTAL SCRIPTS -->
+    <!-- CORE PORTAL & GPAY SUBSCRIPTION SCRIPTS -->
     <script>
         const DATABASE_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRxrNjhYpkr5ZNT3WvwWMS8kZLlzocCLiEFBJm68HanMXEfajPTWW9Aus26pAWTXQil2MWvtNUbYHS4/pub?gid=116569776&single=true&output=csv";
+
+        // [tet-payment] Direct GPay / UPI Configuration (₹545)
+        const ADMIN_UPI_ID = "9865456123@axl";     // Change to your actual UPI handle if needed
+        const ADMIN_WHATSAPP = "919865456123";       // Replace with your real WhatsApp support phone (91 + 10 digits)
+        const SUBSCRIPTION_PRICE = 545;
 
         let masterDatabaseRecords = [];
         let globallySelectedCategory = "ALL";
@@ -371,6 +430,102 @@
                 toast.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
             }, 2800);
         }
+
+        window.closePaywallModal = () => {
+            const modal = document.getElementById('paywall-modal');
+            if (modal) modal.classList.add('hidden');
+        };
+
+        window.copyUpiId = () => {
+            navigator.clipboard.writeText(ADMIN_UPI_ID).then(() => {
+                showToast("UPI ID copied! Open GPay to pay ₹545.");
+            }).catch(() => {
+                showToast(`UPI ID: ${ADMIN_UPI_ID}`);
+            });
+        };
+
+        // [tet-payment] Record into Firestore and launch WhatsApp verification
+        window.sendWhatsAppConfirmation = async () => {
+            const mobileInput = document.getElementById("subscriber-mobile");
+            const mobileNumber = mobileInput ? mobileInput.value.trim() : "";
+
+            if (!/^[6-9]\d{9}$/.test(mobileNumber)) {
+                alert("Please enter a valid 10-digit mobile number.");
+                if (mobileInput) mobileInput.focus();
+                return;
+            }
+
+            if (!window.currentAuthUser) {
+                alert("Please sign in with Google first.");
+                if (typeof window.handleGoogleSignIn === 'function') {
+                    window.handleGoogleSignIn();
+                }
+                return;
+            }
+
+            const candidateUid = window.currentAuthUser.uid;
+            const candidateName = window.currentAuthUser.displayName || "Candidate";
+            const candidateEmail = window.currentAuthUser.email || "Not Provided";
+            const requestId = `sub_${candidateUid}_${Date.now()}`;
+
+            const btn = document.querySelector("#paywall-modal button[onclick*='sendWhatsAppConfirmation']");
+            if (btn) {
+                btn.disabled = true;
+                btn.innerText = "Saving Request...";
+            }
+
+            try {
+                // Dynamically import Firestore write utilities
+                const { doc, setDoc } = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js");
+                const db = window.firebaseDb;
+
+                // 1. Record subscription request for admin desk
+                await setDoc(doc(db, "subscription_requests", requestId), {
+                    requestId: requestId,
+                    uid: candidateUid,
+                    name: candidateName,
+                    email: candidateEmail,
+                    mobile: mobileNumber,
+                    amount: SUBSCRIPTION_PRICE,
+                    status: "pending",
+                    requestedAt: new Date()
+                });
+
+                // 2. Attach mobile number to the candidate profile
+                await setDoc(doc(db, "users", candidateUid), {
+                    mobile: mobileNumber
+                }, { merge: true });
+
+                showToast("Request recorded! Opening WhatsApp...");
+
+                // 3. Dispatch WhatsApp message template
+                const textMessage =
+`*TNTET PRO Subscription Request*
+----------------------------------
+*Name:* ${candidateName}
+*Mobile No:* ${mobileNumber}
+*Email ID:* ${candidateEmail}
+*Amount Paid:* ₹${SUBSCRIPTION_PRICE} (via GPay)
+*Request ID:* ${requestId}
+----------------------------------
+_I have attached my payment screenshot below. Please activate my PRO access._`;
+
+                const whatsappUrl = `https://wa.me/${ADMIN_WHATSAPP}?text=${encodeURIComponent(textMessage)}`;
+                window.open(whatsappUrl, "_blank");
+
+                closePaywallModal();
+            } catch (err) {
+                console.error("Firestore submission issue:", err);
+                // Fallback direct WhatsApp open even if database save encounters an issue
+                const textMessage = `*TNTET PRO Subscription Request*\nName: ${candidateName}\nMobile: ${mobileNumber}\nEmail: ${candidateEmail}\nAmount: ₹${SUBSCRIPTION_PRICE}\n(Payment screenshot attached below)`;
+                window.open(`https://wa.me/${ADMIN_WHATSAPP}?text=${encodeURIComponent(textMessage)}`, "_blank");
+            } finally {
+                if (btn) {
+                    btn.disabled = false;
+                    btn.innerHTML = `<i class="fa-brands fa-whatsapp text-sm"></i> <span>I Have Paid — Send Screenshot</span>`;
+                }
+            }
+        };
 
         function parseCsvRows(text) {
             let lines = []; let row = []; let cell = ''; let inQuotes = false;
@@ -539,7 +694,6 @@
             renderActiveSessionsDeck();
         }
 
-        // [tet-payment] PAYWALL GATED RENDERER: Session 1 Free, Session 2+ Gated
         function renderActiveSessionsDeck() {
             const deck = document.getElementById('sessions-master-deck');
             deck.innerHTML = "";
@@ -556,7 +710,6 @@
             matchedRows.forEach(row => {
                 const sessionNum = parseInt(row.session.replace(/\D/g, '')) || 0;
 
-                // [tet-payment] Session 1 is free; Session 2+ unlocked only if user has an active PRO subscription
                 const isFreeSession = (sessionNum === 1);
                 const isUnlocked = isFreeSession || (window.currentUserPaidStatus === true);
 
@@ -569,7 +722,6 @@
 
                 card.innerHTML = `
                     <div class="space-y-3">
-                        <!-- Top Badges & Share Trigger -->
                         <div class="flex justify-between items-center">
                             <div class="flex items-center gap-1.5">
                                 <span class="text-[10px] font-black tracking-wider uppercase font-mono ${isUnlocked ? 'text-purple-600 bg-purple-50 border-purple-100' : 'text-amber-700 bg-amber-50 border-amber-200'} border px-2 py-0.5 rounded">
@@ -591,7 +743,6 @@
                             </button>
                         </div>
 
-                        <!-- Central Avatar & Topic Title -->
                         <div class="flex items-start gap-3 pt-1 cursor-pointer" onclick="${isUnlocked ? `openMaterialModal('${row.pdfUrl}', '${row.topic.replace(/'/g, "\\'")}', '${row.session}')` : `promptSubscription('${row.session}')`}">
                             <div class="w-11 h-11 rounded-xl ${isUnlocked ? 'bg-purple-50 text-purple-600 group-hover:bg-purple-600' : 'bg-amber-50 text-amber-600 group-hover:bg-amber-600'} border border-slate-200/40 flex items-center justify-center font-bold text-lg shrink-0 group-hover:text-white transition-colors duration-200 shadow-sm">
                                 <i class="${isUnlocked ? 'fa-solid fa-book-open' : 'fa-solid fa-lock'}"></i>
@@ -603,7 +754,6 @@
                             </div>
                         </div>
 
-                        <!-- Direct Link Action Rows -->
                         <div class="pt-2 space-y-1.5 border-t border-slate-100">
                             ${isUnlocked ? `
                             <button onclick="openMaterialModal('${row.pdfUrl}', '${row.topic.replace(/'/g, "\\'")}', '${row.session}')" class="flex items-center gap-2 text-xs font-bold text-slate-600 hover:text-purple-600 transition text-left w-full cursor-pointer py-1">
@@ -623,7 +773,6 @@
                         </div>
                     </div>
 
-                    <!-- [tet-payment] Action Button (Launch MCQ or Paywall Prompt) -->
                     <div class="mt-4 pt-3 border-t border-slate-100">
                         ${isUnlocked ? (
                             hasMcq ? `
@@ -658,7 +807,6 @@
             }
         }
 
-        // [tet-payment] Paywall modal & login prompt dispatcher
         window.promptSubscription = (sessionName) => {
             if (!window.currentAuthUser) {
                 alert(`Please sign in with Google to access ${sessionName}.`);
@@ -667,11 +815,9 @@
                 }
             } else {
                 const modal = document.getElementById('paywall-modal');
-                if (modal) {
-                    modal.classList.remove('hidden');
-                } else {
-                    alert(`${sessionName} is part of the TNTET Pro Plan. Please subscribe to unlock all sessions.`);
-                }
+                const modalEmail = document.getElementById('modal-user-email');
+                if (modalEmail) modalEmail.innerText = window.currentAuthUser.email || "Candidate";
+                if (modal) modal.classList.remove('hidden');
             }
         };
 
