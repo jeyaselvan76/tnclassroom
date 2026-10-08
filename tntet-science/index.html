@@ -375,167 +375,170 @@
         <p>&copy; 2026 tnclassroom.com | A Professional Learning Platform for Students &amp; Teachers</p>
     </footer>
 
-    <!-- [paywall1] RESILIENT FIREBASE AUTH (MOBILE-OPTIMIZED WITH INDEXEDDB PERSISTENCE) -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-        import {
-            getAuth,
-            GoogleAuthProvider,
-            signInWithPopup,
-            signInWithRedirect,
-            getRedirectResult,
-            setPersistence,
-            browserLocalPersistence,
-            indexedDBLocalPersistence,
-            signOut,
-            onAuthStateChanged
-        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+ <!-- RESILIENT FIREBASE AUTH (MOBILE POPUP FIRST + INDEXEDDB PERSISTENCE) -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import {
+        getAuth,
+        GoogleAuthProvider,
+        signInWithPopup,
+        signInWithRedirect,
+        getRedirectResult,
+        setPersistence,
+        indexedDBLocalPersistence,
+        browserLocalPersistence,
+        signOut,
+        onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyBW92t7GWAf6vIHdJ83n7Nz7Io3y2GArVw",
-            authDomain: "tnclassroom-mcq-new.firebaseapp.com",
-            projectId: "tnclassroom-mcq-new",
-            storageBucket: "tnclassroom-mcq-new.firebasestorage.app",
-            messagingSenderId: "808928665241",
-            appId: "1:808928665241:web:5a8a9e3f4ee5b885c9a208",
-            measurementId: "G-L059C061EY"
-        };
+    const firebaseConfig = {
+        apiKey: "AIzaSyBW92t7GWAf6vIHdJ83n7Nz7Io3y2GArVw",
+        authDomain: "tnclassroom-mcq-new.firebaseapp.com",
+        projectId: "tnclassroom-mcq-new",
+        storageBucket: "tnclassroom-mcq-new.firebasestorage.app",
+        messagingSenderId: "808928665241",
+        appId: "1:808928665241:web:5a8a9e3f4ee5b885c9a208",
+        measurementId: "G-L059C061EY"
+    };
 
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const auth = getAuth(app);
-        const provider = new GoogleAuthProvider();
-        provider.setCustomParameters({ prompt: 'select_account' });
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+    provider.setCustomParameters({ prompt: 'select_account' });
 
-        // Enable IndexedDB first for resilient mobile storage across redirects
-        setPersistence(auth, indexedDBLocalPersistence).catch(() => {
-            setPersistence(auth, browserLocalPersistence).catch(() => {});
+    // Enable IndexedDB first so mobile browsers retain user credentials across tabs/reloads
+    setPersistence(auth, indexedDBLocalPersistence).catch(() => {
+        setPersistence(auth, browserLocalPersistence).catch(() => {});
+    });
+
+    window.firebaseDb = db;
+    window.currentUserPaidStatus = false;
+    window.currentAuthUser = null;
+
+    // Handle any redirect results if fallback was used
+    getRedirectResult(auth)
+        .then(async (result) => {
+            if (result && result.user) {
+                await syncUserProfile(result.user);
+            }
+        })
+        .catch((err) => {
+            console.warn("Redirect auth info:", err.message);
         });
 
-        window.firebaseDb = db;
-        window.currentUserPaidStatus = false;
-        window.currentAuthUser = null;
-
-        const isMobileDevice = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || window.innerWidth <= 768;
-
-        // Catch redirect login return immediately on mobile
-        getRedirectResult(auth)
-            .then(async (result) => {
-                if (result && result.user) {
-                    await syncUserProfile(result.user);
-                }
-            })
-            .catch((err) => {
-                console.error("Mobile redirect authentication error:", err);
-            });
-
-        window.handleGoogleSignIn = async () => {
-            try {
-                if (isMobileDevice) {
-                    await signInWithRedirect(auth, provider);
-                } else {
-                    await signInWithPopup(auth, provider);
-                }
-            } catch (err) {
+    // Mobile-optimized sign-in handler: Popup first, redirect fallback only if blocked
+    window.handleGoogleSignIn = async () => {
+        try {
+            const result = await signInWithPopup(auth, provider);
+            if (result && result.user) {
+                await syncUserProfile(result.user);
+            }
+        } catch (err) {
+            console.warn("Popup error, attempting redirect fallback:", err);
+            if (err.code === "auth/popup-blocked" || err.code === "auth/cancelled-popup-request") {
                 try {
                     await signInWithRedirect(auth, provider);
                 } catch (fallbackErr) {
                     alert("Sign-in issue: " + fallbackErr.message);
                 }
+            } else if (err.code !== "auth/popup-closed-by-user") {
+                alert("Sign-in issue: " + err.message);
             }
-        };
+        }
+    };
 
-        window.handleSignOut = async () => {
-            await signOut(auth);
-            window.location.reload();
-        };
+    window.handleSignOut = async () => {
+        await signOut(auth);
+        window.location.reload();
+    };
 
-        async function syncUserProfile(user) {
-            window.currentAuthUser = user;
+    async function syncUserProfile(user) {
+        window.currentAuthUser = user;
+        const loginBtn = document.getElementById("btn-login");
+        const profileBadge = document.getElementById("user-profile-badge");
+        const nameLabel = document.getElementById("user-display-name");
+        const planBadge = document.getElementById("user-plan-badge");
+        const modalEmail = document.getElementById("modal-user-email");
+
+        if (loginBtn) loginBtn.classList.add("hidden");
+        if (profileBadge) {
+            profileBadge.classList.remove("hidden");
+            profileBadge.classList.add("flex");
+        }
+        if (nameLabel) {
+            nameLabel.innerText = (user.displayName || user.email || "Candidate").split(" ")[0];
+        }
+        if (modalEmail) {
+            modalEmail.innerText = user.email || "Candidate";
+        }
+
+        try {
+            const userRef = doc(db, "users", user.uid);
+            let userDoc = await getDoc(userRef);
+
+            if (!userDoc.exists()) {
+                await setDoc(userRef, {
+                    uid: user.uid,
+                    displayName: user.displayName || "",
+                    email: user.email || "",
+                    isPaid: false,
+                    plan: "free",
+                    createdAt: new Date()
+                });
+                userDoc = await getDoc(userRef);
+            }
+
+            const data = userDoc.data();
+            const expiry = data.subscriptionExpiresAt ? data.subscriptionExpiresAt.toDate() : null;
+            const notExpired = !expiry || expiry > new Date();
+
+            window.currentUserPaidStatus = (data.isPaid === true && notExpired);
+
+            if (planBadge) {
+                if (window.currentUserPaidStatus) {
+                    planBadge.innerText = "PRO";
+                    planBadge.className = "text-[9px] font-black uppercase text-emerald-800 bg-emerald-100 px-1.5 py-0.5 rounded w-fit mt-0.5";
+                } else {
+                    planBadge.innerText = "FREE";
+                    planBadge.className = "text-[9px] font-black uppercase text-amber-700 bg-amber-100 px-1.5 py-0.5 rounded w-fit mt-0.5";
+                }
+            }
+        } catch (err) {
+            console.error("Firestore user sync error:", err);
+            window.currentUserPaidStatus = false;
+        }
+
+        // Re-render deck immediately so cards switch from locked to unlocked
+        if (typeof renderActiveSessionsDeck === "function") {
+            renderActiveSessionsDeck();
+        }
+    }
+
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            await syncUserProfile(user);
+        } else {
+            window.currentAuthUser = null;
+            window.currentUserPaidStatus = false;
             const loginBtn = document.getElementById("btn-login");
             const profileBadge = document.getElementById("user-profile-badge");
-            const nameLabel = document.getElementById("user-display-name");
-            const planBadge = document.getElementById("user-plan-badge");
             const modalEmail = document.getElementById("modal-user-email");
 
-            if (loginBtn) loginBtn.classList.add("hidden");
+            if (loginBtn) loginBtn.classList.remove("hidden");
             if (profileBadge) {
-                profileBadge.classList.remove("hidden");
-                profileBadge.classList.add("flex");
+                profileBadge.classList.add("hidden");
+                profileBadge.classList.remove("flex");
             }
-            if (nameLabel) {
-                nameLabel.innerText = (user.displayName || user.email || "Candidate").split(" ")[0];
-            }
-            if (modalEmail) {
-                modalEmail.innerText = user.email || "Candidate";
-            }
+            if (modalEmail) modalEmail.innerText = "Not signed in";
 
-            try {
-                const userRef = doc(db, "users", user.uid);
-                let userDoc = await getDoc(userRef);
-
-                if (!userDoc.exists()) {
-                    await setDoc(userRef, {
-                        uid: user.uid,
-                        displayName: user.displayName || "",
-                        email: user.email || "",
-                        isPaid: false,
-                        plan: "free",
-                        createdAt: new Date()
-                    });
-                    userDoc = await getDoc(userRef);
-                }
-
-                const data = userDoc.data();
-                const expiry = data.subscriptionExpiresAt ? data.subscriptionExpiresAt.toDate() : null;
-                const notExpired = !expiry || expiry > new Date();
-
-                window.currentUserPaidStatus = (data.isPaid === true && notExpired);
-
-                if (planBadge) {
-                    if (window.currentUserPaidStatus) {
-                        planBadge.innerText = "PRO";
-                        planBadge.className = "text-[9px] font-black uppercase text-emerald-800 bg-emerald-100 px-1.5 py-0.5 rounded w-fit mt-0.5";
-                    } else {
-                        planBadge.innerText = "FREE";
-                        planBadge.className = "text-[9px] font-black uppercase text-amber-700 bg-amber-100 px-1.5 py-0.5 rounded w-fit mt-0.5";
-                    }
-                }
-            } catch (err) {
-                console.error("Firestore user sync error:", err);
-                window.currentUserPaidStatus = false;
-            }
-
-            // Re-render card deck so locks turn into active buttons immediately
             if (typeof renderActiveSessionsDeck === "function") {
                 renderActiveSessionsDeck();
             }
         }
-
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                await syncUserProfile(user);
-            } else {
-                window.currentAuthUser = null;
-                window.currentUserPaidStatus = false;
-                const loginBtn = document.getElementById("btn-login");
-                const profileBadge = document.getElementById("user-profile-badge");
-                const modalEmail = document.getElementById("modal-user-email");
-
-                if (loginBtn) loginBtn.classList.remove("hidden");
-                if (profileBadge) {
-                    profileBadge.classList.add("hidden");
-                    profileBadge.classList.remove("flex");
-                }
-                if (modalEmail) modalEmail.innerText = "Not signed in";
-
-                if (typeof renderActiveSessionsDeck === "function") {
-                    renderActiveSessionsDeck();
-                }
-            }
-        });
-    </script>
+    });
+</script>
 
     <!-- CORE PORTAL, CSV PARSER & UNIFIED GPAY ACTIONS -->
     <script>
