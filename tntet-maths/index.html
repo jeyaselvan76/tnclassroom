@@ -3,35 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TNTET English Study Center | TN Classroom</title>
-    <meta name="description" content="TNTET English Grammar, Vocabulary, and Pedagogy study materials, notes, and interactive practice tests based on Samacheer Kalvi curriculum.">
+    <title>TNTET Mathematics Study Center | TN Classroom</title>
+    <meta name="description" content="TNTET Mathematics notes, formulas, step-by-step problem solving guides, and pedagogy practice tests based on Samacheer Kalvi curriculum.">
 
     <script src="/tailwind.js"></script>
     <link rel="stylesheet" href="/fontawesome.css">
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-MZZ985WL51"></script>
     <script>
-      window.dataLayer = window.location.hostname === 'localhost' ? [] : (window.dataLayer || []);
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+    window.dataLayer = window.location.hostname === 'localhost' ? [] : (window.dataLayer || []);
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-      gtag('config', 'G-MZZ985WL51', {
+    gtag('config', 'G-MZZ985WL51', {
         page_path: window.location.pathname,
         cookie_flags: 'max-age=7200;Secure;SameSite=None'
-      });
+    });
     </script>
 
-    <!-- Optimized Asynchronous MathJax configuration for modal reader -->
+    <!-- Asynchronous MathJax configuration for modal reader -->
     <script>
-      window.MathJax = {
+    window.MathJax = {
         tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], processEscapes: true },
         options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
-      };
+    };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
-        /* Blocks hidden desktop menus from hijacking user clicks on empty space */
         .dropdown-menu { z-index: 50 !important; pointer-events: none; }
         .dropdown-active { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; z-index: 50 !important; pointer-events: auto !important; }
         .tamil-fix { font-family: 'Segoe UI', 'Latha', 'Apple Tamil', sans-serif !important; }
@@ -47,18 +46,18 @@
         <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
                 <h1 class="text-2xl font-black text-slate-900 sm:text-3xl flex items-center gap-2">
-                    <span class="p-2 bg-indigo-50 text-indigo-600 rounded-xl"><i class="fa-solid fa-book-open"></i></span>
-                    TNTET English
+                    <span class="p-2 bg-rose-50 text-rose-600 rounded-xl"><i class="fa-solid fa-calculator"></i></span>
+                    TNTET Mathematics
                 </h1>
                 <p class="text-slate-500 text-sm mt-2 leading-relaxed max-w-3xl">
-                    Comprehensive study center for TNTET English Language, Grammar, and Pedagogy. Access structured lesson sessions, interactive MCQ evaluation tests, scanned resource folders, and video archives.
+                    Comprehensive study center for TNTET Mathematics covering Arithmetic, Algebra, Geometry, Statistics, and specialized Pedagogy. Access structured lesson sessions, interactive MCQ evaluation tests, scanned resource folders, and video archives.
                 </p>
             </div>
 
             <!-- Dynamic Google Login & Subscription Badge -->
             <div id="auth-container" class="shrink-0 flex items-center">
                 <!-- State 1: Signed Out -->
-                <button id="btn-login" onclick="handleGoogleSignIn()" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-indigo-700 hover:bg-indigo-800 text-white rounded-xl text-xs font-bold transition shadow-sm cursor-pointer">
+                <button id="btn-login" onclick="handleGoogleSignIn()" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-rose-700 hover:bg-rose-800 text-white rounded-xl text-xs font-bold transition shadow-sm cursor-pointer">
                     <i class="fa-brands fa-google text-sm"></i>
                     <span>Sign In</span>
                 </button>
@@ -76,25 +75,25 @@
             </div>
         </div>
 
-        <!-- CONDENSED TNTET ENGLISH OVERVIEW BLOCK -->
+        <!-- CONDENSED TNTET MATHEMATICS OVERVIEW BLOCK -->
         <article class="bg-white border border-slate-100 rounded-2xl p-5 sm:p-6 shadow-sm space-y-3 select-text text-slate-700 leading-relaxed text-xs sm:text-sm">
             <header class="border-b border-slate-100 pb-2">
-                <div class="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-lg mb-1">
-                    <i class="fa-solid fa-graduation-cap"></i> Note to TNTET Aspirants
+                <div class="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-rose-600 bg-rose-50 px-2.5 py-1 rounded-lg mb-1">
+                    <i class="fa-solid fa-graduation-cap"></i> Teacher Educator's Study Guide
                 </div>
                 <h2 class="text-lg sm:text-xl font-black text-slate-900 tracking-tight">
-                    Mastering TNTET English: A Practical Guide for Future Teachers
+                    Mastering TNTET Mathematics: Concept-Based Learning
                 </h2>
             </header>
             <p>
-                In both Paper 1 and Paper 2 of the Tamil Nadu Teacher Eligibility Test, English focuses on functional grammar, practical vocabulary, and core pedagogy from Classes 6 to 10 Samacheer Kalvi textbooks.
+                In both Paper 1 and Paper 2 of the Tamil Nadu Teacher Eligibility Test, Mathematics is a high-scoring subject where conceptual clarity guarantees top marks. TRB questions are designed strictly from Tamil Nadu State Board (Samacheer Kalvi) Class 6 to 10 textbooks combined with D.El.Ed/B.Ed pedagogy.
             </p>
         </article>
 
         <!-- CATEGORY FILTER BUTTONS -->
         <div class="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm space-y-3">
             <span class="text-xs font-extrabold text-slate-400 uppercase tracking-wider block">
-                <i class="fa-solid fa-layer-group text-indigo-600 mr-1"></i> Select Category / பிரிவு
+                <i class="fa-solid fa-layer-group text-rose-600 mr-1"></i> Select Category / பிரிவு
             </span>
             <div id="category-tabs-container" class="flex flex-wrap gap-2"></div>
         </div>
@@ -102,18 +101,18 @@
         <!-- SESSIONS CARD DECK -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 min-h-[600px] content-start" id="sessions-master-deck">
             <div class="col-span-full text-center py-16 text-slate-400 font-medium text-xs bg-white border border-slate-100 rounded-2xl shadow-sm h-fit">
-                <i class="fa-solid fa-circle-notch fa-spin text-indigo-500 mr-1.5"></i> Mapping educational database tracks...
+                <i class="fa-solid fa-circle-notch fa-spin text-rose-500 mr-1.5"></i> Mapping educational database tracks...
             </div>
         </div>
     </main>
 
-    <!-- UNIFIED GPAY / UPI SUBSCRIPTION MODAL (₹545 FOR ALL SUBJECTS) -->
+    <!-- [paywall1] UNIFIED GPAY / UPI SUBSCRIPTION MODAL (₹545 FOR ALL SUBJECTS) -->
     <div id="paywall-modal" class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-3xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl border border-slate-100 max-h-[90vh] overflow-y-auto">
 
             <!-- Modal Header -->
             <div class="flex justify-between items-center">
-                <span class="text-[10px] font-black uppercase text-indigo-800 bg-indigo-50 px-2.5 py-1 rounded-full border border-indigo-200 flex items-center gap-1">
+                <span class="text-[10px] font-black uppercase text-rose-800 bg-rose-50 px-2.5 py-1 rounded-full border border-rose-200 flex items-center gap-1">
                     <i class="fa-solid fa-crown text-amber-500"></i> TNTET All-Subject PRO Pass
                 </span>
                 <button onclick="closePaywallModal()" class="w-7 h-7 rounded-full bg-slate-50 hover:bg-slate-100 flex items-center justify-center text-slate-400 hover:text-slate-700 transition cursor-pointer">
@@ -124,14 +123,14 @@
             <div>
                 <h3 class="font-black text-slate-900 text-lg">முழுப் பாடப்பிரிவுகளையும் திறக்க</h3>
                 <p class="text-xs text-slate-500 mt-1 leading-relaxed">
-                    ஒரே ஒரு கட்டணத்தில் அனைத்து ஆங்கிலம் (English), உளவியல் (Psychology), தமிழ், கணிதம் மற்றும் அறிவியல் குறிப்புகளையும் ஆன்லைன் மாதிரித் தேர்வுகளையும் பெறுங்கள்.
+                    ஒரே ஒரு கட்டணத்தில் அனைத்து கணிதம் (Mathematics), உளவியல் (Psychology), தமிழ், ஆங்கிலம் மற்றும் அறிவியல் குறிப்புகளையும் ஆன்லைன் மாதிரித் தேர்வுகளையும் பெறுங்கள்.
                 </p>
             </div>
 
             <!-- Pricing Banner -->
-            <div class="bg-indigo-50/70 border border-indigo-200 rounded-2xl p-3.5 text-center">
+            <div class="bg-rose-50/70 border border-rose-200 rounded-2xl p-3.5 text-center">
                 <span class="text-xs font-bold text-slate-400 line-through">₹1,499</span>
-                <div class="text-2xl font-black text-indigo-900 leading-tight">₹545 <span class="text-xs font-bold text-slate-500">/ Complete Access</span></div>
+                <div class="text-2xl font-black text-rose-900 leading-tight">₹545 <span class="text-xs font-bold text-slate-500">/ Complete Access</span></div>
                 <p class="text-[10px] font-bold text-emerald-700 mt-1">Full Syllabus Unlocked Until TNTET Exam</p>
             </div>
 
@@ -151,7 +150,7 @@
                     <div class="text-left font-mono font-bold text-slate-700 truncate mr-2" id="upi-id-label">
                         9865456123@axl
                     </div>
-                    <button onclick="copyUpiId()" class="text-indigo-700 hover:text-indigo-900 text-xs font-black shrink-0 cursor-pointer flex items-center gap-1">
+                    <button onclick="copyUpiId()" class="text-rose-700 hover:text-rose-900 text-xs font-black shrink-0 cursor-pointer flex items-center gap-1">
                         <i class="fa-regular fa-copy"></i> COPY
                     </button>
                 </div>
@@ -161,7 +160,7 @@
             <div class="bg-slate-50 p-3.5 rounded-2xl border border-slate-200 text-left space-y-2">
                 <div class="text-[11px] font-bold text-slate-500 flex items-center justify-between">
                     <span>Candidate Email:</span>
-                    <span id="modal-user-email" class="font-mono text-indigo-800 truncate max-w-[170px]">Not signed in</span>
+                    <span id="modal-user-email" class="font-mono text-rose-800 truncate max-w-[170px]">Not signed in</span>
                 </div>
                 <div>
                     <label for="subscriber-mobile" class="block text-[11px] font-bold text-slate-700 mb-1">
@@ -171,12 +170,13 @@
                            id="subscriber-mobile"
                            maxlength="10"
                            placeholder="10-digit mobile number"
-                           class="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-xs font-bold text-slate-800 outline-none focus:border-indigo-600 transition">
+                           class="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-xs font-bold text-slate-800 outline-none focus:border-rose-600 transition">
                 </div>
             </div>
 
             <!-- Action Buttons -->
             <div class="space-y-2 pt-1">
+                <!-- Mobile / Android Direct Intent Trigger -->
                 <a id="btn-upi-intent"
                    href="upi://pay?pa=9865456123@axl&pn=TN%20Classroom&am=545&cu=INR&tn=TNTET%20All%20Subject%20PRO"
                    class="w-full bg-slate-900 hover:bg-slate-800 text-white font-extrabold py-3 rounded-xl text-xs uppercase tracking-wider shadow flex items-center justify-center gap-2 transition md:hidden">
@@ -184,6 +184,7 @@
                     <span>Pay ₹545 via GPay / UPI App</span>
                 </a>
 
+                <!-- WhatsApp Verification Trigger -->
                 <button onclick="sendWhatsAppConfirmation()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold py-3 rounded-xl text-xs uppercase tracking-wider shadow flex items-center justify-center gap-2 transition cursor-pointer">
                     <i class="fa-brands fa-whatsapp text-sm"></i>
                     <span>I Have Paid — Send Screenshot</span>
@@ -198,7 +199,7 @@
 
     <!-- TOAST NOTIFICATION CONTAINER -->
     <div id="toast-notification" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-2xl border border-slate-700 flex items-center gap-2.5 text-xs font-bold transition-all duration-300 pointer-events-none opacity-0 translate-y-4">
-        <i class="fa-solid fa-circle-check text-indigo-400 text-sm"></i>
+        <i class="fa-solid fa-circle-check text-rose-400 text-sm"></i>
         <span id="toast-msg">Link copied to clipboard!</span>
     </div>
 
@@ -208,7 +209,7 @@
 
             <div class="p-4 border-b border-slate-200/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-50" id="modal-header-container">
                 <div>
-                    <span id="modal-session-badge" class="text-[9px] font-black text-indigo-700 bg-indigo-50 border border-indigo-100 px-2 py-0.5 rounded uppercase tracking-wider">Session</span>
+                    <span id="modal-session-badge" class="text-[9px] font-black text-rose-700 bg-rose-50 border border-rose-100 px-2 py-0.5 rounded uppercase tracking-wider">Session</span>
                     <h2 id="modal-material-title" class="font-black text-slate-900 text-base tracking-tight mt-1 tamil-fix">Study Material Viewer</h2>
                 </div>
                 <div class="flex items-center gap-3 self-end sm:self-auto">
@@ -235,19 +236,19 @@
         </div>
     </div>
 
-    <!-- FOOTER LINKS -->
+    <!-- REGULATORY ADSENSE COMPLIANCE FOOTER LINKS -->
     <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-6 text-center text-xs mt-auto space-y-4">
         <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs font-bold text-slate-400">
-            <a href="/about-us.html" class="hover:text-indigo-400 transition">About Us</a>
-            <a href="/privacy-policy.html" class="hover:text-indigo-400 transition">Privacy Policy</a>
-            <a href="/disclaimer.html" class="hover:text-indigo-400 transition">Disclaimer</a>
-            <a href="/contact-us.html" class="hover:text-indigo-400 transition">Contact Us</a>
+            <a href="/about-us.html" class="hover:text-rose-400 transition">About Us</a>
+            <a href="/privacy-policy.html" class="hover:text-rose-400 transition">Privacy Policy</a>
+            <a href="/disclaimer.html" class="hover:text-rose-400 transition">Disclaimer</a>
+            <a href="/contact-us.html" class="hover:text-rose-400 transition">Contact Us</a>
         </nav>
 
         <p>&copy; 2026 tnclassroom.com | A Professional Learning Platform for Students &amp; Teachers</p>
     </footer>
 
-    <!-- FIREBASE AUTH & USER STATE SYNC -->
+    <!-- [paywall1] RESILIENT FIREBASE AUTH (MOBILE-OPTIMIZED WITH INDEXEDDB PERSISTENCE) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
@@ -259,6 +260,7 @@
             getRedirectResult,
             setPersistence,
             browserLocalPersistence,
+            indexedDBLocalPersistence,
             signOut,
             onAuthStateChanged
         } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
@@ -279,20 +281,31 @@
         const provider = new GoogleAuthProvider();
         provider.setCustomParameters({ prompt: 'select_account' });
 
-        setPersistence(auth, browserLocalPersistence).catch(() => {});
+        // Enable IndexedDB first for resilient mobile storage across redirects
+        setPersistence(auth, indexedDBLocalPersistence).catch(() => {
+            setPersistence(auth, browserLocalPersistence).catch(() => {});
+        });
 
         window.firebaseDb = db;
         window.currentUserPaidStatus = false;
         window.currentAuthUser = null;
 
-        const isAndroidWebView = /Android.*(wv|\.0\.0\.0)/.test(navigator.userAgent) ||
-                                 (window.innerWidth <= 768 && /Android/.test(navigator.userAgent));
+        const isMobileDevice = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || window.innerWidth <= 768;
 
-        getRedirectResult(auth).catch(() => {});
+        // Catch redirect login return immediately on mobile
+        getRedirectResult(auth)
+            .then(async (result) => {
+                if (result && result.user) {
+                    await syncUserProfile(result.user);
+                }
+            })
+            .catch((err) => {
+                console.error("Mobile redirect authentication error:", err);
+            });
 
         window.handleGoogleSignIn = async () => {
             try {
-                if (isAndroidWebView) {
+                if (isMobileDevice) {
                     await signInWithRedirect(auth, provider);
                 } else {
                     await signInWithPopup(auth, provider);
@@ -308,83 +321,98 @@
 
         window.handleSignOut = async () => {
             await signOut(auth);
+            window.location.reload();
         };
 
-        onAuthStateChanged(auth, async (user) => {
+        async function syncUserProfile(user) {
+            window.currentAuthUser = user;
             const loginBtn = document.getElementById("btn-login");
             const profileBadge = document.getElementById("user-profile-badge");
             const nameLabel = document.getElementById("user-display-name");
             const planBadge = document.getElementById("user-plan-badge");
+            const modalEmail = document.getElementById("modal-user-email");
 
-            if (user) {
-                window.currentAuthUser = user;
-                if (loginBtn) loginBtn.classList.add("hidden");
-                if (profileBadge) {
-                    profileBadge.classList.remove("hidden");
-                    profileBadge.classList.add("flex");
+            if (loginBtn) loginBtn.classList.add("hidden");
+            if (profileBadge) {
+                profileBadge.classList.remove("hidden");
+                profileBadge.classList.add("flex");
+            }
+            if (nameLabel) {
+                nameLabel.innerText = (user.displayName || user.email || "Candidate").split(" ")[0];
+            }
+            if (modalEmail) {
+                modalEmail.innerText = user.email || "Candidate";
+            }
+
+            try {
+                const userRef = doc(db, "users", user.uid);
+                let userDoc = await getDoc(userRef);
+
+                if (!userDoc.exists()) {
+                    await setDoc(userRef, {
+                        uid: user.uid,
+                        displayName: user.displayName || "",
+                        email: user.email || "",
+                        isPaid: false,
+                        plan: "free",
+                        createdAt: new Date()
+                    });
+                    userDoc = await getDoc(userRef);
                 }
-                if (nameLabel) {
-                    nameLabel.innerText = (user.displayName || user.email || "Candidate").split(" ")[0];
-                }
 
-                const modalEmail = document.getElementById("modal-user-email");
-                if (modalEmail) modalEmail.innerText = user.email || "Candidate";
+                const data = userDoc.data();
+                const expiry = data.subscriptionExpiresAt ? data.subscriptionExpiresAt.toDate() : null;
+                const notExpired = !expiry || expiry > new Date();
 
-                try {
-                    const userRef = doc(db, "users", user.uid);
-                    let userDoc = await getDoc(userRef);
+                window.currentUserPaidStatus = (data.isPaid === true && notExpired);
 
-                    if (!userDoc.exists()) {
-                        await setDoc(userRef, {
-                            uid: user.uid,
-                            displayName: user.displayName || "",
-                            email: user.email || "",
-                            isPaid: false,
-                            plan: "free",
-                            createdAt: new Date()
-                        });
-                        userDoc = await getDoc(userRef);
-                    }
-
-                    const data = userDoc.data();
-                    const expiry = data.subscriptionExpiresAt ? data.subscriptionExpiresAt.toDate() : null;
-                    const notExpired = !expiry || expiry > new Date();
-
-                    window.currentUserPaidStatus = (data.isPaid === true && notExpired);
-
-                    if (window.currentUserPaidStatus && planBadge) {
+                if (planBadge) {
+                    if (window.currentUserPaidStatus) {
                         planBadge.innerText = "PRO";
                         planBadge.className = "text-[9px] font-black uppercase text-emerald-800 bg-emerald-100 px-1.5 py-0.5 rounded w-fit mt-0.5";
-                    } else if (planBadge) {
+                    } else {
                         planBadge.innerText = "FREE";
                         planBadge.className = "text-[9px] font-black uppercase text-amber-700 bg-amber-100 px-1.5 py-0.5 rounded w-fit mt-0.5";
                     }
-                } catch (err) {
-                    console.error("Firestore user sync error:", err);
-                    window.currentUserPaidStatus = false;
                 }
+            } catch (err) {
+                console.error("Firestore user sync error:", err);
+                window.currentUserPaidStatus = false;
+            }
+
+            // Re-render card deck so locks turn into active buttons immediately
+            if (typeof renderActiveSessionsDeck === "function") {
+                renderActiveSessionsDeck();
+            }
+        }
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                await syncUserProfile(user);
             } else {
                 window.currentAuthUser = null;
                 window.currentUserPaidStatus = false;
+                const loginBtn = document.getElementById("btn-login");
+                const profileBadge = document.getElementById("user-profile-badge");
+                const modalEmail = document.getElementById("modal-user-email");
+
                 if (loginBtn) loginBtn.classList.remove("hidden");
                 if (profileBadge) {
-                    profileBadge.classList.remove("hidden");
-                    profileBadge.classList.add("flex");
+                    profileBadge.classList.add("hidden");
+                    profileBadge.classList.remove("flex");
                 }
-                const modalEmail = document.getElementById("modal-user-email");
                 if (modalEmail) modalEmail.innerText = "Not signed in";
-            }
 
-            // DYNAMICALLY RE-RENDER THE CARDS WHEN AUTH RESOLVES
-            if (typeof renderActiveSessionsDeck === "function") {
-                renderActiveSessionsDeck();
+                if (typeof renderActiveSessionsDeck === "function") {
+                    renderActiveSessionsDeck();
+                }
             }
         });
     </script>
 
     <!-- CORE PORTAL, CSV PARSER & UNIFIED GPAY ACTIONS -->
     <script>
-        const DATABASE_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRxrNjhYpkr5ZNT3WvwWMS8kZLlzocCLiEFBJm68HanMXEfajPTWW9Aus26pAWTXQil2MWvtNUbYHS4/pub?gid=1339356073&single=true&output=csv";
+        const DATABASE_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRxrNjhYpkr5ZNT3WvwWMS8kZLlzocCLiEFBJm68HanMXEfajPTWW9Aus26pAWTXQil2MWvtNUbYHS4/pub?gid=833390645&single=true&output=csv";
 
         const ADMIN_UPI_ID = "9865456123@axl";
         const ADMIN_WHATSAPP = "919865456123";
@@ -421,7 +449,6 @@
             });
         };
 
-        // Submit unified payment claim to Firestore & trigger WhatsApp dispatch
         window.sendWhatsAppConfirmation = async () => {
             const mobileInput = document.getElementById("subscriber-mobile");
             const mobileNumber = mobileInput ? mobileInput.value.trim() : "";
@@ -480,7 +507,7 @@
 *Mobile No:* ${mobileNumber}
 *Email ID:* ${candidateEmail}
 *Amount Paid:* ₹${SUBSCRIPTION_PRICE} (via GPay)
-*Access:* All Subjects (English, Mathematics, Science, Social Science, Psychology, Tamil)
+*Access:* All Subjects (Mathematics, Science, Social Science, Psychology, Tamil)
 *Request ID:* ${requestId}
 ----------------------------------
 _I have attached my payment screenshot below. Please activate my PRO access._`;
@@ -537,7 +564,7 @@ _I have attached my payment screenshot below. Please activate my PRO access._`;
                     let pdfPath   = cols[2] ? cols[2].replace(/^"|"$/g, '').replace(/^\.\//, '').trim() : '#';
                     let videoLink = cols[3] ? cols[3].replace(/^"|"$/g, '').trim() : '#';
                     let mcqRouter = cols[4] ? cols[4].replace(/^"|"$/g, '').trim() : '#';
-                    let category  = cols[5] ? cols[5].replace(/^"|"$/g, '').trim() : 'English';
+                    let category  = cols[5] ? cols[5].replace(/^"|"$/g, '').trim() : 'Mathematics';
 
                     masterDatabaseRecords.push({
                         id: index,
@@ -558,7 +585,7 @@ _I have attached my payment screenshot below. Please activate my PRO access._`;
 
                 buildCategoryTabs();
             } catch (error) {
-                console.error("TNTET English portal boot failure:", error);
+                console.error("TNTET Mathematics portal boot failure:", error);
             }
         }
 
@@ -568,7 +595,7 @@ _I have attached my payment screenshot below. Please activate my PRO access._`;
             container.innerHTML = "";
 
             const allBtn = document.createElement('button');
-            allBtn.className = `px-4 py-2 rounded-xl text-xs font-extrabold border transition shadow-sm ${globallySelectedCategory === 'ALL' ? 'bg-indigo-950 text-white border-indigo-950 scale-[1.02]' : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'}`;
+            allBtn.className = `px-4 py-2 rounded-xl text-xs font-extrabold border transition shadow-sm ${globallySelectedCategory === 'ALL' ? 'bg-rose-950 text-white border-rose-950 scale-[1.02]' : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'}`;
             allBtn.innerText = "Show All / அனைத்தும்";
             allBtn.onclick = () => {
                 globallySelectedCategory = "ALL";
@@ -578,7 +605,7 @@ _I have attached my payment screenshot below. Please activate my PRO access._`;
 
             categories.forEach((cat) => {
                 const btn = document.createElement('button');
-                btn.className = `px-4 py-2 rounded-xl text-xs font-extrabold border transition shadow-sm ${cat === globallySelectedCategory ? 'bg-indigo-950 text-white border-indigo-950 scale-[1.02]' : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'}`;
+                btn.className = `px-4 py-2 rounded-xl text-xs font-extrabold border transition shadow-sm ${cat === globallySelectedCategory ? 'bg-rose-950 text-white border-rose-950 scale-[1.02]' : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'}`;
                 btn.innerText = cat;
                 btn.onclick = () => {
                     globallySelectedCategory = cat;
@@ -589,26 +616,9 @@ _I have attached my payment screenshot below. Please activate my PRO access._`;
             renderActiveSessionsDeck();
         }
 
-        function getVisualMuthuEnglishConfig(categoryName) {
+        function getVisualMuthuMathsConfig(categoryName) {
             const clean = (categoryName || '').toLowerCase();
-            if (clean.includes('vocab') || clean.includes('word') || clean.includes('சொற்களஞ்சியம்')) {
-                return {
-                    borderLeft: 'border-l-emerald-600',
-                    badgeBg: 'bg-emerald-50',
-                    badgeText: 'text-emerald-700',
-                    badgeBorder: 'border-emerald-200',
-                    avatarBg: 'bg-emerald-50',
-                    avatarText: 'text-emerald-700',
-                    avatarHoverBg: 'group-hover:bg-emerald-600',
-                    avatarHoverText: 'group-hover:text-white',
-                    subIcon: 'fa-solid fa-spell-check',
-                    subName: 'Vocabulary',
-                    avatarIcon: 'fa-solid fa-font',
-                    textHover: 'group-hover:text-emerald-700',
-                    btnText: 'text-emerald-700 group-hover:text-emerald-800',
-                    cardCtaBg: 'bg-emerald-800 hover:bg-emerald-900'
-                };
-            } else if (clean.includes('pedagogy') || clean.includes('elt') || clean.includes('கற்பித்தல்') || clean.includes('method')) {
+            if (clean.includes('algeb') || clean.includes('இயற்கணிதம்')) {
                 return {
                     borderLeft: 'border-l-purple-600',
                     badgeBg: 'bg-purple-50',
@@ -618,29 +628,80 @@ _I have attached my payment screenshot below. Please activate my PRO access._`;
                     avatarText: 'text-purple-700',
                     avatarHoverBg: 'group-hover:bg-purple-600',
                     avatarHoverText: 'group-hover:text-white',
-                    subIcon: 'fa-solid fa-chalkboard-user',
-                    subName: 'Pedagogy',
-                    avatarIcon: 'fa-solid fa-shapes',
+                    subIcon: 'fa-solid fa-square-root-variable',
+                    subName: 'Algebra',
+                    avatarIcon: 'fa-solid fa-superscript',
                     textHover: 'group-hover:text-purple-700',
                     btnText: 'text-purple-700 group-hover:text-purple-800',
                     cardCtaBg: 'bg-purple-900 hover:bg-purple-950'
                 };
+            } else if (clean.includes('geom') || clean.includes('mensur') || clean.includes('வடிவியல்') || clean.includes('அளவியல்')) {
+                return {
+                    borderLeft: 'border-l-blue-600',
+                    badgeBg: 'bg-blue-50',
+                    badgeText: 'text-blue-700',
+                    badgeBorder: 'border-blue-200',
+                    avatarBg: 'bg-blue-50',
+                    avatarText: 'text-blue-700',
+                    avatarHoverBg: 'group-hover:bg-blue-600',
+                    avatarHoverText: 'group-hover:text-white',
+                    subIcon: 'fa-solid fa-shapes',
+                    subName: 'Geometry',
+                    avatarIcon: 'fa-solid fa-draw-polygon',
+                    textHover: 'group-hover:text-blue-700',
+                    btnText: 'text-blue-700 group-hover:text-blue-800',
+                    cardCtaBg: 'bg-blue-800 hover:bg-blue-900'
+                };
+            } else if (clean.includes('stat') || clean.includes('prob') || clean.includes('புள்ளியியல்') || clean.includes('நிகழ்தகவு')) {
+                return {
+                    borderLeft: 'border-l-amber-600',
+                    badgeBg: 'bg-amber-50',
+                    badgeText: 'text-amber-700',
+                    badgeBorder: 'border-amber-200',
+                    avatarBg: 'bg-amber-50',
+                    avatarText: 'text-amber-700',
+                    avatarHoverBg: 'group-hover:bg-amber-600',
+                    avatarHoverText: 'group-hover:text-white',
+                    subIcon: 'fa-solid fa-chart-pie',
+                    subName: 'Statistics',
+                    avatarIcon: 'fa-solid fa-chart-column',
+                    textHover: 'group-hover:text-amber-700',
+                    btnText: 'text-amber-700 group-hover:text-amber-800',
+                    cardCtaBg: 'bg-amber-800 hover:bg-amber-900'
+                };
+            } else if (clean.includes('pedagogy') || clean.includes('கற்பித்தல்')) {
+                return {
+                    borderLeft: 'border-l-emerald-600',
+                    badgeBg: 'bg-emerald-50',
+                    badgeText: 'text-emerald-700',
+                    badgeBorder: 'border-emerald-200',
+                    avatarBg: 'bg-emerald-50',
+                    avatarText: 'text-emerald-700',
+                    avatarHoverBg: 'group-hover:bg-emerald-600',
+                    avatarHoverText: 'group-hover:text-white',
+                    subIcon: 'fa-solid fa-chalkboard-user',
+                    subName: 'Pedagogy',
+                    avatarIcon: 'fa-solid fa-book-open',
+                    textHover: 'group-hover:text-emerald-700',
+                    btnText: 'text-emerald-700 group-hover:text-emerald-800',
+                    cardCtaBg: 'bg-emerald-800 hover:bg-emerald-900'
+                };
             } else {
                 return {
-                    borderLeft: 'border-l-indigo-600',
-                    badgeBg: 'bg-indigo-50',
-                    badgeText: 'text-indigo-700',
-                    badgeBorder: 'border-indigo-200',
-                    avatarBg: 'bg-indigo-50',
-                    avatarText: 'text-indigo-700',
-                    avatarHoverBg: 'group-hover:bg-indigo-600',
+                    borderLeft: 'border-l-rose-600',
+                    badgeBg: 'bg-rose-50',
+                    badgeText: 'text-rose-700',
+                    badgeBorder: 'border-rose-200',
+                    avatarBg: 'bg-rose-50',
+                    avatarText: 'text-rose-700',
+                    avatarHoverBg: 'group-hover:bg-rose-600',
                     avatarHoverText: 'group-hover:text-white',
-                    subIcon: 'fa-solid fa-book-open',
-                    subName: 'Grammar',
-                    avatarIcon: 'fa-solid fa-language',
-                    textHover: 'group-hover:text-indigo-700',
-                    btnText: 'text-indigo-700 group-hover:text-indigo-800',
-                    cardCtaBg: 'bg-indigo-900 hover:bg-indigo-950'
+                    subIcon: 'fa-solid fa-calculator',
+                    subName: 'Arithmetic',
+                    avatarIcon: 'fa-solid fa-divide',
+                    textHover: 'group-hover:text-rose-700',
+                    btnText: 'text-rose-700 group-hover:text-rose-800',
+                    cardCtaBg: 'bg-rose-900 hover:bg-rose-950'
                 };
             }
         }
@@ -660,7 +721,7 @@ _I have attached my payment screenshot below. Please activate my PRO access._`;
             }
 
             matchedRows.forEach(row => {
-                const config = getVisualMuthuEnglishConfig(row.subject);
+                const config = getVisualMuthuMathsConfig(row.subject);
                 const sessionNum = parseInt(row.session.replace(/\D/g, '')) || 0;
 
                 // Session 1 is FREE. Session 2+ requires PRO activation.
@@ -713,7 +774,7 @@ _I have attached my payment screenshot below. Please activate my PRO access._`;
                         <div class="pt-2 space-y-1.5 border-t border-slate-100">
                             ${isUnlocked ? `
                             <button onclick="openMaterialModal('${row.pdfUrl}', '${row.topic.replace(/'/g, "\\'")}', '${row.session}')" class="flex items-center gap-2 text-xs font-bold text-slate-600 hover:${config.badgeText} transition text-left w-full cursor-pointer py-1">
-                                <i class="fa-solid fa-file-lines ${config.badgeText} text-sm w-4 text-center"></i> Read Session Notes
+                                <i class="fa-solid fa-file-lines ${config.badgeText} text-sm w-4 text-center"></i> Read Material Content
                             </button>` : `
                             <button onclick="promptSubscription('${row.session}')" class="flex items-center gap-2 text-xs font-bold text-slate-400 hover:text-amber-600 transition text-left w-full cursor-pointer py-1">
                                 <i class="fa-solid fa-lock text-amber-500 text-sm w-4 text-center"></i> Notes Locked (Pro Only)
@@ -797,6 +858,14 @@ _I have attached my payment screenshot below. Please activate my PRO access._`;
             showToast(`Share link copied for ${sessionNo}!`);
         }
 
+        function triggerMaterialOpen(buttonElement) {
+            const targetId = parseInt(buttonElement.getAttribute('data-id'));
+            const record = masterDatabaseRecords.find(x => x.id === targetId);
+            if (record) {
+                openMaterialModal(record.pdfUrl, record.topic, record.session);
+            }
+        }
+
         let currentTextScale = 16;
         let currentActiveTheme = 'light';
 
@@ -832,7 +901,7 @@ _I have attached my payment screenshot below. Please activate my PRO access._`;
                             <iframe src="${processedUrl}" class="w-full h-full border-0">
                                 <div class="p-4 text-center text-xs font-bold text-slate-500">
                                     Unable to preview PDF document natively.
-                                    <a href="${processedUrl}" target="_blank" class="text-indigo-600 underline block mt-1">Click here to open or download instead</a>
+                                    <a href="${processedUrl}" target="_blank" class="text-rose-600 underline block mt-1">Click here to open or download instead</a>
                                 </div>
                             </iframe>
                         </object>

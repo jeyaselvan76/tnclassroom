@@ -220,7 +220,7 @@
             <div id="category-tabs-container" class="flex flex-wrap gap-2"></div>
         </div>
 
-        <!-- [tet-adsense] SESSIONS CARD DECK (STABILIZED WITH min-h-[600px] FOR CLS COMPLIANCE) -->
+        <!-- SESSIONS CARD DECK -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 min-h-[600px] content-start" id="sessions-master-deck">
             <div class="col-span-full text-center py-16 text-slate-400 font-medium text-xs bg-white border border-slate-100 rounded-2xl shadow-sm h-fit">
                 <i class="fa-solid fa-circle-notch fa-spin text-purple-500 mr-1.5"></i> Mapping educational database tracks...
@@ -228,7 +228,7 @@
         </div>
     </main>
 
-    <!-- [Option A] UNIFIED GPAY / UPI SUBSCRIPTION MODAL (₹545 FOR ALL SUBJECTS) -->
+    <!-- [paywall1] UNIFIED GPAY / UPI SUBSCRIPTION MODAL (₹545 FOR ALL SUBJECTS) -->
     <div id="paywall-modal" class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-3xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl border border-slate-100 max-h-[90vh] overflow-y-auto">
 
@@ -319,7 +319,7 @@
         </div>
     </div>
 
-    <!-- [tet-adsense] TOAST NOTIFICATION CONTAINER (NON-BLOCKING SHARE FEEDBACK) -->
+    <!-- TOAST NOTIFICATION CONTAINER -->
     <div id="toast-notification" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-2xl border border-slate-700 flex items-center gap-2.5 text-xs font-bold transition-all duration-300 pointer-events-none opacity-0 translate-y-4">
         <i class="fa-solid fa-circle-check text-purple-400 text-sm"></i>
         <span id="toast-msg">Link copied to clipboard!</span>
@@ -367,10 +367,10 @@
             <a href="/contact-us.html" class="hover:text-purple-400 transition">Contact Us</a>
         </nav>
 
-        <p>&copy; 2026 tnclassroom.com | A Professional Learning Platform for Students & Teachers</p>
+        <p>&copy; 2026 tnclassroom.com | A Professional Learning Platform for Students &amp; Teachers</p>
     </footer>
 
-    <!-- FIREBASE AUTH & USER STATE SYNC -->
+    <!-- [paywall1] RESILIENT FIREBASE AUTH (MOBILE-OPTIMIZED WITH INDEXEDDB PERSISTENCE) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
@@ -382,6 +382,7 @@
             getRedirectResult,
             setPersistence,
             browserLocalPersistence,
+            indexedDBLocalPersistence,
             signOut,
             onAuthStateChanged
         } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
@@ -402,20 +403,31 @@
         const provider = new GoogleAuthProvider();
         provider.setCustomParameters({ prompt: 'select_account' });
 
-        setPersistence(auth, browserLocalPersistence).catch(() => {});
+        // Enable IndexedDB first for resilient mobile storage across redirects
+        setPersistence(auth, indexedDBLocalPersistence).catch(() => {
+            setPersistence(auth, browserLocalPersistence).catch(() => {});
+        });
 
         window.firebaseDb = db;
         window.currentUserPaidStatus = false;
         window.currentAuthUser = null;
 
-        const isAndroidWebView = /Android.*(wv|\.0\.0\.0)/.test(navigator.userAgent) ||
-                                 (window.innerWidth <= 768 && /Android/.test(navigator.userAgent));
+        const isMobileDevice = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || window.innerWidth <= 768;
 
-        getRedirectResult(auth).catch(() => {});
+        // Catch redirect login return immediately on mobile
+        getRedirectResult(auth)
+            .then(async (result) => {
+                if (result && result.user) {
+                    await syncUserProfile(result.user);
+                }
+            })
+            .catch((err) => {
+                console.error("Mobile redirect authentication error:", err);
+            });
 
         window.handleGoogleSignIn = async () => {
             try {
-                if (isAndroidWebView) {
+                if (isMobileDevice) {
                     await signInWithRedirect(auth, provider);
                 } else {
                     await signInWithPopup(auth, provider);
@@ -431,75 +443,91 @@
 
         window.handleSignOut = async () => {
             await signOut(auth);
+            window.location.reload();
         };
 
-        onAuthStateChanged(auth, async (user) => {
+        async function syncUserProfile(user) {
+            window.currentAuthUser = user;
             const loginBtn = document.getElementById("btn-login");
             const profileBadge = document.getElementById("user-profile-badge");
             const nameLabel = document.getElementById("user-display-name");
             const planBadge = document.getElementById("user-plan-badge");
+            const modalEmail = document.getElementById("modal-user-email");
 
-            if (user) {
-                window.currentAuthUser = user;
-                if (loginBtn) loginBtn.classList.add("hidden");
-                if (profileBadge) {
-                    profileBadge.classList.remove("hidden");
-                    profileBadge.classList.add("flex");
+            if (loginBtn) loginBtn.classList.add("hidden");
+            if (profileBadge) {
+                profileBadge.classList.remove("hidden");
+                profileBadge.classList.add("flex");
+            }
+            if (nameLabel) {
+                nameLabel.innerText = (user.displayName || user.email || "Candidate").split(" ")[0];
+            }
+            if (modalEmail) {
+                modalEmail.innerText = user.email || "Candidate";
+            }
+
+            try {
+                const userRef = doc(db, "users", user.uid);
+                let userDoc = await getDoc(userRef);
+
+                if (!userDoc.exists()) {
+                    await setDoc(userRef, {
+                        uid: user.uid,
+                        displayName: user.displayName || "",
+                        email: user.email || "",
+                        isPaid: false,
+                        plan: "free",
+                        createdAt: new Date()
+                    });
+                    userDoc = await getDoc(userRef);
                 }
-                if (nameLabel) {
-                    nameLabel.innerText = (user.displayName || user.email || "Candidate").split(" ")[0];
-                }
 
-                const modalEmail = document.getElementById("modal-user-email");
-                if (modalEmail) modalEmail.innerText = user.email || "Candidate";
+                const data = userDoc.data();
+                const expiry = data.subscriptionExpiresAt ? data.subscriptionExpiresAt.toDate() : null;
+                const notExpired = !expiry || expiry > new Date();
 
-                try {
-                    const userRef = doc(db, "users", user.uid);
-                    let userDoc = await getDoc(userRef);
+                window.currentUserPaidStatus = (data.isPaid === true && notExpired);
 
-                    if (!userDoc.exists()) {
-                        await setDoc(userRef, {
-                            uid: user.uid,
-                            displayName: user.displayName || "",
-                            email: user.email || "",
-                            isPaid: false,
-                            plan: "free",
-                            createdAt: new Date()
-                        });
-                        userDoc = await getDoc(userRef);
-                    }
-
-                    const data = userDoc.data();
-                    const expiry = data.subscriptionExpiresAt ? data.subscriptionExpiresAt.toDate() : null;
-                    const notExpired = !expiry || expiry > new Date();
-
-                    window.currentUserPaidStatus = (data.isPaid === true && notExpired);
-
-                    if (window.currentUserPaidStatus && planBadge) {
+                if (planBadge) {
+                    if (window.currentUserPaidStatus) {
                         planBadge.innerText = "PRO";
                         planBadge.className = "text-[9px] font-black uppercase text-emerald-800 bg-emerald-100 px-1.5 py-0.5 rounded w-fit mt-0.5";
-                    } else if (planBadge) {
+                    } else {
                         planBadge.innerText = "FREE";
                         planBadge.className = "text-[9px] font-black uppercase text-amber-700 bg-amber-100 px-1.5 py-0.5 rounded w-fit mt-0.5";
                     }
-                } catch (err) {
-                    console.error("Firestore user sync error:", err);
-                    window.currentUserPaidStatus = false;
                 }
+            } catch (err) {
+                console.error("Firestore user sync error:", err);
+                window.currentUserPaidStatus = false;
+            }
+
+            // Re-render card deck so locks turn into active buttons immediately
+            if (typeof renderActiveSessionsDeck === "function") {
+                renderActiveSessionsDeck();
+            }
+        }
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                await syncUserProfile(user);
             } else {
                 window.currentAuthUser = null;
                 window.currentUserPaidStatus = false;
+                const loginBtn = document.getElementById("btn-login");
+                const profileBadge = document.getElementById("user-profile-badge");
+                const modalEmail = document.getElementById("modal-user-email");
+
                 if (loginBtn) loginBtn.classList.remove("hidden");
                 if (profileBadge) {
                     profileBadge.classList.add("hidden");
                     profileBadge.classList.remove("flex");
                 }
-                const modalEmail = document.getElementById("modal-user-email");
                 if (modalEmail) modalEmail.innerText = "Not signed in";
-            }
 
-            if (typeof renderActiveSessionsDeck === "function") {
-                renderActiveSessionsDeck();
+                if (typeof renderActiveSessionsDeck === "function") {
+                    renderActiveSessionsDeck();
+                }
             }
         });
     </script>
@@ -577,7 +605,6 @@
                 const { doc, setDoc } = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js");
                 const db = window.firebaseDb;
 
-                // 1. Record subscription request for admin desk with unified subject access
                 await setDoc(doc(db, "subscription_requests", requestId), {
                     requestId: requestId,
                     uid: candidateUid,
@@ -590,14 +617,12 @@
                     requestedAt: new Date()
                 });
 
-                // 2. Attach mobile number to the candidate profile
                 await setDoc(doc(db, "users", candidateUid), {
                     mobile: mobileNumber
                 }, { merge: true });
 
                 showToast("Request recorded! Opening WhatsApp...");
 
-                // 3. Dispatch WhatsApp message template
                 const textMessage =
 `*TNTET All-Subject PRO Pass Request*
 ----------------------------------
@@ -780,7 +805,6 @@ _I have attached my payment screenshot below. Please activate my PRO access._`;
                     avatarIcon: 'fa-solid fa-scroll',
                     textHover: 'group-hover:text-indigo-700',
                     btnText: 'text-indigo-700 group-hover:text-indigo-800',
-                    btnIconBg: 'bg-indigo-50 group-hover:bg-indigo-600 group-hover:text-white',
                     cardCtaBg: 'bg-indigo-800 hover:bg-indigo-900'
                 };
             } else if (clean.includes('pedagogy') || clean.includes('கற்பித்தல்') || clean.includes('முறை')) {
@@ -798,7 +822,6 @@ _I have attached my payment screenshot below. Please activate my PRO access._`;
                     avatarIcon: 'fa-solid fa-shapes',
                     textHover: 'group-hover:text-emerald-700',
                     btnText: 'text-emerald-700 group-hover:text-emerald-800',
-                    btnIconBg: 'bg-emerald-50 group-hover:bg-emerald-600 group-hover:text-white',
                     cardCtaBg: 'bg-emerald-800 hover:bg-emerald-900'
                 };
             } else {
@@ -816,14 +839,15 @@ _I have attached my payment screenshot below. Please activate my PRO access._`;
                     avatarIcon: 'fa-solid fa-spell-check',
                     textHover: 'group-hover:text-purple-700',
                     btnText: 'text-purple-700 group-hover:text-purple-800',
-                    btnIconBg: 'bg-purple-50 group-hover:bg-purple-600 group-hover:text-white',
                     cardCtaBg: 'bg-purple-900 hover:bg-purple-950'
                 };
             }
         }
 
+        // [paywall1] Card Framework with PRO gating
         function renderActiveSessionsDeck() {
             const deck = document.getElementById('sessions-master-deck');
+            if (!deck) return;
             deck.innerHTML = "";
 
             const matchedRows = globallySelectedCategory === "ALL"
@@ -924,21 +948,6 @@ _I have attached my payment screenshot below. Please activate my PRO access._`;
                 `;
                 deck.appendChild(card);
             });
-
-            const urlQueryStrings = new URLSearchParams(window.location.search);
-            const targetSession = urlQueryStrings.get('session');
-            if (targetSession) {
-                setTimeout(() => {
-                    const cards = document.querySelectorAll('#sessions-master-deck > div');
-                    for (let card of cards) {
-                        if (card.innerHTML.includes(targetSession)) {
-                            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                            card.classList.add('border-purple-500', 'ring-2', 'ring-purple-200');
-                            break;
-                        }
-                    }
-                }, 300);
-            }
         }
 
         window.promptSubscription = (sessionName) => {
@@ -955,6 +964,7 @@ _I have attached my payment screenshot below. Please activate my PRO access._`;
             }
         };
 
+        // Non-blocking clipboard & Web Share function
         function shareTopicCard(event, sessionNo, topicTitle, cardSubject) {
             event.stopPropagation();
             const formattedTitle = topicTitle.replace(/<br>/g, ' ').trim();
@@ -987,6 +997,14 @@ _I have attached my payment screenshot below. Please activate my PRO access._`;
             document.execCommand('copy');
             document.body.removeChild(dummyInput);
             showToast(`Share link copied for ${sessionNo}!`);
+        }
+
+        function triggerMaterialOpen(buttonElement) {
+            const targetId = parseInt(buttonElement.getAttribute('data-id'));
+            const record = masterDatabaseRecords.find(x => x.id === targetId);
+            if (record) {
+                openMaterialModal(record.pdfUrl, record.topic, record.session);
+            }
         }
 
         let currentTextScale = 16;
