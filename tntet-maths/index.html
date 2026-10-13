@@ -106,7 +106,7 @@
         </div>
     </main>
 
-    <!-- [paywall1] UNIFIED GPAY / UPI SUBSCRIPTION MODAL (₹545 FOR ALL SUBJECTS) -->
+    <!-- [paywall1] UNIFIED GPAY / UPI SUBSCRIPTION MODAL (₹995 FOR ALL SUBJECTS) -->
     <div id="paywall-modal" class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-3xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl border border-slate-100 max-h-[90vh] overflow-y-auto">
 
@@ -130,7 +130,7 @@
             <!-- Pricing Banner -->
             <div class="bg-rose-50/70 border border-rose-200 rounded-2xl p-3.5 text-center">
                 <span class="text-xs font-bold text-slate-400 line-through">₹1,499</span>
-                <div class="text-2xl font-black text-rose-900 leading-tight">₹545 <span class="text-xs font-bold text-slate-500">/ Complete Access</span></div>
+                <div class="text-2xl font-black text-rose-900 leading-tight">₹995 <span class="text-xs font-bold text-slate-500">/ Complete Access</span></div>
                 <p class="text-[10px] font-bold text-emerald-700 mt-1">Full Syllabus Unlocked Until TNTET Exam</p>
             </div>
 
@@ -141,7 +141,7 @@
                 <div class="bg-white p-2 rounded-xl border border-slate-200 inline-block shadow-sm">
                     <img id="gpay-qr-code"
                          src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=upi%3A%2F%2Fpay%3Fpa%3D9865456123%40axl%26pn%3DTN%20Classroom%26am%3D545%26cu%3DINR%26tn%3DTNTET%20All%20Subject%20PRO"
-                         alt="GPay QR Code ₹545"
+                         alt="GPay QR Code ₹995"
                          class="w-36 h-36 mx-auto">
                 </div>
 
@@ -178,10 +178,10 @@
             <div class="space-y-2 pt-1">
                 <!-- Mobile / Android Direct Intent Trigger -->
                 <a id="btn-upi-intent"
-                   href="upi://pay?pa=9865456123@axl&pn=TN%20Classroom&am=545&cu=INR&tn=TNTET%20All%20Subject%20PRO"
+                   href="upi://pay?pa=9865456123@axl&pn=TN%20Classroom&am=995&cu=INR&tn=TNTET%20All%20Subject%20PRO"
                    class="w-full bg-slate-900 hover:bg-slate-800 text-white font-extrabold py-3 rounded-xl text-xs uppercase tracking-wider shadow flex items-center justify-center gap-2 transition md:hidden">
                     <i class="fa-brands fa-google-pay text-lg text-amber-400"></i>
-                    <span>Pay ₹545 via GPay / UPI App</span>
+                    <span>Pay ₹995 via GPay / UPI App</span>
                 </a>
 
                 <!-- WhatsApp Verification Trigger -->
@@ -419,7 +419,7 @@
 
         const ADMIN_UPI_ID = "9865456123@axl";
         const ADMIN_WHATSAPP = "919865456123";
-        const SUBSCRIPTION_PRICE = 545;
+        const SUBSCRIPTION_PRICE = 995;
 
         let masterDatabaseRecords = [];
         let globallySelectedCategory = "ALL";
@@ -446,7 +446,7 @@
 
         window.copyUpiId = () => {
             navigator.clipboard.writeText(ADMIN_UPI_ID).then(() => {
-                showToast("UPI ID copied! Open GPay to pay ₹545.");
+                showToast("UPI ID copied! Open GPay to pay ₹995.");
             }).catch(() => {
                 showToast(`UPI ID: ${ADMIN_UPI_ID}`);
             });
