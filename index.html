@@ -69,7 +69,7 @@
     <div id="navbar-placeholder"></div>
 
     <!-- MAIN HUB DASHBOARD -->
-    <main class="flex-grow max-w-4xl w-full mx-auto p-4 md:p-8 space-y-12 pb-24">
+    <main class="flex-grow max-w-4xl w-full mx-auto p-4 md:p-8 space-y-8 pb-24">
 
         <!-- BRAND HERO MODULE -->
         <div class="bg-white border border-slate-100 rounded-3xl p-6 shadow-xl space-y-2">
@@ -83,6 +83,43 @@
             </h1>
             <p class="text-slate-500 text-xs leading-relaxed">This portal is a comprehensive, free digital learning platform dedicated to supporting teachers, school students, TNTET aspirants, and candidates preparing for competitive examinations such as TNPSC, Banking, SSC, and other government recruitment exams. Through curated study materials, practice tests, and interactive learning resources, we strive to make quality education accessible to all.</p>
         </div>
+
+        <!-- ================================================================ -->
+        <!-- ANDROID APP DIRECT DOWNLOAD BANNER                               -->
+        <!-- ================================================================ -->
+        <section class="bg-gradient-to-r from-emerald-950 via-slate-900 to-slate-950 text-white rounded-3xl p-6 shadow-xl border border-emerald-900/40 relative overflow-hidden">
+            <!-- Decorative Accent Circle -->
+            <div class="absolute -right-12 -top-12 w-48 h-48 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none"></div>
+
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
+                <div class="flex items-center gap-4">
+                    <div class="w-14 h-14 rounded-2xl bg-emerald-500/20 border border-emerald-400/30 flex items-center justify-center text-emerald-400 text-3xl shadow-inner flex-shrink-0">
+                        <i class="fa-brands fa-android"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2 flex-wrap">
+                            <h3 class="text-lg font-black tracking-tight text-white">TNClassroom Android App</h3>
+                            <span class="px-2 py-0.5 bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-[10px] font-bold rounded-full">v1.0.0 APK</span>
+                            <span class="px-2 py-0.5 bg-white/10 text-slate-300 text-[10px] font-bold rounded-full">Free</span>
+                        </div>
+                        <p class="text-slate-300 text-xs mt-1 leading-relaxed">Take TNTET mock tests, access NMMS portals, and view test scores directly on your Android phone.</p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto flex-shrink-0">
+                    <!-- Update href with your actual path or URL (e.g., /TNClassroom_V1.apk or GitHub Release URL) -->
+                    <a href="/TNClassroom_V1.apk" download="TNClassroom_V1.apk" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs uppercase tracking-wider rounded-xl transition duration-200 shadow-lg shadow-emerald-500/20">
+                        <i class="fa-solid fa-download text-sm"></i>
+                        <span>Download APK</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="mt-4 pt-3 border-t border-white/10 flex items-center gap-2 text-[11px] text-slate-400">
+                <i class="fa-solid fa-circle-info text-emerald-400 text-xs"></i>
+                <span>Direct install: Select <strong>"Download anyway"</strong> and allow <em>"Install unknown apps"</em> if prompted by your browser.</span>
+            </div>
+        </section>
 
         <!-- PORTAL INTERSECTION INTERFACE -->
         <section class="py-8 bg-white border border-slate-200/60 rounded-3xl shadow-xl flex flex-col items-center justify-center min-h-[350px] px-4 sm:px-8">
