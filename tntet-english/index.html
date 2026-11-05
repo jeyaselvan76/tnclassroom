@@ -36,27 +36,34 @@
         .dropdown-active { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; z-index: 50 !important; pointer-events: auto !important; }
         .tamil-fix { font-family: 'Segoe UI', 'Latha', 'Apple Tamil', sans-serif !important; }
 
-        /* Mobile Optimization: Shrink WhatsApp floating icon & prevent obscuring modal buttons */
-        @media (max-width: 640px) {
-            #wa-widget,
-            .wa-float-btn,
-            .whatsapp-float,
-            [id*="whatsapp"],
-            [class*="whatsapp-float"],
-            [class*="wa-widget"] {
-                width: 40px !important;
-                height: 40px !important;
-                bottom: 12px !important;
-                right: 12px !important;
-                transform: scale(0.85);
-                transform-origin: bottom right;
-                z-index: 40 !important; /* Below open modals */
+        /* Force shrink WhatsApp floating widget on mobile screens */
+        @media (max-width: 768px) {
+            a[href*="wa.me"],
+            a[href*="whatsapp.com"],
+            [id*="whatsapp" i],
+            [class*="whatsapp" i],
+            [id*="wa-widget" i],
+            [class*="wa-widget" i],
+            [id*="wa_widget" i],
+            [class*="wa_widget" i] {
+                transform: scale(0.68) !important;
+                transform-origin: bottom right !important;
+                right: 8px !important;
+                bottom: 8px !important;
             }
-            #wa-widget i,
-            .wa-float-btn i,
-            .whatsapp-float i {
-                font-size: 20px !important;
-            }
+        }
+
+        /* When the material modal reader is open, hide WhatsApp widget so it never blocks download/close buttons */
+        body.material-modal-open a[href*="wa.me"],
+        body.material-modal-open a[href*="whatsapp.com"],
+        body.material-modal-open [id*="whatsapp" i],
+        body.material-modal-open [class*="whatsapp" i],
+        body.material-modal-open [id*="wa-widget" i],
+        body.material-modal-open [class*="wa-widget" i] {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
         }
     </style>
 </head>
@@ -190,7 +197,7 @@
         <span id="toast-msg">Link copied to clipboard!</span>
     </div>
 
-    <!-- MATERIAL READER MODAL (z-[70] ensures drawer overlays the floating WhatsApp button) -->
+    <!-- MATERIAL READER MODAL (z-[70] ensures drawer overlays page elements) -->
     <div id="material-modal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[70] flex justify-end invisible opacity-0 transition-all duration-300" onclick="closeMaterialModal()">
         <div class="w-full max-w-2xl bg-white h-full shadow-2xl flex flex-col translate-x-full transition-transform duration-300 text-slate-900" id="material-drawer-content" onclick="event.stopPropagation()">
 
@@ -414,6 +421,23 @@
         let currentMaterialUrl = "";
         let currentMaterialTitle = "";
         let currentMaterialType = "";
+
+        // Enforce shrinking of the floating WhatsApp button via DOM styles
+        function applyMobileWaWidgetShrink() {
+            if (window.innerWidth <= 768) {
+                const waTargets = document.querySelectorAll('a[href*="wa.me"], a[href*="whatsapp.com"], [id*="whatsapp" i], [class*="whatsapp" i]');
+                waTargets.forEach(el => {
+                    let container = el;
+                    if (el.parentElement && el.parentElement !== document.body && window.getComputedStyle(el.parentElement).position === 'fixed') {
+                        container = el.parentElement;
+                    }
+                    container.style.setProperty('transform', 'scale(0.68)', 'important');
+                    container.style.setProperty('transform-origin', 'bottom right', 'important');
+                    container.style.setProperty('right', '8px', 'important');
+                    container.style.setProperty('bottom', '8px', 'important');
+                });
+            }
+        }
 
         function showDownloadButton() {
             const btn = document.getElementById('btn-download-material');
@@ -796,6 +820,8 @@
         };
 
         async function openMaterialModal(fileUrl, unitName, unitNo) {
+            document.body.classList.add('material-modal-open');
+
             const modal = document.getElementById('material-modal');
             const drawer = document.getElementById('material-drawer-content');
             const body = document.getElementById('modal-material-body');
@@ -897,6 +923,7 @@
         }
 
         function closeMaterialModal() {
+            document.body.classList.remove('material-modal-open');
             hideDownloadButton();
             const modal = document.getElementById('material-modal');
             const drawer = document.getElementById('material-drawer-content');
@@ -905,6 +932,8 @@
             modal.classList.remove('opacity-100');
             modal.classList.add('invisible');
             modal.style.display = 'none';
+
+            applyMobileWaWidgetShrink();
         }
 
         async function loadSharedSiteNavbar() {
@@ -962,7 +991,13 @@
         window.addEventListener('DOMContentLoaded', () => {
             loadSharedSiteNavbar();
             bootTntetPortal();
+
+            // Run shrink adjustments after widget initialization
+            setTimeout(applyMobileWaWidgetShrink, 600);
+            setTimeout(applyMobileWaWidgetShrink, 1500);
         });
+
+        window.addEventListener('resize', applyMobileWaWidgetShrink);
     </script>
     <!-- Floating WhatsApp Community Widget -->
     <script src="/whatsapp-widget.js"></script>
