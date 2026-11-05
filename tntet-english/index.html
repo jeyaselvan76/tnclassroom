@@ -194,7 +194,11 @@
 
             <div class="flex-grow overflow-y-auto p-6 md:p-8 bg-white transition-colors duration-200" id="modal-material-body"></div>
 
-            <div class="p-4 border-t border-slate-200/60 bg-slate-50 flex justify-end" id="modal-footer-container">
+            <div class="p-4 border-t border-slate-200/60 bg-slate-50 flex items-center justify-between gap-3" id="modal-footer-container">
+                <button id="btn-download-material" onclick="triggerMaterialDownload()" class="hidden inline-flex items-center gap-2 px-4 py-2.5 bg-indigo-700 hover:bg-indigo-800 text-white rounded-xl text-xs font-black shadow transition uppercase tracking-wider cursor-pointer">
+                    <i class="fa-solid fa-download text-xs"></i>
+                    <span>Download Material</span>
+                </button>
                 <button onclick="closeMaterialModal()" class="px-5 py-2.5 bg-slate-950 text-white rounded-xl text-xs font-black shadow transition uppercase tracking-wider">Close Material</button>
             </div>
         </div>
@@ -245,7 +249,6 @@
         const provider = new GoogleAuthProvider();
         provider.setCustomParameters({ prompt: 'select_account' });
 
-        // Enable IndexedDB first so mobile browsers retain user credentials across tabs/reloads
         setPersistence(auth, indexedDBLocalPersistence).catch(() => {
             setPersistence(auth, browserLocalPersistence).catch(() => {});
         });
@@ -254,7 +257,6 @@
         window.currentUserPaidStatus = false;
         window.currentAuthUser = null;
 
-        // Handle any redirect results if fallback was used
         getRedirectResult(auth)
             .then(async (result) => {
                 if (result && result.user) {
@@ -265,7 +267,6 @@
                 console.warn("Redirect auth info:", err.message);
             });
 
-        // Mobile-optimized sign-in handler: Popup first, redirect fallback only if blocked
         window.handleGoogleSignIn = async () => {
             try {
                 const result = await signInWithPopup(auth, provider);
@@ -347,7 +348,6 @@
                 window.currentUserPaidStatus = false;
             }
 
-            // Re-render deck immediately so cards switch from locked to unlocked
             if (typeof renderActiveSessionsDeck === "function") {
                 renderActiveSessionsDeck();
             }
@@ -381,13 +381,59 @@
     <script>
         const DATABASE_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRxrNjhYpkr5ZNT3WvwWMS8kZLlzocCLiEFBJm68HanMXEfajPTWW9Aus26pAWTXQil2MWvtNUbYHS4/pub?gid=1339356073&single=true&output=csv";
 
-        // Configured Google Form and Entry ID
         const GOOGLE_FORM_BASE_URL = "https://docs.google.com/forms/d/e/1FAIpQLSct4oK6-cQX9Q4UNQFG50Y2DR77rJGc0Cj5m-K-xT9KJM-ypg/viewform";
         const EMAIL_ENTRY_ID = "entry.946554793";
         const ADMIN_WHATSAPP = "918825810937";
 
         let masterDatabaseRecords = [];
         let globallySelectedCategory = "ALL";
+
+        let currentMaterialUrl = "";
+        let currentMaterialTitle = "";
+        let currentMaterialType = "";
+
+        function showDownloadButton() {
+            const btn = document.getElementById('btn-download-material');
+            if (btn) btn.classList.remove('hidden');
+        }
+
+        function hideDownloadButton() {
+            const btn = document.getElementById('btn-download-material');
+            if (btn) btn.classList.add('hidden');
+        }
+
+        window.triggerMaterialDownload = function() {
+            if (!currentMaterialUrl) return;
+
+            const safeFilename = (currentMaterialTitle || "TNTET_Study_Material")
+                .replace(/[^a-zA-Z0-9_\u0B80-\u0BFF\s-]/g, '')
+                .trim()
+                .replace(/\s+/g, '_');
+
+            if (currentMaterialType === 'pdf') {
+                const a = document.createElement('a');
+                a.href = currentMaterialUrl;
+                a.download = `${safeFilename}.pdf`;
+                a.target = '_blank';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            } else {
+                const textNode = document.getElementById('material-text-node');
+                const content = textNode ? textNode.innerText : "";
+                if (!content) return alert("Material content not ready to download.");
+
+                const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${safeFilename}.txt`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+        };
 
         function showToast(message) {
             const toast = document.getElementById('toast-notification');
@@ -587,7 +633,6 @@
                 const config = getVisualMuthuEnglishConfig(row.subject);
                 const sessionNum = parseInt(row.session.replace(/\D/g, '')) || 0;
 
-                // Session 1 is FREE. Session 2+ requires PRO activation.
                 const isFreeSession = (sessionNum === 1);
                 const isUnlocked = isFreeSession || (window.currentUserPaidStatus === true);
 
@@ -621,7 +666,6 @@
                             </button>
                         </div>
 
-                        <!-- Card Center Click -->
                         <div class="flex items-start gap-3 pt-1 cursor-pointer" onclick="${isUnlocked ? `openMaterialModal('${row.pdfUrl}', '${row.topic.replace(/'/g, "\\'")}', '${row.session}')` : `promptSubscription('${row.session}')`}">
                             <div class="w-11 h-11 rounded-xl ${isUnlocked ? `${config.avatarBg}${config.avatarText}` : 'bg-amber-50 text-amber-600'} border border-slate-200/40 flex items-center justify-center font-bold text-lg shrink-0 ${isUnlocked ? `${config.avatarHoverBg}${config.avatarHoverText}` : 'group-hover:bg-amber-600 group-hover:text-white'} transition-colors duration-200 shadow-sm">
                                 <i class="${isUnlocked ? config.avatarIcon : 'fa-solid fa-lock'}"></i>
@@ -633,7 +677,6 @@
                             </div>
                         </div>
 
-                        <!-- Direct Link Action Rows -->
                         <div class="pt-2 space-y-1.5 border-t border-slate-100">
                             ${isUnlocked ? `
                             <button onclick="openMaterialModal('${row.pdfUrl}', '${row.topic.replace(/'/g, "\\'")}', '${row.session}')" class="flex items-center gap-2 text-xs font-bold text-slate-600 hover:${config.badgeText} transition text-left w-full cursor-pointer py-1">
@@ -653,7 +696,6 @@
                         </div>
                     </div>
 
-                    <!-- Bottom Action Launch CTA -->
                     <div class="mt-4 pt-3 border-t border-slate-100">
                         ${isUnlocked ? (
                             hasMcq ? `
@@ -687,7 +729,6 @@
             }
         };
 
-        // [tet-adsense] Non-blocking clipboard & Web Share function
         function shareTopicCard(event, sessionNo, topicTitle, cardSubject) {
             event.stopPropagation();
             const formattedTitle = topicTitle.replace(/<br>/g, ' ').trim();
@@ -736,6 +777,9 @@
             const drawer = document.getElementById('material-drawer-content');
             const body = document.getElementById('modal-material-body');
 
+            hideDownloadButton();
+            currentMaterialTitle = `${unitNo}_${unitName}`;
+
             document.getElementById('modal-material-title').innerHTML = unitName.replace(/\r?\n/g, ' - ');
             document.getElementById('modal-session-badge').innerText = unitNo;
 
@@ -750,7 +794,10 @@
                 processedUrl = `./${processedUrl}`;
             }
 
+            currentMaterialUrl = processedUrl;
+
             if (processedUrl.toLowerCase().endsWith('.pdf')) {
+                currentMaterialType = 'pdf';
                 body.innerHTML = `
                     <div class="w-full h-[73vh] rounded-xl overflow-hidden border border-slate-200 shadow-inner bg-slate-100">
                         <object data="${processedUrl}" type="application/pdf" class="w-full h-full">
@@ -764,7 +811,9 @@
                     </div>
                 `;
                 setReaderTheme(currentActiveTheme);
+                showDownloadButton();
             } else {
+                currentMaterialType = 'text';
                 body.innerHTML = `<div class="text-center py-12 text-slate-400 text-xs"><i class="fa-solid fa-circle-notch fa-spin mr-2"></i>Loading text material...</div>`;
                 try {
                     const res = await fetch(processedUrl);
@@ -784,8 +833,11 @@
                     if (window.MathJax && window.MathJax.typesetPromise) {
                         window.MathJax.typesetPromise([textContainer]);
                     }
+
+                    showDownloadButton();
                 } catch(e) {
                     console.error(e);
+                    hideDownloadButton();
                     body.innerHTML = `
                         <div class="p-5 bg-red-50 text-red-700 text-xs font-bold rounded-2xl border border-red-100 text-center">
                             <i class="fa-solid fa-circle-exclamation mr-1.5"></i> Missing or unmapped material file documentation.<br>
@@ -810,18 +862,19 @@
             const header = document.getElementById('modal-header-container');
             const body = document.getElementById('modal-material-body');
             const footer = document.getElementById('modal-footer-container');
-            const footerBtn = document.querySelector('#modal-footer-container button');
+            const footerCloseBtn = document.querySelector('#modal-footer-container button:last-child');
             const textNode = document.getElementById('material-text-node');
 
             if (drawer) drawer.className = `w-full max-w-2xl ${styleMap.bodyBg} h-full shadow-2xl flex flex-col translate-x-full text-slate-900 ${styleMap.headerText}`;
             if (header) header.className = `p-4 border-b ${styleMap.border} flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${styleMap.headerBg}`;
             if (body) body.className = `flex-grow overflow-y-auto p-6 md:p-8 ${styleMap.bodyBg} transition-colors duration-200`;
-            if (footer) footer.className = `p-4 border-t ${styleMap.border} ${styleMap.headerBg} flex justify-end`;
-            if (footerBtn) footerBtn.className = `px-5 py-2.5 ${styleMap.btnBg} ${styleMap.btnText} rounded-xl text-xs font-black shadow transition uppercase tracking-wider`;
+            if (footer) footer.className = `p-4 border-t ${styleMap.border} ${styleMap.headerBg} flex items-center justify-between gap-3`;
+            if (footerCloseBtn) footerCloseBtn.className = `px-5 py-2.5 ${styleMap.btnBg} ${styleMap.btnText} rounded-xl text-xs font-black shadow transition uppercase tracking-wider`;
             if (textNode) textNode.className = `font-sans leading-relaxed tracking-wide whitespace-pre-wrap select-text tamil-fix ${styleMap.text}`;
         }
 
         function closeMaterialModal() {
+            hideDownloadButton();
             const modal = document.getElementById('material-modal');
             const drawer = document.getElementById('material-drawer-content');
             drawer.classList.add('translate-x-full');
