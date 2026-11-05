@@ -102,6 +102,9 @@
             <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">
                 Showing <span id="papersCount" class="text-blue-900 font-black">0</span> Items
             </p>
+            <div id="loadingStatus" class="hidden text-xs font-semibold text-blue-600 flex items-center gap-1.5">
+                <i class="fa-solid fa-circle-notch fa-spin"></i> Syncing sheet data...
+            </div>
         </div>
 
         <!-- CARDS GRID CONTAINER -->
@@ -109,7 +112,7 @@
             <!-- Populated dynamically via JavaScript -->
         </div>
 
-        <!-- EMPTY STATE (Shows when search has 0 matches) -->
+        <!-- EMPTY STATE -->
         <div id="emptyState" class="hidden text-center py-16 bg-white rounded-2xl border border-slate-200/80">
             <i class="fa-solid fa-folder-open text-4xl text-slate-300 mb-3"></i>
             <p class="text-slate-600 font-bold text-sm">No items found matching your filters.</p>
@@ -125,6 +128,10 @@
     <!-- SCRIPT LOGIC -->
     <script>
         let currentTab = 'pyq'; // 'pyq' or 'materials'
+
+        // Verified Sheet Configuration
+        const GOOGLE_SHEET_ID = "1N-ip3GPEpffRxlBqNFUsMeTJhj5cYMwCOROFwf-09DU";
+        const GOOGLE_SHEET_TAB = "Sheet1";
 
         // 1. Previous Year Question Papers Dataset
         const pyqData = [
@@ -178,23 +185,72 @@
             }
         ];
 
-        // 2. Additional Support Materials Dataset (Matches your Google Sheet schema)
-        const supportMaterialsData = [
-            {
-                sno: 1,
-                subject: "Social",
-                topic: "class-6 term1",
-                sessionNo: "202601",
-                materialLink: "https://drive.google.com/file/d/1tafcoBQZ3MXHH0OZ-yNyW-f2cVDWzzSJ/view?usp=sharing"
-            }
-        ];
+        // 2. Additional Support Materials Dynamic Array
+        let supportMaterialsData = [];
 
-        // Determines file type (Google Slide, PDF, or Generic Web Link)
+        // Global JSONP callback - executes when Google responds
+        window.handleSheetResponse = function(response) {
+            const loader = document.getElementById('loadingStatus');
+            if (loader) loader.classList.add('hidden');
+
+            if (response && response.table && response.table.rows) {
+                supportMaterialsData = response.table.rows
+                    .map((row, idx) => {
+                        const c = row.c || [];
+                        const getVal = (col) => {
+                            if (!c[col]) return "";
+                            return (c[col].v !== null && c[col].v !== undefined) ? c[col].v : (c[col].f || "");
+                        };
+
+                        return {
+                            sno: getVal(0) || (idx + 1),
+                            subject: String(getVal(1)).trim(),
+                            topic: String(getVal(2)).trim(),
+                            sessionNo: String(getVal(3)).trim(),
+                            materialLink: String(getVal(4)).trim()
+                        };
+                    })
+                    .filter(item => {
+                        // Skip header rows and empty entries
+                        const isHeader = String(item.sno).toLowerCase().includes('sno') ||
+                                         String(item.subject).toLowerCase().includes('subject');
+                        const hasContent = item.subject !== "" || item.topic !== "" || item.materialLink !== "";
+                        return !isHeader && hasContent;
+                    });
+
+                console.log("Loaded Support Materials via JSONP:", supportMaterialsData);
+                if (currentTab === 'materials') {
+                    renderCards();
+                }
+            }
+        };
+
+        // Fetch using dynamic script tag (bypasses CORS entirely)
+        function fetchSupportMaterialsJSONP() {
+            const loader = document.getElementById('loadingStatus');
+            if (loader) loader.classList.remove('hidden');
+
+            // Remove existing injected script if present
+            const oldScript = document.getElementById('gviz-jsonp-script');
+            if (oldScript) oldScript.remove();
+
+            const script = document.createElement('script');
+            script.id = 'gviz-jsonp-script';
+            script.src = `https://docs.google.com/spreadsheets/d/${GOOGLE_SHEET_ID}/gviz/tq?tqx=responseHandler:handleSheetResponse&sheet=${encodeURIComponent(GOOGLE_SHEET_TAB)}`;
+
+            script.onerror = function() {
+                if (loader) loader.classList.add('hidden');
+                console.error("Failed to load Google Sheet JSONP script.");
+            };
+
+            document.body.appendChild(script);
+        }
+
+        // Determines file type
         function getMaterialMeta(url) {
-            if (!url) return { type: "RESOURCE", icon: "fa-file", isSlide: false, isDrive: false, openUrl: "#" };
+            if (!url) return { type: "RESOURCE", icon: "fa-file", badgeClass: "bg-slate-100 text-slate-700 border-slate-200", btnText: "Open Resource", btnBg: "bg-[#1e3a8a] hover:bg-blue-900", openUrl: "#" };
             const cleanUrl = url.trim();
 
-            // Check if it's a Google Slides link
             if (cleanUrl.includes("docs.google.com/presentation")) {
                 const slideMatch = cleanUrl.match(/\/presentation\/d\/([a-zA-Z0-9_-]+)/);
                 const slideId = slideMatch ? slideMatch[1] : null;
@@ -208,12 +264,10 @@
                     badgeClass: "bg-amber-100 text-amber-800 border-amber-300",
                     btnText: "Open Presentation Slide",
                     btnBg: "bg-amber-600 hover:bg-amber-700",
-                    isSlide: true,
                     openUrl: presentationUrl
                 };
             }
 
-            // Check if it's a Google Drive link (PDF / Documents)
             const driveMatch = cleanUrl.match(/id=([a-zA-Z0-9_-]+)/) || cleanUrl.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
             if (driveMatch && driveMatch[1]) {
                 return {
@@ -222,7 +276,6 @@
                     badgeClass: "bg-red-50 text-red-700 border-red-200",
                     btnText: "View / Download PDF",
                     btnBg: "bg-[#1e3a8a] hover:bg-blue-900",
-                    isSlide: false,
                     openUrl: `https://drive.google.com/uc?export=download&id=${driveMatch[1]}`
                 };
             }
@@ -233,12 +286,10 @@
                 badgeClass: "bg-blue-50 text-blue-700 border-blue-200",
                 btnText: "Open Resource",
                 btnBg: "bg-[#1e3a8a] hover:bg-blue-900",
-                isSlide: false,
                 openUrl: cleanUrl
             };
         }
 
-        // Format direct download link for PYQ papers
         function formatSafeDownloadLink(url) {
             if (!url) return "#";
             const idMatch = url.match(/id=([a-zA-Z0-9_-]+)/) || url.match(/\/d\/([a-zA-Z0-9_-]+)/);
@@ -248,7 +299,6 @@
             return url;
         }
 
-        // Tab Switching Logic
         window.switchTab = (tabName) => {
             currentTab = tabName;
             const pyqBtn = document.getElementById('tab-pyq');
@@ -263,6 +313,10 @@
                 matBtn.className = "flex-1 py-3.5 rounded-xl font-black text-xs uppercase tracking-wider transition-all bg-[#1e3a8a] text-white shadow-sm flex items-center justify-center gap-2";
                 pyqBtn.className = "flex-1 py-3.5 rounded-xl font-black text-xs uppercase tracking-wider transition-all bg-slate-50 text-slate-600 hover:bg-slate-100 flex items-center justify-center gap-2";
                 breadcrumb.innerText = "Additional Support Materials";
+
+                if (supportMaterialsData.length === 0) {
+                    fetchSupportMaterialsJSONP();
+                }
             }
 
             renderCards();
@@ -304,7 +358,7 @@
 
             } else {
                 const filtered = supportMaterialsData.filter(item => {
-                    const sessionStr = (item.sessionNo || "").toString();
+                    const sessionStr = (item.sessionNo || "").toString().toLowerCase();
                     const topicStr = (item.topic || "").toLowerCase();
                     const subjectStr = (item.subject || "").toLowerCase();
                     const snoStr = (item.sno || "").toString();
@@ -316,9 +370,8 @@
                         snoStr.includes(searchVal)
                     );
 
-                    // If year filter matches prefix of sessionNo (e.g. '2026' matches '202601')
-                    const matchesYear = yearVal === "ALL" || sessionStr.startsWith(yearVal);
-                    const matchesSubject = subCatVal === "ALL" || subjectStr.toUpperCase().includes(subCatVal.toUpperCase());
+                    const matchesYear = yearVal === "ALL" || sessionStr.includes(yearVal) || !sessionStr.match(/20\d\d/);
+                    const matchesSubject = subCatVal === "ALL" || subjectStr.toUpperCase().includes(subCatVal.slice(0, 4).toUpperCase());
 
                     return matchesSearch && matchesYear && matchesSubject;
                 });
@@ -333,7 +386,6 @@
             }
         }
 
-        // Render: Previous Year Question Papers
         function renderPyqCards(items, container) {
             items.forEach(item => {
                 const isMaths = item.subCategory.toUpperCase().includes('MATHS');
@@ -406,13 +458,11 @@
             });
         }
 
-        // Render: Additional Support Materials (Matches Sno, Subject, Topic, Session No, Link)
         function renderMaterialCards(items, container) {
             items.forEach(item => {
                 const meta = getMaterialMeta(item.materialLink);
                 const subjectUpper = (item.subject || "").toUpperCase();
 
-                // Distinct badge colors per subject
                 let subjColor = "bg-blue-50 text-blue-700 border-blue-200";
                 let subjIcon = "fa-book-open";
 
@@ -428,24 +478,28 @@
                 } else if (subjectUpper.includes("PSY")) {
                     subjColor = "bg-purple-50 text-purple-700 border-purple-200";
                     subjIcon = "fa-brain";
+                } else if (subjectUpper.includes("TAMIL")) {
+                    subjColor = "bg-orange-50 text-orange-700 border-orange-200";
+                    subjIcon = "fa-language";
+                } else if (subjectUpper.includes("ENG")) {
+                    subjColor = "bg-indigo-50 text-indigo-700 border-indigo-200";
+                    subjIcon = "fa-spell-check";
                 }
 
                 const cardHtml = `
                     <div class="bg-white rounded-2xl shadow-sm hover:shadow-md transition-all duration-200 border border-slate-200/80 flex flex-col justify-between overflow-hidden group">
-
-                        <!-- CARD HEADER -->
                         <div class="p-5 border-b border-slate-100">
                             <div class="flex items-center justify-between gap-2 mb-3">
                                 <span class="text-[11px] font-black border px-2.5 py-1 rounded-lg uppercase tracking-wider ${subjColor} flex items-center gap-1.5">
-                                    <i class="fa-solid ${subjIcon}"></i> ${item.subject}
+                                    <i class="fa-solid ${subjIcon}"></i> ${item.subject || 'Resource'}
                                 </span>
                                 <span class="bg-slate-100 text-slate-700 text-xs font-black px-2.5 py-1 rounded-lg font-mono">
-                                    Session ${item.sessionNo}
+                                    Session ${item.sessionNo || '-'}
                                 </span>
                             </div>
 
                             <h3 class="text-lg font-black text-slate-800 tracking-tight group-hover:text-blue-900 transition capitalize leading-snug">
-                                ${item.topic}
+                                ${item.topic || 'Untitled Material'}
                             </h3>
 
                             <div class="mt-3 flex items-center gap-2">
@@ -455,11 +509,10 @@
                             </div>
                         </div>
 
-                        <!-- CARD BODY / FOOTER -->
                         <div class="p-5 space-y-3 flex-grow flex flex-col justify-end">
                             <div class="text-[11px] font-semibold text-slate-400 flex justify-between items-center">
                                 <span>Item #${item.sno}</span>
-                                <span class="font-mono text-slate-500">Ref: ${item.sessionNo}</span>
+                                <span class="font-mono text-slate-500">Ref: ${item.sessionNo || '-'}</span>
                             </div>
 
                             <div class="pt-2">
@@ -484,6 +537,7 @@
 
         // Initial Load
         renderCards();
+        fetchSupportMaterialsJSONP();
     </script>
 </body>
 </html>
