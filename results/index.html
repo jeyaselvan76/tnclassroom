@@ -21,8 +21,6 @@
     <script src="/xlsx.js"></script>
     <link rel="stylesheet" href="/fontawesome.css">
 
-
-
     <!-- Google Analytics (GA4) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-MZZ985WL51"></script>
     <script>
@@ -75,9 +73,9 @@
                     <i class="fa-solid fa-shield-halved mr-1"></i> Secure MCQ Evaluation Tracker (TNTET / NMMS)
                 </h2>
                 <form onsubmit="event.preventDefault(); fetchUserResults();" class="flex flex-col md:flex-row gap-4">
-                    <input type="tel" id="searchMobile" maxlength="10"
-                        class="flex-grow p-4 md:p-5 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-blue-500 transition-all font-mono font-bold text-lg text-center tracking-widest"
-                        placeholder="ENTER 10 DIGIT MOBILE">
+                    <input type="text" id="searchIdentifier"
+                        class="flex-grow p-4 md:p-5 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-blue-500 transition-all font-mono font-bold text-base md:text-lg text-center tracking-wider"
+                        placeholder="ENTER MOBILE NUMBER OR GMAIL ID">
                     <button type="submit"
                         class="bg-[#1e3a8a] hover:bg-blue-800 text-white px-8 md:px-10 py-4 md:py-5 rounded-2xl font-black shadow-lg active:scale-95 transition-all text-xs md:text-sm uppercase tracking-widest flex items-center justify-center gap-2 cursor-pointer">
                         <i class="fa-solid fa-magnifying-glass"></i> View My Scores
@@ -115,7 +113,7 @@
                 <h3 class="text-lg font-black text-slate-900 tracking-tight">Understanding Your Practice Test Performance</h3>
             </header>
             <p>
-                Continuous evaluation is vital for candidates appearing in competitive state exams such as the <strong>Tamil Nadu Teacher Eligibility Test (TNTET)</strong> and the <strong>National Means-cum-Merit Scholarship (NMMS)</strong> examination. Our real-time scoring engine logs unit-wise multiple-choice question (MCQ) attempts directly to a centralized cloud database, allowing students and educators to review learning trajectories over time.
+                Continuous evaluation is vital for candidates appearing in competitive state exams such as the <strong>Tamil Nadu Teacher Eligibility Test (TNTET)</strong> and the <strong>National Means-cum-Merit Scholarship (NMMS)</strong> examination[cite: 16]. Our real-time scoring engine logs unit-wise multiple-choice question (MCQ) attempts directly to a centralized cloud database, allowing students and educators to review learning trajectories over time[cite: 16].
             </p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
                 <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100 space-y-1.5">
@@ -123,7 +121,7 @@
                         <i class="fa-solid fa-calculator text-blue-600"></i> Score Analysis
                     </h4>
                     <p class="text-xs text-slate-500">
-                        Scores with 50% or higher accuracy are highlighted in green, indicating solid conceptual retention. Scores under 50% indicate areas requiring textbook revision.
+                        Scores with 50% or higher accuracy are highlighted in green, indicating solid conceptual retention[cite: 16]. Scores under 50% indicate areas requiring textbook revision[cite: 16].
                     </p>
                 </div>
                 <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100 space-y-1.5">
@@ -131,7 +129,7 @@
                         <i class="fa-solid fa-file-excel text-emerald-600"></i> Excel Archival
                     </h4>
                     <p class="text-xs text-slate-500">
-                        Aspirants can generate offline spreadsheets of all historical attempts with dates and percentages for structured self-audits.
+                        Aspirants can generate offline spreadsheets of all historical attempts with dates and percentages for structured self-audits[cite: 16].
                     </p>
                 </div>
             </div>
@@ -143,7 +141,7 @@
                 <h2 class="text-lg font-black text-slate-800 flex items-center gap-2">
                     <i class="fa-solid fa-building-columns text-[#1e3a8a]"></i> Official Government Examination Portals
                 </h2>
-                <p class="text-slate-400 text-xs mt-0.5">Direct institutional gateway links to check formal state evaluations, school rankings, and merit logs.</p>
+                <p class="text-slate-400 text-xs mt-0.5">Direct institutional gateway links to check formal state evaluations, school rankings, and merit logs[cite: 16].</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -151,7 +149,7 @@
                     <div>
                         <span class="text-[9px] font-black text-blue-600 bg-blue-50 border border-blue-100 px-2.5 py-0.5 rounded uppercase tracking-wider">Class 10</span>
                         <h3 class="font-black text-slate-900 text-base mt-2 tracking-tight group-hover:text-[#1e3a8a] transition">SSLC Board Results</h3>
-                        <p class="text-slate-400 text-xs mt-1 leading-relaxed">Access instant state marks cards, metrics documentation, and individual registration number checks.</p>
+                        <p class="text-slate-400 text-xs mt-1 leading-relaxed">Access instant state marks cards, metrics documentation, and individual registration number checks[cite: 16].</p>
                     </div>
                     <a href="https://tnresults.nic.in" target="_blank" rel="noopener noreferrer" class="mt-5 text-center bg-slate-950 hover:bg-[#1e3a8a] text-white font-black text-xs py-3 rounded-xl transition uppercase tracking-wider block shadow-sm">
                         <i class="fa-solid fa-arrow-up-right-from-square mr-1.5"></i> Visit TN Results
@@ -162,7 +160,7 @@
                     <div>
                         <span class="text-[9px] font-black text-blue-600 bg-blue-50 border border-blue-100 px-2.5 py-0.5 rounded uppercase tracking-wider">Class 12</span>
                         <h3 class="font-black text-slate-900 text-base mt-2 tracking-tight group-hover:text-[#1e3a8a] transition">HSC Board Results</h3>
-                        <p class="text-slate-400 text-xs mt-1 leading-relaxed">Direct pipeline access points for Higher Secondary general, science, and vocational performance distributions.</p>
+                        <p class="text-slate-400 text-xs mt-1 leading-relaxed">Direct pipeline access points for Higher Secondary general, science, and vocational performance distributions[cite: 16].</p>
                     </div>
                     <a href="https://tnresults.nic.in" target="_blank" rel="noopener noreferrer" class="mt-5 text-center bg-slate-950 hover:bg-[#1e3a8a] text-white font-black text-xs py-3 rounded-xl transition uppercase tracking-wider block shadow-sm">
                         <i class="fa-solid fa-arrow-up-right-from-square mr-1.5"></i> Visit HSC Tracker
@@ -173,7 +171,7 @@
                     <div>
                         <span class="text-[9px] font-black text-emerald-600 bg-emerald-50 border border-emerald-100 px-2.5 py-0.5 rounded uppercase tracking-wider">Scholarship</span>
                         <h3 class="font-black text-slate-900 text-base mt-2 tracking-tight group-hover:text-emerald-600 transition">NMMS Government List</h3>
-                        <p class="text-slate-400 text-xs mt-1 leading-relaxed">Official Director of Government Examinations merit roll arrays, cutoff rankings, and selected list tracks.</p>
+                        <p class="text-slate-400 text-xs mt-1 leading-relaxed">Official Director of Government Examinations merit roll arrays, cutoff rankings, and selected list tracks[cite: 16].</p>
                     </div>
                     <a href="https://www.dge.tn.gov.in" target="_blank" rel="noopener noreferrer" class="mt-5 text-center bg-slate-950 hover:bg-emerald-600 text-white font-black text-xs py-3 rounded-xl transition uppercase tracking-wider block shadow-sm">
                         <i class="fa-solid fa-building-columns mr-1.5"></i> Open DGE Portal
@@ -197,12 +195,12 @@
             <a href="/disclaimer.html" class="hover:text-emerald-400 transition">Disclaimer</a>
             <a href="/contact-us.html" class="hover:text-emerald-400 transition">Contact Us</a>
         </nav>
-        <p>&copy; 2026 tnclassroom.com | A Professional Learning Platform for Students &amp; Teachers</p>
+        <p>&copy; 2026 tnclassroom.com | A Professional Learning Platform for Students &amp; Teachers[cite: 16]</p>
     </footer>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, getDocs, query, where, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBW92t7GWAf6vIHdJ83n7Nz7Io3y2GArVw",
@@ -216,6 +214,9 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+
+        const ADMIN_SHEET_ID = "1Juvl9IbQUE8QSib6icD_8v4c36omfqCDDxn3v9Xn95Y";
+        const ADMIN_TAB_NAME = "tnc_admin";
 
         let userData = [];
 
@@ -234,15 +235,46 @@
             }, 3000);
         }
 
+        // Helper to lookup matched email for a mobile number from tnc_admin sheet
+        async function lookupEmailFromSheet(mobile) {
+            try {
+                const gvizUrl = `https://docs.google.com/spreadsheets/d/${ADMIN_SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(ADMIN_TAB_NAME)}`;
+                const res = await fetch(gvizUrl);
+                const text = await res.text();
+                const jsonString = text.substring(text.indexOf("(") + 1, text.lastIndexOf(")"));
+                const json = JSON.parse(jsonString);
+
+                const rows = json.table?.rows || [];
+                for (let r of rows) {
+                    const cVals = r.c;
+                    if (!cVals) continue;
+                    const rowEmail = cVals[2]?.v ? String(cVals[2].v).trim().toLowerCase() : "";
+                    const rowMobile = cVals[3]?.v !== undefined && cVals[3]?.v !== null ? String(cVals[3].v).trim() : "";
+                    if (rowMobile === mobile && rowEmail) {
+                        return rowEmail;
+                    }
+                }
+            } catch (err) {
+                console.warn("Sheet lookup failed:", err);
+            }
+            return null;
+        }
+
         window.fetchUserResults = async () => {
-            const mobile = document.getElementById('searchMobile').value.trim();
+            const inputVal = document.getElementById('searchIdentifier').value.trim();
             const status = document.getElementById('statusMsg');
             const wrapper = document.getElementById('resultsWrapper');
             const body = document.getElementById('userResultsBody');
             const dlBtn = document.getElementById('downloadBtn');
 
-            if (mobile.length !== 10) {
-                showToast("Please enter a valid 10-digit mobile number.");
+            if (!inputVal) {
+                showToast("Please enter a mobile number or Gmail ID.");
+                return;
+            }
+
+            const isEmail = inputVal.includes("@");
+            if (!isEmail && inputVal.length !== 10) {
+                showToast("Please enter a valid 10-digit mobile number or Gmail ID.");
                 return;
             }
 
@@ -252,17 +284,54 @@
             dlBtn.classList.add('hidden');
 
             try {
-                const q = query(
-                    collection(db, "results"),
-                    where("mobile", "==", mobile),
-                    orderBy("timestamp", "desc")
-                );
+                let recordsMap = new Map();
 
-                const querySnapshot = await getDocs(q);
-                userData = querySnapshot.docs.map(doc => doc.data());
+                if (isEmail) {
+                    // Method 1: Single where clause with NO orderBy - No Composite Index needed
+                    const qEmail = query(
+                        collection(db, "results"),
+                        where("email", "==", inputVal.toLowerCase())
+                    );
+                    const snapEmail = await getDocs(qEmail);
+                    snapEmail.docs.forEach(doc => {
+                        recordsMap.set(doc.id, { id: doc.id, ...doc.data() });
+                    });
+                } else {
+                    // 1. Single where query on mobile - No Composite Index needed
+                    const qMobile = query(
+                        collection(db, "results"),
+                        where("mobile", "==", inputVal)
+                    );
+                    const snapMobile = await getDocs(qMobile);
+                    snapMobile.docs.forEach(doc => {
+                        recordsMap.set(doc.id, { id: doc.id, ...doc.data() });
+                    });
+
+                    // 2. Also check if this mobile is linked to a registered Gmail in tnc_admin sheet
+                    const matchedEmail = await lookupEmailFromSheet(inputVal);
+                    if (matchedEmail) {
+                        const qLinkedEmail = query(
+                            collection(db, "results"),
+                            where("email", "==", matchedEmail)
+                        );
+                        const snapLinked = await getDocs(qLinkedEmail);
+                        snapLinked.docs.forEach(doc => {
+                            recordsMap.set(doc.id, { id: doc.id, ...doc.data() });
+                        });
+                    }
+                }
+
+                userData = Array.from(recordsMap.values());
+
+                // Client-side Javascript Sorting: Chronologically descending (newest first)
+                userData.sort((a, b) => {
+                    const timeA = a.timestamp?.toMillis ? a.timestamp.toMillis() : new Date(a.timestamp || 0).getTime();
+                    const timeB = b.timestamp?.toMillis ? b.timestamp.toMillis() : new Date(b.timestamp || 0).getTime();
+                    return timeB - timeA;
+                });
 
                 if (userData.length === 0) {
-                    status.innerText = "No examination records found for this phone number.";
+                    status.innerText = `No examination records found for ${inputVal}.`;
                     return;
                 }
 
@@ -306,7 +375,7 @@
 
             } catch (error) {
                 console.error(error);
-                status.innerText = "Query Error: Verify Firestore database index parameters.";
+                status.innerText = "Query Error: Failed to retrieve records.";
             }
         };
 
@@ -324,21 +393,20 @@
             const worksheet = XLSX.utils.json_to_sheet(excelData);
             const workbook = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(workbook, worksheet, "My Scores");
-            XLSX.writeFile(workbook, `My_Results_${document.getElementById('searchMobile').value}.xlsx`);
+            XLSX.writeFile(workbook, `My_Results_${document.getElementById('searchIdentifier').value}.xlsx`);
         };
 
         function checkIncomingUrlParameters() {
             const urlParams = new URLSearchParams(window.location.search);
-            const mobilePayload = urlParams.get('mobile') || urlParams.get('search');
-            if (mobilePayload && mobilePayload.length === 10) {
-                document.getElementById('searchMobile').value = mobilePayload;
+            const queryPayload = urlParams.get('mobile') || urlParams.get('email') || urlParams.get('search');
+            if (queryPayload) {
+                document.getElementById('searchIdentifier').value = queryPayload;
                 window.fetchUserResults();
             }
         }
 
         async function loadSharedSiteNavbar() {
             try {
-                // If results is in root (/results.html) use './navbar.html', if subfolder (/results/index.html) use '../navbar.html'
                 const navPath = window.location.pathname.includes('/results/')
                     ? '../navbar.html'
                     : './navbar.html';
