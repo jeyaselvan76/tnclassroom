@@ -94,11 +94,12 @@
 
                 <!-- State 2: Signed In User Badge -->
                 <div id="user-profile-badge" class="hidden items-center gap-2.5 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-xl">
-                    <div class="flex flex-col text-left">
-                        <span id="user-display-name" class="text-xs font-bold text-slate-800 leading-tight">Candidate</span>
-                        <span id="user-plan-badge" class="text-[9px] font-black uppercase text-amber-700 bg-amber-100 px-1.5 py-0.5 rounded w-fit mt-0.5">Free</span>
+                    <div class="flex flex-col text-left max-w-[180px]">
+                        <span id="user-display-name" class="text-xs font-bold text-slate-800 leading-tight truncate">Candidate</span>
+                        <span id="user-display-email" class="text-[10px] font-mono text-slate-400 truncate"></span>
+                        <span id="user-plan-badge" class="text-[9px] font-black uppercase text-amber-700 bg-amber-100 px-1.5 py-0.5 rounded w-fit mt-0.5">Checking...</span>
                     </div>
-                    <button onclick="handleSignOut()" class="w-7 h-7 rounded-lg bg-white hover:bg-red-50 text-slate-400 hover:text-red-500 border border-slate-200 flex items-center justify-center transition cursor-pointer" title="Sign Out">
+                    <button onclick="handleSignOut()" class="w-7 h-7 rounded-lg bg-white hover:bg-red-50 text-slate-400 hover:text-red-500 border border-slate-200 flex items-center justify-center transition cursor-pointer shrink-0" title="Sign Out">
                         <i class="fa-solid fa-arrow-right-from-bracket text-xs"></i>
                     </button>
                 </div>
@@ -258,7 +259,7 @@
     <!-- RESILIENT FIREBASE AUTH -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, setDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
         import {
             getAuth,
             GoogleAuthProvider,
@@ -281,6 +282,10 @@
             appId: "1:808928665241:web:5a8a9e3f4ee5b885c9a208",
             measurementId: "G-L059C061EY"
         };
+
+        // Master Admin Sheet ID for fallback email verification
+        const ADMIN_SHEET_ID = "1Juvl9IbQUE8QSib6icD_8v4c36omfqCDDxn3v9Xn95Y";
+        const ADMIN_TAB_NAME = "tnc_admin";
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
@@ -331,11 +336,36 @@
             window.location.reload();
         };
 
+        // Fallback verification against tnc_admin Google Sheet (Column C = Email)
+        async function verifyEmailInMasterSheet(cleanEmail) {
+            if (!cleanEmail) return false;
+            try {
+                const gvizUrl = `https://docs.google.com/spreadsheets/d/${ADMIN_SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(ADMIN_TAB_NAME)}`;
+                // credentials: 'omit' bypasses multi-Gmail cookie conflicts on desktop Chrome
+                const res = await fetch(gvizUrl, { credentials: 'omit' });
+                const text = await res.text();
+                if (!text.includes("google.visualization.Query.setResponse")) return false;
+
+                const jsonString = text.substring(text.indexOf("(") + 1, text.lastIndexOf(")"));
+                const json = JSON.parse(jsonString);
+                const rows = json.table?.rows || [];
+
+                return rows.some(r => {
+                    const cellEmail = r.c?.[2]?.v ? String(r.c[2].v).trim().toLowerCase() : "";
+                    return cellEmail === cleanEmail;
+                });
+            } catch (e) {
+                console.warn("Master sheet fallback check failed:", e);
+                return false;
+            }
+        }
+
         async function syncUserProfile(user) {
             window.currentAuthUser = user;
             const loginBtn = document.getElementById("btn-login");
             const profileBadge = document.getElementById("user-profile-badge");
             const nameLabel = document.getElementById("user-display-name");
+            const emailLabel = document.getElementById("user-display-email");
             const planBadge = document.getElementById("user-plan-badge");
             const modalEmail = document.getElementById("modal-user-email");
 
@@ -347,11 +377,18 @@
             if (nameLabel) {
                 nameLabel.innerText = (user.displayName || user.email || "Candidate").split(" ")[0];
             }
+            if (emailLabel) {
+                emailLabel.innerText = user.email || "";
+            }
             if (modalEmail) {
                 modalEmail.innerText = user.email || "Candidate";
             }
 
+            let isProUser = false;
+            const cleanEmail = (user.email || "").trim().toLowerCase();
+
             try {
+                // 1. Check primary Firestore user document by UID
                 const userRef = doc(db, "users", user.uid);
                 let userDoc = await getDoc(userRef);
 
@@ -359,7 +396,7 @@
                     await setDoc(userRef, {
                         uid: user.uid,
                         displayName: user.displayName || "",
-                        email: user.email || "",
+                        email: cleanEmail,
                         isPaid: false,
                         plan: "free",
                         createdAt: new Date()
@@ -371,20 +408,41 @@
                 const expiry = data.subscriptionExpiresAt ? data.subscriptionExpiresAt.toDate() : null;
                 const notExpired = !expiry || expiry > new Date();
 
-                window.currentUserPaidStatus = (data.isPaid === true && notExpired);
+                if (data.isPaid === true && notExpired) {
+                    isProUser = true;
+                }
 
-                if (planBadge) {
-                    if (window.currentUserPaidStatus) {
-                        planBadge.innerText = "PRO";
-                        planBadge.className = "text-[9px] font-black uppercase text-emerald-800 bg-emerald-100 px-1.5 py-0.5 rounded w-fit mt-0.5";
-                    } else {
-                        planBadge.innerText = "FREE";
-                        planBadge.className = "text-[9px] font-black uppercase text-amber-700 bg-amber-100 px-1.5 py-0.5 rounded w-fit mt-0.5";
-                    }
+                // 2. If not marked paid on UID doc, check if any other Firestore user doc with this email is paid
+                if (!isProUser && cleanEmail) {
+                    const qEmail = query(collection(db, "users"), where("email", "==", cleanEmail));
+                    const emailSnaps = await getDocs(qEmail);
+                    emailSnaps.forEach(d => {
+                        const dData = d.data();
+                        const dExp = dData.subscriptionExpiresAt ? dData.subscriptionExpiresAt.toDate() : null;
+                        if (dData.isPaid === true && (!dExp || dExp > new Date())) {
+                            isProUser = true;
+                        }
+                    });
                 }
             } catch (err) {
                 console.error("Firestore user sync error:", err);
-                window.currentUserPaidStatus = false;
+            }
+
+            // 3. Fallback: Check tnc_admin Google Sheet directly by email
+            if (!isProUser && cleanEmail) {
+                isProUser = await verifyEmailInMasterSheet(cleanEmail);
+            }
+
+            window.currentUserPaidStatus = isProUser;
+
+            if (planBadge) {
+                if (window.currentUserPaidStatus) {
+                    planBadge.innerText = "PRO";
+                    planBadge.className = "text-[9px] font-black uppercase text-emerald-800 bg-emerald-100 px-1.5 py-0.5 rounded w-fit mt-0.5";
+                } else {
+                    planBadge.innerText = "FREE";
+                    planBadge.className = "text-[9px] font-black uppercase text-amber-700 bg-amber-100 px-1.5 py-0.5 rounded w-fit mt-0.5";
+                }
             }
 
             if (typeof renderActiveSessionsDeck === "function") {
@@ -772,49 +830,6 @@
             light: { bodyBg: 'bg-white', text: 'text-slate-800', border: 'border-slate-200/60', headerBg: 'bg-slate-50', headerText: 'text-slate-900', btnBg: 'bg-slate-950', btnText: 'text-white' },
             sepia: { bodyBg: 'bg-[#f4ecd8]', text: 'text-[#5b4636]', border: 'border-[#e4d8bc]', headerBg: 'bg-[#eae0c6]', headerText: 'text-[#433225]', btnBg: 'bg-[#433225]', btnText: 'text-[#f4ecd8]' },
             dark:  { bodyBg: 'bg-slate-950', text: 'text-slate-200', border: 'border-slate-800', headerBg: 'bg-slate-900', headerText: 'text-white', btnBg: 'bg-slate-800', btnText: 'text-slate-200' }
-        };
-
-        function showDownloadButton() {
-            const btn = document.getElementById('btn-download-material');
-            if (btn) btn.classList.remove('hidden');
-        }
-
-        function hideDownloadButton() {
-            const btn = document.getElementById('btn-download-material');
-            if (btn) btn.classList.add('hidden');
-        }
-
-        window.triggerMaterialDownload = function() {
-            if (!currentMaterialUrl) return;
-
-            const safeFilename = (currentMaterialTitle || "TNTET_Psychology_Study_Material")
-                .replace(/[^a-zA-Z0-9_\u0B80-\u0BFF\s-]/g, '')
-                .trim()
-                .replace(/\s+/g, '_');
-
-            if (currentMaterialType === 'pdf') {
-                const a = document.createElement('a');
-                a.href = currentMaterialUrl;
-                a.download = `${safeFilename}.pdf`;
-                a.target = '_blank';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-            } else {
-                const textNode = document.getElementById('material-text-node');
-                const content = textNode ? textNode.innerText : "";
-                if (!content) return alert("Material content not ready to download.");
-
-                const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `${safeFilename}.txt`;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                URL.revokeObjectURL(url);
-            }
         };
 
         async function openMaterialModal(fileUrl, unitName, unitNo) {
