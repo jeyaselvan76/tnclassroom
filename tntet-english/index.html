@@ -95,11 +95,12 @@
 
                 <!-- State 2: Signed In User Badge -->
                 <div id="user-profile-badge" class="hidden items-center gap-2.5 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-xl">
-                    <div class="flex flex-col text-left">
-                        <span id="user-display-name" class="text-xs font-bold text-slate-800 leading-tight">Candidate</span>
-                        <span id="user-plan-badge" class="text-[9px] font-black uppercase text-amber-700 bg-amber-100 px-1.5 py-0.5 rounded w-fit mt-0.5">Free</span>
+                    <div class="flex flex-col text-left max-w-[180px]">
+                        <span id="user-display-name" class="text-xs font-bold text-slate-800 leading-tight truncate">Candidate</span>
+                        <span id="user-display-email" class="text-[10px] font-mono text-slate-400 truncate"></span>
+                        <span id="user-plan-badge" class="text-[9px] font-black uppercase text-amber-700 bg-amber-100 px-1.5 py-0.5 rounded w-fit mt-0.5">Checking...</span>
                     </div>
-                    <button onclick="handleSignOut()" class="w-7 h-7 rounded-lg bg-white hover:bg-red-50 text-slate-400 hover:text-red-500 border border-slate-200 flex items-center justify-center transition cursor-pointer" title="Sign Out">
+                    <button onclick="handleSignOut()" class="w-7 h-7 rounded-lg bg-white hover:bg-red-50 text-slate-400 hover:text-red-500 border border-slate-200 flex items-center justify-center transition cursor-pointer shrink-0" title="Sign Out">
                         <i class="fa-solid fa-arrow-right-from-bracket text-xs"></i>
                     </button>
                 </div>
@@ -246,10 +247,10 @@
         <p>&copy; 2026 tnclassroom.com | A Professional Learning Platform for Students &amp; Teachers</p>
     </footer>
 
-    <!-- RESILIENT FIREBASE AUTH (MOBILE POPUP FIRST + INDEXEDDB PERSISTENCE) -->
+    <!-- RESILIENT FIREBASE AUTH (3-LAYER PRO VERIFICATION + INDEXEDDB PERSISTENCE) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, setDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
         import {
             getAuth,
             GoogleAuthProvider,
@@ -272,6 +273,10 @@
             appId: "1:808928665241:web:5a8a9e3f4ee5b885c9a208",
             measurementId: "G-L059C061EY"
         };
+
+        // Master Admin Sheet ID for fallback email verification
+        const ADMIN_SHEET_ID = "1Juvl9IbQUE8QSib6icD_8v4c36omfqCDDxn3v9Xn95Y";
+        const ADMIN_TAB_NAME = "tnc_admin";
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
@@ -322,11 +327,36 @@
             window.location.reload();
         };
 
+        // Fallback verification against tnc_admin Google Sheet (Column C = Email)
+        async function verifyEmailInMasterSheet(cleanEmail) {
+            if (!cleanEmail) return false;
+            try {
+                const gvizUrl = `https://docs.google.com/spreadsheets/d/${ADMIN_SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(ADMIN_TAB_NAME)}`;
+                // credentials: 'omit' bypasses multi-Gmail cookie conflicts on desktop Chrome
+                const res = await fetch(gvizUrl, { credentials: 'omit' });
+                const text = await res.text();
+                if (!text.includes("google.visualization.Query.setResponse")) return false;
+
+                const jsonString = text.substring(text.indexOf("(") + 1, text.lastIndexOf(")"));
+                const json = JSON.parse(jsonString);
+                const rows = json.table?.rows || [];
+
+                return rows.some(r => {
+                    const cellEmail = r.c?.[2]?.v ? String(r.c[2].v).trim().toLowerCase() : "";
+                    return cellEmail === cleanEmail;
+                });
+            } catch (e) {
+                console.warn("Master sheet fallback check failed:", e);
+                return false;
+            }
+        }
+
         async function syncUserProfile(user) {
             window.currentAuthUser = user;
             const loginBtn = document.getElementById("btn-login");
             const profileBadge = document.getElementById("user-profile-badge");
             const nameLabel = document.getElementById("user-display-name");
+            const emailLabel = document.getElementById("user-display-email");
             const planBadge = document.getElementById("user-plan-badge");
             const modalEmail = document.getElementById("modal-user-email");
 
@@ -338,11 +368,18 @@
             if (nameLabel) {
                 nameLabel.innerText = (user.displayName || user.email || "Candidate").split(" ")[0];
             }
+            if (emailLabel) {
+                emailLabel.innerText = user.email || "";
+            }
             if (modalEmail) {
                 modalEmail.innerText = user.email || "Candidate";
             }
 
+            let isProUser = false;
+            const cleanEmail = (user.email || "").trim().toLowerCase();
+
             try {
+                // 1. Check primary Firestore user document by UID
                 const userRef = doc(db, "users", user.uid);
                 let userDoc = await getDoc(userRef);
 
@@ -350,7 +387,7 @@
                     await setDoc(userRef, {
                         uid: user.uid,
                         displayName: user.displayName || "",
-                        email: user.email || "",
+                        email: cleanEmail,
                         isPaid: false,
                         plan: "free",
                         createdAt: new Date()
@@ -362,20 +399,41 @@
                 const expiry = data.subscriptionExpiresAt ? data.subscriptionExpiresAt.toDate() : null;
                 const notExpired = !expiry || expiry > new Date();
 
-                window.currentUserPaidStatus = (data.isPaid === true && notExpired);
+                if (data.isPaid === true && notExpired) {
+                    isProUser = true;
+                }
 
-                if (planBadge) {
-                    if (window.currentUserPaidStatus) {
-                        planBadge.innerText = "PRO";
-                        planBadge.className = "text-[9px] font-black uppercase text-emerald-800 bg-emerald-100 px-1.5 py-0.5 rounded w-fit mt-0.5";
-                    } else {
-                        planBadge.innerText = "FREE";
-                        planBadge.className = "text-[9px] font-black uppercase text-amber-700 bg-amber-100 px-1.5 py-0.5 rounded w-fit mt-0.5";
-                    }
+                // 2. If not marked paid on UID doc, check if any other Firestore user doc with this email is paid
+                if (!isProUser && cleanEmail) {
+                    const qEmail = query(collection(db, "users"), where("email", "==", cleanEmail));
+                    const emailSnaps = await getDocs(qEmail);
+                    emailSnaps.forEach(d => {
+                        const dData = d.data();
+                        const dExp = dData.subscriptionExpiresAt ? dData.subscriptionExpiresAt.toDate() : null;
+                        if (dData.isPaid === true && (!dExp || dExp > new Date())) {
+                            isProUser = true;
+                        }
+                    });
                 }
             } catch (err) {
                 console.error("Firestore user sync error:", err);
-                window.currentUserPaidStatus = false;
+            }
+
+            // 3. Fallback: Check tnc_admin Google Sheet directly by email
+            if (!isProUser && cleanEmail) {
+                isProUser = await verifyEmailInMasterSheet(cleanEmail);
+            }
+
+            window.currentUserPaidStatus = isProUser;
+
+            if (planBadge) {
+                if (window.currentUserPaidStatus) {
+                    planBadge.innerText = "PRO";
+                    planBadge.className = "text-[9px] font-black uppercase text-emerald-800 bg-emerald-100 px-1.5 py-0.5 rounded w-fit mt-0.5";
+                } else {
+                    planBadge.innerText = "FREE";
+                    planBadge.className = "text-[9px] font-black uppercase text-amber-700 bg-amber-100 px-1.5 py-0.5 rounded w-fit mt-0.5";
+                }
             }
 
             if (typeof renderActiveSessionsDeck === "function") {
@@ -694,7 +752,7 @@
                     <div class="space-y-3">
                         <div class="flex justify-between items-center">
                             <div class="flex items-center gap-1.5">
-                                <span class="text-[10px] font-black tracking-wider uppercase font-mono ${isUnlocked ? `${config.badgeText} ${config.badgeBg} border${config.badgeBorder}` : 'text-amber-700 bg-amber-50 border-amber-200'} border px-2 py-0.5 rounded">
+                                <span class="text-[10px] font-black tracking-wider uppercase font-mono ${isUnlocked ? `${config.badgeText} ${config.badgeBg} border ${config.badgeBorder}` : 'text-amber-700 bg-amber-50 border-amber-200'} border px-2 py-0.5 rounded">
                                     ${row.session}
                                 </span>
                                 <span class="text-[10px] font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded flex items-center gap-1">
@@ -714,7 +772,7 @@
                         </div>
 
                         <div class="flex items-start gap-3 pt-1 cursor-pointer" onclick="${isUnlocked ? `openMaterialModal('${row.pdfUrl}', '${row.topic.replace(/'/g, "\\'")}', '${row.session}')` : `promptSubscription('${row.session}')`}">
-                            <div class="w-11 h-11 rounded-xl ${isUnlocked ? `${config.avatarBg}${config.avatarText}` : 'bg-amber-50 text-amber-600'} border border-slate-200/40 flex items-center justify-center font-bold text-lg shrink-0 ${isUnlocked ? `${config.avatarHoverBg}${config.avatarHoverText}` : 'group-hover:bg-amber-600 group-hover:text-white'} transition-colors duration-200 shadow-sm">
+                            <div class="w-11 h-11 rounded-xl ${isUnlocked ? `${config.avatarBg} ${config.avatarText}` : 'bg-amber-50 text-amber-600'} border border-slate-200/40 flex items-center justify-center font-bold text-lg shrink-0 ${isUnlocked ? `${config.avatarHoverBg} ${config.avatarHoverText}` : 'group-hover:bg-amber-600 group-hover:text-white'} transition-colors duration-200 shadow-sm">
                                 <i class="${isUnlocked ? config.avatarIcon : 'fa-solid fa-lock'}"></i>
                             </div>
                             <div class="space-y-0.5 flex-grow">
