@@ -739,15 +739,15 @@
                         <div class="pt-2 space-y-1.5 border-t border-slate-100">
                             ${isUnlocked ? `
                             <button onclick="openMaterialModal('${row.pdfUrl}', '${row.topic.replace(/'/g, "\\'")}', '${row.session}')" class="flex items-center gap-2 text-xs font-bold text-slate-600 hover:text-purple-600 transition text-left w-full cursor-pointer py-1">
-                                <i class="fa-solid fa-file-lines text-purple-600 text-sm w-4 text-center"></i> Read Session Notes
+                                <i class="fa-solid fa-file-lines text-purple-600 text-sm w-4 text-center"></i> Study Material
                             </button>` : `
                             <button onclick="promptSubscription('${row.session}')" class="flex items-center gap-2 text-xs font-bold text-slate-400 hover:text-amber-600 transition text-left w-full cursor-pointer py-1">
-                                <i class="fa-solid fa-lock text-amber-500 text-sm w-4 text-center"></i> Notes Locked (Pro Only)
+                                <i class="fa-solid fa-lock text-amber-500 text-sm w-4 text-center"></i> Study Material (Pro Only)
                             </button>`}
 
                             ${hasVideo ? `
                             <a href="${row.videoUrl}" target="_blank" class="flex items-center gap-2 text-xs font-bold text-slate-600 hover:text-red-600 transition py-1">
-                                <i class="fa-brands fa-youtube text-red-500 text-sm w-4 text-center"></i> Watch Video Class
+                                <i class="fa-brands fa-youtube text-red-500 text-sm w-4 text-center"></i> Video Lesson
                             </a>` : `
                             <span class="flex items-center gap-2 text-xs font-bold text-slate-300 cursor-not-allowed py-1">
                                 <i class="fa-brands fa-youtube text-slate-200 text-sm w-4 text-center"></i> Video Class (Coming Soon)
@@ -760,14 +760,14 @@
                         ${isUnlocked ? (
                             hasMcq ? `
                             <a href="${row.mcqUrl}" target="_blank" class="w-full text-center bg-purple-900 hover:bg-purple-950 text-white font-black text-xs py-2.5 rounded-xl transition shadow flex items-center justify-center gap-2 uppercase tracking-wider">
-                                <i class="fa-solid fa-bolt text-amber-400"></i> Launch MCQ Quiz
+                                <i class="fa-solid fa-bolt text-amber-400"></i> ONLINE TEST
                             </a>` : `
                             <button disabled class="w-full text-center bg-slate-100 text-slate-400 font-bold text-xs py-2.5 rounded-xl block uppercase tracking-wider cursor-not-allowed border border-slate-200/40">
                                 Quiz Evaluation Prep
                             </button>`
                         ) : `
                         <button onclick="promptSubscription('${row.session}')" class="w-full text-center bg-amber-500 hover:bg-amber-600 text-white font-black text-xs py-2.5 rounded-xl transition shadow flex items-center justify-center gap-2 uppercase tracking-wider cursor-pointer">
-                            <i class="fa-solid fa-lock text-white"></i> Unlock MCQ &amp; Notes
+                            <i class="fa-solid fa-lock text-white"></i> Unlock ONLINE TEST
                         </button>`}
                     </div>
                 `;
