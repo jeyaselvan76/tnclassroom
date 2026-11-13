@@ -8,30 +8,29 @@
 
     <script src="/tailwind.js"></script>
     <link rel="stylesheet" href="/fontawesome.css">
+
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-MZZ985WL51"></script>
-
     <script>
-      window.dataLayer = window.location.hostname === 'localhost' ? [] : (window.dataLayer || []);
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+    window.dataLayer = window.location.hostname === 'localhost' ? [] : (window.dataLayer || []);
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-      gtag('config', 'G-MZZ985WL51', {
+    gtag('config', 'G-MZZ985WL51', {
         page_path: window.location.pathname,
         cookie_flags: 'max-age=7200;Secure;SameSite=None'
-      });
+    });
     </script>
 
-    <!-- [tet-adsense] Optimized Asynchronous MathJax configuration for modal reader -->
+    <!-- Asynchronous MathJax configuration for modal reader -->
     <script>
-      window.MathJax = {
+    window.MathJax = {
         tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], processEscapes: true },
         options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
-      };
+    };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
-        /* FIXED: Blocks hidden desktop menus from hijacking user clicks on empty space */
         .dropdown-menu { z-index: 50 !important; pointer-events: none; }
         .dropdown-active { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; z-index: 50 !important; pointer-events: auto !important; }
         .tamil-fix { font-family: 'Segoe UI', 'Latha', 'Apple Tamil', sans-serif !important; }
@@ -107,13 +106,28 @@
             </div>
         </div>
 
-        <article class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm text-slate-700 text-sm space-y-3">
-            <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
-                <span class="text-purple-600 font-black">●</span> TNTET தமிழ்: பாடத்திட்டம் &amp; குறிப்புகள்
-            </h2>
-            <p><strong>முக்கியப் பிரிவுகள்:</strong> எழுத்து, சொல், அணி இலக்கணங்கள்; சங்க காலம் முதல் தற்கால இலக்கியம் வரை; கற்பித்தல் முறைகள் (LSRW, CCE).</p>
-            <p><strong>பயிற்சி அணுகுமுறை:</strong> விதிவருமுறை (சான்று → விதி) மற்றும் சந்திப் பிழையற்ற மொழித்திறன் பயிற்சிகளுக்கு முதன்மை முக்கியத்துவம் அளியுங்கள்.</p>
-            <p class="font-medium text-purple-700 bg-purple-50 p-2.5 rounded-lg border border-purple-100">6–10 சமச்சீர் பாடநூல்களை ஆழ்ந்து படித்து, முந்தைய ஆண்டு TRB வினாக்களைப் பயிற்சி செய்து முழு மதிப்பெண்களைப் பெறுங்கள்.</p>
+        <!-- CONDENSED TNTET TAMIL OVERVIEW BLOCK -->
+        <article class="bg-white border border-slate-100 rounded-2xl p-5 sm:p-6 shadow-sm space-y-3 select-text text-slate-600 leading-relaxed text-xs sm:text-sm">
+            <div class="flex items-center gap-2 font-black uppercase tracking-wider text-purple-600 text-xs">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>TNTET தமிழ்: பாடத்திட்டம் &amp; குறிப்புகள்</span>
+            </div>
+            <p>
+                TNTET தாள்-1 மற்றும் தாள்-2 ஆகிய இரண்டிலும் <span class="tamil-fix font-semibold text-slate-800">பொதுத்தமிழ்</span> 30 மதிப்பெண்களுக்கு முக்கியப் பங்கு வகிக்கிறது. 6 முதல் 10-ஆம் வகுப்பு வரையிலான சமச்சீர் பாடநூல்கள் மற்றும் TRB தரத்திற்கு ஏற்ப பாடக்குறிப்புகள் தொகுக்கப்பட்டுள்ளன.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1 font-medium text-slate-700">
+                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                    <strong class="text-purple-600 block">இலக்கணம் &amp; மொழித்திறன்</strong>
+                    எழுத்து, சொல், பொருள், யாப்பு, அணி இலக்கணங்கள் மற்றும் சந்திப் பிழையற்ற வாக்கிய அமைப்புப் பயிற்சிகள்.
+                </div>
+                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                    <strong class="text-indigo-600 block">இலக்கியம் &amp; கற்பித்தல் முறைகள்</strong>
+                    சங்க இலக்கியம் முதல் தற்கால இலக்கியம் வரை மற்றும் LSRW, CCE கற்பித்தல் அணுகுமுறைகள்.
+                </div>
+            </div>
+            <p class="text-[11px] text-slate-400 italic pt-1">
+                கீழே உள்ள தலைப்புகளைத் தேர்ந்தெடுத்து பாடக் குறிப்புகள், காணொலி வகுப்புகள் மற்றும் மாதிரித் தேர்வுகளை அணுகவும்.
+            </p>
         </article>
 
         <!-- CATEGORY FILTER BUTTONS -->
@@ -189,7 +203,7 @@
     <!-- TOAST NOTIFICATION CONTAINER -->
     <div id="toast-notification" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-2xl border border-slate-700 flex items-center gap-2.5 text-xs font-bold transition-all duration-300 pointer-events-none opacity-0 translate-y-4">
         <i class="fa-solid fa-circle-check text-purple-400 text-sm"></i>
-        <span id="toast-msg">Link copied to clipboard!</span>
+        <span id="toast-msg">Notification</span>
     </div>
 
     <!-- MATERIAL READER MODAL (z-[70] ensures drawer overlays page elements) -->
@@ -233,15 +247,16 @@
     <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-6 text-center text-xs mt-auto space-y-4">
         <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs font-bold text-slate-400">
             <a href="/about-us.html" class="hover:text-purple-400 transition">About Us</a>
+            <a href="/terms.html" class="hover:text-purple-400 transition">Terms &amp; Conditions</a>
             <a href="/privacy-policy.html" class="hover:text-purple-400 transition">Privacy Policy</a>
-            <a href="/disclaimer.html" class="hover:text-purple-400 transition">Disclaimer</a>
+            <a href="/refund-policy.html" class="hover:text-purple-400 transition">Refund Policy</a>
             <a href="/contact-us.html" class="hover:text-purple-400 transition">Contact Us</a>
         </nav>
 
         <p>&copy; 2026 tnclassroom.com | A Professional Learning Platform for Students &amp; Teachers</p>
     </footer>
 
-    <!-- RESILIENT FIREBASE AUTH (MOBILE POPUP FIRST + INDEXEDDB PERSISTENCE + 3-LAYER PRO CHECK) -->
+    <!-- RESILIENT FIREBASE AUTH -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, doc, getDoc, setDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
@@ -459,10 +474,11 @@
         });
     </script>
 
-    <!-- CORE PORTAL, CSV PARSER & GOOGLE FORM MODAL SCRIPTS -->
+    <!-- CORE PORTAL & GOOGLE FORM MODAL SCRIPTS -->
     <script>
         const DATABASE_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRxrNjhYpkr5ZNT3WvwWMS8kZLlzocCLiEFBJm68HanMXEfajPTWW9Aus26pAWTXQil2MWvtNUbYHS4/pub?gid=133264384&single=true&output=csv";
 
+        // Configured Google Form and Entry ID
         const GOOGLE_FORM_BASE_URL = "https://docs.google.com/forms/d/e/1FAIpQLSct4oK6-cQX9Q4UNQFG50Y2DR77rJGc0Cj5m-K-xT9KJM-ypg/viewform";
         const EMAIL_ENTRY_ID = "entry.946554793";
         const ADMIN_WHATSAPP = "918825810937";
@@ -612,3 +628,393 @@
                         id: index,
                         session: sessionNo,
                         topic: topicName,
+                        pdfUrl: pdfPath,
+                        videoUrl: videoLink,
+                        mcqUrl: mcqRouter,
+                        subject: category
+                    });
+                });
+
+                masterDatabaseRecords.sort((a, b) => {
+                    const numA = parseInt(a.session.replace(/\D/g, '')) || 0;
+                    const numB = parseInt(b.session.replace(/\D/g, '')) || 0;
+                    return numA - numB;
+                });
+
+                buildCategoryTabs();
+            } catch (error) {
+                console.error("TNTET portal core boot crash:", error);
+            }
+        }
+
+        function buildCategoryTabs() {
+            const container = document.getElementById('category-tabs-container');
+            const categories = [...new Set(masterDatabaseRecords.map(x => x.subject))].filter(Boolean);
+            container.innerHTML = "";
+
+            const allBtn = document.createElement('button');
+            allBtn.className = `px-4 py-2 rounded-xl text-xs font-extrabold border transition shadow-sm ${globallySelectedCategory === 'ALL' ? 'bg-purple-950 text-white border-purple-950 scale-[1.02]' : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'}`;
+            allBtn.innerText = "Show All / அனைத்தும்";
+            allBtn.onclick = () => {
+                globallySelectedCategory = "ALL";
+                buildCategoryTabs();
+            };
+            container.appendChild(allBtn);
+
+            categories.forEach((cat) => {
+                const btn = document.createElement('button');
+                btn.className = `px-4 py-2 rounded-xl text-xs font-extrabold border transition shadow-sm ${cat === globallySelectedCategory ? 'bg-purple-950 text-white border-purple-950 scale-[1.02]' : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'}`;
+                btn.innerText = cat;
+                btn.onclick = () => {
+                    globallySelectedCategory = cat;
+                    buildCategoryTabs();
+                };
+                container.appendChild(btn);
+            });
+            renderActiveSessionsDeck();
+        }
+
+        function renderActiveSessionsDeck() {
+            const deck = document.getElementById('sessions-master-deck');
+            if (!deck) return;
+            deck.innerHTML = "";
+
+            const matchedRows = globallySelectedCategory === "ALL"
+                ? masterDatabaseRecords
+                : masterDatabaseRecords.filter(x => x.subject === globallySelectedCategory);
+
+            if (matchedRows.length === 0) {
+                deck.innerHTML = `<div class="col-span-full p-6 bg-white border border-slate-200 rounded-2xl text-center text-xs font-bold text-slate-400 h-fit">No learning tracks available for this filter.</div>`;
+                return;
+            }
+
+            matchedRows.forEach(row => {
+                const sessionNum = parseInt(row.session.replace(/\D/g, '')) || 0;
+                const isFreeSession = (sessionNum === 1);
+                const isUnlocked = isFreeSession || (window.currentUserPaidStatus === true);
+
+                const hasVideo = row.videoUrl !== '#';
+                const hasMcq = row.mcqUrl !== '#';
+                let formattedTopic = row.topic.replace(/\r?\n/g, '<br>');
+
+                const card = document.createElement('div');
+                card.className = `group bg-white border border-slate-200/80 border-l-4 ${isUnlocked ? 'border-l-purple-600' : 'border-l-amber-500'} rounded-2xl p-5 shadow-sm hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between relative overflow-hidden select-none h-fit`;
+
+                card.innerHTML = `
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center gap-1.5">
+                                <span class="text-[10px] font-black tracking-wider uppercase font-mono ${isUnlocked ? 'text-purple-600 bg-purple-50 border-purple-100' : 'text-amber-700 bg-amber-50 border-amber-200'} border px-2 py-0.5 rounded">
+                                    ${row.session}
+                                </span>
+                                <span class="text-[10px] font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded flex items-center gap-1">
+                                    <i class="fa-solid fa-book-open text-purple-600"></i> ${row.subject}
+                                </span>
+                                ${!isUnlocked ? `
+                                <span class="text-[9px] font-black uppercase text-amber-700 bg-amber-100 px-1.5 py-0.5 rounded flex items-center gap-1">
+                                    <i class="fa-solid fa-lock text-[8px]"></i> PRO
+                                </span>` : `
+                                <span class="text-[9px] font-black uppercase text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded">
+                                    ${isFreeSession ? 'FREE' : 'UNLOCKED'}
+                                </span>`}
+                            </div>
+                            <button onclick="shareTopicCard(event, '${row.session}', '${row.topic.replace(/'/g, "\\'")}', '${row.subject}')" class="text-slate-400 hover:text-purple-600 p-1 rounded-lg hover:bg-purple-50 transition cursor-pointer" title="Share Topic Link">
+                                <i class="fa-solid fa-share-nodes text-xs"></i>
+                            </button>
+                        </div>
+
+                        <!-- Card Body Click -->
+                        <div class="flex items-start gap-3 pt-1 cursor-pointer" onclick="${isUnlocked ? `openMaterialModal('${row.pdfUrl}', '${row.topic.replace(/'/g, "\\'")}', '${row.session}')` : `promptSubscription('${row.session}')`}">
+                            <div class="w-11 h-11 rounded-xl ${isUnlocked ? 'bg-purple-50 text-purple-600 group-hover:bg-purple-600' : 'bg-amber-50 text-amber-600 group-hover:bg-amber-600'} border border-slate-200/40 flex items-center justify-center font-bold text-lg shrink-0 group-hover:text-white transition-colors duration-200 shadow-sm">
+                                <i class="${isUnlocked ? 'fa-solid fa-book-open' : 'fa-solid fa-lock'}"></i>
+                            </div>
+                            <div class="space-y-0.5 flex-grow">
+                                <h3 class="font-black text-slate-900 text-base tracking-tight leading-snug group-hover:text-purple-600 transition-colors tamil-fix">
+                                    ${formattedTopic}
+                                </h3>
+                            </div>
+                        </div>
+
+                        <!-- Direct Notes Link -->
+                        <div class="pt-2 space-y-1.5 border-t border-slate-100">
+                            ${isUnlocked ? `
+                            <button onclick="openMaterialModal('${row.pdfUrl}', '${row.topic.replace(/'/g, "\\'")}', '${row.session}')" class="flex items-center gap-2 text-xs font-bold text-slate-600 hover:text-purple-600 transition text-left w-full cursor-pointer py-1">
+                                <i class="fa-solid fa-file-lines text-purple-600 text-sm w-4 text-center"></i> Read Session Notes
+                            </button>` : `
+                            <button onclick="promptSubscription('${row.session}')" class="flex items-center gap-2 text-xs font-bold text-slate-400 hover:text-amber-600 transition text-left w-full cursor-pointer py-1">
+                                <i class="fa-solid fa-lock text-amber-500 text-sm w-4 text-center"></i> Notes Locked (Pro Only)
+                            </button>`}
+
+                            ${hasVideo ? `
+                            <a href="${row.videoUrl}" target="_blank" class="flex items-center gap-2 text-xs font-bold text-slate-600 hover:text-red-600 transition py-1">
+                                <i class="fa-brands fa-youtube text-red-500 text-sm w-4 text-center"></i> Watch Video Class
+                            </a>` : `
+                            <span class="flex items-center gap-2 text-xs font-bold text-slate-300 cursor-not-allowed py-1">
+                                <i class="fa-brands fa-youtube text-slate-200 text-sm w-4 text-center"></i> Video Class (Coming Soon)
+                            </span>`}
+                        </div>
+                    </div>
+
+                    <!-- Bottom Action Launch CTA -->
+                    <div class="mt-4 pt-3 border-t border-slate-100">
+                        ${isUnlocked ? (
+                            hasMcq ? `
+                            <a href="${row.mcqUrl}" target="_blank" class="w-full text-center bg-purple-900 hover:bg-purple-950 text-white font-black text-xs py-2.5 rounded-xl transition shadow flex items-center justify-center gap-2 uppercase tracking-wider">
+                                <i class="fa-solid fa-bolt text-amber-400"></i> Launch MCQ Quiz
+                            </a>` : `
+                            <button disabled class="w-full text-center bg-slate-100 text-slate-400 font-bold text-xs py-2.5 rounded-xl block uppercase tracking-wider cursor-not-allowed border border-slate-200/40">
+                                Quiz Evaluation Prep
+                            </button>`
+                        ) : `
+                        <button onclick="promptSubscription('${row.session}')" class="w-full text-center bg-amber-500 hover:bg-amber-600 text-white font-black text-xs py-2.5 rounded-xl transition shadow flex items-center justify-center gap-2 uppercase tracking-wider cursor-pointer">
+                            <i class="fa-solid fa-lock text-white"></i> Unlock MCQ &amp; Notes
+                        </button>`}
+                    </div>
+                `;
+                deck.appendChild(card);
+            });
+        }
+
+        window.promptSubscription = (sessionName) => {
+            if (!window.currentAuthUser) {
+                alert(`Please sign in with Google to access ${sessionName}.`);
+                if (typeof window.handleGoogleSignIn === 'function') {
+                    window.handleGoogleSignIn();
+                }
+            } else {
+                const modal = document.getElementById('paywall-modal');
+                const modalEmail = document.getElementById('modal-user-email');
+                if (modalEmail) modalEmail.innerText = window.currentAuthUser.email || "Candidate";
+                if (modal) modal.classList.remove('hidden');
+            }
+        };
+
+        function shareTopicCard(event, sessionNo, topicTitle, cardSubject) {
+            event.stopPropagation();
+            const formattedTitle = topicTitle.replace(/<br>/g, ' ').trim();
+            const cleanCurrentUrl = window.location.href.split('?')[0];
+            const targetShareUrl = `${cleanCurrentUrl}?session=${encodeURIComponent(sessionNo)}`;
+            const contextText = `📚 *TNTET ${cardSubject}* \n📌 *${sessionNo}*: ${formattedTitle}\n\n👇 Study Link:\n${targetShareUrl}`;
+
+            if (navigator.share) {
+                navigator.share({
+                    title: `TNTET - ${sessionNo}`,
+                    text: contextText,
+                    url: targetShareUrl
+                }).catch(() => {});
+            } else if (navigator.clipboard) {
+                navigator.clipboard.writeText(contextText).then(() => {
+                    showToast(`Share link copied for ${sessionNo}!`);
+                }).catch(() => {
+                    legacyCopyFallback(contextText, sessionNo);
+                });
+            } else {
+                legacyCopyFallback(contextText, sessionNo);
+            }
+        }
+
+        function legacyCopyFallback(text, sessionNo) {
+            const dummyInput = document.createElement('textarea');
+            document.body.appendChild(dummyInput);
+            dummyInput.value = text;
+            dummyInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(dummyInput);
+            showToast(`Share link copied for ${sessionNo}!`);
+        }
+
+        let currentTextScale = 16;
+        let currentActiveTheme = 'light';
+
+        const themeStyles = {
+            light: { bodyBg: 'bg-white', text: 'text-slate-800', border: 'border-slate-200/60', headerBg: 'bg-slate-50', headerText: 'text-slate-900', btnBg: 'bg-slate-950', btnText: 'text-white' },
+            sepia: { bodyBg: 'bg-[#f4ecd8]', text: 'text-[#5b4636]', border: 'border-[#e4d8bc]', headerBg: 'bg-[#eae0c6]', headerText: 'text-[#433225]', btnBg: 'bg-[#433225]', btnText: 'text-[#f4ecd8]' },
+            dark:  { bodyBg: 'bg-slate-950', text: 'text-slate-200', border: 'border-slate-800', headerBg: 'bg-slate-900', headerText: 'text-white', btnBg: 'bg-slate-800', btnText: 'text-slate-200' }
+        };
+
+        async function openMaterialModal(fileUrl, unitName, unitNo) {
+            document.body.classList.add('material-modal-open');
+
+            const modal = document.getElementById('material-modal');
+            const drawer = document.getElementById('material-drawer-content');
+            const body = document.getElementById('modal-material-body');
+
+            hideDownloadButton();
+            currentMaterialTitle = `${unitNo}_${unitName}`;
+
+            document.getElementById('modal-material-title').innerHTML = unitName.replace(/\r?\n/g, ' - ');
+            document.getElementById('modal-session-badge').innerText = unitNo;
+
+            modal.style.setProperty('display', 'flex', 'important');
+            modal.classList.remove('invisible');
+            modal.classList.add('opacity-100');
+            drawer.classList.remove('translate-x-full');
+            drawer.style.transform = 'none';
+
+            let processedUrl = fileUrl.trim();
+            if (!processedUrl.startsWith('http') && !processedUrl.startsWith('/') && !processedUrl.startsWith('.')) {
+                processedUrl = `./${processedUrl}`;
+            }
+
+            currentMaterialUrl = processedUrl;
+
+            if (processedUrl.toLowerCase().endsWith('.pdf')) {
+                currentMaterialType = 'pdf';
+                body.innerHTML = `
+                    <div class="w-full h-[73vh] rounded-xl overflow-hidden border border-slate-200 shadow-inner bg-slate-100">
+                        <object data="${processedUrl}" type="application/pdf" class="w-full h-full">
+                            <iframe src="${processedUrl}" class="w-full h-full border-0">
+                                <div class="p-4 text-center text-xs font-bold text-slate-500">
+                                    Unable to preview PDF document directly.
+                                    <a href="${processedUrl}" target="_blank" class="text-purple-600 underline block mt-1">Click here to open or download instead</a>
+                                </div>
+                            </iframe>
+                        </object>
+                    </div>
+                `;
+                setReaderTheme(currentActiveTheme);
+                showDownloadButton();
+            } else {
+                currentMaterialType = 'text';
+                body.innerHTML = `<div class="text-center py-12 text-slate-400 text-xs"><i class="fa-solid fa-circle-notch fa-spin mr-2"></i>Loading text material...</div>`;
+                try {
+                    const res = await fetch(processedUrl);
+                    if (!res.ok) throw new Error(`Status: ${res.status}`);
+                    const rawText = await res.text();
+
+                    body.innerHTML = `
+                        <pre id="material-text-node" class="font-sans leading-relaxed tracking-wide whitespace-pre-wrap select-text tamil-fix" style="font-size: ${currentTextScale}px;"></pre>
+                    `;
+
+                    const textContainer = document.getElementById('material-text-node');
+                    let cleanHtmlContent = rawText.replace(/[\u0b80-\u0bff]+/g, (match) => `<span class="tamil-fix font-medium">${match}</span>`);
+                    textContainer.innerHTML = cleanHtmlContent;
+
+                    setReaderTheme(currentActiveTheme);
+
+                    if (window.MathJax && window.MathJax.typesetPromise) {
+                        window.MathJax.typesetPromise([textContainer]);
+                    }
+
+                    showDownloadButton();
+                } catch(e) {
+                    console.error(e);
+                    hideDownloadButton();
+                    body.innerHTML = `
+                        <div class="p-5 bg-red-50 text-red-700 text-xs font-bold rounded-2xl border border-red-100 text-center">
+                            <i class="fa-solid fa-circle-exclamation mr-1.5"></i> Unable to load the requested notes asset.<br>
+                            <span class="font-mono text-[10px] text-slate-400 block mt-1">Check file name or path accuracy: ${processedUrl}</span>
+                        </div>
+                    `;
+                }
+            }
+        }
+
+        function adjustTextScale(delta) {
+            currentTextScale = Math.max(14, Math.min(26, currentTextScale + delta));
+            const textNode = document.getElementById('material-text-node');
+            if (textNode) textNode.style.fontSize = `${currentTextScale}px`;
+        }
+
+        function setReaderTheme(themeKey) {
+            currentActiveTheme = themeKey;
+            const styleMap = themeStyles[themeKey];
+
+            const drawer = document.getElementById('material-drawer-content');
+            const header = document.getElementById('modal-header-container');
+            const body = document.getElementById('modal-material-body');
+            const footer = document.getElementById('modal-footer-container');
+            const footerCloseBtn = document.querySelector('#modal-footer-container button:last-child');
+            const textNode = document.getElementById('material-text-node');
+
+            if (drawer) drawer.className = `w-full max-w-2xl ${styleMap.bodyBg} h-full shadow-2xl flex flex-col translate-x-full text-slate-900 ${styleMap.headerText}`;
+            if (header) header.className = `p-4 border-b ${styleMap.border} flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${styleMap.headerBg}`;
+            if (body) body.className = `flex-grow overflow-y-auto p-6 md:p-8 ${styleMap.bodyBg} transition-colors duration-200`;
+            if (footer) footer.className = `p-4 border-t ${styleMap.border} ${styleMap.headerBg} flex items-center justify-between gap-3`;
+            if (footerCloseBtn) footerCloseBtn.className = `px-5 py-2.5 ${styleMap.btnBg} ${styleMap.btnText} rounded-xl text-xs font-black shadow transition uppercase tracking-wider`;
+            if (textNode) textNode.className = `font-sans leading-relaxed tracking-wide whitespace-pre-wrap select-text tamil-fix ${styleMap.text}`;
+        }
+
+        function closeMaterialModal() {
+            document.body.classList.remove('material-modal-open');
+            hideDownloadButton();
+            const modal = document.getElementById('material-modal');
+            const drawer = document.getElementById('material-drawer-content');
+
+            drawer.classList.add('translate-x-full');
+            drawer.style.transform = '';
+
+            modal.classList.remove('opacity-100');
+            modal.classList.add('invisible');
+            modal.style.display = 'none';
+
+            applyMobileWaWidgetShrink();
+        }
+
+        async function loadSharedSiteNavbar() {
+            try {
+                const res = await fetch(`../navbar.html?v=${new Date().getTime()}`);
+                if (res.ok) {
+                    document.getElementById('navbar-placeholder').innerHTML = await res.text();
+                    initializeGlobalNavigationHooks();
+                }
+            } catch (e) { console.error("Navigation setup blocked:", e); }
+        }
+
+        function initializeGlobalNavigationHooks() {
+            document.removeEventListener('click', closeAllDropdowns);
+            document.addEventListener('click', closeAllDropdowns);
+        }
+
+        window.toggleNavigationMenu = (event, targetMenuId) => {
+            event.stopPropagation();
+            const targetMenu = document.getElementById(targetMenuId);
+            if (!targetMenu) return;
+
+            const isMobileElement = targetMenuId.includes('mobile-');
+
+            if (isMobileElement) {
+                const isCurrentlyHidden = targetMenu.classList.contains('hidden');
+                document.querySelectorAll('[id*="mobile-menu-"]').forEach(menu => menu.classList.add('hidden'));
+                if (isCurrentlyHidden) targetMenu.classList.remove('hidden');
+            } else {
+                const isCurrentlyOpen = targetMenu.classList.contains('dropdown-active');
+                document.querySelectorAll('.dropdown-menu').forEach(menu => menu.classList.remove('dropdown-active'));
+                if (!isCurrentlyOpen) targetMenu.classList.add('dropdown-active');
+            }
+        };
+
+        window.toggleMobileMenu = (open) => {
+            const drawer = document.getElementById('mobile-drawer');
+            const content = document.getElementById('drawer-content');
+            if (!drawer || !content) return;
+
+            if (open) {
+                drawer.classList.remove('invisible');
+                setTimeout(() => content.classList.remove('translate-x-full'), 10);
+            } else {
+                content.classList.add('translate-x-full');
+                setTimeout(() => drawer.classList.add('invisible'), 300);
+            }
+        };
+
+        function closeAllDropdowns() {
+            document.querySelectorAll('.dropdown-menu').forEach(menu => menu.classList.remove('dropdown-active'));
+            document.querySelectorAll('[id*="mobile-menu-"]').forEach(menu => menu.classList.add('hidden'));
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            loadSharedSiteNavbar();
+            bootTntetPortal();
+
+            // Run shrink adjustments after widget initialization
+            setTimeout(applyMobileWaWidgetShrink, 600);
+            setTimeout(applyMobileWaWidgetShrink, 1500);
+        });
+
+        window.addEventListener('resize', applyMobileWaWidgetShrink);
+    </script>
+    <!-- Floating WhatsApp Community Widget -->
+    <script src="/whatsapp-widget.js"></script>
+</body>
+</html>
