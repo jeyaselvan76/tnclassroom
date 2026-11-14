@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Live Presenter: Multi-Tab PDF & Whiteboard</title>
+  <!-- PDF.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root {
+      --bg-dark: #18181b;
+      --bg-panel: #27272a;
+      --bg-hover: #3f3f46;
+      --accent: #3b82f6;
+      --accent-hover: #2563eb;
+      --text-main: #f4f4f5;
+      --text-muted: #a1a1aa;
+      --border: #3f3f46;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background: var(--bg-dark);
+      color: var(--text-main);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    /* Top Tab Bar */
+    #tab-bar {
+      display: flex;
+      align-items: center;
+      background: #121214;
+      padding: 6px 10px 0 10px;
+      gap: 4px;
+      border-bottom: 1px solid var(--border);
+      overflow-x: auto;
+    }
+
+    .tab {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: var(--bg-panel);
+      color: var(--text-muted);
+      border-radius: 8px 8px 0 0;
+      font-size: 13px;
+      cursor: pointer;
+      max-width: 200px;
+      border: 1px solid transparent;
+      border-bottom: none;
+      transition: 0.15s;
+    }
+
+    .tab:hover {
+      background: var(--bg-hover);
+      color: var(--text-main);
+    }
+
+    .tab.active {
+      background: var(--bg-dark);
+      color: var(--text-main);
+      border-color: var(--border);
+      font-weight: 500;
+    }
+
+    .tab-title {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .tab-close {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      padding: 2px;
+      opacity: 0.7;
+    }
+
+    .tab-close:hover {
+      background: rgba(239, 68, 68, 0.2);
+      color: #ef4444;
+      opacity: 1;
+    }
+
+    .new-tab-actions {
+      display: flex;
+      gap: 6px;
+      margin-left: 6px;
+      padding-bottom: 4px;
+    }
+
+    /* Toolbar */
+    #toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg-panel);
+      padding: 8px 14px;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .tool-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .divider {
+      width: 1px;
+      height: 24px;
+      background: var(--border);
+      margin: 0 4px;
+    }
+
+    button {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      color: var(--text-main);
+      border: 1px solid transparent;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    button:hover:not(:disabled) {
+      background: var(--bg-hover);
+    }
+
+    button:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    button.active {
+      background: var(--accent);
+      color: white;
+    }
+
+    button.primary {
+      background: var(--accent);
+      color: white;
+      font-weight: 500;
+    }
+
+    button.primary:hover {
+      background: var(--accent-hover);
+    }
+
+    .color-swatch {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: transform 0.1s;
+    }
+
+    .color-swatch:hover {
+      transform: scale(1.1);
+    }
+
+    .color-swatch.active {
+      border-color: white;
+      transform: scale(1.15);
+    }
+
+    input[type="color"] {
+      width: 26px;
+      height: 26px;
+      border: none;
+      background: none;
+      cursor: pointer;
+    }
+
+    input[type="range"] {
+      width: 80px;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+
+    /* Main Stage */
+    #stage {
+      flex: 1;
+      overflow: auto;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 24px;
+      position: relative;
+      background: #101012;
+    }
+
+    #canvas-wrapper {
+      position: relative;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6);
+      background: white;
+      display: none;
+    }
+
+    #pdf-canvas {
+      display: block;
+    }
+
+    #draw-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      cursor: crosshair;
+      touch-action: none;
+    }
+
+    /* Empty State */
+    #empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: var(--text-muted);
+      text-align: center;
+      gap: 14px;
+    }
+
+    #empty-state h2 {
+      color: var(--text-main);
+      font-size: 20px;
+    }
+
+    .page-indicator {
+      font-size: 13px;
+      font-variant-numeric: tabular-nums;
+      min-width: 75px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hidden File Input -->
+  <input type="file" id="pdf-input" accept="application/pdf" multiple hidden />
+
+  <!-- Tab Bar -->
+  <div id="tab-bar">
+    <div id="tabs-container" style="display: flex; gap: 4px;"></div>
+    <div class="new-tab-actions">
+      <button onclick="document.getElementById('pdf-input').click()" title="Open PDF(s)">
+        <i data-lucide="file-plus" width="16"></i> Open PDF
+      </button>
+      <button onclick="createWhiteboardTab()" title="New Blank Whiteboard">
+        <i data-lucide="presentation" width="16"></i> + Whiteboard
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Toolbar -->
+  <div id="toolbar">
+    <!-- Drawing Tools -->
+    <div class="tool-group">
+      <button id="tool-pen" class="active" onclick="setTool('pen')" title="Pen">
+        <i data-lucide="pen-tool" width="16"></i> Pen
+      </button>
+      <button id="tool-highlighter" onclick="setTool('highlighter')" title="Highlighter">
+        <i data-lucide="highlighter" width="16"></i> Highlight
+      </button>
+      <button id="tool-eraser" onclick="setTool('eraser')" title="Eraser">
+        <i data-lucide="eraser" width="16"></i> Eraser
+      </button>
+
+      <div class="divider"></div>
+
+      <!-- Preset Colors -->
+      <div class="color-swatch active" style="background: #ef4444;" onclick="setColor('#ef4444', this)"></div>
+      <div class="color-swatch" style="background: #2563eb;" onclick="setColor('#2563eb', this)"></div>
+      <div class="color-swatch" style="background: #16a34a;" onclick="setColor('#16a34a', this)"></div>
+      <div class="color-swatch" style="background: #18181b;" onclick="setColor('#18181b', this)"></div>
+      <input type="color" id="custom-color" value="#ef4444" onchange="setColor(this.value, null)" title="Custom Color" />
+
+      <div class="divider"></div>
+
+      <!-- Stroke Size -->
+      <span style="font-size: 12px; color: var(--text-muted);">Size</span>
+      <input type="range" id="stroke-size" min="1" max="30" value="3" />
+    </div>
+
+    <!-- Navigation & Actions -->
+    <div class="tool-group">
+      <!-- PDF Controls -->
+      <div id="pdf-controls" class="tool-group" style="display: none;">
+        <button onclick="changePage(-1)" id="prev-page" title="Previous Page (Left Arrow)">
+          <i data-lucide="chevron-left" width="16"></i>
+        </button>
+        <span class="page-indicator" id="page-num">1 / 1</span>
+        <button onclick="changePage(1)" id="next-page" title="Next Page (Right Arrow)">
+          <i data-lucide="chevron-right" width="16"></i>
+        </button>
+        <div class="divider"></div>
+        <button onclick="changeZoom(-0.2)" title="Zoom Out">
+          <i data-lucide="zoom-out" width="16"></i>
+        </button>
+        <span class="page-indicator" id="zoom-level" style="min-width: 48px;">100%</span>
+        <button onclick="changeZoom(0.2)" title="Zoom In">
+          <i data-lucide="zoom-in" width="16"></i>
+        </button>
+        <div class="divider"></div>
+      </div>
+
+      <button onclick="undoStroke()" title="Undo (Ctrl+Z)">
+        <i data-lucide="undo-2" width="16"></i> Undo
+      </button>
+      <button onclick="clearCurrentBoard()" title="Clear Annotations">
+        <i data-lucide="trash-2" width="16"></i> Clear
+      </button>
+
+      <div class="divider"></div>
+
+      <button id="fullscreen-btn" onclick="toggleFullscreen()" title="Toggle Fullscreen (F)">
+        <i data-lucide="maximize" width="16"></i> Fullscreen
+      </button>
+    </div>
+  </div>
+
+  <!-- Workspace Stage -->
+  <div id="stage">
+    <div id="empty-state">
+      <i data-lucide="monitor-play" width="48" height="48"></i>
+      <h2>Ready for Your Live Session</h2>
+      <p>Open one or more PDF files, or launch a blank whiteboard tab to start presenting.</p>
+      <div style="display: flex; gap: 10px; margin-top: 8px;">
+        <button class="primary" onclick="document.getElementById('pdf-input').click()">
+          <i data-lucide="file-plus" width="16"></i> Open PDF File
+        </button>
+        <button onclick="createWhiteboardTab()">
+          <i data-lucide="presentation" width="16"></i> New Whiteboard
+        </button>
+      </div>
+    </div>
+
+    <div id="canvas-wrapper">
+      <canvas id="pdf-canvas"></canvas>
+      <canvas id="draw-canvas"></canvas>
+    </div>
+  </div>
+
+  <script>
+    // Configure PDF.js worker
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+    // App State
+    let tabs = [];
+    let activeTabId = null;
+    let wbCounter = 1;
+
+    // Drawing State
+    let currentTool = 'pen';
+    let currentColor = '#ef4444';
+    let isDrawing = false;
+    let currentStroke = null;
+
+    const pdfCanvas = document.getElementById('pdf-canvas');
+    const pdfCtx = pdfCanvas.getContext('2d');
+    const drawCanvas = document.getElementById('draw-canvas');
+    const drawCtx = drawCanvas.getContext('2d');
+    const canvasWrapper = document.getElementById('canvas-wrapper');
+    const emptyState = document.getElementById('empty-state');
+
+    lucide.createIcons();
+
+    // Fullscreen Toggle Logic
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => {
+          console.warn(`Fullscreen failed: ${err.message}`);
+        });
+      } else {
+        document.exitFullscreen();
+      }
+    }
+
+    document.addEventListener('fullscreenchange', () => {
+      const btn = document.getElementById('fullscreen-btn');
+      if (document.fullscreenElement) {
+        btn.innerHTML = '<i data-lucide="minimize" width="16"></i> Exit';
+        btn.classList.add('active');
+      } else {
+        btn.innerHTML = '<i data-lucide="maximize" width="16"></i> Fullscreen';
+        btn.classList.remove('active');
+      }
+      lucide.createIcons();
+    });
+
+    // Handle PDF File Uploads
+    document.getElementById('pdf-input').addEventListener('change', async (e) => {
+      const files = Array.from(e.target.files);
+      for (const file of files) {
+        const arrayBuffer = await file.arrayBuffer();
+        const pdfDoc = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+        const id = 'tab_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5);
+        tabs.push({
+          id,
+          type: 'pdf',
+          title: file.name,
+          pdfDoc,
+          currentPage: 1,
+          totalPages: pdfDoc.numPages,
+          scale: 1.3,
+          annotations: {}
+        });
+        switchTab(id);
+      }
+      e.target.value = '';
+    });
+
+    // Create Blank Whiteboard Tab
+    function createWhiteboardTab() {
+      const id = 'tab_' + Date.now();
+      tabs.push({
+        id,
+        type: 'whiteboard',
+        title: `Whiteboard ${wbCounter++}`,
+        width: 1280,
+        height: 720,
+        annotations: { 1: [] }
+      });
+      switchTab(id);
+    }
+
+    // Switch Active Tab
+    function switchTab(id) {
+      activeTabId = id;
+      renderTabs();
+      renderActiveContent();
+    }
+
+    // Close Tab
+    function closeTab(e, id) {
+      e.stopPropagation();
+      const idx = tabs.findIndex(t => t.id === id);
+      tabs.splice(idx, 1);
+      if (activeTabId === id) {
+        activeTabId = tabs.length ? tabs[Math.max(0, idx - 1)].id : null;
+      }
+      renderTabs();
+      renderActiveContent();
+    }
+
+    // Render Tab Headers
+    function renderTabs() {
+      const container = document.getElementById('tabs-container');
+      container.innerHTML = '';
+      tabs.forEach(tab => {
+        const el = document.createElement('div');
+        el.className = `tab ${tab.id === activeTabId ? 'active' : ''}`;
+        el.onclick = () => switchTab(tab.id);
+        el.innerHTML = `
+          <i data-lucide="${tab.type === 'pdf' ? 'file-text' : 'presentation'}" width="14"></i>
+          <span class="tab-title" title="${tab.title}">${tab.title}</span>
+          <span class="tab-close" onclick="closeTab(event, '${tab.id}')">
+            <i data-lucide="x" width="13"></i>
+          </span>
+        `;
+        container.appendChild(el);
+      });
+      lucide.createIcons();
+    }
+
+    // Render Current Tab Stage
+    async function renderActiveContent() {
+      const tab = tabs.find(t => t.id === activeTabId);
+      const pdfControls = document.getElementById('pdf-controls');
+
+      if (!tab) {
+        canvasWrapper.style.display = 'none';
+        emptyState.style.display = 'flex';
+        pdfControls.style.display = 'none';
+        return;
+      }
+
+      emptyState.style.display = 'none';
+      canvasWrapper.style.display = 'block';
+
+      if (tab.type === 'pdf') {
+        pdfControls.style.display = 'flex';
+        document.getElementById('page-num').textContent = `${tab.currentPage} / ${tab.totalPages}`;
+        document.getElementById('zoom-level').textContent = `${Math.round((tab.scale / 1.3) * 100)}%`;
+        document.getElementById('prev-page').disabled = tab.currentPage <= 1;
+        document.getElementById('next-page').disabled = tab.currentPage >= tab.totalPages;
+
+        const page = await tab.pdfDoc.getPage(tab.currentPage);
+        const viewport = page.getViewport({ scale: tab.scale });
+
+        pdfCanvas.width = viewport.width;
+        pdfCanvas.height = viewport.height;
+        drawCanvas.width = viewport.width;
+        drawCanvas.height = viewport.height;
+
+        await page.render({ canvasContext: pdfCtx, viewport }).promise;
+        redrawAnnotations();
+      } else {
+        pdfControls.style.display = 'none';
+        pdfCanvas.width = tab.width;
+        pdfCanvas.height = tab.height;
+        drawCanvas.width = tab.width;
+        drawCanvas.height = tab.height;
+
+        pdfCtx.fillStyle = '#ffffff';
+        pdfCtx.fillRect(0, 0, tab.width, tab.height);
+        redrawAnnotations();
+      }
+    }
+
+    // PDF Navigation & Zoom
+    function changePage(delta) {
+      const tab = tabs.find(t => t.id === activeTabId);
+      if (!tab || tab.type !== 'pdf') return;
+      const newPage = tab.currentPage + delta;
+      if (newPage >= 1 && newPage <= tab.totalPages) {
+        tab.currentPage = newPage;
+        renderActiveContent();
+      }
+    }
+
+    function changeZoom(delta) {
+      const tab = tabs.find(t => t.id === activeTabId);
+      if (!tab || tab.type !== 'pdf') return;
+      tab.scale = Math.min(3.0, Math.max(0.5, +(tab.scale + delta).toFixed(2)));
+      renderActiveContent();
+    }
+
+    // Tool & Color Selection
+    function setTool(tool) {
+      currentTool = tool;
+      document.querySelectorAll('#toolbar button[id^="tool-"]').forEach(btn => btn.classList.remove('active'));
+      document.getElementById(`tool-${tool}`).classList.add('active');
+    }
+
+    function setColor(color, swatchEl) {
+      currentColor = color;
+      document.querySelectorAll('.color-swatch').forEach(el => el.classList.remove('active'));
+      if (swatchEl) swatchEl.classList.add('active');
+      if (currentTool === 'eraser') setTool('pen');
+    }
+
+    // Vector-Based Drawing Engine
+    function getNormalizedCoords(e) {
+      const rect = drawCanvas.getBoundingClientRect();
+      return {
+        x: (e.clientX - rect.left) / rect.width,
+        y: (e.clientY - rect.top) / rect.height
+      };
+    }
+
+    drawCanvas.addEventListener('pointerdown', (e) => {
+      const tab = tabs.find(t => t.id === activeTabId);
+      if (!tab) return;
+      isDrawing = true;
+      drawCanvas.setPointerCapture(e.pointerId);
+
+      const pageKey = tab.type === 'pdf' ? tab.currentPage : 1;
+      if (!tab.annotations[pageKey]) tab.annotations[pageKey] = [];
+
+      const size = parseInt(document.getElementById('stroke-size').value, 10);
+      currentStroke = {
+        tool: currentTool,
+        color: currentColor,
+        sizeRatio: size / drawCanvas.width,
+        points: [getNormalizedCoords(e)]
+      };
+      tab.annotations[pageKey].push(currentStroke);
+    });
+
+    drawCanvas.addEventListener('pointermove', (e) => {
+      if (!isDrawing || !currentStroke) return;
+      currentStroke.points.push(getNormalizedCoords(e));
+      redrawAnnotations();
+    });
+
+    drawCanvas.addEventListener('pointerup', () => {
+      isDrawing = false;
+      currentStroke = null;
+    });
+
+    function redrawAnnotations() {
+      const tab = tabs.find(t => t.id === activeTabId);
+      drawCtx.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
+      if (!tab) return;
+
+      const pageKey = tab.type === 'pdf' ? tab.currentPage : 1;
+      const strokes = tab.annotations[pageKey] || [];
+
+      strokes.forEach(stroke => {
+        if (stroke.points.length === 0) return;
+        drawCtx.save();
+        drawCtx.lineCap = 'round';
+        drawCtx.lineJoin = 'round';
+        drawCtx.lineWidth = Math.max(1, stroke.sizeRatio * drawCanvas.width);
+
+        if (stroke.tool === 'eraser') {
+          drawCtx.globalCompositeOperation = 'destination-out';
+          drawCtx.lineWidth *= 3;
+        } else if (stroke.tool === 'highlighter') {
+          drawCtx.globalAlpha = 0.35;
+          drawCtx.strokeStyle = stroke.color;
+          drawCtx.lineWidth *= 3.5;
+        } else {
+          drawCtx.strokeStyle = stroke.color;
+        }
+
+        drawCtx.beginPath();
+        const startX = stroke.points[0].x * drawCanvas.width;
+        const startY = stroke.points[0].y * drawCanvas.height;
+        drawCtx.moveTo(startX, startY);
+
+        for (let i = 1; i < stroke.points.length; i++) {
+          drawCtx.lineTo(stroke.points[i].x * drawCanvas.width, stroke.points[i].y * drawCanvas.height);
+        }
+        drawCtx.stroke();
+        drawCtx.restore();
+      });
+    }
+
+    function undoStroke() {
+      const tab = tabs.find(t => t.id === activeTabId);
+      if (!tab) return;
+      const pageKey = tab.type === 'pdf' ? tab.currentPage : 1;
+      if (tab.annotations[pageKey]?.length) {
+        tab.annotations[pageKey].pop();
+        redrawAnnotations();
+      }
+    }
+
+    function clearCurrentBoard() {
+      const tab = tabs.find(t => t.id === activeTabId);
+      if (!tab) return;
+      const pageKey = tab.type === 'pdf' ? tab.currentPage : 1;
+      tab.annotations[pageKey] = [];
+      redrawAnnotations();
+    }
+
+    // Keyboard Shortcuts
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') changePage(1);
+      if (e.key === 'ArrowLeft') changePage(-1);
+      if (e.key.toLowerCase() === 'f' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+        toggleFullscreen();
+      }
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
+        e.preventDefault();
+        undoStroke();
+      }
+    });
+  </script>
+</body>
+</html>
