@@ -1,0 +1,18 @@
+# TN Classroom (tnclassroom.com)
+
+> Educational portal for Tamil Nadu State Board (Samacheer Kalvi) students and competitive exam aspirants preparing for TNTET (Paper 1 & Paper 2) and NMMS.
+
+## Key Portals
+- [Home](https://tnclassroom.com/): Main dashboard for TNTET, NMMS, and Samacheer Kalvi resources.
+- [TNTET Educational Psychology](https://tnclassroom.com/tet/psychology.html): Child development, pedagogy notes, and MCQ tests.
+- [TNTET English](https://tnclassroom.com/tet/eng.html): Grammar, vocabulary, and English pedagogy modules.
+- [TNTET Mathematics](https://tnclassroom.com/tet/maths.html): Arithmetic, algebra, geometry, and maths pedagogy.
+- [TNTET Science](https://tnclassroom.com/tet/science.html): Physics, chemistry, biology, and science pedagogy.
+- [TNTET Social Science](https://tnclassroom.com/tet/social.html): History, geography, civics, and economics.
+- [My Results Portal](https://tnclassroom.com/results.html): Check TNTET and NMMS practice test scores by mobile number or Gmail ID and export to Excel.
+- [FAQ](https://tnclassroom.com/faq.html): Frequently asked questions about accounts, PRO access, and exams.
+
+## Frequently Asked Questions
+- **How do users sign in for TNTET?** Users sign in with Google (Gmail) authentication.
+- **How do users check scores?** Visit https://tnclassroom.com/results.html and enter a 10-digit mobile number or registered Gmail address.
+- **What curriculum do the tests follow?** All study materials and MCQs follow the Tamil Nadu State Board Samacheer Kalvi syllabus (Classes 6–10) and TRB TNTET guidelines.

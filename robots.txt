@@ -1,6 +1,8 @@
-# User-agent rules for all web crawlers
+# User-agent rules for all web crawlers & AI search agents
 User-agent: *
 Allow: /
+Allow: /faq.html
+Allow: /llms.txt
 
 # Disallow access to utility pages and private engines
 Disallow: /tnpsc/
